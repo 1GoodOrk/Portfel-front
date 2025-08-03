@@ -1,1 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0 auto;
+  min-height: calc(100vh - 19px);
+}
+
+.spinner {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000ba;
+  z-index: 1;
+}
+.half {
+  width: calc(50% - 20px);
+}
+.selector-lang {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+html {
+  font-size: 14px;
+  font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  line-height: normal;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.no-border {
+  border: 0;
+}
+
+.column {
+  flex-direction: column !important;
+}
+
+.row {
+  flex-direction: row !important;
+}
+
+.w-half {
+  width: 50% !important;
+}
+
+.w-full {
+  width: 100% !important;
+}
+
+.space-between {
+  justify-content: space-between !important;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.w-300 {
+  width: 300px !important;
+}
+.w-250 {
+  width: 250px !important;
+}

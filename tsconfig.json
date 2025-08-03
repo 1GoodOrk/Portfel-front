@@ -16,7 +16,14 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "baseUrl": "./",
+    "paths": {
+      "@port/shared/*": ["src/app/components/shared/*"],
+      "@port/services/*": ["src/app/services/*"],
+      "@port/asserts/*": ["src/asserts/*"],
+      "@port/interfaces": ["src/app/interfaces"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

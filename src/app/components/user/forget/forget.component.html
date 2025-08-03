@@ -1,0 +1,72 @@
+@if (showSpinner) {
+  <div class="spinner">
+    <p-progress-spinner ariaLabel="loading" />
+  </div>
+}
+<div class="selector-lang">
+  <p-select
+  [options]="languages"
+  (onChange)="changeLanguage()"
+  [(ngModel)]="selectedLanguage"
+  placeholder="Select a Language"
+  class="w-full md:w-56" />
+</div>
+<main class="forget">
+  <p-card [header]="'pages.user.forget.header' | translate" [style]="{'min-width': '300px'}">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
+      <div class="flex flex-col gap-1">
+        <input
+          pInputText
+          type="email"
+          id="email"
+          name="email"
+          [placeholder]="'pages.user.forget.emailPlaceholder' | translate"
+          [pTooltip]="'pages.user.forget.emailTolltip' | translate"
+          tooltipPosition="right"
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          required
+          email
+          [invalid]="email.invalid && (email.touched || form.submitted)" />
+        @if (email.invalid && (email.touched || form.submitted)) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (email.hasError('required')) {
+              {{'pages.user.forget.emailRequired' | translate}}
+            }
+            @if (email.hasError('email')) {
+              {{'pages.user.forget.emailHasError' | translate}}
+            }
+          </p-message>
+        }
+      </div>
+      <div class="buttons">
+        @if (form.valid) {
+          <p-button
+            [label]="'pages.user.forget.buttonSubmit' | translate"
+            [pTooltip]="'pages.user.forget.submitTolltip' | translate"
+            tooltipPosition="bottom"
+            severity="success"
+            type="submit" />
+        } @else {
+          <p-button
+            [label]="'pages.user.forget.buttonSubmit' | translate"
+            [pTooltip]="'pages.user.forget.submitDisabledTolltip' | translate"
+            tooltipPosition="bottom"
+            disabled
+            severity="secondary"
+            type="submit" />
+        }
+        <p-button
+          [label]="'pages.user.forget.buttonLogin' | translate"
+          [pTooltip]="'pages.user.forget.loginTolltip' | translate"
+          tooltipPosition="bottom"
+          severity="secondary"
+          type="button"
+          (click)="navigate('login')" />
+        @if (showInfoSend) {
+          <p-message severity="error" size="small" variant="simple">{{"'pages.user.forget.info' | translate"}}</p-message>
+        }
+      </div>
+    </form>
+  </p-card>
+</main>

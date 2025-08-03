@@ -1,0 +1,102 @@
+<app-header></app-header>
+<main class="main">
+  <section>
+    <h1>Portfolios</h1>
+    <div class="flex">
+      <p-button label="Add new portfolio" (click)="navigate('cportfolio')" />
+      <input type="text" pInputText placeholder="Search" class="w-36" />
+    </div>
+    <div legend="Portfolio" class="container">
+      @for (portfolio of portfolios; track portfolio) {
+        <p-card header="Portfolio 1" [style]="{ 'max-width': '300px', 'margin-top': '10px' }">
+          <ng-template #header>
+            <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+          </ng-template>
+          <ng-template #title> {{portfolio.name}} </ng-template>
+          <p> Budget: {{portfolio.budget}}</p>
+          <p> Duration: {{portfolio.duration}}</p>
+          <p> Projects amount: {{portfolio.projects}}</p>
+          <p> Description: {{portfolio.des}}</p>
+          <ng-template #footer>
+            <div class="flex gap-4 mt-1">
+              <p-button label="Update" severity="warn" (click)="updatePortfolio(portfolio.id)"/>
+              <p-button label="Remove" severity="danger" (click)="removePortfolio(portfolio.id)"/>
+            </div>
+          </ng-template>
+        </p-card>
+      }
+    </div>
+  </section>
+  <section>
+    <h1>Projects</h1>
+    <div class="flex">
+      <p-button label="Add new project" (click)="navigate('cportfolio')" />
+      <input type="text" pInputText placeholder="Search" class="w-36" />
+    </div>
+    <div legend="Projects" class="container">
+      @for (project of projects; track project) {
+        <p-card header="Project 1" [style]="{ 'max-width': '300px', 'margin-top': '10px' }">
+          <ng-template #header>
+            <img alt="Card" class="w-full" [src]="project.img" />
+          </ng-template>
+          <ng-template #title> {{project.name}} </ng-template>
+          <ng-template #subtitle> {{project.subinfo}} </ng-template>
+          <p> Budget: {{project.budget}}</p>
+          <p> Duration: {{project.duration}}</p>
+          <p> Is that main road: {{project.mainRoad ? 'Yes' : 'No'}}</p>
+          <p> Is that in town: {{project.inTown ? 'Yes' : 'No'}}</p>
+          <p> Description: {{project.des}}</p>
+          <ng-template #footer>
+            <div class="flex gap-4 mt-1">
+              <p-button label="Update" severity="warn" (click)="showDialogProjects(project.id)" />
+              <p-button label="Remove" severity="danger" (click)="removeProjects(project.id)" />
+            </div>
+          </ng-template>
+        </p-card>
+      }
+    </div>
+  </section>
+</main>
+<app-footer></app-footer>
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+  <div>
+    <div class="form-container row">
+      <div class="form-container column w-half">
+        <div class="form-group w-300">
+          <label for="name">Name</label>
+          <input pInputText id="name" placeholder="Name" [(ngModel)]="formData.name" />
+        </div>
+        <div class="form-group w-300">
+          <label for="subinfo">Subinfo</label>
+          <input pInputText id="subinfo" placeholder="Subinfo" [(ngModel)]="formData.subinfo" />
+        </div>
+        <div class="form-group w-300">
+          <label for="budget">Budget</label>
+          <input pInputText id="budget" placeholder="Budget" [(ngModel)]="formData.budget" />
+        </div>
+        <div class="form-group w-300">
+          <label for="duration">Duration</label>
+          <input pInputText id="duration" placeholder="Duration" [(ngModel)]="formData.duration" />
+        </div>
+        <div class="form-group w-300">
+          <p-checkbox inputId="mainRoad" name="mainRoad" value="Is that main road" [(ngModel)]="formData.mainRoad" />
+          <label for="mainRoad">Is that main road</label>
+        </div>
+        <div class="form-group w-300">
+          <p-checkbox inputId="town" name="town" value="Is that in town" [(ngModel)]="formData.inTown" />
+          <label for="town">Is that in town</label>
+        </div>
+        <div class="form-group w-300">
+          <label for="des">Description</label>
+          <textarea id="des" placeholder="des" [(ngModel)]="formData.des" ></textarea>
+        </div>
+        <!-- Map minimize select? -->
+      </div>
+      <div>
+        <p-button label="Save" [outlined]="true" severity="success" (click)="showDialogProjects(false)" />
+        <p-button label="Cancel" [text]="true" severity="danger" (click)="showDialogProjects(false)" />
+      </div>
+    </div>
+  </div>
+</p-dialog>

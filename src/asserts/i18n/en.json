@@ -1,0 +1,134 @@
+{
+  "languages": {
+    "en": "English",
+    "ru": "Russian",
+    "ua": "Ukrainian"
+  },
+  "pages": {
+    "user": {
+      "login": {
+        "header": "Login",
+        "emailPlaceholder": "Email",
+        "emailRequired": "Email is Required.",
+        "emailHasError": "Please enter a valid email.",
+        "emailTolltip": "Enter email you reqistered in app in format **@**.**",
+        "passwordPlaceholder": "Password",
+        "passwordTolltip": "Enter password you reqistered in app",
+        "passwordRequired": "Password is Required.",
+        "passwordHasError": "Please enter a valid password.",
+        "forget": "I forget my pass...",
+        "forgetTolltip": "Move to the forget page where you can make password recovery",
+        "buttonSubmit": "Submit",
+        "submitTolltip": "You will be logged into to the app if the data is correct",
+        "submitDisabledTolltip": "Enter your data before submition",
+        "buttonRegistration": "Registration",
+        "registrationTolltip": "Move to the registration page",
+        "loginError": "User not found. Check the data you entered"
+      },
+      "registration": {
+        "header": "Registration",
+        "organizationPlaceholder": "Organization",
+        "organizationRequired": "Organization is Required.",
+        "organizationTolltip": "Enter your organization",
+        "emailPlaceholder": "Email",
+        "emailRequired": "Email is Required.",
+        "emailHasError": "Please enter a valid email.",
+        "emailTolltip": "Enter email in format **@**.**",
+        "passwordPlaceholder": "Password",
+        "passwordTolltip": "Enter password for your account",
+        "passwordRequired": "Password is Required.",
+        "passwordHasError": "Please enter a valid password.",
+        "confirmPasswordPlaceholder": "Confirm Password",
+        "confirmPasswordTolltip": "Enter the same password one more time",
+        "confirmPasswordRequired": "Password is Required.",
+        "confirmPasswordHasError": "Please enter a valid password.",
+        "terms": "I read Terms&Conditions",
+        "buttonSubmit": "Submit",
+        "submitTolltip": "You will create account in the app if the data is correct",
+        "submitDisabledTolltip": "Enter your data before submition",
+        "buttonlogin": "Login",
+        "loginTolltip": "Move to the login page",
+        "registrationError": "Server failed. Check the data you entered"
+      },
+      "forget": {
+        "header": "Enter your email",
+        "emailPlaceholder": "Email",
+        "emailRequired": "Email is Required.",
+        "emailHasError": "Please enter a valid email.",
+        "emailTolltip": "Enter email you reqistered in app in format **@**.**",
+        "submitTolltip": "You will be logged into to the app if the data is correct",
+        "submitDisabledTolltip": "Enter your data before submition",
+        "buttonLogin": "Login",
+        "loginTolltip": "Move to the login page",
+        "info": "Reqest send. Check your mail"
+      },
+      "password": {
+        "header": "Enter new password",
+        "passwordPlaceholder": "Password",
+        "passwordTolltip": "Enter password for your account",
+        "passwordRequired": "Password is Required.",
+        "passwordHasError": "Please enter a valid password.",
+        "confirmPasswordPlaceholder": "Confirm Password",
+        "confirmPasswordTolltip": "Enter the same password one more time",
+        "confirmPasswordRequired": "Password is Required.",
+        "confirmPasswordHasError": "Please enter a valid password.",
+        "buttonSubmit": "Submit",
+        "submitTolltip": "You will create account in the app if the data is correct",
+        "submitDisabledTolltip": "Enter your data before submition",
+        "buttonlogin": "Login",
+        "loginTolltip": "Move to the login page"
+      },
+      "profile": {
+        "first-header": "Main Info",
+        "second-header": "Password changes",
+        "organizationPlaceholder": "Organization",
+        "organizationRequired": "Organization is Required.",
+        "organizationTolltip": "Enter your organization",
+        "emailPlaceholder": "Email",
+        "emailRequired": "Email is Required.",
+        "emailHasError": "Please enter a valid email.",
+        "emailTolltip": "Enter email in format **@**.**",
+
+        "passwordPlaceholder": "Password",
+        "passwordTolltip": "Enter new password for your account",
+        "passwordRequired": "Password is Required.",
+        "passwordHasError": "Please enter a valid password.",
+        "confirmPasswordPlaceholder": "Confirm Password",
+        "confirmPasswordTolltip": "Enter the same password one more time",
+        "confirmPasswordRequired": "Password is Required.",
+        "confirmPasswordHasError": "Please enter a valid password.",
+
+        "buttonSubmit": "Submit",
+        "submitTolltip": "You will change your account data in the app",
+        "submitDisabledTolltip": "Enter your data before submition"
+      }
+    },
+    "main": {
+
+    },
+    "portfolio": {
+      "confirmation": {
+        "title": "Title",
+        "projects": "Projects",
+        "budget": "Budget",
+        "duration": "Duration",
+        "workAmount": "Work group amount",
+        "townOnly": "Is in town only",
+        "town": "Town",
+        "options": "The importance of influencing factors",
+        "eco": "Economic",
+        "war": "Military",
+        "log": "Logistics",
+        "soc": "Social",
+        "struc": "Structural",
+        "buttonCreatePortfolio": "Back",
+        "createPortfolioTolltip": "Back to the creation portfolio page",
+        "confirmationButton": "Create",
+        "confirmationTolltip": "Confirm creation portfolio"
+      },
+      "creation": {
+
+      }
+    }
+  }
+}

@@ -1,0 +1,493 @@
+<app-header></app-header>
+<main class="portfolio-creation">
+  <section>
+    <p-stepper [value]="1">
+      <p-step-item [value]="1">
+        <p-step>{{'pages.portfolio.creation.firstHeader' | translate}}Main info</p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex">
+              <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+                <div class="flex flex-col gap-1">
+                  <input
+                    pInputText
+                    type="text"
+                    id="name"
+                    [placeholder]="'pages.portfolio.creation.namePlaceholder' | translate"
+                    [pTooltip]="'pages.portfolio.creation.nameTolltip' | translate"
+                    tooltipPosition="right"
+                    name="name"
+                    [(ngModel)]="data.name"
+                    #name="ngModel"
+                    [invalid]="name.invalid && (name.touched || form.submitted)"
+                    required />
+                  @if (name.invalid && (name.touched || form.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.nameRequired' | translate}}</p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <textarea
+                    pTextarea
+                    type="text"
+                    id="description"
+                    [placeholder]="'pages.portfolio.creation.descriptionPlaceholder' | translate"
+                    [pTooltip]="'pages.portfolio.creation.descriptionTolltip' | translate"
+                    tooltipPosition="right"
+                    name="description"
+                    [(ngModel)]="data.des"
+                    #description="ngModel"
+                    [invalid]="description.invalid && (description.touched || form.submitted)"
+                    required>
+                  </textarea>
+                  @if (description.invalid && (description.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.descriptionRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <p-divider />
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="budget"
+                    [pTooltip]="'pages.portfolio.creation.budgetTolltip' | translate"
+                    tooltipPosition="right"
+                    name="budget"
+                    mode="currency"
+                    currency="USD"
+                    [(ngModel)]="data.budget"
+                    #budget="ngModel"
+                    [invalid]="budget.invalid && (budget.touched || form.submitted)"
+                    required
+                    [minFractionDigits]="2" />
+                  @if (budget.invalid && (budget.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.budgetRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="duration"
+                    [pTooltip]="'pages.portfolio.creation.durationTolltip' | translate"
+                    tooltipPosition="right"
+                    name="duration"
+                    [(ngModel)]="data.duration"
+                    #duration="ngModel"
+                    [invalid]="duration.invalid && (duration.touched || form.submitted)"
+                    [suffix]="'pages.portfolio.creation.durationSuffix' | translate"
+                    suffix=" d"
+                    required
+                    [minFractionDigits]="2" />
+                  @if (duration.invalid && (duration.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.durationRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="workAmount"
+                    [pTooltip]="'pages.portfolio.creation.workAmountTolltip' | translate"
+                    tooltipPosition="right"
+                    name="workAmount"
+                    [(ngModel)]="data.workAmount"
+                    #workAmount="ngModel"
+                    [invalid]="workAmount.invalid && (workAmount.touched || form.submitted)"
+                    [suffix]="'pages.portfolio.creation.workAmountSuffix' | translate"
+                    suffix=" gr"
+                    required
+                    [minFractionDigits]="2" />
+                  @if (workAmount.invalid && (workAmount.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.workAmountRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <p-divider />
+                <div class="flex flex-wrap gap-4">
+                  <div class="flex items-center">
+                    <p-radiobutton name="pizza" value="inside" [(ngModel)]="data.location" inputId="inside" />
+                    <label for="inside" class="ml-2">Inside Town Only</label>
+                  </div>
+                  <div class="flex items-center">
+                    <p-radiobutton name="outside" value="outside" [(ngModel)]="data.location" inputId="outside" />
+                    <label for="outside" class="ml-2">Outside Town</label>
+                  </div>
+                  <div class="flex items-center">
+                    <p-radiobutton name="complex" value="complex" [(ngModel)]="data.location" inputId="complex" />
+                    <label for="complex" class="ml-2">Complex</label>
+                  </div>
+                </div>
+                @if (data.location && data.location !== 'complex') {
+                  <div class="flex flex-col gap-1">
+                    <input
+                      pInputText
+                      type="text"
+                      id="town"
+                      [placeholder]="'pages.portfolio.creation.townPlaceholder' | translate"
+                      [pTooltip]="'pages.portfolio.creation.townTolltip' | translate"
+                      tooltipPosition="right"
+                      name="town"
+                      [(ngModel)]="data.town"
+                      #town="ngModel"
+                      [invalid]="town.invalid && (town.touched || form.submitted)"
+                      required />
+                    @if (town.invalid && (town.touched || form.submitted)) {
+                      <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.townRequired' | translate}}</p-message>
+                    }
+                  </div>
+                }
+                <p-divider />
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="eco"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.ecoTolltip' | translate"
+                    tooltipPosition="right"
+                    name="eco"
+                    [(ngModel)]="data.options.eco"
+                    #eco="ngModel"
+                    [invalid]="eco.invalid && (eco.touched || form.submitted)"
+                    prefix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                  @if (eco.invalid && (eco.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.ecoRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="war"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.warTolltip' | translate"
+                    tooltipPosition="right"
+                    name="war"
+                    [(ngModel)]="data.options.war"
+                    #war="ngModel"
+                    [invalid]="war.invalid && (war.touched || form.submitted)"
+                    prefix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                  @if (war.invalid && (war.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.warRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="log"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.logTolltip' | translate"
+                    tooltipPosition="right"
+                    name="log"
+                    [(ngModel)]="data.options.log"
+                    #log="ngModel"
+                    [invalid]="log.invalid && (log.touched || form.submitted)"
+                    prefix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                  @if (log.invalid && (log.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.logRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="soc"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.socTolltip' | translate"
+                    tooltipPosition="right"
+                    name="soc"
+                    [(ngModel)]="data.options.soc"
+                    #soc="ngModel"
+                    [invalid]="soc.invalid && (soc.touched || form.submitted)"
+                    prefix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                  @if (soc.invalid && (soc.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.socRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p-inputnumber
+                    inputId="struc"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.strucTolltip' | translate"
+                    tooltipPosition="right"
+                    name="struc"
+                    [(ngModel)]="data.options.struc"
+                    #struc="ngModel"
+                    [invalid]="struc.invalid && (struc.touched || form.submitted)"
+                    prefix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                  @if (struc.invalid && (struc.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.strucRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+              </form>
+            </div>
+            <div class="py-6">
+              <p-button label="Next" (onClick)="activateCallback(2)" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+
+      <p-step-item [value]="2">
+        <p-step>Projects sorting</p-step>
+        <p-step-panel>
+          <div class="flex">
+            <p-button label="Add new project" (click)="navigate('cportfolio')" />
+            <input type="text" pInputText placeholder="Search" class="w-36" />
+          </div>
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex h-48">
+              <h1>Unselected</h1>
+              <div class="container half">
+                @for (project of projectsUnselected; track project; let idx = $index) {
+                  <p-card
+                    header="Project 1"
+                    [style]="{
+                      'max-width': '200px',
+                      'margin': '10px',
+                      'max-height': '250px',
+                      'overflow': 'hidden' }"
+                    (click)="select(idx)">
+                    <ng-template #header>
+                      <img alt="Card" class="w-full" [src]="project.img" />
+                    </ng-template>
+                    <ng-template #title> {{project.name}} </ng-template>
+                    <ng-template #subtitle> {{project.subinfo}} </ng-template>
+                    <p> Budget: {{project.budget}}</p>
+                    <p> Duration: {{project.duration}}</p>
+                    <!-- <p> Is that main road: {{project.mainRoad ? 'Yes' : 'No'}}</p> -->
+                    <p> Is that in town: {{project.inTown ? 'Yes' : 'No'}}</p>
+                    <p> Description: {{project.des}}</p>
+                    <ng-template #footer>
+                      <div class="flex gap-4 mt-1">
+                        <p-button label="Update" severity="warn" (click)="showDialogProjects(project.id)" />
+                        <p-button label="Remove" severity="danger" (click)="removeProjects(project.id)" />
+                      </div>
+                    </ng-template>
+                  </p-card>
+                }
+              </div>
+              <h1>Selected</h1>
+              <div class="container half">
+                @for (project of projectsSelected; track project; let idx = $index) {
+                  <p-card
+                    header="Project 1"
+                    [style]="{
+                      'max-width': '200px',
+                      'margin': '10px',
+                      'max-height': '250px',
+                      'overflow': 'hidden' }"
+                    (click)="unselect(idx)">
+                    <ng-template #header>
+                      <img alt="Card" class="w-full" [src]="project.img" />
+                    </ng-template>
+                    <ng-template #title> {{project.name}} </ng-template>
+                    <ng-template #subtitle> {{project.subinfo}} </ng-template>
+                    <p> Budget: {{project.budget}}</p>
+                    <p> Duration: {{project.duration}}</p>
+                    <!-- <p> Is that main road: {{project.mainRoad ? 'Yes' : 'No'}}</p> -->
+                    <p> Is that in town: {{project.inTown ? 'Yes' : 'No'}}</p>
+                    <p> Description: {{project.des}}</p>
+                    <ng-template #footer>
+                      <div class="flex gap-4 mt-1">
+                        <p-button label="Update" severity="warn" (click)="showDialogProjects(project.id)" />
+                        <p-button label="Remove" severity="danger" (click)="removeProjects(project.id)" />
+                      </div>
+                    </ng-template>
+                  </p-card>
+                }
+              </div>
+            </div>
+            <div class="flex py-6 gap-2">
+              <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+              <p-button label="Next" (onClick)="activateCallback(3)" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+
+      <p-step-item [value]="3">
+        <p-step>Header III</p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col h-48">
+              <div>
+                <p>Praesent vehicula diam eget ante scelerisque, a rhoncus purus mollis. Proin pretium euismod justo, a placerat metus vulputate vitae. Nunc sagittis leo ut mollis ultricies. Donec ullamcorper elit et risus vulputate, eget molestie lacus blandit. Vestibulum sodales eu eros non feugiat. In viverra metus vitae enim volutpat cursus. Nam ac consectetur mi. Sed tempor enim eget erat iaculis, ut scelerisque erat sodales. Nunc facilisis enim vitae sem imperdiet, nec scelerisque orci posuere. Etiam condimentum congue urna, ac lacinia urna sodales ut. Mauris tempor maximus libero, id gravida lorem. Maecenas tempor augue vel gravida convallis. Etiam tincidunt urna velit. Mauris cursus tellus in ipsum ornare, a pharetra augue iaculis.</p>
+              </div>
+            </div>
+            <div class="py-6 buttons">
+              <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
+              <p-button
+                [label]="'pages.portfolio.creation.prevStepButton' | translate"
+                [pTooltip]="'pages.portfolio.creation.prevStepTolltip' | translate"
+                tooltipPosition="bottom"
+                severity="secondary"
+                type="button"
+                (click)="activateCallback(2)" />
+              <p-button
+                [label]="'pages.portfolio.creation.lastStepButton' | translate"
+                [pTooltip]="'pages.portfolio.creation.lastStepTolltip' | translate"
+                tooltipPosition="bottom"
+                severity="secondary"
+                type="button"
+                (click)="navigate('login')" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+    </p-stepper>
+  </section>
+  <section>
+
+  </section>
+  <section>
+
+  </section>
+</main>
+<app-footer></app-footer>
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+  <div>
+    <div class="form-container row">
+      <div class="form-container column w-half">
+        <div class="form-group w-300">
+          <label for="name">Name</label>
+          <input pInputText id="name" placeholder="Name" [(ngModel)]="formData.name" />
+        </div>
+        <div class="form-group w-300">
+          <label for="subinfo">Subinfo</label>
+          <input pInputText id="subinfo" placeholder="Subinfo" [(ngModel)]="formData.subinfo" />
+        </div>
+        <div class="form-group w-300">
+          <label for="budget">Budget</label>
+          <input pInputText id="budget" placeholder="Budget" [(ngModel)]="formData.budget" />
+        </div>
+        <div class="form-group w-300">
+          <label for="duration">Duration</label>
+          <input pInputText id="duration" placeholder="Duration" [(ngModel)]="formData.duration" />
+        </div>
+        <!-- <div class="form-group w-300">
+          <p-checkbox inputId="mainRoad" name="mainRoad" value="Is that main road" [(ngModel)]="formData.mainRoad" />
+          <label for="mainRoad">Is that main road</label>
+        </div> -->
+        <!-- <div class="form-group w-300">
+          <p-checkbox inputId="town" name="town" value="Is that in town" [(ngModel)]="formData.inTown" />
+          <label for="town">Is that in town</label>
+        </div> -->
+        <div class="form-group w-300">
+          <label for="des">Description</label>
+          <textarea id="des" placeholder="des" [(ngModel)]="formData.des" ></textarea>
+        </div>
+        <!-- Map minimize select? -->
+      </div>
+      <div>
+        <p-button label="Save" [outlined]="true" severity="success" (click)="showDialogProjects(false)" />
+        <p-button label="Cancel" [text]="true" severity="danger" (click)="showDialogProjects(false)" />
+      </div>
+    </div>
+  </div>
+</p-dialog>

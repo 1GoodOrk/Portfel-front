@@ -1,0 +1,30 @@
+{
+  "languages": {
+    "en": "Английский",
+    "ru": "Русский",
+    "ua": "Украинский"
+  },
+  "pages": {
+    "user": {
+      "login": {
+        "header": "Login",
+        "emailPlaceholder": "Email",
+        "emailRequired": "Email is Required.",
+        "emailHasError": "Please enter a valid email.",
+        "emailTolltip": "Enter email you reqistered in app in format **@**.**",
+        "passwordPlaceholder": "Password",
+        "passwordTolltip": "Enter password you reqistered in app",
+        "passwordRequired": "Password is Required.",
+        "passwordHasError": "Please enter a valid password.",
+        "forget": "I forget my pass...",
+        "forgetTolltip": "Move to forget page where you can make password recovery",
+        "buttonSubmit": "Submit",
+        "submitTolltip": "You will be logged into to the app if the data is correct",
+        "submitDisabledTolltip": "Enter your data before submition",
+        "buttonRegistration": "Registration",
+        "registrationTolltip": "Move to registration page",
+        "loginError": "User not found. Check the data you entered"
+      }
+    }
+  }
+}

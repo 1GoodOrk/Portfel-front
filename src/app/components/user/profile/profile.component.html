@@ -1,0 +1,140 @@
+<app-header></app-header>
+<main class="profile">
+  <section class="form">
+    <p-card [header]="'pages.user.profile.first-header' | translate" [style]="{'min-width': '300px'}">
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
+        <div class="flex flex-col gap-1">
+          <input
+            pInputText
+            type="text"
+            id="organization"
+            [placeholder]="'pages.user.profile.organizationPlaceholder' | translate"
+            [pTooltip]="'pages.user.profile.organizationTolltip' | translate"
+            tooltipPosition="right"
+            name="organization"
+            [(ngModel)]="user.organization"
+            #organization="ngModel"
+            [invalid]="organization.invalid && (organization.touched || form.submitted)"
+            required />
+          @if (organization.invalid && (organization.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.user.profile.organizationRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <input
+            pInputText
+            type="email"
+            id="email"
+            name="email"
+            [placeholder]="'pages.user.profile.emailPlaceholder' | translate"
+            [pTooltip]="'pages.user.profile.emailTolltip' | translate"
+            tooltipPosition="right"
+            [(ngModel)]="user.email"
+            #email="ngModel"
+            required
+            email
+            [invalid]="email.invalid && (email.touched || form.submitted)" />
+          @if (email.invalid && (email.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">
+              @if (email.hasError('required')) {
+                {{'pages.user.profile.emailRequired' | translate}}
+              }
+              @if (email.hasError('email')) {
+                {{'pages.user.profile.emailHasError' | translate}}
+              }
+            </p-message>
+          }
+        </div>
+        @if (form.valid) {
+            <p-button
+              [label]="'pages.user.profile.buttonSubmit' | translate"
+              [pTooltip]="'pages.user.profile.submitTolltip'  | translate"
+              tooltipPosition="bottom"
+              severity="success"
+              type="submit" />
+          } @else {
+            <p-button
+              [label]="'pages.user.profile.buttonSubmit' | translate"
+              [pTooltip]="'pages.user.profile.submitDisabledTolltip'  | translate"
+              tooltipPosition="bottom"
+              disabled
+              severity="secondary"
+              type="submit" />
+          }
+      </form>
+    </p-card>
+    <p-card [header]="'pages.user.profile.second-header' | translate" [style]="{'min-width': '300px'}">
+      <form #formPassword="ngForm" (ngSubmit)="onSubmit(formPassword)" class="flex flex-col gap-4 w-full sm:w-56">
+          <div class="flex flex-col gap-1">
+            <input
+              pInputText
+              type="password"
+              id="password"
+              name="password"
+              [placeholder]="'pages.user.profile.passwordPlaceholder' | translate"
+              [pTooltip]="'pages.user.profile.passwordTolltip'  | translate"
+              tooltipPosition="right"
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              required
+              password
+              [invalid]="password.invalid && (password.touched || formPassword.submitted)" />
+            @if (password.invalid && (password.touched || formPassword.submitted)) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (password.hasError('required')) {
+                  {{'pages.user.profile.passwordRequired' | translate}}
+                }
+                @if (password.hasError('password')) {
+                  {{'pages.user.profile.passwordHasError' | translate}}
+                }
+              </p-message>
+            }
+          </div>
+          <div class="flex flex-col gap-1">
+            <input
+              pInputText
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              [placeholder]="'pages.user.profile.confirmPasswordPlaceholder' | translate"
+              [pTooltip]="'pages.user.profile.confirmPasswordTolltip'  | translate"
+              tooltipPosition="right"
+              [(ngModel)]="user.confirmPassword"
+              #confirmPassword="ngModel"
+              required
+              confirmPassword
+              [invalid]="confirmPassword.invalid && (confirmPassword.touched || formPassword.submitted)" />
+            @if (confirmPassword.invalid && (confirmPassword.touched || formPassword.submitted)) {
+              <p-message severity="error" size="small" variant="simple">
+                @if (confirmPassword.hasError('required')) {
+                  {{'pages.user.profile.confirmPasswordRequired' | translate}}
+                }
+                @if (confirmPassword.hasError('confirmPassword')) {
+                  {{'pages.user.profile.confirmPasswordHasError' | translate}}
+                }
+              </p-message>
+            }
+          </div>
+        <div class="buttons">
+          @if (formPassword.valid) {
+            <p-button
+              [label]="'pages.user.profile.buttonSubmit' | translate"
+              [pTooltip]="'pages.user.profile.submitTolltip'  | translate"
+              tooltipPosition="bottom"
+              severity="success"
+              type="submit" />
+          } @else {
+            <p-button
+              [label]="'pages.user.profile.buttonSubmit' | translate"
+              [pTooltip]="'pages.user.profile.submitDisabledTolltip'  | translate"
+              tooltipPosition="bottom"
+              disabled
+              severity="secondary"
+              type="submit" />
+          }
+        </div>
+      </form>
+    </p-card>
+  </section>
+</main>
+<app-footer></app-footer>

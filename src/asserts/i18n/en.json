@@ -172,6 +172,25 @@
         "saveButtonTooltip": "Save all changes and close modal window",
         "cancelButton": "Cancel",
         "cancelButtonTooltip": "Cancel changes and close modal window"
+      },
+      "contacts": {
+        "header": "Send us message",
+        "emailLabel": "Your email:",
+        "emailPlaceholder": "Email",
+        "emailRequired": "Email field is required.",
+        "emailHasError": "Please enter a valid email we could contact you.",
+        "emailTolltip": "Enter email in format **@**.**",
+        "themeLabel": "Theme of the message:",
+        "themePlaceholder": "Theme",
+        "themeRequired": "Theme field is required.",
+        "themeTolltip": "Enter the theme of the message",
+        "messageLabel": "Your message:",
+        "messagePlaceholder": "Message",
+        "messageTolltip": "Enter your full message",
+        "messageRequired": "Project message field is required",
+        "buttonSubmit": "Send",
+        "submitTolltip": "You will send your message to us. We will contact you",
+        "submitDisabledTolltip": "Enter the data before submition"
       }
     },
     "portfolio": {

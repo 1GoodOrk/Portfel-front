@@ -1,23 +1,98 @@
 <app-header></app-header>
 <main class="contacts">
-  <div class="form-container row">
-    <div class="form-container column w-half">
-      <div class="form-group w-300">
-        <label for="name">Email</label>
-        <input pInputText id="email" placeholder="Email" [(ngModel)]="formData.email" />
+  <p-card [header]="'pages.main.contacts.header' | translate" [style]="{ 'min-width': '500px' }">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
+      <div class="flex flex-col mt-10">
+        <label for="email" class="bold">{{'pages.main.contacts.emailLabel' | translate}}</label>
+        <input
+          pInputText
+          type="email"
+          id="email"
+          name="email"
+          class="mt-5"
+          [placeholder]="'pages.main.contacts.emailPlaceholder' | translate"
+          [pTooltip]="'pages.main.contacts.emailTolltip' | translate"
+          tooltipPosition="right"
+          [(ngModel)]="formData.email"
+          #email="ngModel"
+          required
+          email
+          [invalid]="email.invalid && (email.touched || form.submitted)" />
+        @if (email.invalid && (email.touched || form.submitted)) {
+          <p-message severity="error" size="small" variant="simple">
+            @if (email.hasError('required')) {
+              {{'pages.main.contacts.emailRequired' | translate}}
+            }
+            @if (email.hasError('email')) {
+              {{'pages.main.contacts.emailHasError' | translate}}
+            }
+          </p-message>
+        }
       </div>
-      <div class="form-group w-300">
-        <label for="subinfo">Theme</label>
-        <input pInputText id="theme" placeholder="Theme" [(ngModel)]="formData.theme" />
+      <div class="flex flex-col mt-10">
+        <label for="theme" class="bold">{{'pages.main.contacts.themeLabel' | translate}}</label>
+        <input
+          pInputText
+          type="text"
+          id="theme"
+          class="mt-5"
+          [placeholder]="'pages.main.contacts.themePlaceholder' | translate"
+          [pTooltip]="'pages.main.contacts.themeTolltip' | translate"
+          tooltipPosition="right"
+          name="theme"
+          [(ngModel)]="formData.theme"
+          #theme="ngModel"
+          [invalid]="theme.invalid && (theme.touched || form.submitted)"
+          required />
+        @if (theme.invalid && (theme.touched || form.submitted)) {
+          <p-message severity="error" size="small" variant="simple">{{'pages.main.contacts.themeRequired' | translate}}</p-message>
+        }
       </div>
-      <div class="form-group w-300">
-        <label for="comment">Comment</label>
-        <textarea id="comment" placeholder="Comment" [(ngModel)]="formData.comment"></textarea>
+      <div class="flex flex-col mt-10">
+        <label for="message" class="bold">{{'pages.main.contacts.messageLabel' | translate}}</label>
+        <textarea
+          pTextarea
+          type="text"
+          id="message"
+          class="mt-5"
+          [placeholder]="'pages.main.contacts.messagePlaceholder' | translate"
+          [pTooltip]="'pages.main.contacts.messageTolltip' | translate"
+          tooltipPosition="right"
+          name="message"
+          [(ngModel)]="formData.message"
+          #message="ngModel"
+          [invalid]="message.invalid && (message.touched || form.submitted)"
+          required>
+        </textarea>
+        @if (message.invalid && (message.touched || form.submitted)) {
+          <p-message
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{'pages.main.contacts.messageRequired' | translate}}
+          </p-message>
+        }
       </div>
-      <div>
-        <p-button label="Send" [outlined]="true" severity="success" (click)="sendMessage()" />
+      <div class="buttons mt-10">
+        @if (form.valid) {
+          <p-button
+            [label]="'pages.main.contacts.buttonSubmit' | translate"
+            [pTooltip]="'pages.main.contacts.submitTolltip'  | translate"
+            tooltipPosition="bottom"
+            severity="success"
+            type="submit" />
+        } @else {
+          <p-button
+            [label]="'pages.main.contacts.buttonSubmit' | translate"
+            [pTooltip]="'pages.main.contacts.submitDisabledTolltip'  | translate"
+            tooltipPosition="bottom"
+            disabled
+            severity="secondary"
+            type="submit" />
+        }
       </div>
-    </div>
-  </div>
+    </form>
+  </p-card>
 </main>
 <app-footer></app-footer>

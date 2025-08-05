@@ -1,5 +1,9 @@
 .contacts {
   max-width: 1024px;
+  width: 100%;
   margin: 0 auto;
-  min-height: calc(100vh - 19px);
+  min-height: calc(100vh - 92px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }

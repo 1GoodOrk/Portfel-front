@@ -336,11 +336,20 @@
       <p-step-item [value]="2">
         <p-step>Projects sorting</p-step>
         <p-step-panel>
-          <div class="flex">
-            <p-button label="Add new project" (click)="navigate('cportfolio')" />
-            <input type="text" pInputText placeholder="Search" class="w-36" />
-          </div>
           <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex">
+              <p-button label="Add new project" (click)="showDialogProjects(true)" />
+            </div>
+            <div class="card">
+              <p-tree [value]="nodes" class="w-full md:w-[30rem]">
+                <ng-template let-node pTemplate="url">
+                  <p>{{ node.label }}</p>
+                </ng-template>
+                <ng-template let-node pTemplate="default">
+                  <b>{{ node.label }}</b>
+                </ng-template>
+              </p-tree>
+            </div>
             <div class="flex h-48">
               <h1>Unselected</h1>
               <div class="container half">

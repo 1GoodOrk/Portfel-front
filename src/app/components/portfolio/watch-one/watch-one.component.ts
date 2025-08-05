@@ -7,7 +7,8 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { HeaderComponent } from '../../shared/organisms/header/header.component';
 import { FooterComponent } from '../../shared/organisms/footer/footer.component';
-import { HttpService } from '@port/services/http.service';
+import { AppCommunicationService } from '@port/services/app-communication.service';
+
 @Component({
   selector: 'app-watch-one',
   standalone: true,
@@ -23,29 +24,44 @@ import { HttpService } from '@port/services/http.service';
 })
 export class WatchOneComponent {
   public data = {
-    name: 'Test',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-    des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-    projects: 14,
-    budget: 1000000,
-    duration: 60,
-    workAmount: 15,
+    name: '',
+    img: '',
+    des: '',
+    projects: 0,
+    budget: 0,
+    duration: 0,
+    workAmount: 0,
     townOnly: false,
-    town: 'Полтава',
+    town: '',
     options: {
-      eco: 3,
-      war: 5,
-      log: 9,
-      soc: 5,
-      struc: 2
+      eco: 0,
+      war: 0,
+      log: 0,
+      soc: 0,
+      struc: 0
     }
   }
   public showSpinner: boolean = false
 
   constructor(
     private router: Router,
-    private httpService: HttpService
-  ) { }
+    private appCommunicationService: AppCommunicationService
+  ) {
+    this.data = this.appCommunicationService.currentPortfolio
+    // this.appCommunicationService.getCurrentPortfolio()
+    // .subscribe((data: any) => {
+    //   console.log(1)
+    //   this.data = data
+    // })
+      // .subscribe({
+      //   next: this.handleUpdateResponse.bind(this)
+      // })
+  }
+
+  // private handleUpdateResponse(data: any): void {
+  //   console.log(1)
+  //   this.data = data
+  // }
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);

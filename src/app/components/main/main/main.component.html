@@ -1,102 +1,404 @@
 <app-header></app-header>
 <main class="main">
   <section>
-    <h1>Portfolios</h1>
-    <div class="flex">
-      <p-button label="Add new portfolio" (click)="navigate('cportfolio')" />
-      <input type="text" pInputText placeholder="Search" class="w-36" />
+    <h1>{{'pages.main.main.headerPortfolio' | translate}}</h1>
+    <div class="flex space-between">
+      <p-button [label]="`${'pages.main.main.addNewPortfolioButton' | translate}`" (click)="navigate('cportfolio')" />
+      <input
+        type="text"
+        pInputText
+        [placeholder]="`${'pages.main.main.searchPortfolioPlaceholder' | translate}`"
+        [pTooltip]="`${'pages.main.main.searchPortfolioTolltip' | translate}`"
+        tooltipPosition="top"
+        name="name"
+        [(ngModel)]="search.portfolio"
+        (ngModelChange)="findPortfolios()"
+        />
     </div>
     <div legend="Portfolio" class="container">
-      @for (portfolio of portfolios; track portfolio) {
-        <p-card header="Portfolio 1" [style]="{ 'max-width': '300px', 'margin-top': '10px' }">
+      @for (portfolio of portfoliosList; track portfolio) {
+        <p-card
+          [pTooltip]="`${'pages.main.main.watchPortfolioTooltipFirstPart' | translate} ${portfolio.name} ${'pages.main.main.watchPortfolioTooltipLastPart' | translate}`"
+          tooltipPosition="top"
+          [style]="{
+            'max-width': '300px',
+            'margin-top': '10px',
+            'overflow': 'hidden',
+            'cursor': 'pointer'
+          }"
+          (click)="showInfoPortfolio(portfolio)">
           <ng-template #header>
             <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
           </ng-template>
           <ng-template #title> {{portfolio.name}} </ng-template>
-          <p> Budget: {{portfolio.budget}}</p>
-          <p> Duration: {{portfolio.duration}}</p>
-          <p> Projects amount: {{portfolio.projects}}</p>
-          <p> Description: {{portfolio.des}}</p>
+          <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span>: {{portfolio.budget}}</p>
+          <p> <span class="bold">{{'pages.main.main.durationLabel' | translate}}:</span>: {{portfolio.duration}}</p>
+          <p> <span class="bold">{{'pages.main.main.projectsAmountLabel' | translate}}:</span> {{portfolio.projects}}</p>
+          <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{portfolio.des}}</p>
           <ng-template #footer>
-            <div class="flex gap-4 mt-1">
-              <p-button label="Update" severity="warn" (click)="updatePortfolio(portfolio.id)"/>
-              <p-button label="Remove" severity="danger" (click)="removePortfolio(portfolio.id)"/>
+            <div class="flex space-evenly">
+              <p-button
+                [label]="`${'pages.main.main.updateButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${portfolio.name}`"
+                tooltipPosition="top"
+                severity="warn"
+                (click)="updatePortfolio(portfolio, $event)"/>
+              <p-button
+                [label]="`${'pages.main.main.removeButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${portfolio.name}`"
+                severity="danger"
+                (click)="removePortfolio(portfolio.id, $event)"/>
             </div>
           </ng-template>
         </p-card>
+      } @empty {
+        <h2 class="bold"> {{'pages.main.main.noPortfoliosExsist' | translate}} </h2>
       }
     </div>
   </section>
+  <p-divider />
   <section>
-    <h1>Projects</h1>
-    <div class="flex">
-      <p-button label="Add new project" (click)="navigate('cportfolio')" />
-      <input type="text" pInputText placeholder="Search" class="w-36" />
+    <h1>{{'pages.main.main.headerProjects' | translate}}</h1>
+    <div class="flex space-between">
+      <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
+      <input
+        type="text"
+        pInputText
+        [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
+        [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
+        tooltipPosition="top"
+        name="name"
+        [(ngModel)]="search.project"
+        (ngModelChange)="findProjects()"
+        />
     </div>
     <div legend="Projects" class="container">
-      @for (project of projects; track project) {
-        <p-card header="Project 1" [style]="{ 'max-width': '300px', 'margin-top': '10px' }">
+      @for (project of projectsList; track project) {
+        <p-card
+          [pTooltip]="`${'pages.main.main.watchProjectTooltipFirstPart' | translate} ${project.name} ${'pages.main.main.watchProjectTooltipLastPart' | translate}`"
+          tooltipPosition="top"
+          [style]="{
+            'max-width': '300px',
+            'margin-top': '10px',
+            'overflow': 'hidden',
+            'cursor': 'pointer'
+          }"
+          (click)="showInfoProjectDialog(project.id)">
           <ng-template #header>
             <img alt="Card" class="w-full" [src]="project.img" />
           </ng-template>
           <ng-template #title> {{project.name}} </ng-template>
-          <ng-template #subtitle> {{project.subinfo}} </ng-template>
-          <p> Budget: {{project.budget}}</p>
-          <p> Duration: {{project.duration}}</p>
-          <p> Is that main road: {{project.mainRoad ? 'Yes' : 'No'}}</p>
-          <p> Is that in town: {{project.inTown ? 'Yes' : 'No'}}</p>
-          <p> Description: {{project.des}}</p>
+          <ng-template #subtitle><span class="bold">Subinfo:</span> {{project.subinfo}} </ng-template>
+          <ng-template #content>
+            <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}}</p>
+            <p> <span class="bold">{{'pages.main.main.durationLabel' | translate}}:</span> {{project.duration}}</p>
+            <p> <span class="bold">{{'pages.main.main.roadCodeLabel' | translate}}:</span> {{project.road}}</p>
+            <p> <span class="bold">{{'pages.main.main.addressStartLabel' | translate}}:</span> {{project.addressStart}}</p>
+            <p> <span class="bold">{{'pages.main.main.addressEndLabel' | translate}}:</span> {{project.addressEnd}}</p>
+            <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{project.des}}</p>
+          </ng-template>
           <ng-template #footer>
-            <div class="flex gap-4 mt-1">
-              <p-button label="Update" severity="warn" (click)="showDialogProjects(project.id)" />
-              <p-button label="Remove" severity="danger" (click)="removeProjects(project.id)" />
+            <div class="flex space-evenly">
+              <p-button
+                [label]="`${'pages.main.main.updateButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
+                tooltipPosition="top"
+                severity="warn"
+                (click)="showDialogProjects(true, project.id, $event)"/>
+              <p-button
+                [label]="`${'pages.main.main.removeButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
+                severity="danger"
+                (click)="removeProjects(project.id, $event)"/>
             </div>
           </ng-template>
         </p-card>
+      } @empty {
+        <h2 class="bold"> {{'pages.main.main.noProjectsExsist' | translate}} </h2>
       }
     </div>
   </section>
 </main>
 <app-footer></app-footer>
 
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+<p-dialog
+  [header]="`${'pages.main.main.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.main.main.infoDialogHeaderLastPart' | translate}`"
+  [modal]="true"
+  [(visible)]="visible.info"
+  [style]="{ width: '25rem' }">
   <div>
+    <img alt="Card" class="w-full" [src]="currentProject.img" />
+  </div>
+  <div>
+    <p> <span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{currentProject.subinfo}}</p>
+    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{currentProject.budget}}</p>
+    <p> <span class="bold">{{'pages.main.main.durationLabel' | translate}}:</span> {{currentProject.duration}}</p>
+    <p> <span class="bold">{{'pages.main.main.roadCodeLabel' | translate}}:</span> {{currentProject.road}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.main.main.mainRoadLabel' | translate}}:</span> {{currentProject.mainRoad ? `${'pages.main.main.yes' | translate}` : `${'pages.main.main.no' | translate}`}}</p>
+    <p> <span class="bold">{{'pages.main.main.inTownLabel' | translate}}:</span> {{currentProject.inTown ? `${'pages.main.main.yes' | translate}` : `${'pages.main.main.no' | translate}`}}</p>
+    @if (currentProject.inTown) {
+      <p> <span class="bold">{{'pages.main.main.townLabel' | translate}}:</span> {{currentProject.town}}</p>
+    }
+    <p> <span class="bold">{{'pages.main.main.addressStartLabel' | translate}}:</span> {{currentProject.addressStart}}</p>
+    <p> <span class="bold">{{'pages.main.main.addressEndLabel' | translate}}:</span> {{currentProject.addressEnd}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{currentProject.des}}</p>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [header]="formData.id ?
+   `${'pages.main.main.updateDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.main.main.updateDialogHeaderLastPart' | translate}` :
+   `${'pages.main.main.createDialogHeader' | translate}`"
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible.creation"
+  [style]="{ width: '25rem' }">
+  <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
-      <div class="form-container column w-half">
+      <div class="form-container column">
+        <div class="flex flex-col gap-1">
+          <label for="name" class="bold">{{'pages.main.main.nameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="name"
+            [placeholder]="'pages.main.main.namePlaceholder' | translate"
+            [pTooltip]="'pages.main.main.nameTolltip' | translate"
+            tooltipPosition="right"
+            name="name"
+            [(ngModel)]="formData.name"
+            #name="ngModel"
+            [invalid]="name.invalid && (name.touched || form.submitted)"
+            required />
+          @if (name.invalid && (name.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.main.main.nameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="subinfo" class="bold">{{'pages.main.main.subinfoLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="subinfo"
+            [placeholder]="'pages.main.main.subinfoPlaceholder' | translate"
+            [pTooltip]="'pages.main.main.subinfoTolltip' | translate"
+            tooltipPosition="right"
+            name="subinfo"
+            [(ngModel)]="formData.subinfo"
+            #subinfo="ngModel"
+            [invalid]="subinfo.invalid && (subinfo.touched || form.submitted)"
+            required />
+          @if (subinfo.invalid && (subinfo.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.main.main.subinfoRequired' | translate}}</p-message>
+          }
+        </div>
+        <p-divider />
+        <div class="flex flex-col gap-1">
+          <label for="budget" class="bold">{{'pages.main.main.budgetLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="budget"
+            [pTooltip]="'pages.main.main.budgetTolltip' | translate"
+            tooltipPosition="right"
+            name="budget"
+            mode="currency"
+            currency="USD"
+            [(ngModel)]="formData.budget"
+            #budget="ngModel"
+            [invalid]="budget.invalid && (budget.touched || form.submitted)"
+            required
+            [minFractionDigits]="2" />
+          @if (budget.invalid && (budget.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.budgetRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="duration" class="bold">{{'pages.main.main.durationLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="duration"
+            [pTooltip]="'pages.main.main.durationTolltip' | translate"
+            tooltipPosition="right"
+            name="duration"
+            [(ngModel)]="formData.duration"
+            #duration="ngModel"
+            [invalid]="duration.invalid && (duration.touched || form.submitted)"
+            [suffix]="'pages.main.main.durationSuffix' | translate"
+            suffix=" d"
+            required
+            [minFractionDigits]="0" />
+          @if (duration.invalid && (duration.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.durationRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="road" class="bold">{{'pages.main.main.durationLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="road"
+            [pTooltip]="'pages.main.main.roadTolltip' | translate"
+            tooltipPosition="right"
+            name="road"
+            [(ngModel)]="formData.road"
+            #road="ngModel"
+            [invalid]="road.invalid && (road.touched || form.submitted)"
+            required
+            [minFractionDigits]="0" />
+          @if (road.invalid && (road.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.roadRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <p-divider />
         <div class="form-group w-300">
-          <label for="name">Name</label>
-          <input pInputText id="name" placeholder="Name" [(ngModel)]="formData.name" />
+          <p-checkbox
+            inputId="mainRoad"
+            [pTooltip]="'pages.main.main.mainRoadTolltip' | translate"
+            tooltipPosition="right"
+            name="mainRoad"
+            value="Is that main road"
+            [(ngModel)]="formData.mainRoad" />
+          <label for="intown" class="bold">{{'pages.main.main.mainRoadLabel' | translate}}?</label>
         </div>
         <div class="form-group w-300">
-          <label for="subinfo">Subinfo</label>
-          <input pInputText id="subinfo" placeholder="Subinfo" [(ngModel)]="formData.subinfo" />
+          <p-checkbox
+            inputId="town"
+            [pTooltip]="'pages.main.main.inTownTolltip' | translate"
+            tooltipPosition="right"
+            name="intown"
+            value="Is that in town"
+            [(ngModel)]="formData.inTown" />
+          <label for="town" class="bold">{{'pages.main.main.inTownLabel' | translate}}?</label>
         </div>
-        <div class="form-group w-300">
-          <label for="budget">Budget</label>
-          <input pInputText id="budget" placeholder="Budget" [(ngModel)]="formData.budget" />
+        @if (formData.inTown) {
+          <div class="flex flex-col gap-1">
+            <label for="town" class="bold">{{'pages.main.main.townLabel' | translate}}?</label>
+            <input
+              pInputText
+              type="text"
+              id="town"
+              [placeholder]="'pages.main.main.townPlaceholder' | translate"
+              [pTooltip]="'pages.main.main.townTolltip' | translate"
+              tooltipPosition="right"
+              name="town"
+              [(ngModel)]="formData.town"
+              #town="ngModel"
+              [invalid]="town.invalid && (town.touched || form.submitted)"
+              required />
+            @if (town.invalid && (town.touched || form.submitted)) {
+              <p-message severity="error" size="small" variant="simple">{{'pages.main.main.townRequired' | translate}}</p-message>
+            }
+          </div>
+        }
+        <p-divider />
+        <div class="flex flex-col gap-1">
+          <label for="addressStart" class="bold">{{'pages.main.main.addressStartLabel' | translate}}</label>
+          <textarea
+            pTextarea
+            type="text"
+            id="addressStart"
+            [placeholder]="'pages.main.main.addressStartPlaceholder' | translate"
+            [pTooltip]="'pages.main.main.addressStartTolltip' | translate"
+            tooltipPosition="right"
+            name="addressStart"
+            [(ngModel)]="formData.addressStart"
+            #addressStart="ngModel"
+            [invalid]="addressStart.invalid && (addressStart.touched || form.submitted)"
+            required>
+          </textarea>
+          @if (addressStart.invalid && (addressStart.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.addressStartRequired' | translate}}
+            </p-message>
+          }
         </div>
-        <div class="form-group w-300">
-          <label for="duration">Duration</label>
-          <input pInputText id="duration" placeholder="Duration" [(ngModel)]="formData.duration" />
+        <div class="flex flex-col gap-1">
+          <label for="addressEnd" class="bold">{{'pages.main.main.addressEndLabel' | translate}}</label>
+          <textarea
+            pTextarea
+            type="text"
+            id="addressEnd"
+            [placeholder]="'pages.main.main.addressEndPlaceholder' | translate"
+            [pTooltip]="'pages.main.main.addressEndTolltip' | translate"
+            tooltipPosition="right"
+            name="addressEnd"
+            [(ngModel)]="formData.addressEnd"
+            #addressEnd="ngModel"
+            [invalid]="addressEnd.invalid && (addressEnd.touched || form.submitted)"
+            required>
+          </textarea>
+          @if (addressEnd.invalid && (addressEnd.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.addressEndRequired' | translate}}
+            </p-message>
+          }
         </div>
-        <div class="form-group w-300">
-          <p-checkbox inputId="mainRoad" name="mainRoad" value="Is that main road" [(ngModel)]="formData.mainRoad" />
-          <label for="mainRoad">Is that main road</label>
+        <div class="flex flex-col gap-1">
+          <label for="des" class="bold">{{'pages.main.main.descriptionLabel' | translate}}</label>
+          <textarea
+            pTextarea
+            type="text"
+            id="description"
+            [placeholder]="'pages.main.main.descriptionPlaceholder' | translate"
+            [pTooltip]="'pages.main.main.descriptionTolltip' | translate"
+            tooltipPosition="right"
+            name="description"
+            [(ngModel)]="formData.des"
+            #description="ngModel"
+            [invalid]="description.invalid && (description.touched || form.submitted)"
+            required>
+          </textarea>
+          @if (description.invalid && (description.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.descriptionRequired' | translate}}
+            </p-message>
+          }
         </div>
-        <div class="form-group w-300">
-          <p-checkbox inputId="town" name="town" value="Is that in town" [(ngModel)]="formData.inTown" />
-          <label for="town">Is that in town</label>
-        </div>
-        <div class="form-group w-300">
-          <label for="des">Description</label>
-          <textarea id="des" placeholder="des" [(ngModel)]="formData.des" ></textarea>
-        </div>
-        <!-- Map minimize select? -->
+        <!-- TODO: Map minimize select? -->
       </div>
       <div>
-        <p-button label="Save" [outlined]="true" severity="success" (click)="showDialogProjects(false)" />
-        <p-button label="Cancel" [text]="true" severity="danger" (click)="showDialogProjects(false)" />
+        <p-button
+          [label]="'pages.main.main.saveTolltip' | translate"
+          [pTooltip]="'pages.main.main.saveButtonTooltip' | translate"
+          [outlined]="true"
+          severity="success"
+          (click)="formData.id ? updateProject(formData.id, form): createProject(form)" />
+        <p-button
+          label="Cancel"
+          [label]="'pages.main.main.cancelTolltip' | translate"
+          [pTooltip]="'pages.main.main.cancelButtonTooltip' | translate"
+          [text]="true"
+          severity="danger"
+          (click)="showDialogProjects(false)" />
       </div>
     </div>
-  </div>
+  </form>
 </p-dialog>

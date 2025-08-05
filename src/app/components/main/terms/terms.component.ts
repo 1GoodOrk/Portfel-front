@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FooterComponent } from '../../shared/organisms/footer/footer.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 @Component({
   selector: 'app-terms',

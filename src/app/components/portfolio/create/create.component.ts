@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { TranslatePipe } from "@ngx-translate/core";
 import { FormsModule } from '@angular/forms';
 
-import { HeaderComponent } from '../../shared/organisms/header/header.component';
-import { FooterComponent } from '../../shared/organisms/footer/footer.component';
+import { HeaderComponent } from '@port/shared/organisms/header/header.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';

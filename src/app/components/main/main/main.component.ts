@@ -18,8 +18,8 @@ import { MessageModule  } from 'primeng/message';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 
-import { HeaderComponent } from '../../shared/organisms/header/header.component';
-import { FooterComponent } from '../../shared/organisms/footer/footer.component';
+import { HeaderComponent } from '@port/shared/organisms/header/header.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 @Component({
   selector: 'app-main',
@@ -113,6 +113,7 @@ export class MainComponent {
       img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
       des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
       projects: 14,
+      projectIds: [1, 3],
       budget: 1000000,
       duration: 60,
       workAmount: 15,
@@ -132,6 +133,7 @@ export class MainComponent {
       img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
       des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
       projects: 14,
+      projectIds: [1, 4],
       budget: 1000000,
       duration: 60,
       workAmount: 15,
@@ -151,6 +153,7 @@ export class MainComponent {
       img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
       des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
       projects: 14,
+      projectIds: [2, 3],
       budget: 1000000,
       duration: 60,
       workAmount: 15,
@@ -266,6 +269,8 @@ export class MainComponent {
 
   public showInfoPortfolio(data: any) {
     this.appCommunicationService.currentPortfolio = data
+    this.appCommunicationService.currentPortfolio.projectIds = this.appCommunicationService.currentPortfolio.projectIds
+      .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
     this.navigate(`portfolio/port-${data.id}`)
   }
 
@@ -376,6 +381,8 @@ export class MainComponent {
   public updatePortfolio (data: any, event: any) {
     event.stopPropagation()
     this.appCommunicationService.currentPortfolio = data
+    this.appCommunicationService.currentPortfolio.projectIds = this.appCommunicationService.currentPortfolio.projectIds
+      .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
     this.navigate('cportfolio')
   }
 

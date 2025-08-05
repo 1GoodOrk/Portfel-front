@@ -4,9 +4,11 @@ import { TranslatePipe } from "@ngx-translate/core";
 
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { DividerModule } from 'primeng/divider';
+import { CardModule } from 'primeng/card';
 
-import { HeaderComponent } from '../../shared/organisms/header/header.component';
-import { FooterComponent } from '../../shared/organisms/footer/footer.component';
+import { HeaderComponent } from '@port/shared/organisms/header/header.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 
 @Component({
@@ -17,6 +19,8 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     FooterComponent,
     ButtonModule,
     TooltipModule,
+    DividerModule,
+    CardModule,
     TranslatePipe
   ],
   templateUrl: './watch-one.component.html',
@@ -28,10 +32,11 @@ export class WatchOneComponent {
     img: '',
     des: '',
     projects: 0,
+    projectIds: [{ name: '', subinfo: '' }],
     budget: 0,
     duration: 0,
     workAmount: 0,
-    townOnly: false,
+    location: '',
     town: '',
     options: {
       eco: 0,
@@ -48,20 +53,8 @@ export class WatchOneComponent {
     private appCommunicationService: AppCommunicationService
   ) {
     this.data = this.appCommunicationService.currentPortfolio
-    // this.appCommunicationService.getCurrentPortfolio()
-    // .subscribe((data: any) => {
-    //   console.log(1)
-    //   this.data = data
-    // })
-      // .subscribe({
-      //   next: this.handleUpdateResponse.bind(this)
-      // })
   }
 
-  // private handleUpdateResponse(data: any): void {
-  //   console.log(1)
-  //   this.data = data
-  // }
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);

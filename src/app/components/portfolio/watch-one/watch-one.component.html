@@ -1,30 +1,42 @@
 <app-header></app-header>
 <main class="watch-one">
-  <div>
+  <div class="image-preview">
     <img [src]="data.img" alt="portfolio_art">
   </div>
   <div>
-    <h1>{{"'pages.portfolio.confirmation.title' | translate"}}: {{ data.name }}</h1>
-  </div>
-  <div>
-    <h2>{{"'pages.portfolio.confirmation.projects' | translate"}}: {{ data.projects }}</h2>
-    <h2>{{"'pages.portfolio.confirmation.budget' | translate"}}: {{ data.budget }}</h2>
-    <h2>{{"'pages.portfolio.confirmation.duration' | translate"}}: {{ data.duration }}</h2>
-    <h2>{{"'pages.portfolio.confirmation.workAmount' | translate"}}: {{ data.workAmount }}</h2>
-    <h2>{{"'pages.portfolio.confirmation.townOnly' | translate"}}: {{ data.townOnly }}</h2>
-    @if (data.townOnly) {
-      <h2>{{"'pages.portfolio.confirmation.town' | translate"}}: {{ data.town }}</h2>
+    <h1>{{'pages.portfolio.confirmation.title' | translate}}: {{ data.name }}</h1>
+    <p-divider />
+    <p><span class="bold">{{'pages.portfolio.confirmation.projects' | translate}}</span>: {{ data.projects }}</p>
+    <div legend="Projects" class="container">
+      @for (project of data.projectIds; track $index) {
+        <p-card [style]="{ 'width': '200px', 'margin': '10px' }">
+          <ng-template #title>{{'pages.portfolio.confirmation.nameLabel' | translate}}: {{project.name}} </ng-template>
+          <ng-template #subtitle><span class="bold">{{'pages.portfolio.confirmation.subinfoLabel' | translate}}:</span> {{project.subinfo}} </ng-template>
+        </p-card>
+      }
+    </div>
+    <p-divider />
+    <p><span class="bold">{{'pages.portfolio.confirmation.budget' | translate}}: </span>{{ data.budget }} USD</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.duration' | translate}}: </span>{{ data.duration }} {{'pages.portfolio.confirmation.durationSuffix' | translate}}</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.workAmount' | translate}}: </span>{{ data.workAmount }}</p>
+    @if (data.location === "inside") {
+      <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationInside' | translate}}</p>
+    } @else if (data.location === "outside") {
+      <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationOutside' | translate}}</p>
+    } @else {
+      <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationComplex' | translate}}</p>
     }
-  </div>
-  <div>
-    <h2>{{"'pages.portfolio.confirmation.options' | translate"}}</h2>
-    <h3>{{"'pages.portfolio.confirmation.eco' | translate"}}: {{ data.options.eco }}</h3>
-    <h3>{{"'pages.portfolio.confirmation.war' | translate"}}: {{ data.options.war }}</h3>
-    <h3>{{"'pages.portfolio.confirmation.log' | translate"}}: {{ data.options.log }}</h3>
-    <h3>{{"'pages.portfolio.confirmation.soc' | translate"}}: {{ data.options.soc }}</h3>
-    <h3>{{"'pages.portfolio.confirmation.struc' | translate"}}: {{ data.options.struc }}</h3>
-  </div>
-  <div>
+    @if (data.location !== "outside") {
+      <p><span class="bold">{{'pages.portfolio.confirmation.town' | translate}}: </span>{{ data.town }}</p>
+    }
+    <p-divider />
+    <h2><span class="bold">{{'pages.portfolio.confirmation.options' | translate}}</span></h2>
+    <p><span class="bold">{{'pages.portfolio.confirmation.eco' | translate}}: </span>{{ data.options.eco }}%</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.war' | translate}}: </span>{{ data.options.war }}%</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.log' | translate}}: </span>{{ data.options.log }}%</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.soc' | translate}}: </span>{{ data.options.soc }}%</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.struc' | translate}}: </span>{{ data.options.struc }}%</p>
+    <p-divider />
     <p>{{ data.des }}</p>
   </div>
 </main>

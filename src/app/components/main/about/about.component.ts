@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { HeaderComponent } from '../../shared/organisms/header/header.component';
-import { FooterComponent } from '../../shared/organisms/footer/footer.component';
+import { HeaderComponent } from '@port/shared/organisms/header/header.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 @Component({
   selector: 'app-about',

@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import {
-  TranslateService,
-  TranslatePipe,
-  TranslateDirective
-} from "@ngx-translate/core";
+import { TranslateService } from "@ngx-translate/core";
 
 import translationsEN from "../asserts/i18n/en.json";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TranslatePipe, TranslateDirective],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

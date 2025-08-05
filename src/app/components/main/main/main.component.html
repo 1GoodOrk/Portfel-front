@@ -88,7 +88,7 @@
             <img alt="Card" class="w-full" [src]="project.img" />
           </ng-template>
           <ng-template #title> {{project.name}} </ng-template>
-          <ng-template #subtitle><span class="bold">Subinfo:</span> {{project.subinfo}} </ng-template>
+          <ng-template #subtitle><span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{project.subinfo}} </ng-template>
           <ng-template #content>
             <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}}</p>
             <p> <span class="bold">{{'pages.main.main.durationLabel' | translate}}:</span> {{project.duration}}</p>

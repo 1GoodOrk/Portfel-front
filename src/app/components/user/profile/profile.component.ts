@@ -11,8 +11,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { HeaderComponent } from '../../shared/organisms/header/header.component';
-import { FooterComponent } from '../../shared/organisms/footer/footer.component';
+import { HeaderComponent } from '@port/shared/organisms/header/header.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { HttpService } from '@port/services/http.service';
 

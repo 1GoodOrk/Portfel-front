@@ -2,4 +2,16 @@
   max-width: 1024px;
   margin: 0 auto;
   min-height: calc(100vh - 98px);
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .image-preview {
+    display: flex;
+    justify-content: space-around;
+    img {
+      width: 80%;
+      border-radius: 10px;
+    }
+  }
 }

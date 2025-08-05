@@ -107,7 +107,7 @@
       "main": {
         "headerPortfolio": "Portfolios",
         "addNewPortfolioButton": "Add new portfolio",
-        "searchPortfolioPlaceholder": "search portfolios",
+        "searchPortfolioPlaceholder": "Search portfolios",
         "searchPortfolioTolltip": "Enter data in this field to find portfolios you need by name.",
         "watchPortfolioTooltipFirstPart": "Click here to watch",
         "watchPortfolioTooltipLastPart": "portfolio full info.",
@@ -156,7 +156,7 @@
         "noPortfoliosExsist": "No portfolios exsist...",
         "headerProjects": "Projects",
         "addNewProjectButton": "Add new project",
-        "searchProjectPlaceholder": "search projects",
+        "searchProjectPlaceholder": "Search projects",
         "searchProjectTolltip": "Enter data in this field to find projects you need by name.",
         "watchProjectTooltipFirstPart": "Click here to watch",
         "watchProjectTooltipLastPart": "project full info.",
@@ -191,6 +191,15 @@
         "buttonSubmit": "Send",
         "submitTolltip": "You will send your message to us. We will contact you",
         "submitDisabledTolltip": "Enter the data before submition"
+      },
+      "header": {
+        "contacts": "Contacts",
+        "contactsTooltip": "Move to the contacts page",
+        "about": "About",
+        "aboutTooltip": "Move to the about page",
+        "main": "Main",
+        "mainTooltip": "Move to the main page",
+        "profileTooltip": "Move to the profile page"
       }
     },
     "portfolio": {

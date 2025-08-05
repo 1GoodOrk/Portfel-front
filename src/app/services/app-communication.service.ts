@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class AppCommunicationService {
   public currentPortfolio: any
+  public lang: string = 'en'
 
 }

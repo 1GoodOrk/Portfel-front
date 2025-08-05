@@ -2,20 +2,38 @@
   <p-menubar [model]="items">
     <ng-template #start>
       <div (click)="navigate('main')">
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+        <p-avatar image="https://images.seeklogo.com/logo-png/39/1/adobe-portfolio-logo-png_seeklogo-390095.png" shape="circle" />
       </div>
     </ng-template>
     <ng-template #item let-item let-root="root">
-      <a pRipple class="flex items-center p-menubar-item-link">
-        <span>{{ item.label }}</span>
-        @if (item.shortcut) {
-          <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-        }
+      <a
+        pRipple
+        [pTooltip]="`pages.main.header.${item.label}Tooltip` | translate"
+        tooltipPosition="right"
+        (click)="navigate(item.path)"
+        class="flex items-center p-menubar-item-link">
+        <span>{{`pages.main.header.${item.label}` | translate}}</span>
       </a>
     </ng-template>
     <ng-template #end>
-      <div class="flex items-center gap-2">
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+      <div class="flex">
+        <div class="selector-lang">
+          <p-select
+            [options]="languages"
+            (onChange)="changeLanguage()"
+            [(ngModel)]="selectedLanguage"
+            placeholder="Select a Language"
+            class="w-full md:w-56" />
+        </div>
+        <div class="flex items-center gap-2">
+          <p-avatar
+            image="https://toppng.com/uploads/preview/roger-berry-avatar-placeholder-11562991561rbrfzlng6h.png"
+            [style]="{ 'cursor': 'pointer' }"
+            (click)="navigate('profile')"
+            [pTooltip]="'pages.main.header.profileTooltip' | translate"
+            tooltipPosition="bottom"
+            shape="circle" />
+        </div>
       </div>
     </ng-template>
   </p-menubar>

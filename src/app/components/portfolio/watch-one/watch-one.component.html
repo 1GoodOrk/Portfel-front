@@ -19,14 +19,14 @@
     <p><span class="bold">{{'pages.portfolio.confirmation.budget' | translate}}: </span>{{ data.budget }} USD</p>
     <p><span class="bold">{{'pages.portfolio.confirmation.duration' | translate}}: </span>{{ data.duration }} {{'pages.portfolio.confirmation.durationSuffix' | translate}}</p>
     <p><span class="bold">{{'pages.portfolio.confirmation.workAmount' | translate}}: </span>{{ data.workAmount }}</p>
-    @if (data.location === "inside") {
+    @if (data.location === "INSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationInside' | translate}}</p>
-    } @else if (data.location === "outside") {
+    } @else if (data.location === "OUTSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationOutside' | translate}}</p>
     } @else {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationComplex' | translate}}</p>
     }
-    @if (data.location !== "outside") {
+    @if (data.location !== "OUTSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.town' | translate}}: </span>{{ data.town }}</p>
     }
     <p-divider />

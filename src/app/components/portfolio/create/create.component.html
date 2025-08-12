@@ -122,19 +122,19 @@
                 <p-divider />
                 <div class="flex flex-wrap gap-4">
                   <div class="flex items-center">
-                    <p-radiobutton name="pizza" value="inside" [(ngModel)]="data.location" inputId="inside" />
+                    <p-radiobutton name="pizza" value="INSIDE" [(ngModel)]="data.location" inputId="inside" />
                     <label for="inside" class="ml-2">Inside Town Only</label>
                   </div>
                   <div class="flex items-center">
-                    <p-radiobutton name="outside" value="outside" [(ngModel)]="data.location" inputId="outside" />
+                    <p-radiobutton name="outside" value="OUTSIDE" [(ngModel)]="data.location" inputId="outside" />
                     <label for="outside" class="ml-2">Outside Town</label>
                   </div>
                   <div class="flex items-center">
-                    <p-radiobutton name="complex" value="complex" [(ngModel)]="data.location" inputId="complex" />
+                    <p-radiobutton name="complex" value="COMPLEX" [(ngModel)]="data.location" inputId="complex" />
                     <label for="complex" class="ml-2">Complex</label>
                   </div>
                 </div>
-                @if (data.location && data.location !== 'complex') {
+                @if (data.location && data.location !== 'COMPLEX') {
                   <div class="flex flex-col gap-1">
                     <input
                       pInputText

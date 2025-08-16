@@ -3,18 +3,19 @@
   <section>
     <p-stepper [value]="1">
       <p-step-item [value]="1">
-        <p-step>{{'pages.portfolio.creation.firstHeader' | translate}}Main info</p-step>
+        <p-step>{{'pages.portfolio.creation.firstHeader' | translate}}</p-step>
         <p-step-panel>
           <ng-template #content let-activateCallback="activateCallback">
             <div class="flex">
               <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
+                  <label for="name" class="bold">{{'pages.portfolio.creation.namePLabel' | translate}}</label>
                   <input
                     pInputText
                     type="text"
                     id="name"
-                    [placeholder]="'pages.portfolio.creation.namePlaceholder' | translate"
-                    [pTooltip]="'pages.portfolio.creation.nameTolltip' | translate"
+                    [placeholder]="'pages.portfolio.creation.namePPlaceholder' | translate"
+                    [pTooltip]="'pages.portfolio.creation.namePTolltip' | translate"
                     tooltipPosition="right"
                     name="name"
                     [(ngModel)]="data.name"
@@ -22,16 +23,35 @@
                     [invalid]="name.invalid && (name.touched || form.submitted)"
                     required />
                   @if (name.invalid && (name.touched || form.submitted)) {
-                    <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.nameRequired' | translate}}</p-message>
+                    <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.namePRequired' | translate}}</p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
+                  <label for="subinfo" class="bold">{{'pages.portfolio.creation.subinfoPLabel' | translate}}</label>
+                  <input
+                    pInputText
+                    type="text"
+                    id="subinfo"
+                    [placeholder]="'pages.portfolio.creation.subinfoPPlaceholder' | translate"
+                    [pTooltip]="'pages.portfolio.creation.subinfoPTolltip' | translate"
+                    tooltipPosition="right"
+                    name="subinfo"
+                    [(ngModel)]="data.subinfo"
+                    #subinfo="ngModel"
+                    [invalid]="subinfo.invalid && (subinfo.touched || form.submitted)"
+                    required />
+                  @if (subinfo.invalid && (subinfo.touched || form.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.subinfoPRequired' | translate}}</p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="description" class="bold">{{'pages.portfolio.creation.descriptionPLabel' | translate}}</label>
                   <textarea
                     pTextarea
                     type="text"
                     id="description"
-                    [placeholder]="'pages.portfolio.creation.descriptionPlaceholder' | translate"
-                    [pTooltip]="'pages.portfolio.creation.descriptionTolltip' | translate"
+                    [placeholder]="'pages.portfolio.creation.descriptionPPlaceholder' | translate"
+                    [pTooltip]="'pages.portfolio.creation.descriptionPTolltip' | translate"
                     tooltipPosition="right"
                     name="description"
                     [(ngModel)]="data.des"
@@ -45,15 +65,16 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.descriptionRequired' | translate}}
+                      {{'pages.portfolio.creation.descriptionPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <p-divider />
                 <div class="flex flex-col gap-1">
+                  <label for="budget" class="bold">{{'pages.portfolio.creation.budgetPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="budget"
-                    [pTooltip]="'pages.portfolio.creation.budgetTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.budgetPTolltip' | translate"
                     tooltipPosition="right"
                     name="budget"
                     mode="currency"
@@ -69,20 +90,45 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.budgetRequired' | translate}}
+                      {{'pages.portfolio.creation.budgetPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
+                  <label for="profit" class="bold">{{'pages.portfolio.creation.profitPLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="profit"
+                    [pTooltip]="'pages.portfolio.creation.profitPTolltip' | translate"
+                    tooltipPosition="right"
+                    name="profit"
+                    mode="currency"
+                    currency="USD"
+                    [(ngModel)]="data.profit"
+                    #profit="ngModel"
+                    [invalid]="profit.invalid && (profit.touched || form.submitted)"
+                    required
+                    [minFractionDigits]="2" />
+                  @if (profit.invalid && (profit.touched || form.submitted)) {
+                    <p-message
+                      severity="error"
+                      size="small"
+                      variant="simple"
+                    >
+                      {{'pages.portfolio.creation.profitPRequired' | translate}}
+                    </p-message>
+                  }
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="duration" class="bold">{{'pages.portfolio.creation.durationPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="duration"
-                    [pTooltip]="'pages.portfolio.creation.durationTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.durationPTolltip' | translate"
                     tooltipPosition="right"
                     name="duration"
                     [(ngModel)]="data.duration"
                     #duration="ngModel"
                     [invalid]="duration.invalid && (duration.touched || form.submitted)"
-                    [suffix]="'pages.portfolio.creation.durationSuffix' | translate"
+                    [suffix]="'pages.portfolio.creation.durationPSuffix' | translate"
                     suffix=" d"
                     required
                     [minFractionDigits]="2" />
@@ -92,56 +138,35 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.durationRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
-                <div class="flex flex-col gap-1">
-                  <p-inputnumber
-                    inputId="workAmount"
-                    [pTooltip]="'pages.portfolio.creation.workAmountTolltip' | translate"
-                    tooltipPosition="right"
-                    name="workAmount"
-                    [(ngModel)]="data.workAmount"
-                    #workAmount="ngModel"
-                    [invalid]="workAmount.invalid && (workAmount.touched || form.submitted)"
-                    [suffix]="'pages.portfolio.creation.workAmountSuffix' | translate"
-                    suffix=" gr"
-                    required
-                    [minFractionDigits]="2" />
-                  @if (workAmount.invalid && (workAmount.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.workAmountRequired' | translate}}
+                      {{'pages.portfolio.creation.durationPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <p-divider />
                 <div class="flex flex-wrap gap-4">
+                  <label for="location" class="bold">{{'pages.portfolio.creation.locationLabel' | translate}}</label>
                   <div class="flex items-center">
                     <p-radiobutton name="pizza" value="INSIDE" [(ngModel)]="data.location" inputId="inside" />
-                    <label for="inside" class="ml-2">Inside Town Only</label>
+                    <label for="inside" class="ml-2">{{'pages.portfolio.creation.locationInsideLabel' | translate}}</label>
                   </div>
                   <div class="flex items-center">
                     <p-radiobutton name="outside" value="OUTSIDE" [(ngModel)]="data.location" inputId="outside" />
-                    <label for="outside" class="ml-2">Outside Town</label>
+                    <label for="outside" class="ml-2">{{'pages.portfolio.creation.locationOutsideLabel' | translate}}</label>
                   </div>
                   <div class="flex items-center">
                     <p-radiobutton name="complex" value="COMPLEX" [(ngModel)]="data.location" inputId="complex" />
-                    <label for="complex" class="ml-2">Complex</label>
+                    <label for="complex" class="ml-2">{{'pages.portfolio.creation.locationComplexLabel' | translate}}</label>
                   </div>
                 </div>
                 @if (data.location && data.location !== 'COMPLEX') {
+                  <label for="town" class="bold">{{'pages.portfolio.creation.townPLabel' | translate}}</label>
                   <div class="flex flex-col gap-1">
                     <input
                       pInputText
                       type="text"
                       id="town"
-                      [placeholder]="'pages.portfolio.creation.townPlaceholder' | translate"
-                      [pTooltip]="'pages.portfolio.creation.townTolltip' | translate"
+                      [placeholder]="'pages.portfolio.creation.townPPlaceholder' | translate"
+                      [pTooltip]="'pages.portfolio.creation.townPTolltip' | translate"
                       tooltipPosition="right"
                       name="town"
                       [(ngModel)]="data.town"
@@ -149,23 +174,25 @@
                       [invalid]="town.invalid && (town.touched || form.submitted)"
                       required />
                     @if (town.invalid && (town.touched || form.submitted)) {
-                      <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.townRequired' | translate}}</p-message>
+                      <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.townPRequired' | translate}}</p-message>
                     }
                   </div>
                 }
                 <p-divider />
+                <h1>{{'pages.portfolio.creation.factorsPTitle' | translate}}</h1>
                 <div class="flex flex-col gap-1">
+                  <label for="eco" class="bold">{{'pages.portfolio.creation.ecoPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="eco"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.ecoTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.ecoPTolltip' | translate"
                     tooltipPosition="right"
                     name="eco"
                     [(ngModel)]="data.options.eco"
                     #eco="ngModel"
                     [invalid]="eco.invalid && (eco.touched || form.submitted)"
-                    prefix="%"
+                    suffix="%"
                     required
                     [min]="0"
                     [max]="100"
@@ -184,22 +211,23 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.ecoRequired' | translate}}
+                      {{'pages.portfolio.creation.ecoPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
+                  <label for="war" class="bold">{{'pages.portfolio.creation.warPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="war"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.warTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.warPTolltip' | translate"
                     tooltipPosition="right"
                     name="war"
                     [(ngModel)]="data.options.war"
                     #war="ngModel"
                     [invalid]="war.invalid && (war.touched || form.submitted)"
-                    prefix="%"
+                    suffix="%"
                     required
                     [min]="0"
                     [max]="100"
@@ -218,22 +246,23 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.warRequired' | translate}}
+                      {{'pages.portfolio.creation.warPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
+                  <label for="log" class="bold">{{'pages.portfolio.creation.logPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="log"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.logTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.logPTolltip' | translate"
                     tooltipPosition="right"
                     name="log"
                     [(ngModel)]="data.options.log"
                     #log="ngModel"
                     [invalid]="log.invalid && (log.touched || form.submitted)"
-                    prefix="%"
+                    suffix="%"
                     required
                     [min]="0"
                     [max]="100"
@@ -252,22 +281,23 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.logRequired' | translate}}
+                      {{'pages.portfolio.creation.logPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
+                  <label for="soc" class="bold">{{'pages.portfolio.creation.socPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="soc"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.socTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.socPTolltip' | translate"
                     tooltipPosition="right"
                     name="soc"
                     [(ngModel)]="data.options.soc"
                     #soc="ngModel"
                     [invalid]="soc.invalid && (soc.touched || form.submitted)"
-                    prefix="%"
+                    suffix="%"
                     required
                     [min]="0"
                     [max]="100"
@@ -286,22 +316,23 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.socRequired' | translate}}
+                      {{'pages.portfolio.creation.socPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
+                  <label for="struc" class="bold">{{'pages.portfolio.creation.strucPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="struc"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.strucTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.strucPTolltip' | translate"
                     tooltipPosition="right"
                     name="struc"
                     [(ngModel)]="data.options.struc"
                     #struc="ngModel"
                     [invalid]="struc.invalid && (struc.touched || form.submitted)"
-                    prefix="%"
+                    suffix="%"
                     required
                     [min]="0"
                     [max]="100"
@@ -320,131 +351,442 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.strucRequired' | translate}}
+                      {{'pages.portfolio.creation.strucPRequired' | translate}}
                     </p-message>
                   }
                 </div>
               </form>
             </div>
             <div class="py-6">
-              <p-button label="Next" (onClick)="activateCallback(2)" />
+              <p-button
+                [label]="`${'pages.portfolio.creation.nextButton' | translate}`"
+                [pTooltip]="'pages.portfolio.creation.nextButtonTooltip' | translate"
+                tooltipPosition="top"
+                severity="primary"
+                (click)="activateCallback(2)"/>
             </div>
           </ng-template>
         </p-step-panel>
       </p-step-item>
 
       <p-step-item [value]="2">
-        <p-step>Projects sorting</p-step>
+        <p-step>{{'pages.portfolio.creation.secondHeader' | translate}}</p-step>
         <p-step-panel>
           <ng-template #content let-activateCallback="activateCallback">
             <div class="flex">
-              <p-button label="Add new project" (click)="showDialogProjects(true)" />
+              <p-button [label]="'pages.portfolio.creation.addNewProjectButton' | translate" (click)="showDialogProjects(true)" />
             </div>
             <div class="card">
-              <p-tree [value]="nodes" class="w-full md:w-[30rem]">
-                <ng-template let-node pTemplate="url">
-                  <p>{{ node.label }}</p>
-                </ng-template>
-                <ng-template let-node pTemplate="default">
-                  <b>{{ node.label }}</b>
-                </ng-template>
-              </p-tree>
+              <p-card [header]="'pages.portfolio.creation.sortingTypeHeader' | translate">
+                <div class="flex space-between">
+                  <p-button
+                    label="HIFO"
+                    [pTooltip]="'pages.portfolio.creation.hifoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('HIFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('HIFO')"
+                    (click)="selectSorting('HIFO')" />
+                  <p-button
+                    label="LIFO"
+                    [pTooltip]="'pages.portfolio.creation.lifoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('LIFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('LIFO')"
+                    (click)="selectSorting('LIFO')" />
+                  <p-button
+                    label="FIFO"
+                    [pTooltip]="'pages.portfolio.creation.fifoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('FIFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('FIFO')"
+                    (click)="selectSorting('FIFO')" />
+                  <p-button
+                    label="FEFO"
+                    [pTooltip]="'pages.portfolio.creation.fefoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('FEFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('FEFO')"
+                    (click)="selectSorting('FEFO')" />
+                  <p-button
+                    label="FEFO + HIFO"
+                    [pTooltip]="'pages.portfolio.creation.fefohifoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('FEFOHIFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('FEFOHIFO')"
+                    (click)="selectSorting('FEFOHIFO')" />
+                  <p-button
+                    label="FEFO + LIFO"
+                    [pTooltip]="'pages.portfolio.creation.fefolifoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('FIFOLIFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('FIFOLIFO')"
+                    (click)="selectSorting('FIFOLIFO')" />
+                  <p-button
+                    label="FEFO + FIFO + HIFO"
+                    [pTooltip]="'pages.portfolio.creation.fefofifohifoTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    [severity]="checkSortingType('FEFOFIFOHIFO') ? 'primary' : 'warn'"
+                    [disabled]="checkSortingType('FEFOFIFOHIFO')"
+                    (click)="selectSorting('FEFOFIFOHIFO')" />
+                  <p-button
+                    label="Cancel"
+                    [pTooltip]="'pages.portfolio.creation.sortingCancelTolltip' | translate"
+                    tooltipPosition="bottom"
+                    type="button"
+                    severity="secondary"
+                    [disabled]="checkSortingType('Cancel')"
+                    (click)="selectSorting('Cancel')" />
+                </div>
+              </p-card>
+              <p-card>
+                <div class="flex flex-col gap-1">
+                  <label for="strucType" class="bold">{{'pages.portfolio.creation.strucTypeLabel' | translate}}</label>
+                  <p-multiselect
+                    inputId="strucType"
+                    [options]="filterItems.type"
+                    [(ngModel)]="filterOptions.type"
+                    [pTooltip]="'pages.portfolio.creation.strucTypeTolltip' | translate"
+                    tooltipPosition="right"
+                    [placeholder]="'pages.portfolio.creation.strucTypePlaceholder' | translate"
+                    optionLabel="label"
+                    [showClear]="true"
+                    class="w-full md:w-56" />
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="scoreFiltering" class="bold">{{'pages.portfolio.creation.scoreFilteringLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="scoreFiltering"
+                    [pTooltip]="'pages.portfolio.creation.scoreFilteringTolltip' | translate"
+                    tooltipPosition="right"
+                    name="scoreFiltering"
+                    [min]="0"
+                    [(ngModel)]="filterOptions.score"
+                    [minFractionDigits]="0" >
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="projectsAmount" class="bold">{{'pages.portfolio.creation.projectsAmountLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="projectsAmount"
+                    [pTooltip]="'pages.portfolio.creation.projectsAmountTolltip' | translate"
+                    tooltipPosition="right"
+                    name="projectsAmount"
+                    [min]="-1"
+                    [max]="projects.length"
+                    [(ngModel)]="filterOptions.projectsAmount"
+                    [minFractionDigits]="0" >
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="profitFiltering" class="bold">{{'pages.portfolio.creation.profitFilteringLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="profitFiltering"
+                    [pTooltip]="'pages.portfolio.creation.profitFilteringTolltip' | translate"
+                    tooltipPosition="right"
+                    name="profitFiltering"
+                    [(ngModel)]="filterOptions.profit"
+                    currency="USD"
+                    [minFractionDigits]="2" >
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="priorityFiltering" class="bold">{{'pages.portfolio.creation.priorityFilteringLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="priorityFiltering"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.priorityFilteringTolltip' | translate"
+                    tooltipPosition="right"
+                    name="priorityFiltering"
+                    [(ngModel)]="filterOptions.priority"
+                    [min]="0"
+                    [max]="10"
+                    [step]="1"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                </div>
+              </p-card>
             </div>
             <div class="flex h-48">
-              <h1>Unselected</h1>
-              <div class="container half">
-                @for (project of projectsUnselected; track project; let idx = $index) {
-                  <p-card
-                    header="Project 1"
-                    [style]="{
-                      'max-width': '200px',
-                      'margin': '10px',
-                      'max-height': '250px',
-                      'overflow': 'hidden' }"
-                    (click)="select(idx)">
-                    <ng-template #header>
-                      <img alt="Card" class="w-full" [src]="project.img" />
-                    </ng-template>
-                    <ng-template #title> {{project.name}} </ng-template>
-                    <ng-template #subtitle> {{project.subinfo}} </ng-template>
-                    <p> Budget: {{project.budget}}</p>
-                    <p> Duration: {{project.duration}}</p>
-                    <!-- <p> Is that main road: {{project.mainRoad ? 'Yes' : 'No'}}</p> -->
-                    <p> Is that in town: {{project.inTown ? 'Yes' : 'No'}}</p>
-                    <p> Description: {{project.des}}</p>
-                    <ng-template #footer>
-                      <div class="flex gap-4 mt-1">
-                        <p-button label="Update" severity="warn" (click)="showDialogProjects(project.id)" />
-                        <p-button label="Remove" severity="danger" (click)="removeProjects(project.id)" />
-                      </div>
-                    </ng-template>
-                  </p-card>
-                }
+              <div class="half mr-10">
+                <h1>{{'pages.portfolio.creation.unselectedProjectsLabel' | translate}}</h1>
+                <div class="container">
+                  @for (project of projectsUnselected; track project; let idx = $index) {
+                    <p-card
+                      header="Project 1"
+                      [pTooltip]="`${'pages.portfolio.creation.selectProjectTooltip' | translate} ${project.name}`"
+                      tooltipPosition="top"
+                      [style]="{
+                        'max-width': '200px',
+                        'margin': '10px',
+                        'max-height': '250px',
+                        'cursor': 'pointer',
+                        'overflow': 'hidden' }"
+                      (click)="select(idx)">
+                      <ng-template #title>
+                        {{project.name}}
+                        <p-button
+                          icon="pi pi-eye"
+                          [pTooltip]="`${'pages.portfolio.creation.watchProjectTooltip' | translate} ${project.name}`"
+                          tooltipPosition="top"
+                          severity="secondary"
+                          (click)="showInfoProjectDialog(project._id, $event)"/>
+                      </ng-template>
+                      <ng-template #subtitle>
+                        <span class="bold">{{'pages.portfolio.creation.projectCardPriorityLabel' | translate}}:</span>
+                        <span
+                          [style]="{
+                            'color': project.priority === 10 ?
+                            'red': project.priority > 7 ?
+                            'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+                        <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+                      </ng-template>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                      <ng-template #footer>
+                        <div class="flex space-evenly">
+                          <p-button
+                            [label]="`${'pages.portfolio.creation.updateButton' | translate}`"
+                            [pTooltip]="`${'pages.portfolio.creation.updateButtonTooltip' | translate} ${project.name}`"
+                            tooltipPosition="top"
+                            severity="warn"
+                            (click)="showDialogProjects(true, project._id, $event)"/>
+                          <p-button
+                            [label]="`${'pages.portfolio.creation.removeButton' | translate}`"
+                            [pTooltip]="`${'pages.portfolio.creation.removeButtonTooltip' | translate} ${project.name}`"
+                            severity="danger"
+                            (click)="removeProjects(project._id, $event)"/>
+                        </div>
+                      </ng-template>
+                    </p-card>
+                  }
+                </div>
               </div>
-              <h1>Selected</h1>
-              <div class="container half">
-                @for (project of projectsSelected; track project; let idx = $index) {
-                  <p-card
-                    header="Project 1"
-                    [style]="{
-                      'max-width': '200px',
-                      'margin': '10px',
-                      'max-height': '250px',
-                      'overflow': 'hidden' }"
-                    (click)="unselect(idx)">
-                    <ng-template #header>
-                      <img alt="Card" class="w-full" [src]="project.img" />
-                    </ng-template>
-                    <ng-template #title> {{project.name}} </ng-template>
-                    <ng-template #subtitle> {{project.subinfo}} </ng-template>
-                    <p> Budget: {{project.budget}}</p>
-                    <p> Duration: {{project.duration}}</p>
-                    <!-- <p> Is that main road: {{project.mainRoad ? 'Yes' : 'No'}}</p> -->
-                    <p> Is that in town: {{project.inTown ? 'Yes' : 'No'}}</p>
-                    <p> Description: {{project.des}}</p>
-                    <ng-template #footer>
-                      <div class="flex gap-4 mt-1">
-                        <p-button label="Update" severity="warn" (click)="showDialogProjects(project.id)" />
-                        <p-button label="Remove" severity="danger" (click)="removeProjects(project.id)" />
-                      </div>
-                    </ng-template>
-                  </p-card>
-                }
+              <div class="half">
+                <h1>{{'pages.portfolio.creation.selectedProjectsLabel' | translate}}</h1>
+                <div class="container">
+                  @for (project of projectsSelected; track project; let idx = $index) {
+                    <p-card
+                      header="Project 1"
+                      [style]="{
+                        'max-width': '200px',
+                        'margin': '10px',
+                        'max-height': '250px',
+                        'cursor': 'pointer',
+                        'overflow': 'hidden' }"
+                      (click)="unselect(idx)">
+                      <ng-template #title>
+                        {{project.name}}
+                        <p-button
+                          icon="pi pi-eye"
+                          [pTooltip]="`${'pages.portfolio.creation.watchProjectTooltip' | translate} ${project.name}`"
+                          tooltipPosition="top"
+                          severity="secondary"
+                          (click)="showInfoProjectDialog(project._id, $event)"/>
+                      </ng-template>
+                      <ng-template #subtitle>
+                        <span class="bold">{{'pages.portfolio.creation.projectCardPriorityLabel' | translate}}:</span>
+                        <span
+                          [style]="{
+                            'color': project.priority === 10 ?
+                            'red': project.priority > 7 ?
+                            'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+                        <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+                      </ng-template>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                      <ng-template #footer>
+                        <div class="flex space-evenly">
+                          <p-button
+                            [label]="`${'pages.portfolio.creation.updateButton' | translate}`"
+                            [pTooltip]="`${'pages.portfolio.creation.updateButtonTooltip' | translate} ${project.name}`"
+                            tooltipPosition="top"
+                            severity="warn"
+                            (click)="showDialogProjects(true, project._id, $event)"/>
+                          <p-button
+                            [label]="`${'pages.portfolio.creation.removeButton' | translate}`"
+                            [pTooltip]="`${'pages.portfolio.creation.removeButtonTooltip' | translate} ${project.name}`"
+                            severity="danger"
+                            (click)="removeProjects(project._id, $event)"/>
+                        </div>
+                      </ng-template>
+                    </p-card>
+                  }
+                </div>
               </div>
             </div>
             <div class="flex py-6 gap-2">
-              <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
-              <p-button label="Next" (onClick)="activateCallback(3)" />
+              <p-button
+                [label]="`${'pages.portfolio.creation.backButton' | translate}`"
+                [pTooltip]="'pages.portfolio.creation.backButtonTooltip' | translate"
+                tooltipPosition="top"
+                severity="primary"
+                (click)="activateCallback(1)"/>
+              <p-button
+                [label]="`${'pages.portfolio.creation.nextButton' | translate}`"
+                [pTooltip]="'pages.portfolio.creation.nextButtonTooltip' | translate"
+                tooltipPosition="top"
+                severity="primary"
+                (click)="tiersFiltering(); activateCallback(3)"/>
             </div>
           </ng-template>
         </p-step-panel>
       </p-step-item>
 
       <p-step-item [value]="3">
-        <p-step>Header III</p-step>
+        <p-step>{{'pages.portfolio.creation.thirdHeader' | translate}}</p-step>
         <p-step-panel>
           <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col h-48">
-              <div>
-                <p>Praesent vehicula diam eget ante scelerisque, a rhoncus purus mollis. Proin pretium euismod justo, a placerat metus vulputate vitae. Nunc sagittis leo ut mollis ultricies. Donec ullamcorper elit et risus vulputate, eget molestie lacus blandit. Vestibulum sodales eu eros non feugiat. In viverra metus vitae enim volutpat cursus. Nam ac consectetur mi. Sed tempor enim eget erat iaculis, ut scelerisque erat sodales. Nunc facilisis enim vitae sem imperdiet, nec scelerisque orci posuere. Etiam condimentum congue urna, ac lacinia urna sodales ut. Mauris tempor maximus libero, id gravida lorem. Maecenas tempor augue vel gravida convallis. Etiam tincidunt urna velit. Mauris cursus tellus in ipsum ornare, a pharetra augue iaculis.</p>
+            <div class="flex h-48 column">
+              <p><span class="bold">{{'pages.portfolio.creation.advantageLabel' | translate}}:</span> {{data.profit - data.budget}} USD</p>
+            </div>
+            <div class="flex h-48 column">
+              <h1>{{'pages.portfolio.creation.thirdTierIHeader' | translate}}</h1>
+              <div class="container tiers">
+                @for (project of data.projectIds.tierI; track project; let idx = $index) {
+                  <p-card
+                    header="Project 1"
+                    [style]="{
+                      'max-width': '200px',
+                      'margin': '10px',
+                      'max-height': '200px',
+                      'overflow': 'hidden' }"
+                    >
+                    <ng-template #title> {{project.name}} </ng-template>
+                    <ng-template #subtitle>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardPriorityLabel' | translate}}:</span>
+                      <span
+                        [style]="{
+                          'color': project.priority === 10 ?
+                          'red': project.priority > 7 ?
+                          'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+                    </ng-template>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                  </p-card>
+                } @empty {
+                  <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
+                }
+              </div>
+              <h1>{{'pages.portfolio.creation.thirdTierIIHeader' | translate}}</h1>
+              <div class="container tiers">
+                @for (project of data.projectIds.tierII; track project; let idx = $index) {
+                  <p-card
+                    header="Project 1"
+                    [style]="{
+                      'max-width': '200px',
+                      'margin': '10px',
+                      'max-height': '200px',
+                      'overflow': 'hidden' }"
+                    >
+                    <ng-template #title> {{project.name}} </ng-template>
+                    <ng-template #subtitle>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardPriorityLabel' | translate}}:</span>
+                      <span
+                        [style]="{
+                          'color': project.priority === 10 ?
+                          'red': project.priority > 7 ?
+                          'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+                    </ng-template>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                  </p-card>
+                } @empty {
+                  <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
+                }
+              </div>
+              <h1>{{'pages.portfolio.creation.thirdTierIIIHeader' | translate}}</h1>
+              <div class="container tiers">
+                @for (project of data.projectIds.tierIII; track project; let idx = $index) {
+                  <p-card
+                    header="Project 1"
+                    [style]="{
+                      'max-width': '200px',
+                      'margin': '10px',
+                      'max-height': '200px',
+                      'overflow': 'hidden' }"
+                    >
+                    <ng-template #title> {{project.name}} </ng-template>
+                    <ng-template #subtitle>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardPriorityLabel' | translate}}:</span>
+                      <span
+                        [style]="{
+                          'color': project.priority === 10 ?
+                          'red': project.priority > 7 ?
+                          'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+                    </ng-template>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                  </p-card>
+                } @empty {
+                  <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
+                }
+              </div>
+              <h1>{{'pages.portfolio.creation.notInvolvedHeader' | translate}}</h1>
+              <div class="container tiers">
+                @for (project of projectsUnselected; track project; let idx = $index) {
+                  <p-card
+                    header="Project 1"
+                    [style]="{
+                      'max-width': '200px',
+                      'margin': '10px',
+                      'max-height': '200px',
+                      'overflow': 'hidden' }"
+                    >
+                    <ng-template #title> {{project.name}} </ng-template>
+                    <ng-template #subtitle>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardPriorityLabel' | translate}}:</span>
+                      <span
+                        [style]="{
+                          'color': project.priority === 10 ?
+                          'red': project.priority > 7 ?
+                          'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+                      <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+                    </ng-template>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                    </p-card>
+                } @empty {
+                  <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
+                }
               </div>
             </div>
             <div class="py-6 buttons">
-              <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
               <p-button
-                [label]="'pages.portfolio.creation.prevStepButton' | translate"
-                [pTooltip]="'pages.portfolio.creation.prevStepTolltip' | translate"
-                tooltipPosition="bottom"
-                severity="secondary"
-                type="button"
-                (click)="activateCallback(2)" />
+                [label]="`${'pages.portfolio.creation.backButton' | translate}`"
+                [pTooltip]="'pages.portfolio.creation.backButtonTooltip' | translate"
+                tooltipPosition="top"
+                severity="primary"
+                (click)="activateCallback(2)"/>
               <p-button
-                [label]="'pages.portfolio.creation.lastStepButton' | translate"
-                [pTooltip]="'pages.portfolio.creation.lastStepTolltip' | translate"
+                [label]="'pages.portfolio.creation.watchPortfolioButton' | translate"
+                [pTooltip]="'pages.portfolio.creation.watchPortfolioTolltip' | translate"
                 tooltipPosition="bottom"
-                severity="secondary"
+                severity="primary"
                 type="button"
-                (click)="navigate('login')" />
+                (click)="watchPortfolio()" />
             </div>
           </ng-template>
         </p-step-panel>
@@ -459,44 +801,536 @@
   </section>
 </main>
 <app-footer></app-footer>
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+
+<p-dialog
+  [header]="`${'pages.portfolio.creation.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.creation.infoDialogHeaderLastPart' | translate}`"
+  [modal]="true"
+  [(visible)]="visible.info"
+  [style]="{ width: '25rem' }">
   <div>
+    <img alt="Card" class="w-full" [src]="currentProject.img" />
+  </div>
+  <div>
+    <p> <span class="bold">{{'pages.portfolio.creation.subinfoLabel' | translate}}:</span> {{currentProject.subinfo}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.priorityLabel' | translate}}:</span> {{currentProject.priority}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.scoreLabel' | translate}}:</span> {{currentProject.score}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.typeLabel' | translate}}:</span> {{currentProject.type}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.creation.advantageLabel' | translate}}:</span> {{currentProject.budget - currentProject.profit}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.profitLabel' | translate}}:</span> {{currentProject.profit}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.budgetLabel' | translate}}:</span> {{currentProject.budget}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.budgetSourceLabel' | translate}}:</span> {{currentProject.budgetSource}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.processDurationLabel' | translate}}:</span> {{currentProject.processDuration}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.trafficLabel' | translate}}:</span> {{currentProject.traffic}} {{'pages.portfolio.creation.trafficSuffixLabel' | translate}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.roadCodeLabel' | translate}}:</span> {{currentProject.road}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.distanceLabel' | translate}}:</span> {{currentProject.distance}} {{'pages.portfolio.creation.distanceSuffixLabel' | translate}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.creation.mainRoadLabel' | translate}}:</span> {{currentProject.mainRoad ? `${'pages.portfolio.creation.yes' | translate}` : `${'pages.portfolio.creation.no' | translate}`}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.inTownLabel' | translate}}:</span> {{currentProject.inTown ? `${'pages.portfolio.creation.yes' | translate}` : `${'pages.portfolio.creation.no' | translate}`}}</p>
+    @if (currentProject.inTown) {
+      <p> <span class="bold">{{'pages.portfolio.creation.townLabel' | translate}}:</span> {{currentProject.town}}</p>
+    }
+    <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.creation.budgetLabel' | translate}}:</span> {{currentProject.dateCreation}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.dateInitializationLabel' | translate}}:</span> {{currentProject.dateInitialization}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.permissionDurationLabel' | translate}}:</span> {{currentProject.permissionDuration}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.creation.optionsLabel' | translate}}:</span></p>
+    <p> {{'pages.portfolio.creation.optionsEconomicLabel' | translate}}: {{currentProject.options.eco}}</p>
+    <p> {{'pages.portfolio.creation.optionsWarLabel' | translate}}: {{currentProject.options.war}}</p>
+    <p> {{'pages.portfolio.creation.optionsLogisticLabel' | translate}}: {{currentProject.options.log}}</p>
+    <p> {{'pages.portfolio.creation.optionsSocialLabel' | translate}}: {{currentProject.options.soc}}</p>
+    <p> {{'pages.portfolio.creation.optionsSctructureLabel' | translate}}: {{currentProject.options.struc}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.creation.addressStartLabel' | translate}}:</span> {{currentProject.addressStart}}</p>
+    <p> <span class="bold">{{'pages.portfolio.creation.addressEndLabel' | translate}}:</span> {{currentProject.addressEnd}}</p>
+    <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.creation.descriptionLabel' | translate}}:</span> {{currentProject.des}}</p>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [header]="formDataProject._id ?
+   `${'pages.portfolio.creation.updateDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.creation.updateDialogHeaderLastPart' | translate}` :
+   `${'pages.portfolio.creation.createDialogHeader' | translate}`"
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible.creation"
+  [style]="{ width: '25rem' }">
+  <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
-      <div class="form-container column w-half">
+      <div class="form-container column">
+        <div class="flex flex-col gap-1">
+          <label for="name" class="bold">{{'pages.portfolio.creation.nameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="name"
+            [placeholder]="'pages.portfolio.creation.namePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.nameTolltip' | translate"
+            tooltipPosition="right"
+            name="name"
+            [(ngModel)]="formDataProject.name"
+            #name="ngModel"
+            [invalid]="name.invalid && (name.touched || form.submitted)"
+            required />
+          @if (name.invalid && (name.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.nameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="subinfo" class="bold">{{'pages.portfolio.creation.subinfoLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="subinfo"
+            [placeholder]="'pages.portfolio.creation.subinfoPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.subinfoTolltip' | translate"
+            tooltipPosition="right"
+            name="subinfo"
+            [(ngModel)]="formDataProject.subinfo"
+            #subinfo="ngModel"
+            [invalid]="subinfo.invalid && (subinfo.touched || form.submitted)"
+            required />
+          @if (subinfo.invalid && (subinfo.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.subinfoRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="priority" class="bold">{{'pages.portfolio.creation.priorityLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="priority"
+            [placeholder]="'pages.portfolio.creation.priorityTolltip' | translate"
+            [pTooltip]="'pages.portfolio.creation.priorityTolltip' | translate"
+            tooltipPosition="right"
+            name="priority"
+            mode="currency"
+            currency="USD"
+            [(ngModel)]="formDataProject.priority"
+            #priority="ngModel"
+            [invalid]="priority.invalid && (priority.touched || form.submitted)"
+            required
+            [minFractionDigits]="2" />
+          @if (priority.invalid && (priority.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.priorityRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="type" class="bold">{{'pages.portfolio.creation.typeLabel' | translate}}</label>
+          <p-select
+            inputId="type"
+            [options]="items"
+            [(ngModel)]="formDataProject.type"
+            #type="ngModel"
+            [placeholder]="'pages.portfolio.creation.typeTolltip' | translate"
+            [pTooltip]="'pages.portfolio.creation.typeTolltip' | translate"
+            tooltipPosition="right"
+            class="w-full md:w-56" />
+          @if (type.invalid && (type.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.typeRequired' | translate}}</p-message>
+          }
+        </div>
+        <p-divider />
+        <div class="flex flex-col gap-1">
+          <label for="profit" class="bold">{{'pages.portfolio.creation.profitLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="profit"
+            [pTooltip]="'pages.portfolio.creation.profitTolltip' | translate"
+            tooltipPosition="right"
+            name="profit"
+            mode="currency"
+            currency="USD"
+            [(ngModel)]="formDataProject.profit"
+            #profit="ngModel"
+            [invalid]="profit.invalid && (profit.touched || form.submitted)"
+            required
+            [minFractionDigits]="2" />
+          @if (profit.invalid && (profit.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.profitRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="budget" class="bold">{{'pages.portfolio.creation.budgetLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="budget"
+            [pTooltip]="'pages.portfolio.creation.budgetTolltip' | translate"
+            tooltipPosition="right"
+            name="budget"
+            mode="currency"
+            currency="USD"
+            [(ngModel)]="formDataProject.budget"
+            #budget="ngModel"
+            [invalid]="budget.invalid && (budget.touched || form.submitted)"
+            required
+            [minFractionDigits]="2" />
+          @if (budget.invalid && (budget.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.budgetRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="budgetSource" class="bold">{{'pages.portfolio.creation.budgetSourceLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="budgetSource"
+            [placeholder]="'pages.portfolio.creation.budgetSourcePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.budgetSourceTolltip' | translate"
+            tooltipPosition="right"
+            name="budgetSource"
+            [(ngModel)]="formDataProject.budgetSource"
+            #budgetSource="ngModel"
+            [invalid]="budgetSource.invalid && (budgetSource.touched || form.submitted)"
+            required />
+          @if (budgetSource.invalid && (budgetSource.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.budgetSourceRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="processDuration" class="bold">{{'pages.portfolio.creation.processDurationLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="processDuration"
+            [pTooltip]="'pages.portfolio.creation.processDurationTolltip' | translate"
+            tooltipPosition="right"
+            name="processDuration"
+            [(ngModel)]="formDataProject.processDuration"
+            #processDuration="ngModel"
+            [invalid]="processDuration.invalid && (processDuration.touched || form.submitted)"
+            [suffix]="'pages.portfolio.creation.processDurationSuffix' | translate"
+            required
+            [minFractionDigits]="0" />
+          @if (processDuration.invalid && (processDuration.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.processDurationRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="traffic" class="bold">{{'pages.portfolio.creation.trafficLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="traffic"
+            [pTooltip]="'pages.portfolio.creation.trafficTolltip' | translate"
+            tooltipPosition="right"
+            name="traffic"
+            [(ngModel)]="formDataProject.traffic"
+            #traffic="ngModel"
+            [invalid]="traffic.invalid && (traffic.touched || form.submitted)"
+            [suffix]="'pages.portfolio.creation.trafficSuffix' | translate"
+            required
+            [minFractionDigits]="0" />
+          @if (traffic.invalid && (traffic.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.trafficRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="roadCode" class="bold">{{'pages.portfolio.creation.roadCodeLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="roadCode"
+            [pTooltip]="'pages.portfolio.creation.roadCodeTolltip' | translate"
+            tooltipPosition="right"
+            name="roadCode"
+            [(ngModel)]="formDataProject.roadCode"
+            #roadCode="ngModel"
+            [invalid]="roadCode.invalid && (roadCode.touched || form.submitted)"
+            required
+            [minFractionDigits]="0" />
+          @if (roadCode.invalid && (roadCode.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.roadCodeRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="distance" class="bold">{{'pages.portfolio.creation.distanceLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="distance"
+            [pTooltip]="'pages.portfolio.creation.distanceTolltip' | translate"
+            tooltipPosition="right"
+            name="distance"
+            [(ngModel)]="formDataProject.distance"
+            #distance="ngModel"
+            [invalid]="distance.invalid && (distance.touched || form.submitted)"
+            [suffix]="'pages.portfolio.creation.distanceSuffix' | translate"
+            required
+            [minFractionDigits]="0" />
+          @if (distance.invalid && (distance.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.distanceRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <p-divider />
         <div class="form-group w-300">
-          <label for="name">Name</label>
-          <input pInputText id="name" placeholder="Name" [(ngModel)]="formData.name" />
+          <p-checkbox
+            inputId="mainRoad"
+            [pTooltip]="'pages.portfolio.creation.mainRoadTolltip' | translate"
+            tooltipPosition="right"
+            name="mainRoad"
+            value="Is that main road"
+            [(ngModel)]="formDataProject.mainRoad" />
+          <label for="intown" class="bold">{{'pages.portfolio.creation.mainRoadLabel' | translate}}?</label>
         </div>
         <div class="form-group w-300">
-          <label for="subinfo">Subinfo</label>
-          <input pInputText id="subinfo" placeholder="Subinfo" [(ngModel)]="formData.subinfo" />
+          <p-checkbox
+            inputId="town"
+            [pTooltip]="'pages.portfolio.creation.inTownTolltip' | translate"
+            tooltipPosition="right"
+            name="intown"
+            value="Is that in town"
+            [(ngModel)]="formDataProject.inTown" />
+          <label for="town" class="bold">{{'pages.portfolio.creation.inTownLabel' | translate}}?</label>
         </div>
-        <div class="form-group w-300">
-          <label for="budget">Budget</label>
-          <input pInputText id="budget" placeholder="Budget" [(ngModel)]="formData.budget" />
+        @if (formDataProject.inTown) {
+          <div class="flex flex-col gap-1">
+            <label for="town" class="bold">{{'pages.portfolio.creation.townLabel' | translate}}?</label>
+            <input
+              pInputText
+              type="text"
+              id="town"
+              [placeholder]="'pages.portfolio.creation.townPlaceholder' | translate"
+              [pTooltip]="'pages.portfolio.creation.townTolltip' | translate"
+              tooltipPosition="right"
+              name="town"
+              [(ngModel)]="formDataProject.town"
+              #town="ngModel"
+              [invalid]="town.invalid && (town.touched || form.submitted)"
+              required />
+            @if (town.invalid && (town.touched || form.submitted)) {
+              <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.townRequired' | translate}}</p-message>
+            }
+          </div>
+        }
+        <p-divider />
+        <div class="flex flex-col gap-1">
+          <label for="addressStart" class="bold">{{'pages.portfolio.creation.addressStartLabel' | translate}}</label>
+          <textarea
+            pTextarea
+            type="text"
+            id="addressStart"
+            [placeholder]="'pages.portfolio.creation.addressStartPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.addressStartTolltip' | translate"
+            tooltipPosition="right"
+            name="addressStart"
+            [(ngModel)]="formDataProject.addressStart"
+            #addressStart="ngModel"
+            [invalid]="addressStart.invalid && (addressStart.touched || form.submitted)"
+            required>
+          </textarea>
+          @if (addressStart.invalid && (addressStart.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.addressStartRequired' | translate}}
+            </p-message>
+          }
         </div>
-        <div class="form-group w-300">
-          <label for="duration">Duration</label>
-          <input pInputText id="duration" placeholder="Duration" [(ngModel)]="formData.duration" />
+        <div class="flex flex-col gap-1">
+          <label for="addressEnd" class="bold">{{'pages.portfolio.creation.addressEndLabel' | translate}}</label>
+          <textarea
+            pTextarea
+            type="text"
+            id="addressEnd"
+            [placeholder]="'pages.portfolio.creation.addressEndPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.addressEndTolltip' | translate"
+            tooltipPosition="right"
+            name="addressEnd"
+            [(ngModel)]="formDataProject.addressEnd"
+            #addressEnd="ngModel"
+            [invalid]="addressEnd.invalid && (addressEnd.touched || form.submitted)"
+            required>
+          </textarea>
+          @if (addressEnd.invalid && (addressEnd.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.addressEndRequired' | translate}}
+            </p-message>
+          }
         </div>
-        <!-- <div class="form-group w-300">
-          <p-checkbox inputId="mainRoad" name="mainRoad" value="Is that main road" [(ngModel)]="formData.mainRoad" />
-          <label for="mainRoad">Is that main road</label>
-        </div> -->
-        <!-- <div class="form-group w-300">
-          <p-checkbox inputId="town" name="town" value="Is that in town" [(ngModel)]="formData.inTown" />
-          <label for="town">Is that in town</label>
-        </div> -->
-        <div class="form-group w-300">
-          <label for="des">Description</label>
-          <textarea id="des" placeholder="des" [(ngModel)]="formData.des" ></textarea>
+        <div class="flex flex-col gap-1">
+          <label for="des" class="bold">{{'pages.portfolio.creation.descriptionLabel' | translate}}</label>
+          <textarea
+            pTextarea
+            type="text"
+            id="description"
+            [placeholder]="'pages.portfolio.creation.descriptionPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.descriptionTolltip' | translate"
+            tooltipPosition="right"
+            name="description"
+            [(ngModel)]="formDataProject.des"
+            #description="ngModel"
+            [invalid]="description.invalid && (description.touched || form.submitted)"
+            required>
+          </textarea>
+          @if (description.invalid && (description.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.descriptionRequired' | translate}}
+            </p-message>
+          }
         </div>
-        <!-- Map minimize select? -->
+        <p-divider />
+        <div class="flex flex-col gap-1">
+          <label for="dateCreation" class="bold">{{'pages.portfolio.creation.dateCreationLabel' | translate}}</label>
+          <p-datepicker
+            inputId="dateCreation"
+            [placeholder]="'pages.portfolio.creation.dateCreationPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.dateCreationTolltip' | translate"
+            tooltipPosition="right"
+            [(ngModel)]="formDataProject.dateCreation"
+            #dateCreation="ngModel"
+            [invalid]="dateCreation.invalid && (dateCreation.touched || form.submitted)"
+            required
+            [(ngModel)]="dateCreation" />
+          @if (dateCreation.invalid && (dateCreation.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.dateCreationRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="dateInitialization" class="bold">{{'pages.portfolio.creation.dateInitializationLabel' | translate}}</label>
+          <p-datepicker
+            inputId="dateInitialization"
+            [placeholder]="'pages.portfolio.creation.dateInitializationPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.creation.dateInitializationTolltip' | translate"
+            tooltipPosition="right"
+            [(ngModel)]="formDataProject.dateInitialization"
+            #dateInitialization="ngModel"
+            [invalid]="dateInitialization.invalid && (dateInitialization.touched || form.submitted)"
+            required
+            [(ngModel)]="dateInitialization" />
+          @if (dateInitialization.invalid && (dateInitialization.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.dateInitializationRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="permissionDuration" class="bold">{{'pages.portfolio.creation.permissionDurationLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="permissionDuration"
+            [pTooltip]="'pages.portfolio.creation.permissionDurationTolltip' | translate"
+            tooltipPosition="right"
+            name="permissionDuration"
+            [(ngModel)]="formDataProject.permissionDuration"
+            #permissionDuration="ngModel"
+            [invalid]="permissionDuration.invalid && (permissionDuration.touched || form.submitted)"
+            [suffix]="'pages.portfolio.creation.permissionDurationSuffix' | translate"
+            required
+            [minFractionDigits]="0" />
+          @if (permissionDuration.invalid && (permissionDuration.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.permissionDurationRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="priority" class="bold">{{'pages.portfolio.creation.priorityLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="priority"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.portfolio.creation.priorityTolltip' | translate"
+            tooltipPosition="right"
+            name="priority"
+            [(ngModel)]="formDataProject.priority"
+            #priority="ngModel"
+            [invalid]="priority.invalid && (priority.touched || form.submitted)"
+            [suffix]="'pages.portfolio.creation.prioritySuffix' | translate"
+            required
+            [min]="1"
+            [max]="10"
+            [step]="1"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (priority.invalid && (priority.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.priorityRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <!-- TODO: Map minimize select? -->
       </div>
       <div>
-        <p-button label="Save" [outlined]="true" severity="success" (click)="showDialogProjects(false)" />
-        <p-button label="Cancel" [text]="true" severity="danger" (click)="showDialogProjects(false)" />
+        <p-button
+          [label]="'pages.portfolio.creation.saveTolltip' | translate"
+          [pTooltip]="'pages.portfolio.creation.saveButtonTooltip' | translate"
+          [outlined]="true"
+          severity="success"
+          (click)="formData.id ? updateProject(formData.id, form): createProject(form)" />
+        <p-button
+          label="Cancel"
+          [label]="'pages.portfolio.creation.cancelTolltip' | translate"
+          [pTooltip]="'pages.portfolio.creation.cancelButtonTooltip' | translate"
+          [text]="true"
+          severity="danger"
+          (click)="showDialogProjects(false)" />
       </div>
     </div>
-  </div>
+  </form>
 </p-dialog>

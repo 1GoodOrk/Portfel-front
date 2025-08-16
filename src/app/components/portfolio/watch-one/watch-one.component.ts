@@ -10,6 +10,7 @@ import { CardModule } from 'primeng/card';
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
+import { IPortfolioDataRO } from '@port/interfaces';
 
 @Component({
   selector: 'app-watch-one',
@@ -27,15 +28,21 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
   styleUrl: './watch-one.component.scss'
 })
 export class WatchOneComponent {
-  public data = {
+  public data: IPortfolioDataRO = {
+    _id: '',
     name: '',
     img: '',
     des: '',
     projects: 0,
-    projectIds: [{ name: '', subinfo: '' }],
+    projectIds: {
+      tierI: [],
+      tierII: [],
+      tierIII: []
+    },
+    subinfo: '',
     budget: 0,
+    profit: 0,
     duration: 0,
-    workAmount: 0,
     location: '',
     town: '',
     options: {

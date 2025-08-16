@@ -3,9 +3,11 @@ export interface IProjectData {
   name: string;
   subinfo: string;
   type: string;
-  budgetSource: number;
+  budget: number;
+  budgetSource: string;
   processDuration: number;
   profit: number;
+  traffic: number;
   road: number;
   distance: number;
   mainRoad: boolean;
@@ -15,17 +17,20 @@ export interface IProjectData {
   addressEnd: string;
   des: string;
   img: string;
-  portfolioId: string;
+  portfolioId?: {
+    tier: number;
+    _id: string;
+  };
   dateCreation: string;
   dateInitialization: string;
-  permissionDuration: string;
+  permissionDuration: number;
   score: number;
   priority: number;
   options: {
     eco: number;
     war: number;
     log: number;
-    doc: number;
+    soc: number;
     struc: number;
   }
 }

@@ -14,12 +14,16 @@ import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule  } from 'primeng/message';
+import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
 
 import { HttpService } from '@port/services/http.service';
+import { SortingService } from '@port/services/sorting.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
+import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
 
 @Component({
   selector: 'app-main',
@@ -37,6 +41,8 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
     TooltipModule,
     DividerModule,
     MessageModule,
+    SelectModule,
+    DatePickerModule,
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
@@ -46,159 +52,67 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  public projectsList: any = []
-  public projects: any = [
-    {
-      id: 1,
-      name: 'Test 1',
-      subinfo: 'Road 3 wdad',
-      budget: 1000000,
-      duration: 60,
-      road: 14,
-      inTown: false,
-      mainRoad: false,
-      addressStart: '',
-      addressEnd: '',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    },
-    {
-      id: 2,
-      name: 'Test 2',
-      subinfo: 'Road 3 wdad',
-      budget: 1000000,
-      duration: 60,
-      road: 14,
-      inTown: false,
-      mainRoad: false,
-      addressStart: '',
-      addressEnd: '',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    },
-    {
-      id: 3,
-      name: 'Test 3',
-      subinfo: 'Road 3 wdad',
-      budget: 1000000,
-      duration: 60,
-      road: 14,
-      inTown: false,
-      mainRoad: false,
-      addressStart: '',
-      addressEnd: '',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    },
-    {
-      id: 4,
-      name: 'Test 4',
-      subinfo: 'Road 3 wdad',
-      budget: 1000000,
-      duration: 60,
-      road: 14,
-      inTown: false,
-      mainRoad: false,
-      addressStart: '',
-      addressEnd: '',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    }
-  ]
-  public portfoliosList: any = []
-  public portfolios: any = [
-    {
-      id: 1,
-      name: 'Test 1',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      projects: 14,
-      projectIds: [1, 3],
-      budget: 1000000,
-      duration: 60,
-      workAmount: 15,
-      location: 'inside',
-      town: 'Полтава',
-      options: {
-        eco: 3,
-        war: 5,
-        log: 9,
-        soc: 5,
-        struc: 2
-      }
-    },
-    {
-      id: 2,
-      name: 'Test 2',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      projects: 14,
-      projectIds: [1, 4],
-      budget: 1000000,
-      duration: 60,
-      workAmount: 15,
-      location: 'inside',
-      town: 'Полтава',
-      options: {
-        eco: 3,
-        war: 5,
-        log: 9,
-        soc: 5,
-        struc: 2
-      }
-    },
-    {
-      id: 2,
-      name: 'Test 3',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      projects: 14,
-      projectIds: [2, 3],
-      budget: 1000000,
-      duration: 60,
-      workAmount: 15,
-      location: 'inside',
-      town: 'Полтава',
-      options: {
-        eco: 3,
-        war: 5,
-        log: 9,
-        soc: 5,
-        struc: 2
-      }
-    }
-  ]
+  public projectsList: Array<IProjectData> = []
+  public projects: Array<IProjectData> = []
+  public portfoliosList: Array<IPortfolioDataRO> = []
+  public portfolios: Array<IPortfolioDataRO> = []
 
   public formData: any = {
     name: '',
+    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    des: '',
+    projects: 0,
+    projectIds: {
+      tierI: [],
+      tierII: [],
+      tierIII: []
+    },
     subinfo: '',
     budget: 0,
+    profit: 0,
     duration: 0,
-    road: 0,
-    mainRoad: false,
-    inTown: false,
+    location: '',
     town: '',
-    addressStart: '',
-    addressEnd: '',
-    des: '',
-    img: '',
+    options: {
+      eco: 0,
+      war: 0,
+      log: 0,
+      soc: 0,
+      struc: 0
+    }
   }
-  public currentProject: any = {
+  public currentProject: IProjectData = {
+    _id: '',
     name: '',
     subinfo: '',
+    type: '',
     budget: 0,
-    duration: 0,
+    budgetSource: '',
+    processDuration: 0,
+    profit: 0,
+    traffic: 0,
     road: 0,
+    distance: 0,
     mainRoad: false,
     inTown: false,
     town: '',
     addressStart: '',
     addressEnd: '',
     des: '',
-    img: '',
+    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    dateCreation: '',
+    dateInitialization: '',
+    permissionDuration: 0,
+    score: 0,
+    priority: 0,
+    options: {
+      eco: 0,
+      war: 0,
+      log: 0,
+      soc: 0,
+      struc: 0
+    }
   }
-  // public visible: boolean = false
-  // public visibleProjectInfo: boolean = false
   public visible: any = {
     creation: false,
     info: false
@@ -211,14 +125,29 @@ export class MainComponent {
     portfolio: {},
     project: {}
   }
+
+  public items = [
+    { label: 'Bridge', value: 'bridge' },
+    { label: 'Fixing', value: 'fix' },
+    { label: 'Build', value: 'build' },
+    { label: 'Overpass', value: 'overpass' },
+    { label: 'Tunnel', value: 'tunnel' },
+    { label: 'Detour', value: 'detour' },
+    { label: 'Cong', value: 'cong' },
+    { label: 'Digitalization', value: 'digitalization' },
+  ]
+
   constructor (
     private router: Router,
+    private sortingService: SortingService,
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
     // TODO: recomment after server connection
     // this.getAllPortfolios()
     // this.getAllProjects()
+    this.portfolios = Array.from(this.sortingService.testPortfolios)
+    this.projects = Array.from(this.sortingService.testProjects)
     this.portfoliosList = Array.from(this.portfolios)
     this.projectsList = Array.from(this.projects)
   }
@@ -267,33 +196,57 @@ export class MainComponent {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public showInfoPortfolio(data: any) {
+  public showInfoPortfolio(data: IPortfolioDataRO) {
     this.appCommunicationService.currentPortfolio = data
-    this.appCommunicationService.currentPortfolio.projectIds = this.appCommunicationService.currentPortfolio.projectIds
-      .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
-    this.navigate(`portfolio/port-${data.id}`)
+    Object.keys(this.appCommunicationService.currentPortfolio.projectIds).forEach((key: string) => {
+      // TODO: type error
+      // @ts-expect-error
+      this.appCommunicationService.currentPortfolio.projectIds[key] = this.appCommunicationService.currentPortfolio.projectIds[key]
+        .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
+    })
+    this.navigate(`portfolio/port-${data._id}`)
   }
 
   public showInfoProjectDialog(id?: string): void {
     if (id) {
       const index = this.projects.findIndex((el: any) => el.id === id)
       Object.keys(this.projects[index]).forEach((key: string) => {
+        // TODO: type error
+        // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
     } else {
       this.currentProject = {
+        _id: '',
         name: '',
         subinfo: '',
+        type: '',
         budget: 0,
-        duration: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
         road: 0,
+        distance: 0,
         mainRoad: false,
         inTown: false,
         town: '',
         addressStart: '',
         addressEnd: '',
         des: '',
-        img: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
       }
     }
     this.visible.info = !this.visible.info
@@ -306,22 +259,42 @@ export class MainComponent {
     if (id) {
       const index = this.projects.findIndex((el: any) => el.id === id)
       Object.keys(this.projects[index]).forEach((key: string) => {
+        // TODO: type error
+        // @ts-expect-error
         this.formData[key] = this.projects[index][key]
       })
     } else {
       this.formData = {
+        _id: '',
         name: '',
         subinfo: '',
+        type: '',
         budget: 0,
-        duration: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
         road: 0,
+        distance: 0,
         mainRoad: false,
         inTown: false,
         town: '',
         addressStart: '',
         addressEnd: '',
         des: '',
-        img: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
       }
     }
     this.visible.creation = mode === undefined ? !this.visible.creation : mode
@@ -336,18 +309,36 @@ export class MainComponent {
       this.visible.creation = false
       this.httpService.updateProject(id, this.formData);
       this.formData = {
+        _id: '',
         name: '',
         subinfo: '',
+        type: '',
         budget: 0,
-        duration: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
         road: 0,
+        distance: 0,
         mainRoad: false,
         inTown: false,
         town: '',
         addressStart: '',
         addressEnd: '',
         des: '',
-        img: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
       }
     }
   }
@@ -357,18 +348,36 @@ export class MainComponent {
       this.visible = false
       this.httpService.createProject(this.formData);
       this.formData = {
+        _id: '',
         name: '',
         subinfo: '',
+        type: '',
         budget: 0,
-        duration: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
         road: 0,
+        distance: 0,
         mainRoad: false,
         inTown: false,
         town: '',
         addressStart: '',
         addressEnd: '',
         des: '',
-        img: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
       }
     }
   }
@@ -381,8 +390,12 @@ export class MainComponent {
   public updatePortfolio (data: any, event: any) {
     event.stopPropagation()
     this.appCommunicationService.currentPortfolio = data
-    this.appCommunicationService.currentPortfolio.projectIds = this.appCommunicationService.currentPortfolio.projectIds
-      .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
+    Object.keys(this.appCommunicationService.currentPortfolio.projectIds).forEach((key: string) => {
+      // TODO: type error
+      // @ts-expect-error
+      this.appCommunicationService.currentPortfolio.projectIds[key] = this.appCommunicationService.currentPortfolio.projectIds[key]
+        .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
+    })
     this.navigate('cportfolio')
   }
 

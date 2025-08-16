@@ -13,15 +13,19 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { StepperModule } from 'primeng/stepper';
 import { TextareaModule } from 'primeng/textarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
-import { TreeModule } from 'primeng/tree';
+import { DatePickerModule } from 'primeng/datepicker';
 
 import { HttpService } from '@port/services/http.service';
+import { SortingService } from '@port/services/sorting.service';
+import { IProjectData, IPortfolioDataRO } from '@port/interfaces';
+import { AppCommunicationService } from '@port/services/app-communication.service';
 
 @Component({
   selector: 'app-create',
@@ -43,114 +47,17 @@ import { HttpService } from '@port/services/http.service';
     TranslatePipe,
     StepperModule,
     RadioButtonModule,
+    MultiSelectModule,
     DividerModule,
     DialogModule,
-    TreeModule
+    DatePickerModule
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
 export class CreateComponent {
-  public data = {
-    name: 'Test',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-    des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-    projects: 14,
-    budget: 1000000,
-    duration: 60,
-    workAmount: 15,
-    location: 'inside',
-    town: 'Полтава',
-    options: {
-      eco: 3,
-      war: 5,
-      log: 9,
-      soc: 5,
-      struc: 2
-    }
-  }
-  public projects: any = [
-    {
-      name: 'Test',
-      subinfo: 'Road 3 wdad',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      budget: 1000000,
-      duration: 60,
-      mainRoad: false,
-      road: 16,
-      addressStart: '',
-      addressEnd: '',
-      options: {
-        eco: 34,
-        war: 55,
-        log: 93,
-        soc: 55,
-        struc: 20
-      },
-      inTown: false,
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    },
-    {
-      name: 'Test',
-      subinfo: 'Road 3 wdad',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      budget: 1000000,
-      duration: 60,
-      mainRoad: false,
-      road: 15,
-      addressStart: '',
-      addressEnd: '',
-      options: {
-        eco: 20,
-        war: 11,
-        log: 47,
-        soc: 15,
-        struc: 20
-      },
-      inTown: false,
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    },
-    {
-      name: 'Test',
-      subinfo: 'Road 3 wdad',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      budget: 1000000,
-      duration: 60,
-      mainRoad: false,
-      road: 14,
-      addressStart: '',
-      addressEnd: '',
-      options: {
-        eco: 90,
-        war: 90,
-        log: 0,
-        soc: 0,
-        struc: 0
-      },
-      inTown: false,
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    },
-    {
-      name: 'Test',
-      subinfo: 'Road 3 wdad',
-      des: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
-      budget: 1000000,
-      duration: 60,
-      mainRoad: false,
-      road: 14,
-      addressStart: '',
-      addressEnd: '',
-      options: {
-        eco: 0,
-        war: 50,
-        log: 50,
-        soc: 0,
-        struc: 0
-      },
-      inTown: false,
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg'
-    }
-  ]
+  public data: IPortfolioDataRO
+  public projects: Array<IProjectData> = []
   public formData: any = {
     name: '',
     subinfo: '',
@@ -161,37 +68,109 @@ export class CreateComponent {
     inTown: false,
     img: '',
   }
-  nodes = [
-    {
-      key: '0',
-      label: 'Introduction',
-      children: [
-        { key: '0-0', label: 'What is Angular', data: 'https://angular.io', type: 'url' },
-        { key: '0-1', label: 'Getting Started', data: 'https://angular.io/guide/setup-local', type: 'url' },
-        { key: '0-2', label: 'Learn and Explore', data: 'https://angular.io/guide/architecture', type: 'url' },
-        { key: '0-3', label: 'Take a Look', data: 'https://angular.io/start', type: 'url' }
-      ]
-    },
-    {
-      key: '1',
-      label: 'Components In-Depth',
-      children: [
-        { key: '1-0', label: 'Component Registration', data: 'https://angular.io/guide/component-interaction', type: 'url' },
-        { key: '1-1', label: 'User Input', data: 'https://angular.io/guide/user-input', type: 'url' },
-        { key: '1-2', label: 'Hooks', data: 'https://angular.io/guide/lifecycle-hooks', type: 'url' },
-        { key: '1-3', label: 'Attribute Directives', data: 'https://angular.io/guide/attribute-directives', type: 'url' }
-      ]
-    }
-];
-  public projectsUnselected: any = []
-  public projectsSelected: any = []
-  public visible: boolean = false
+  public filterOptions = {
+    type: '',
+    profit: '',
+    projectsAmount: -1,
+    priority: 0,
+    score: 0
+  };
+  public filterItems = {
+    type: [
+      { label: 'Bridge', value: 'bridge' },
+      { label: 'Fixing', value: 'fix' },
+      { label: 'Build', value: 'build' },
+      { label: 'Overpass', value: 'overpass' },
+      { label: 'Tunnel', value: 'tunnel' },
+      { label: 'Detour', value: 'detour' },
+      { label: 'Cong', value: 'cong' },
+      { label: 'Digitalization', value: 'digitalization' },
+    ],
+  }
+  public items = [
+    { label: 'Bridge', value: 'bridge' },
+    { label: 'Fixing', value: 'fix' },
+    { label: 'Build', value: 'build' },
+    { label: 'Overpass', value: 'overpass' },
+    { label: 'Tunnel', value: 'tunnel' },
+    { label: 'Detour', value: 'detour' },
+    { label: 'Cong', value: 'cong' },
+    { label: 'Digitalization', value: 'digitalization' },
+  ]
+  public selectedSorting: string = '';
+  public projectsUnselected: Array<IProjectData> = []
+  public projectsSelected: Array<IProjectData> = []
   public showSpinner: boolean = false
+  public visible: any = {
+    creation: false,
+    info: false
+  }
+
+  public formDataProject: any = {
+    name: '',
+    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    des: '',
+    projects: 0,
+    projectIds: {
+      tierI: [],
+      tierII: [],
+      tierIII: []
+    },
+    subinfo: '',
+    budget: 0,
+    profit: 0,
+    duration: 0,
+    location: '',
+    town: '',
+    options: {
+      eco: 0,
+      war: 0,
+      log: 0,
+      soc: 0,
+      struc: 0
+    }
+  }
+  public currentProject: IProjectData = {
+    _id: '',
+    name: '',
+    subinfo: '',
+    type: '',
+    budget: 0,
+    budgetSource: '',
+    processDuration: 0,
+    profit: 0,
+    traffic: 0,
+    road: 0,
+    distance: 0,
+    mainRoad: false,
+    inTown: false,
+    town: '',
+    addressStart: '',
+    addressEnd: '',
+    des: '',
+    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    dateCreation: '',
+    dateInitialization: '',
+    permissionDuration: 0,
+    score: 0,
+    priority: 0,
+    options: {
+      eco: 0,
+      war: 0,
+      log: 0,
+      soc: 0,
+      struc: 0
+    }
+  }
 
   constructor(
     private router: Router,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private sortingService: SortingService,
+    private appCommunicationService: AppCommunicationService
   ) {
+    this.projects = Array.from(this.sortingService.testProjects)
+    this.data = Object.assign(this.sortingService.testPortfolios[0])
     this.projectsUnselected = Array.from(this.projects)
   }
 
@@ -199,12 +178,9 @@ export class CreateComponent {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public onSubmit(): void {
-    this.showSpinner = true
-    // this.httpService.createPortfolio(this.data)
-    //   .subscribe(() => {
-    //     this.showSpinner = false
-    //   })
+  public watchPortfolio(): void {
+    this.appCommunicationService.currentPortfolio = Object.assign(this.data)
+    this.navigate('confirmation')
   }
 
   public select(index: number): void {
@@ -214,17 +190,210 @@ export class CreateComponent {
   public unselect(index: number): void {
     this.projectsUnselected.push(this.projectsSelected[index])
     this.projectsSelected.splice(index, 1)
+  }
+  public selectSorting(type: string): void {
+    this.projectsSelected = []
+    this.projectsUnselected = Array.from(this.projects)
+    if (type === 'Cancel') {
+      this.selectedSorting = ''
+    } else {
+      this.selectedSorting = type
+      this.projectsSelected = this.sortingService.sortingSystem(Array.from(this.projectsUnselected), type)
+      if (this.filterOptions.projectsAmount > -1) {
+        this.projectsUnselected = this.projectsSelected.splice(this.filterOptions.projectsAmount - 1)
+      } else {
+        this.projectsUnselected = []
+      }
+    }
+  }
 
+  public checkSortingType(type: string): boolean {
+    return this.selectedSorting === type
   }
 
   public updateProjects(id: string): void {
     this.httpService.updateProject(id, {});
   }
-  public showDialogProjects(mode?: boolean) {
-    this.visible = mode === undefined ? !this.visible : mode
-  }
-  public removeProjects(id: string) {
+  public removeProjects(id: string, event: any) {
+    event.stopPropagation()
     this.httpService.removeProject(id);
+  }
+
+  public tiersFiltering(): void {
+    this.data = this.sortingService.tierFormatting(this.projectsSelected, this.data)
+  }
+
+  public showInfoProjectDialog(_id?: string, event?: any): void {
+    if (event) {
+      event.stopPropagation()
+    }
+    if (_id) {
+      const index = this.projects.findIndex((el: any) => el._id === _id)
+      Object.keys(this.projects[index]).forEach((key: string) => {
+        // TODO: type error
+        // @ts-expect-error
+        this.currentProject[key] = this.projects[index][key]
+      })
+    } else {
+      this.currentProject = {
+        _id: '',
+        name: '',
+        subinfo: '',
+        type: '',
+        budget: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
+        road: 0,
+        distance: 0,
+        mainRoad: false,
+        inTown: false,
+        town: '',
+        addressStart: '',
+        addressEnd: '',
+        des: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
+      }
+    }
+    this.visible.info = !this.visible.info
+  }
+
+  public showDialogProjects(mode?: boolean, _id?: string, event?: any) {
+    if (event) {
+      event.stopPropagation()
+    }
+    if (_id) {
+      const index = this.projects.findIndex((el: any) => el._id === _id)
+      Object.keys(this.projects[index]).forEach((key: string) => {
+        // TODO: type error
+        // @ts-expect-error
+        this.formData[key] = this.projects[index][key]
+      })
+    } else {
+      this.formData = {
+        _id: '',
+        name: '',
+        subinfo: '',
+        type: '',
+        budget: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
+        road: 0,
+        distance: 0,
+        mainRoad: false,
+        inTown: false,
+        town: '',
+        addressStart: '',
+        addressEnd: '',
+        des: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
+      }
+    }
+    this.visible.creation = mode === undefined ? !this.visible.creation : mode
+  }
+  public updateProject(_id: string, form: any) {
+    if (form.valid) {
+      this.visible.creation = false
+      this.httpService.updateProject(_id, this.formData);
+      this.formData = {
+        _id: '',
+        name: '',
+        subinfo: '',
+        type: '',
+        budget: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
+        road: 0,
+        distance: 0,
+        mainRoad: false,
+        inTown: false,
+        town: '',
+        addressStart: '',
+        addressEnd: '',
+        des: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
+      }
+    }
+  }
+
+  public createProject(form: any) {
+    if (form.valid) {
+      this.visible = false
+      this.httpService.createProject(this.formData);
+      this.formData = {
+        _id: '',
+        name: '',
+        subinfo: '',
+        type: '',
+        budget: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
+        road: 0,
+        distance: 0,
+        mainRoad: false,
+        inTown: false,
+        town: '',
+        addressStart: '',
+        addressEnd: '',
+        des: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
+      }
+    }
   }
 
 }

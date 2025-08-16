@@ -12,6 +12,7 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
+import { IPortfolioDataRO } from '@port/interfaces';
 
 @Component({
   selector: 'app-confirmation',
@@ -29,15 +30,21 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
   styleUrl: './confirmation.component.scss'
 })
 export class ConfirmationComponent {
-  public data = {
+  public data: IPortfolioDataRO = {
+    _id: '',
     name: '',
     img: '',
     des: '',
     projects: 0,
-    projectIds: [{ name: '', subinfo: '' }],
+    projectIds: {
+      tierI: [],
+      tierII: [],
+      tierIII: []
+    },
+    subinfo: '',
     budget: 0,
+    profit: 0,
     duration: 0,
-    workAmount: 0,
     location: '',
     town: '',
     options: {
@@ -64,9 +71,11 @@ export class ConfirmationComponent {
 
   public createPorfolio(): void {
     this.showSpinner = true
+    this.data.projects = this.data.projectIds.tierI.length + this.data.projectIds.tierII.length + this.data.projectIds.tierIII.length
     this.httpService.createPortfolio(this.data)
       .subscribe(() => {
         this.showSpinner = false
+        this.navigate('main')
       })
   }
 }

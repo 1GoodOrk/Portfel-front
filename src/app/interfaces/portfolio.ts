@@ -1,10 +1,16 @@
+import { IProjectData } from './project';
+
 export interface IPortfolioData {
   _id: string;
   name: string;
   img: string;
   des: string;
   projects: number;
-  projectIds: Array<string>;
+  projectIds: {
+    tierI: Array<IProjectData>;
+    tierII: Array<IProjectData>;
+    tierIII: Array<IProjectData>;
+  };
   subinfo: string;
   budget: number;
   profit: number;
@@ -14,7 +20,7 @@ export interface IPortfolioData {
   optionEco: number;
   optionWar: number;
   optionLog: number;
-  optionDoc: number;
+  optionSoc: number;
   optionStruc: number;
 }
 
@@ -24,7 +30,11 @@ export interface IPortfolioDataRO {
   img: string;
   des: string;
   projects: number;
-  projectIds: Array<string>;
+  projectIds: {
+    tierI: Array<IProjectData>;
+    tierII: Array<IProjectData>;
+    tierIII: Array<IProjectData>;
+  };
   subinfo: string;
   budget: number;
   profit: number;
@@ -35,7 +45,7 @@ export interface IPortfolioDataRO {
     eco: number;
     war: number;
     log: number;
-    doc: number;
+    soc: number;
     struc: number;
   }
 }

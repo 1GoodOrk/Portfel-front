@@ -7,18 +7,68 @@
     <h1>{{'pages.portfolio.confirmation.title' | translate}}: {{ data.name }}</h1>
     <p-divider />
     <p><span class="bold">{{'pages.portfolio.confirmation.projects' | translate}}</span>: {{ data.projects }}</p>
+    <h2>{{'pages.portfolio.creation.thirdTierIHeader' | translate}}</h2>
     <div legend="Projects" class="container">
-      @for (project of data.projectIds; track $index) {
+      @for (project of data.projectIds.tierI; track $index) {
         <p-card [style]="{ 'width': '200px', 'margin': '10px' }">
-          <ng-template #title>{{'pages.portfolio.confirmation.nameLabel' | translate}}: {{project.name}} </ng-template>
-          <ng-template #subtitle><span class="bold">{{'pages.portfolio.confirmation.subinfoLabel' | translate}}:</span> {{project.subinfo}} </ng-template>
+          <ng-template #title>{{'pages.portfolio.confirmation.projectCardNameLabel' | translate}}: {{project.name}} </ng-template>
+          <ng-template #subtitle>
+            <span class="bold">{{'pages.portfolio.confirmation.projectCardPriorityLabel' | translate}}:</span>
+            <span
+              [style]="{
+                'color': project.priority === 10 ?
+                'red': project.priority > 7 ?
+                'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+            <span class="bold">{{'pages.portfolio.confirmation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+          </ng-template>
         </p-card>
+      } @empty {
+        <p><span class="bold">{{'pages.portfolio.confirmation.noProjectHereTitle' | translate}}</span></p>
+      }
+    </div>
+    <h2>{{'pages.portfolio.creation.thirdTierIIHeader' | translate}}</h2>
+    <div legend="Projects" class="container">
+      @for (project of data.projectIds.tierII; track $index) {
+        <p-card [style]="{ 'width': '200px', 'margin': '10px' }">
+          <ng-template #title>{{'pages.portfolio.confirmation.projectCardNameLabel' | translate}}: {{project.name}} </ng-template>
+          <ng-template #subtitle>
+            <span class="bold">{{'pages.portfolio.confirmation.projectCardPriorityLabel' | translate}}:</span>
+            <span
+              [style]="{
+                'color': project.priority === 10 ?
+                'red': project.priority > 7 ?
+                'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+            <span class="bold">{{'pages.portfolio.confirmation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+          </ng-template>
+        </p-card>
+      } @empty {
+        <p><span class="bold">{{'pages.portfolio.confirmation.noProjectHereTitle' | translate}}</span></p>
+      }
+    </div>
+    <h2>{{'pages.portfolio.creation.thirdTierIIIHeader' | translate}}</h2>
+    <div legend="Projects" class="container">
+      @for (project of data.projectIds.tierIII; track $index) {
+        <p-card [style]="{ 'width': '200px', 'margin': '10px' }">
+          <ng-template #title>{{'pages.portfolio.confirmation.projectCardNameLabel' | translate}}: {{project.name}} </ng-template>
+          <ng-template #subtitle>
+            <span class="bold">{{'pages.portfolio.confirmation.projectCardPriorityLabel' | translate}}:</span>
+            <span
+              [style]="{
+                'color': project.priority === 10 ?
+                'red': project.priority > 7 ?
+                'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
+            <span class="bold">{{'pages.portfolio.confirmation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
+          </ng-template>
+        </p-card>
+      } @empty {
+        <p><span class="bold">{{'pages.portfolio.confirmation.noProjectHereTitle' | translate}}</span></p>
       }
     </div>
     <p-divider />
     <p><span class="bold">{{'pages.portfolio.confirmation.budget' | translate}}: </span>{{ data.budget }} USD</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.profit' | translate}}: </span>{{ data.profit }} USD</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.advantage' | translate}}: </span>{{ data.profit - data.budget }} USD</p>
     <p><span class="bold">{{'pages.portfolio.confirmation.duration' | translate}}: </span>{{ data.duration }} {{'pages.portfolio.confirmation.durationSuffix' | translate}}</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.workAmount' | translate}}: </span>{{ data.workAmount }}</p>
     @if (data.location === "INSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationInside' | translate}}</p>
     } @else if (data.location === "OUTSIDE") {

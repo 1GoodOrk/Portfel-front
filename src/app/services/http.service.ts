@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class HttpService {
 
-  public link: string = 'http://localhost:27182/api/v1'
+  public link: string = 'http://localhost:27182/api'
   constructor(private http: HttpClient) { }
 
   getFile() {
@@ -16,22 +16,23 @@ export class HttpService {
     return this.http.post(`${this.link}/message`, data);
   }
 
+  // TODO: JWT
   login(data: any) {
     return this.http.get(`${this.link}/login`, { headers: {
-      'Auth': JSON.stringify(data)
+      'authorization': JSON.stringify(data)
     }});
   }
   registration(data: any) {
-    return this.http.post(`${this.link}/registration`, data);
+    return this.http.post(`${this.link}/registration`, { data });
   }
   forget(data: any) {
-    return this.http.post(`${this.link}/forget`, data);
+    return this.http.post(`${this.link}/forget`, { data });
   }
   newPassword(data: any) {
-    return this.http.post(`${this.link}/new-password`, data);
+    return this.http.post(`${this.link}/new-password`, { data });
   }
   updateUser(id: null | string, data: any) {
-    return this.http.post(`${this.link}/update/${id}`, data);
+    return this.http.post(`${this.link}/update/${id}`, { data });
   }
 
   getAllProjects(id: string | null) {

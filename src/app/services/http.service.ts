@@ -60,16 +60,16 @@ export class HttpService {
     return this.http.get(`${this.link}/portfolios?user=${id}`);
   }
   getPortfolio(id: string) {
-    return this.http.get(`${this.link}/portfolio/${id}`);
+    return this.http.get(`${this.link}/portfolios/${id}`);
   }
-  createPortfolio(data: any) {
-    return this.http.post(`${this.link}/portfolio`, data);
+  createPortfolio(data: any, token: string) {
+    return this.http.post(`${this.link}/portfolios?token=${token}`, { data });
   }
   updatePortfolio(id: string, data: any) {
-    return this.http.put(`${this.link}/portfolio/${id}`, data);
+    return this.http.put(`${this.link}/portfolios/${id}`, { data });
   }
-  removePortfolio(id: string) {
-    return this.http.delete(`${this.link}/portfolio/${id}`);
+  removePortfolio(id: string, token: string) {
+    return this.http.delete(`${this.link}/portfolios/${id}?token=${token}`);
   }
 
 }

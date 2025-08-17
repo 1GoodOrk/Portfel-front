@@ -519,6 +519,8 @@ export class SortingService {
       averageUpScore: projects[0].score
     }
     projects.forEach((el: IProjectData) => {
+      portfolio.budget += el.budget
+      portfolio.profit += el.profit
       if (el.score > options.maxScore) {
         options.maxScore = el.score
       }

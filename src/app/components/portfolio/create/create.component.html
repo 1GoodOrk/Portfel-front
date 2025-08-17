@@ -69,8 +69,8 @@
                     </p-message>
                   }
                 </div>
-                <p-divider />
-                <div class="flex flex-col gap-1">
+                <!-- <p-divider /> -->
+                <!-- <div class="flex flex-col gap-1">
                   <label for="budget" class="bold">{{'pages.portfolio.creation.budgetPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="budget"
@@ -117,7 +117,7 @@
                       {{'pages.portfolio.creation.profitPRequired' | translate}}
                     </p-message>
                   }
-                </div>
+                </div> -->
                 <div class="flex flex-col gap-1">
                   <label for="duration" class="bold">{{'pages.portfolio.creation.durationPLabel' | translate}}</label>
                   <p-inputnumber
@@ -158,7 +158,7 @@
                     <label for="complex" class="ml-2">{{'pages.portfolio.creation.locationComplexLabel' | translate}}</label>
                   </div>
                 </div>
-                @if (data.location && data.location !== 'COMPLEX') {
+                @if (data.location && data.location !== 'OUTSIDE') {
                   <label for="town" class="bold">{{'pages.portfolio.creation.townPLabel' | translate}}</label>
                   <div class="flex flex-col gap-1">
                     <input
@@ -181,12 +181,12 @@
                 <p-divider />
                 <h1>{{'pages.portfolio.creation.factorsPTitle' | translate}}</h1>
                 <div class="flex flex-col gap-1">
-                  <label for="eco" class="bold">{{'pages.portfolio.creation.ecoPLabel' | translate}}</label>
+                  <label for="eco" class="bold">{{'pages.portfolio.creation.optionsEconomicPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="eco"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.ecoPTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.optionsEconomicPTolltip' | translate"
                     tooltipPosition="right"
                     name="eco"
                     [(ngModel)]="data.options.eco"
@@ -211,17 +211,17 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.ecoPRequired' | translate}}
+                      {{'pages.portfolio.creation.optionsEconomicPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
-                  <label for="war" class="bold">{{'pages.portfolio.creation.warPLabel' | translate}}</label>
+                  <label for="war" class="bold">{{'pages.portfolio.creation.optionsWarPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="war"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.warPTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.optionsWarPTolltip' | translate"
                     tooltipPosition="right"
                     name="war"
                     [(ngModel)]="data.options.war"
@@ -246,17 +246,17 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.warPRequired' | translate}}
+                      {{'pages.portfolio.creation.optionsWarPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
-                  <label for="log" class="bold">{{'pages.portfolio.creation.logPLabel' | translate}}</label>
+                  <label for="log" class="bold">{{'pages.portfolio.creation.optionsLogisticPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="log"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.logPTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.optionsLogisticPTolltip' | translate"
                     tooltipPosition="right"
                     name="log"
                     [(ngModel)]="data.options.log"
@@ -281,17 +281,17 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.logPRequired' | translate}}
+                      {{'pages.portfolio.creation.optionsLogisticPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
-                  <label for="soc" class="bold">{{'pages.portfolio.creation.socPLabel' | translate}}</label>
+                  <label for="soc" class="bold">{{'pages.portfolio.creation.optionsSocialPLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="soc"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.socPTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.optionsSocialPTolltip' | translate"
                     tooltipPosition="right"
                     name="soc"
                     [(ngModel)]="data.options.soc"
@@ -316,17 +316,17 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.socPRequired' | translate}}
+                      {{'pages.portfolio.creation.optionsSocialPRequired' | translate}}
                     </p-message>
                   }
                 </div>
                 <div class="flex flex-col gap-1">
-                  <label for="struc" class="bold">{{'pages.portfolio.creation.strucPLabel' | translate}}</label>
+                  <label for="struc" class="bold">{{'pages.portfolio.creation.optionsSctructurePLabel' | translate}}</label>
                   <p-inputnumber
                     inputId="struc"
                     [showButtons]="true"
                     buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.strucPTolltip' | translate"
+                    [pTooltip]="'pages.portfolio.creation.optionsSctructurePTolltip' | translate"
                     tooltipPosition="right"
                     name="struc"
                     [(ngModel)]="data.options.struc"
@@ -351,7 +351,7 @@
                       size="small"
                       variant="simple"
                     >
-                      {{'pages.portfolio.creation.strucPRequired' | translate}}
+                      {{'pages.portfolio.creation.optionsSctructurePRequired' | translate}}
                     </p-message>
                   }
                 </div>
@@ -653,7 +653,17 @@
         <p-step-panel>
           <ng-template #content let-activateCallback="activateCallback">
             <div class="flex h-48 column">
-              <p><span class="bold">{{'pages.portfolio.creation.advantageLabel' | translate}}:</span> {{data.profit - data.budget}} USD</p>
+              <p><span class="bold">{{'pages.portfolio.creation.budgetLabel' | translate}}:</span> {{data.budget}} USD</p>
+              <p><span class="bold">{{'pages.portfolio.creation.profitLabel' | translate}}:</span> {{data.profit}} USD</p>
+              <p>
+                <span class="bold">{{'pages.portfolio.creation.advantageLabel' | translate}}:</span>
+                <span class="bold"
+                  [style]="{
+                    'color': data.profit - data.budget > 0 ?
+                    'green': data.profit - data.budget < 0 ?
+                    'red' : 'black'
+                  }"> {{data.profit - data.budget}} USD</span>
+              </p>
             </div>
             <div class="flex h-48 column">
               <h1>{{'pages.portfolio.creation.thirdTierIHeader' | translate}}</h1>

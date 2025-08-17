@@ -172,9 +172,7 @@ export class CreateComponent {
     private appCommunicationService: AppCommunicationService
   ) {
     this.getAllProjects()
-    this.data = Object.assign(this.sortingService.testPortfolios[0])
-    // this.projects = Array.from(this.sortingService.testProjects)
-    // this.projectsUnselected = Array.from(this.projects)
+    this.data = Object.assign(this.appCommunicationService.currentPortfolio)
   }
 
   public navigate(path: string) {

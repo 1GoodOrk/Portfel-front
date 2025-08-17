@@ -152,12 +152,10 @@ export class MainComponent {
     private httpService: HttpService
   ) {
     // TODO: recomment after server connection
-    // this.getAllPortfolios()
     this.getAllProjects()
-    this.portfolios = Array.from(this.sortingService.testPortfolios)
-    // this.projects = Array.from(this.sortingService.testProjects)
-    this.portfoliosList = Array.from(this.portfolios)
-    // this.projectsList = Array.from(this.projects)
+    this.getAllPortfolios()
+    // this.portfolios = Array.from(this.sortingService.testPortfolios)
+    // this.portfoliosList = Array.from(this.portfolios)
   }
 
   public getAllProjects(): void {
@@ -169,7 +167,21 @@ export class MainComponent {
   }
 
   public getAllPortfolios(): void {
-    this.httpService.getAllPortfolios(localStorage.getItem('userID'));
+    this.httpService.getAllPortfolios(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .subscribe((data: any) => {
+        data = data.map((port: IPortfolioDataRO) => {
+          Object.keys(port.projectIds).forEach((key: string) => {
+            // TODO: type error
+            // @ts-expect-error
+            port.projectIds[key] = port.projectIds[key].map((el: any) => {
+              return this.projects.find((proj: IProjectData) => proj._id === el._id)
+            })
+          })
+          return port
+        })
+        this.portfolios = data
+        this.portfoliosList = Array.from(this.portfolios)
+      })
   }
 
   public findProjects(): void {
@@ -411,8 +423,8 @@ export class MainComponent {
       .subscribe(() => {
         const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
         const index = user.data.projectIds.indexOf(id);
-        if (index > -1) { // only splice array when item is found
-          user.projectIds.splice(index, 1); // 2nd parameter means remove one item only
+        if (index > -1) {
+          user.projectIds.splice(index, 1);
         }
         this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
         this.getAllProjects()
@@ -433,6 +445,15 @@ export class MainComponent {
 
   public removePortfolio (id: string, event: any) {
     event.stopPropagation()
-    this.httpService.removePortfolio(id);
+    this.httpService.removePortfolio(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .subscribe(() => {
+        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+        const index = user.data.portfolioIds.indexOf(id);
+        if (index > -1) {
+          user.projectIds.splice(index, 1);
+        }
+        this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+        this.getAllPortfolios()
+      })
   }
 }

@@ -17,7 +17,7 @@ export class HttpService {
     return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
   }
   sendMessage(data: any) {
-    return this.http.post(`${this.link}/message`, data);
+    return this.http.post(`${this.link}/messages`, { data });
   }
 
   // TODO: JWT

@@ -125,7 +125,7 @@
   [header]="`${'pages.main.main.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.main.main.infoDialogHeaderLastPart' | translate}`"
   [modal]="true"
   [(visible)]="visible.info"
-  [style]="{ width: '25rem' }">
+  [style]="{ width: '40rem' }">
   <div>
     <img alt="Card" class="w-full" [src]="currentProject.img" />
   </div>
@@ -169,13 +169,13 @@
 </p-dialog>
 
 <p-dialog
-  [header]="formData.id ?
+  [header]="formData._id ?
    `${'pages.main.main.updateDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.main.main.updateDialogHeaderLastPart' | translate}` :
    `${'pages.main.main.createDialogHeader' | translate}`"
   header="Edit Profile"
   [modal]="true"
   [(visible)]="visible.creation"
-  [style]="{ width: '25rem' }">
+  [style]="{ width: '40rem' }">
   <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
       <div class="form-container column">
@@ -221,18 +221,27 @@
           <label for="priority" class="bold">{{'pages.main.main.priorityLabel' | translate}}</label>
           <p-inputnumber
             inputId="priority"
-            [placeholder]="'pages.main.main.priorityTolltip' | translate"
+            [showButtons]="true"
+            buttonLayout="horizontal"
             [pTooltip]="'pages.main.main.priorityTolltip' | translate"
             tooltipPosition="right"
             name="priority"
-            mode="currency"
-            currency="USD"
             [(ngModel)]="formData.priority"
             [ngModelOptions]="{ standalone: true }"
             #priority="ngModel"
             [invalid]="priority.invalid && (priority.touched || form.submitted)"
             required
-            [minFractionDigits]="2" />
+            [min]="1"
+            [max]="10"
+            [step]="1"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
           @if (priority.invalid && (priority.touched || form.submitted)) {
             <p-message
               severity="error"
@@ -431,7 +440,8 @@
             [pTooltip]="'pages.main.main.mainRoadTolltip' | translate"
             tooltipPosition="right"
             name="mainRoad"
-            value="Is that main road"
+            [binary]="true"
+            [indeterminate]="true"
             [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formData.mainRoad" />
           <label for="intown" class="bold">{{'pages.main.main.mainRoadLabel' | translate}}?</label>
@@ -442,7 +452,8 @@
             [pTooltip]="'pages.main.main.inTownTolltip' | translate"
             tooltipPosition="right"
             name="intown"
-            value="Is that in town"
+            [binary]="true"
+            [indeterminate]="true"
             [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formData.inTown" />
           <label for="town" class="bold">{{'pages.main.main.inTownLabel' | translate}}?</label>
@@ -618,24 +629,25 @@
             </p-message>
           }
         </div>
+        <p-divider />
+        <h1>{{'pages.main.main.optionsLabel' | translate}}</h1>
         <div class="flex flex-col gap-1">
-          <label for="priority" class="bold">{{'pages.main.main.priorityLabel' | translate}}</label>
+          <label for="eco" class="bold">{{'pages.main.main.optionsEconomicLabel' | translate}}</label>
           <p-inputnumber
-            inputId="priority"
+            inputId="eco"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.priorityTolltip' | translate"
+            [pTooltip]="'pages.main.main.optionsEconomicTolltip' | translate"
             tooltipPosition="right"
-            name="priority"
-            [(ngModel)]="formData.priority"
-            [ngModelOptions]="{ standalone: true }"
-            #priority="ngModel"
-            [invalid]="priority.invalid && (priority.touched || form.submitted)"
-            [suffix]="'pages.main.main.prioritySuffix' | translate"
+            name="eco"
+            [(ngModel)]="formData.options.eco"
+            #eco="ngModel"
+            [invalid]="eco.invalid && (eco.touched || form.submitted)"
+            suffix="%"
             required
-            [min]="1"
-            [max]="10"
-            [step]="1"
+            [min]="0"
+            [max]="100"
+            [step]="5"
             [minFractionDigits]="0" >
               <ng-template #incrementbuttonicon>
                   <span class="pi pi-plus"></span>
@@ -644,13 +656,153 @@
                   <span class="pi pi-minus"></span>
               </ng-template>
           </p-inputnumber>
-          @if (priority.invalid && (priority.touched || form.submitted)) {
+          @if (eco.invalid && (eco.touched || form.submitted)) {
             <p-message
               severity="error"
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.priorityRequired' | translate}}
+              {{'pages.main.main.optionsEconomicRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="war" class="bold">{{'pages.main.main.optionsWarLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="war"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.main.main.optionsWarTolltip' | translate"
+            tooltipPosition="right"
+            name="war"
+            [(ngModel)]="formData.options.war"
+            #war="ngModel"
+            [invalid]="war.invalid && (war.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (war.invalid && (war.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.optionsWarRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="log" class="bold">{{'pages.main.main.optionsLogisticLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="log"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.main.main.optionsLogisticTolltip' | translate"
+            tooltipPosition="right"
+            name="log"
+            [(ngModel)]="formData.options.log"
+            #log="ngModel"
+            [invalid]="log.invalid && (log.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (log.invalid && (log.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.optionsLogisticRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="soc" class="bold">{{'pages.main.main.optionsSocialLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="soc"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.main.main.optionsSocialTolltip' | translate"
+            tooltipPosition="right"
+            name="soc"
+            [(ngModel)]="formData.options.soc"
+            #soc="ngModel"
+            [invalid]="soc.invalid && (soc.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (soc.invalid && (soc.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.optionsSocialRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="struc" class="bold">{{'pages.main.main.optionsSctructureLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="struc"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.main.main.optionsSctructureTolltip' | translate"
+            tooltipPosition="right"
+            name="struc"
+            [(ngModel)]="formData.options.struc"
+            #struc="ngModel"
+            [invalid]="struc.invalid && (struc.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (struc.invalid && (struc.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.main.main.optionsSctructureRequired' | translate}}
             </p-message>
           }
         </div>
@@ -658,14 +810,14 @@
       </div>
       <div>
         <p-button
-          [label]="'pages.main.main.saveTolltip' | translate"
+          [label]="'pages.main.main.saveButton' | translate"
           [pTooltip]="'pages.main.main.saveButtonTooltip' | translate"
           [outlined]="true"
           severity="success"
-          (click)="formData.id ? updateProject(formData.id, form): createProject(form)" />
+          (click)="formData._id ? updateProject(formData._id, form): createProject(form)" />
         <p-button
           label="Cancel"
-          [label]="'pages.main.main.cancelTolltip' | translate"
+          [label]="'pages.main.main.cancelButton' | translate"
           [pTooltip]="'pages.main.main.cancelButtonTooltip' | translate"
           [text]="true"
           severity="danger"

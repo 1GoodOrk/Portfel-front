@@ -39,20 +39,21 @@ export class HttpService {
     return this.http.post(`${this.link}/update/${id}`, { data });
   }
 
-  getAllProjects(id: string | null) {
-    return this.http.get(`${this.link}/projects?user=${id}`);
+  getAllProjects(token: string) {
+    return this.http.get(`${this.link}/projects?token=${token}`);
   }
   getProject(id: string) {
     return this.http.get(`${this.link}/project/${id}`);
   }
   updateProject(id: string, data: any) {
-    return this.http.put(`${this.link}/project/${id}`, data);
+    console.log(111, data)
+    return this.http.put(`${this.link}/projects/${id}`, { data });
   }
-  createProject(data: any) {
-    return this.http.post(`${this.link}/project`, data);
+  createProject(data: any, token: string) {
+    return this.http.post(`${this.link}/projects?token=${token}`, { data });
   }
-  removeProject(id: string) {
-    return this.http.delete(`${this.link}/project/${id}`);
+  removeProject(id: string, token: string) {
+    return this.http.delete(`${this.link}/projects/${id}?token=${token}`);
   }
 
   getAllPortfolios(id: string | null) {

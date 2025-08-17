@@ -801,12 +801,11 @@
   </section>
 </main>
 <app-footer></app-footer>
-
 <p-dialog
   [header]="`${'pages.portfolio.creation.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.creation.infoDialogHeaderLastPart' | translate}`"
   [modal]="true"
   [(visible)]="visible.info"
-  [style]="{ width: '25rem' }">
+  [style]="{ width: '40rem' }">
   <div>
     <img alt="Card" class="w-full" [src]="currentProject.img" />
   </div>
@@ -856,7 +855,7 @@
   header="Edit Profile"
   [modal]="true"
   [(visible)]="visible.creation"
-  [style]="{ width: '25rem' }">
+  [style]="{ width: '40rem' }">
   <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
       <div class="form-container column">
@@ -871,6 +870,7 @@
             tooltipPosition="right"
             name="name"
             [(ngModel)]="formDataProject.name"
+            [ngModelOptions]="{ standalone: true }"
             #name="ngModel"
             [invalid]="name.invalid && (name.touched || form.submitted)"
             required />
@@ -889,6 +889,7 @@
             tooltipPosition="right"
             name="subinfo"
             [(ngModel)]="formDataProject.subinfo"
+            [ngModelOptions]="{ standalone: true }"
             #subinfo="ngModel"
             [invalid]="subinfo.invalid && (subinfo.touched || form.submitted)"
             required />
@@ -900,17 +901,27 @@
           <label for="priority" class="bold">{{'pages.portfolio.creation.priorityLabel' | translate}}</label>
           <p-inputnumber
             inputId="priority"
-            [placeholder]="'pages.portfolio.creation.priorityTolltip' | translate"
+            [showButtons]="true"
+            buttonLayout="horizontal"
             [pTooltip]="'pages.portfolio.creation.priorityTolltip' | translate"
             tooltipPosition="right"
             name="priority"
-            mode="currency"
-            currency="USD"
             [(ngModel)]="formDataProject.priority"
+            [ngModelOptions]="{ standalone: true }"
             #priority="ngModel"
             [invalid]="priority.invalid && (priority.touched || form.submitted)"
             required
-            [minFractionDigits]="2" />
+            [min]="1"
+            [max]="10"
+            [step]="1"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
           @if (priority.invalid && (priority.touched || form.submitted)) {
             <p-message
               severity="error"
@@ -927,6 +938,7 @@
             inputId="type"
             [options]="items"
             [(ngModel)]="formDataProject.type"
+            [ngModelOptions]="{ standalone: true }"
             #type="ngModel"
             [placeholder]="'pages.portfolio.creation.typeTolltip' | translate"
             [pTooltip]="'pages.portfolio.creation.typeTolltip' | translate"
@@ -947,6 +959,7 @@
             mode="currency"
             currency="USD"
             [(ngModel)]="formDataProject.profit"
+            [ngModelOptions]="{ standalone: true }"
             #profit="ngModel"
             [invalid]="profit.invalid && (profit.touched || form.submitted)"
             required
@@ -971,6 +984,7 @@
             mode="currency"
             currency="USD"
             [(ngModel)]="formDataProject.budget"
+            [ngModelOptions]="{ standalone: true }"
             #budget="ngModel"
             [invalid]="budget.invalid && (budget.touched || form.submitted)"
             required
@@ -996,6 +1010,7 @@
             tooltipPosition="right"
             name="budgetSource"
             [(ngModel)]="formDataProject.budgetSource"
+            [ngModelOptions]="{ standalone: true }"
             #budgetSource="ngModel"
             [invalid]="budgetSource.invalid && (budgetSource.touched || form.submitted)"
             required />
@@ -1011,6 +1026,7 @@
             tooltipPosition="right"
             name="processDuration"
             [(ngModel)]="formDataProject.processDuration"
+            [ngModelOptions]="{ standalone: true }"
             #processDuration="ngModel"
             [invalid]="processDuration.invalid && (processDuration.touched || form.submitted)"
             [suffix]="'pages.portfolio.creation.processDurationSuffix' | translate"
@@ -1034,6 +1050,7 @@
             tooltipPosition="right"
             name="traffic"
             [(ngModel)]="formDataProject.traffic"
+            [ngModelOptions]="{ standalone: true }"
             #traffic="ngModel"
             [invalid]="traffic.invalid && (traffic.touched || form.submitted)"
             [suffix]="'pages.portfolio.creation.trafficSuffix' | translate"
@@ -1057,6 +1074,7 @@
             tooltipPosition="right"
             name="roadCode"
             [(ngModel)]="formDataProject.roadCode"
+            [ngModelOptions]="{ standalone: true }"
             #roadCode="ngModel"
             [invalid]="roadCode.invalid && (roadCode.touched || form.submitted)"
             required
@@ -1079,6 +1097,7 @@
             tooltipPosition="right"
             name="distance"
             [(ngModel)]="formDataProject.distance"
+            [ngModelOptions]="{ standalone: true }"
             #distance="ngModel"
             [invalid]="distance.invalid && (distance.touched || form.submitted)"
             [suffix]="'pages.portfolio.creation.distanceSuffix' | translate"
@@ -1101,7 +1120,9 @@
             [pTooltip]="'pages.portfolio.creation.mainRoadTolltip' | translate"
             tooltipPosition="right"
             name="mainRoad"
-            value="Is that main road"
+            [binary]="true"
+            [indeterminate]="true"
+            [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formDataProject.mainRoad" />
           <label for="intown" class="bold">{{'pages.portfolio.creation.mainRoadLabel' | translate}}?</label>
         </div>
@@ -1111,11 +1132,13 @@
             [pTooltip]="'pages.portfolio.creation.inTownTolltip' | translate"
             tooltipPosition="right"
             name="intown"
-            value="Is that in town"
+            [binary]="true"
+            [indeterminate]="true"
+            [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formDataProject.inTown" />
           <label for="town" class="bold">{{'pages.portfolio.creation.inTownLabel' | translate}}?</label>
         </div>
-        @if (formDataProject.inTown) {
+        @if (formData.inTown) {
           <div class="flex flex-col gap-1">
             <label for="town" class="bold">{{'pages.portfolio.creation.townLabel' | translate}}?</label>
             <input
@@ -1127,6 +1150,7 @@
               tooltipPosition="right"
               name="town"
               [(ngModel)]="formDataProject.town"
+              [ngModelOptions]="{ standalone: true }"
               #town="ngModel"
               [invalid]="town.invalid && (town.touched || form.submitted)"
               required />
@@ -1147,6 +1171,7 @@
             tooltipPosition="right"
             name="addressStart"
             [(ngModel)]="formDataProject.addressStart"
+            [ngModelOptions]="{ standalone: true }"
             #addressStart="ngModel"
             [invalid]="addressStart.invalid && (addressStart.touched || form.submitted)"
             required>
@@ -1172,6 +1197,7 @@
             tooltipPosition="right"
             name="addressEnd"
             [(ngModel)]="formDataProject.addressEnd"
+            [ngModelOptions]="{ standalone: true }"
             #addressEnd="ngModel"
             [invalid]="addressEnd.invalid && (addressEnd.touched || form.submitted)"
             required>
@@ -1197,6 +1223,7 @@
             tooltipPosition="right"
             name="description"
             [(ngModel)]="formDataProject.des"
+            [ngModelOptions]="{ standalone: true }"
             #description="ngModel"
             [invalid]="description.invalid && (description.touched || form.submitted)"
             required>
@@ -1220,6 +1247,7 @@
             [pTooltip]="'pages.portfolio.creation.dateCreationTolltip' | translate"
             tooltipPosition="right"
             [(ngModel)]="formDataProject.dateCreation"
+            [ngModelOptions]="{ standalone: true }"
             #dateCreation="ngModel"
             [invalid]="dateCreation.invalid && (dateCreation.touched || form.submitted)"
             required
@@ -1242,6 +1270,7 @@
             [pTooltip]="'pages.portfolio.creation.dateInitializationTolltip' | translate"
             tooltipPosition="right"
             [(ngModel)]="formDataProject.dateInitialization"
+            [ngModelOptions]="{ standalone: true }"
             #dateInitialization="ngModel"
             [invalid]="dateInitialization.invalid && (dateInitialization.touched || form.submitted)"
             required
@@ -1264,6 +1293,7 @@
             tooltipPosition="right"
             name="permissionDuration"
             [(ngModel)]="formDataProject.permissionDuration"
+            [ngModelOptions]="{ standalone: true }"
             #permissionDuration="ngModel"
             [invalid]="permissionDuration.invalid && (permissionDuration.touched || form.submitted)"
             [suffix]="'pages.portfolio.creation.permissionDurationSuffix' | translate"
@@ -1279,23 +1309,25 @@
             </p-message>
           }
         </div>
+        <p-divider />
+        <h1>{{'pages.portfolio.creation.optionsLabel' | translate}}</h1>
         <div class="flex flex-col gap-1">
-          <label for="priority" class="bold">{{'pages.portfolio.creation.priorityLabel' | translate}}</label>
+          <label for="eco" class="bold">{{'pages.portfolio.creation.optionsEconomicLabel' | translate}}</label>
           <p-inputnumber
-            inputId="priority"
+            inputId="eco"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.portfolio.creation.priorityTolltip' | translate"
+            [pTooltip]="'pages.portfolio.creation.optionsEconomicTolltip' | translate"
             tooltipPosition="right"
-            name="priority"
-            [(ngModel)]="formDataProject.priority"
-            #priority="ngModel"
-            [invalid]="priority.invalid && (priority.touched || form.submitted)"
-            [suffix]="'pages.portfolio.creation.prioritySuffix' | translate"
+            name="eco"
+            [(ngModel)]="formDataProject.options.eco"
+            #eco="ngModel"
+            [invalid]="eco.invalid && (eco.touched || form.submitted)"
+            suffix="%"
             required
-            [min]="1"
-            [max]="10"
-            [step]="1"
+            [min]="0"
+            [max]="100"
+            [step]="5"
             [minFractionDigits]="0" >
               <ng-template #incrementbuttonicon>
                   <span class="pi pi-plus"></span>
@@ -1304,13 +1336,153 @@
                   <span class="pi pi-minus"></span>
               </ng-template>
           </p-inputnumber>
-          @if (priority.invalid && (priority.touched || form.submitted)) {
+          @if (eco.invalid && (eco.touched || form.submitted)) {
             <p-message
               severity="error"
               size="small"
               variant="simple"
             >
-              {{'pages.portfolio.creation.priorityRequired' | translate}}
+              {{'pages.portfolio.creation.optionsEconomicRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="war" class="bold">{{'pages.portfolio.creation.optionsWarLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="war"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.portfolio.creation.optionsWarTolltip' | translate"
+            tooltipPosition="right"
+            name="war"
+            [(ngModel)]="formDataProject.options.war"
+            #war="ngModel"
+            [invalid]="war.invalid && (war.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (war.invalid && (war.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.optionsWarRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="log" class="bold">{{'pages.portfolio.creation.optionsLogisticLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="log"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.portfolio.creation.optionsLogisticTolltip' | translate"
+            tooltipPosition="right"
+            name="log"
+            [(ngModel)]="formDataProject.options.log"
+            #log="ngModel"
+            [invalid]="log.invalid && (log.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (log.invalid && (log.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.optionsLogisticRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="soc" class="bold">{{'pages.portfolio.creation.optionsSocialLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="soc"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.portfolio.creation.optionsSocialTolltip' | translate"
+            tooltipPosition="right"
+            name="soc"
+            [(ngModel)]="formDataProject.options.soc"
+            #soc="ngModel"
+            [invalid]="soc.invalid && (soc.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (soc.invalid && (soc.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.optionsSocialRequired' | translate}}
+            </p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="struc" class="bold">{{'pages.portfolio.creation.optionsSctructureLabel' | translate}}</label>
+          <p-inputnumber
+            inputId="struc"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            [pTooltip]="'pages.portfolio.creation.optionsSctructureTolltip' | translate"
+            tooltipPosition="right"
+            name="struc"
+            [(ngModel)]="formDataProject.options.struc"
+            #struc="ngModel"
+            [invalid]="struc.invalid && (struc.touched || form.submitted)"
+            suffix="%"
+            required
+            [min]="0"
+            [max]="100"
+            [step]="5"
+            [minFractionDigits]="0" >
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+          @if (struc.invalid && (struc.touched || form.submitted)) {
+            <p-message
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{'pages.portfolio.creation.optionsSctructureRequired' | translate}}
             </p-message>
           }
         </div>
@@ -1318,14 +1490,14 @@
       </div>
       <div>
         <p-button
-          [label]="'pages.portfolio.creation.saveTolltip' | translate"
+          [label]="'pages.portfolio.creation.saveButton' | translate"
           [pTooltip]="'pages.portfolio.creation.saveButtonTooltip' | translate"
           [outlined]="true"
           severity="success"
-          (click)="formData.id ? updateProject(formData.id, form): createProject(form)" />
+          (click)="formData._id ? updateProject(formData._id, form): createProject(form)" />
         <p-button
           label="Cancel"
-          [label]="'pages.portfolio.creation.cancelTolltip' | translate"
+          [label]="'pages.portfolio.creation.cancelButton' | translate"
           [pTooltip]="'pages.portfolio.creation.cancelButtonTooltip' | translate"
           [text]="true"
           severity="danger"

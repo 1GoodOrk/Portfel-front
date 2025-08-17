@@ -59,7 +59,7 @@ export class HeaderComponent {
   }
 
   public navigate(path: string) {
-    this.router.navigateByUrl(`/${path}`);
+    this.router.navigate([`/${path}`]);
   }
 
   public changeLanguage (): void {

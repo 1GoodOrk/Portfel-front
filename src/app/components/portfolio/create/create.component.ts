@@ -8,6 +8,7 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
 import { MessageModule  } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -37,6 +38,7 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     InputTextModule,
     InputNumberModule,
     TextareaModule,
+    CheckboxModule,
     MessageModule,
     ButtonModule,
     CardModule,
@@ -169,14 +171,23 @@ export class CreateComponent {
     private sortingService: SortingService,
     private appCommunicationService: AppCommunicationService
   ) {
-    this.projects = Array.from(this.sortingService.testProjects)
+    this.getAllProjects()
     this.data = Object.assign(this.sortingService.testPortfolios[0])
-    this.projectsUnselected = Array.from(this.projects)
+    // this.projects = Array.from(this.sortingService.testProjects)
+    // this.projectsUnselected = Array.from(this.projects)
   }
 
   public navigate(path: string) {
-    this.router.navigateByUrl(`/${path}`);
+    this.router.navigate([`/${path}`]);
   }
+
+  public getAllProjects(): void {
+  this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    .subscribe((data: any) => {
+      this.projects = data
+      this.projectsUnselected = Array.from(this.projects)
+    })
+}
 
   public watchPortfolio(): void {
     this.appCommunicationService.currentPortfolio = Object.assign(this.data)
@@ -214,21 +225,28 @@ export class CreateComponent {
   public updateProjects(id: string): void {
     this.httpService.updateProject(id, {});
   }
-  public removeProjects(id: string, event: any) {
-    event.stopPropagation()
-    this.httpService.removeProject(id);
-  }
 
   public tiersFiltering(): void {
     this.data = this.sortingService.tierFormatting(this.projectsSelected, this.data)
   }
 
-  public showInfoProjectDialog(_id?: string, event?: any): void {
-    if (event) {
-      event.stopPropagation()
-    }
-    if (_id) {
-      const index = this.projects.findIndex((el: any) => el._id === _id)
+  public removeProjects(id: string, event: any) {
+    event.stopPropagation()
+    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .subscribe(() => {
+        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+        const index = user.data.projectIds.indexOf(id);
+        if (index > -1) { // only splice array when item is found
+          user.projectIds.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+      })
+  }
+
+  public showInfoProjectDialog(id?: string, event?: any): void {
+    event.stopPropagation()
+    if (id) {
+      const index = this.projects.findIndex((el: any) => el._id === id)
       Object.keys(this.projects[index]).forEach((key: string) => {
         // TODO: type error
         // @ts-expect-error
@@ -271,19 +289,21 @@ export class CreateComponent {
     this.visible.info = !this.visible.info
   }
 
-  public showDialogProjects(mode?: boolean, _id?: string, event?: any) {
+  public showDialogProjects(mode?: boolean, id?: string, event?: any) {
     if (event) {
       event.stopPropagation()
     }
-    if (_id) {
-      const index = this.projects.findIndex((el: any) => el._id === _id)
+    if (id) {
+      const index = this.projects.findIndex((el: any) => el._id === id)
       Object.keys(this.projects[index]).forEach((key: string) => {
         // TODO: type error
         // @ts-expect-error
-        this.formData[key] = this.projects[index][key]
+        this.formDataProject[key] = this.projects[index][key]
       })
+      this.formDataProject.dateCreation = new Date(this.formDataProject.dateCreation)
+      this.formDataProject.dateInitialization = new Date(this.formDataProject.dateInitialization)
     } else {
-      this.formData = {
+      this.formDataProject = {
         _id: '',
         name: '',
         subinfo: '',
@@ -318,11 +338,13 @@ export class CreateComponent {
     }
     this.visible.creation = mode === undefined ? !this.visible.creation : mode
   }
-  public updateProject(_id: string, form: any) {
+
+  public updateProject(id: string, form: any) {
     if (form.valid) {
       this.visible.creation = false
-      this.httpService.updateProject(_id, this.formData);
-      this.formData = {
+      this.httpService.updateProject(id, this.formDataProject)
+        .subscribe((data: any) => {})
+      this.formDataProject = {
         _id: '',
         name: '',
         subinfo: '',
@@ -359,9 +381,16 @@ export class CreateComponent {
 
   public createProject(form: any) {
     if (form.valid) {
-      this.visible = false
-      this.httpService.createProject(this.formData);
-      this.formData = {
+      this.visible.creation = false
+      this.formDataProject.score = 0.33 * (this.formDataProject.profit - this.formDataProject.budget) + 0.33 * this.formDataProject.permissionDuration + 0.33 * this.formDataProject.priority
+      this.httpService.createProject(this.formDataProject, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+        .subscribe((data: any) => {
+          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+          user.data.projectIds.push(data._id)
+          this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+        })
+      form.resetForm()
+      this.formDataProject = {
         _id: '',
         name: '',
         subinfo: '',

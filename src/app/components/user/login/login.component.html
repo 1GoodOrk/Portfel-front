@@ -24,6 +24,7 @@
           [pTooltip]="'pages.user.login.emailTolltip' | translate"
           tooltipPosition="right"
           [(ngModel)]="user.email"
+          [ngModelOptions]="{standalone: true}"
           #email="ngModel"
           required
           email
@@ -49,6 +50,7 @@
           [pTooltip]="'pages.user.login.passwordTolltip'  | translate"
           tooltipPosition="right"
           [(ngModel)]="user.password"
+          [ngModelOptions]="{standalone: true}"
           #password="ngModel"
           required
           password

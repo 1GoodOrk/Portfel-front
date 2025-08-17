@@ -190,6 +190,7 @@
             tooltipPosition="right"
             name="name"
             [(ngModel)]="formData.name"
+            [ngModelOptions]="{ standalone: true }"
             #name="ngModel"
             [invalid]="name.invalid && (name.touched || form.submitted)"
             required />
@@ -208,6 +209,7 @@
             tooltipPosition="right"
             name="subinfo"
             [(ngModel)]="formData.subinfo"
+            [ngModelOptions]="{ standalone: true }"
             #subinfo="ngModel"
             [invalid]="subinfo.invalid && (subinfo.touched || form.submitted)"
             required />
@@ -226,6 +228,7 @@
             mode="currency"
             currency="USD"
             [(ngModel)]="formData.priority"
+            [ngModelOptions]="{ standalone: true }"
             #priority="ngModel"
             [invalid]="priority.invalid && (priority.touched || form.submitted)"
             required
@@ -246,6 +249,7 @@
             inputId="type"
             [options]="items"
             [(ngModel)]="formData.type"
+            [ngModelOptions]="{ standalone: true }"
             #type="ngModel"
             [placeholder]="'pages.main.main.typeTolltip' | translate"
             [pTooltip]="'pages.main.main.typeTolltip' | translate"
@@ -266,6 +270,7 @@
             mode="currency"
             currency="USD"
             [(ngModel)]="formData.profit"
+            [ngModelOptions]="{ standalone: true }"
             #profit="ngModel"
             [invalid]="profit.invalid && (profit.touched || form.submitted)"
             required
@@ -290,6 +295,7 @@
             mode="currency"
             currency="USD"
             [(ngModel)]="formData.budget"
+            [ngModelOptions]="{ standalone: true }"
             #budget="ngModel"
             [invalid]="budget.invalid && (budget.touched || form.submitted)"
             required
@@ -315,6 +321,7 @@
             tooltipPosition="right"
             name="budgetSource"
             [(ngModel)]="formData.budgetSource"
+            [ngModelOptions]="{ standalone: true }"
             #budgetSource="ngModel"
             [invalid]="budgetSource.invalid && (budgetSource.touched || form.submitted)"
             required />
@@ -330,6 +337,7 @@
             tooltipPosition="right"
             name="processDuration"
             [(ngModel)]="formData.processDuration"
+            [ngModelOptions]="{ standalone: true }"
             #processDuration="ngModel"
             [invalid]="processDuration.invalid && (processDuration.touched || form.submitted)"
             [suffix]="'pages.main.main.processDurationSuffix' | translate"
@@ -353,6 +361,7 @@
             tooltipPosition="right"
             name="traffic"
             [(ngModel)]="formData.traffic"
+            [ngModelOptions]="{ standalone: true }"
             #traffic="ngModel"
             [invalid]="traffic.invalid && (traffic.touched || form.submitted)"
             [suffix]="'pages.main.main.trafficSuffix' | translate"
@@ -376,6 +385,7 @@
             tooltipPosition="right"
             name="roadCode"
             [(ngModel)]="formData.roadCode"
+            [ngModelOptions]="{ standalone: true }"
             #roadCode="ngModel"
             [invalid]="roadCode.invalid && (roadCode.touched || form.submitted)"
             required
@@ -398,6 +408,7 @@
             tooltipPosition="right"
             name="distance"
             [(ngModel)]="formData.distance"
+            [ngModelOptions]="{ standalone: true }"
             #distance="ngModel"
             [invalid]="distance.invalid && (distance.touched || form.submitted)"
             [suffix]="'pages.main.main.distanceSuffix' | translate"
@@ -421,6 +432,7 @@
             tooltipPosition="right"
             name="mainRoad"
             value="Is that main road"
+            [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formData.mainRoad" />
           <label for="intown" class="bold">{{'pages.main.main.mainRoadLabel' | translate}}?</label>
         </div>
@@ -431,6 +443,7 @@
             tooltipPosition="right"
             name="intown"
             value="Is that in town"
+            [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formData.inTown" />
           <label for="town" class="bold">{{'pages.main.main.inTownLabel' | translate}}?</label>
         </div>
@@ -446,6 +459,7 @@
               tooltipPosition="right"
               name="town"
               [(ngModel)]="formData.town"
+              [ngModelOptions]="{ standalone: true }"
               #town="ngModel"
               [invalid]="town.invalid && (town.touched || form.submitted)"
               required />
@@ -466,6 +480,7 @@
             tooltipPosition="right"
             name="addressStart"
             [(ngModel)]="formData.addressStart"
+            [ngModelOptions]="{ standalone: true }"
             #addressStart="ngModel"
             [invalid]="addressStart.invalid && (addressStart.touched || form.submitted)"
             required>
@@ -491,6 +506,7 @@
             tooltipPosition="right"
             name="addressEnd"
             [(ngModel)]="formData.addressEnd"
+            [ngModelOptions]="{ standalone: true }"
             #addressEnd="ngModel"
             [invalid]="addressEnd.invalid && (addressEnd.touched || form.submitted)"
             required>
@@ -516,6 +532,7 @@
             tooltipPosition="right"
             name="description"
             [(ngModel)]="formData.des"
+            [ngModelOptions]="{ standalone: true }"
             #description="ngModel"
             [invalid]="description.invalid && (description.touched || form.submitted)"
             required>
@@ -539,6 +556,7 @@
             [pTooltip]="'pages.main.main.dateCreationTolltip' | translate"
             tooltipPosition="right"
             [(ngModel)]="formData.dateCreation"
+            [ngModelOptions]="{ standalone: true }"
             #dateCreation="ngModel"
             [invalid]="dateCreation.invalid && (dateCreation.touched || form.submitted)"
             required
@@ -561,6 +579,7 @@
             [pTooltip]="'pages.main.main.dateInitializationTolltip' | translate"
             tooltipPosition="right"
             [(ngModel)]="formData.dateInitialization"
+            [ngModelOptions]="{ standalone: true }"
             #dateInitialization="ngModel"
             [invalid]="dateInitialization.invalid && (dateInitialization.touched || form.submitted)"
             required
@@ -583,6 +602,7 @@
             tooltipPosition="right"
             name="permissionDuration"
             [(ngModel)]="formData.permissionDuration"
+            [ngModelOptions]="{ standalone: true }"
             #permissionDuration="ngModel"
             [invalid]="permissionDuration.invalid && (permissionDuration.touched || form.submitted)"
             [suffix]="'pages.main.main.permissionDurationSuffix' | translate"
@@ -608,6 +628,7 @@
             tooltipPosition="right"
             name="priority"
             [(ngModel)]="formData.priority"
+            [ngModelOptions]="{ standalone: true }"
             #priority="ngModel"
             [invalid]="priority.invalid && (priority.touched || form.submitted)"
             [suffix]="'pages.main.main.prioritySuffix' | translate"

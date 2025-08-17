@@ -32,4 +32,11 @@ export class AppCommunicationService {
   }
   public lang: string = 'en'
 
+  public sessionStorageSave(id: string, data: string): void {
+    sessionStorage.setItem('id', JSON.stringify(data))
+  }
+
+  public sessionStorageGet(id: string): any {
+    return sessionStorage.getItem('id')
+  }
 }

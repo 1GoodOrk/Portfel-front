@@ -7,6 +7,7 @@ import {
 import translationsEN from "@port/asserts/i18n/en.json";
 import translationsRU from "@port/asserts/i18n/ru.json";
 import translationsUA from "@port/asserts/i18n/ua.json";
+// import * as argon2 from 'argon2';
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -19,6 +20,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '@port/services/http.service';
+import { AppCommunicationService } from '@port/services/app-communication.service';
+import { IUserData } from '@port/interfaces';
 
 @Component({
   selector: 'app-registration',
@@ -60,7 +63,8 @@ export class RegistrationComponent {
   constructor(
     private router: Router,
     private translate: TranslateService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private appCommunicationService: AppCommunicationService
   ) { }
 
   public changeLanguage (): void {
@@ -69,14 +73,19 @@ export class RegistrationComponent {
   }
 
   public navigate(path: string) {
-    this.router.navigateByUrl(`/${path}`);
+    this.router.navigate([`/${path}`]);
   }
 
-  public onSubmit(form: any): void {
+  public async onSubmit(form: any): Promise<void> {
     if (form.valid) {
       this.showSpinner = true
-      this.httpService.registration(this.user)
-        .subscribe(() => {
+      this.httpService.registration({
+        email: this.user.email,
+        password: this.user.password,
+        organization: this.user.organization
+      })
+        .subscribe((data: IUserData) => {
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
           this.showSpinner = false
           form.resetForm()
           this.navigate('main')

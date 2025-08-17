@@ -19,6 +19,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '@port/services/http.service';
+import { AppCommunicationService } from '@port/services/app-communication.service';
+import { IUserData } from '@port/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +61,8 @@ export class LoginComponent {
   constructor (
     private router: Router,
     private translate: TranslateService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private appCommunicationService: AppCommunicationService
   ) { }
 
   public changeLanguage (): void {
@@ -70,14 +73,15 @@ export class LoginComponent {
   }
 
   public navigate(path: string) {
-    this.router.navigateByUrl(`/${path}`);
+    this.router.navigate([`/${path}`]);
   }
 
   public onSubmit(form: any): void {
     if (form.valid) {
       this.showSpinner = true
       this.httpService.login(this.user)
-        .subscribe(() => {
+        .subscribe((data: IUserData) => {
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
           this.showSpinner = false
           form.resetForm()
           this.navigate('main')

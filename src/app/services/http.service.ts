@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IUserData } from '@port/interfaces';
+import * as CryptoJS from 'crypto-js';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class HttpService {
 
   public link: string = 'http://localhost:27182/api'
+  private SECRET = 'EAAFCE8ECC522E391DEC31D8F5C54';
   constructor(private http: HttpClient) { }
 
   getFile() {
@@ -17,13 +21,13 @@ export class HttpService {
   }
 
   // TODO: JWT
-  login(data: any) {
+  login(data: any): Observable<any> {
     return this.http.get(`${this.link}/login`, { headers: {
-      'authorization': JSON.stringify(data)
+      'Authorization': `Bearer ${CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString()}`
     }});
   }
-  registration(data: any) {
-    return this.http.post(`${this.link}/registration`, { data });
+  registration(data: any): Observable<any> {
+    return this.http.post(`${this.link}/users`, { data: CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString() });
   }
   forget(data: any) {
     return this.http.post(`${this.link}/forget`, { data });

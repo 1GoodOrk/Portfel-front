@@ -46,7 +46,7 @@
         "buttonSubmit": "Submit",
         "submitTolltip": "You will create account in the app if the data is correct",
         "submitDisabledTolltip": "Enter your data before submition",
-        "buttonlogin": "Login",
+        "loginButton": "Login",
         "loginTolltip": "Move to the login page",
         "registrationError": "Server failed. Check the data you entered"
       },

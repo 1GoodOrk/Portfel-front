@@ -535,7 +535,7 @@
                         'max-height': '250px',
                         'cursor': 'pointer',
                         'overflow': 'hidden' }"
-                      (click)="select(idx)">
+                      (click)="select(idx, $event)">
                       <ng-template #title>
                         {{project.name}}
                         <p-button
@@ -588,7 +588,7 @@
                         'max-height': '250px',
                         'cursor': 'pointer',
                         'overflow': 'hidden' }"
-                      (click)="unselect(idx)">
+                      (click)="unselect(idx, $event)">
                       <ng-template #title>
                         {{project.name}}
                         <p-button

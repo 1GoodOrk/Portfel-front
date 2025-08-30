@@ -385,6 +385,9 @@
         "watchPortfolioButton": "Confirm portfolio",
         "watchPortfolioTolltip": "Click here to go to the confirmation page",
 
+        "infoDialogHeaderFirstPart": "Info about",
+        "infoDialogHeaderLastPart": "'s project",
+        "showProjectTooltip": "Click to watch full project info",
         "nameLabel": "Project name",
         "namePlaceholder": "Name",
         "nameTolltip": "Enter data for the project name",

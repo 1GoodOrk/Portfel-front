@@ -5,6 +5,7 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
+import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 
 
@@ -12,7 +13,7 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { IPortfolioDataRO } from '@port/interfaces';
+import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
 
 @Component({
   selector: 'app-confirmation',
@@ -23,6 +24,7 @@ import { IPortfolioDataRO } from '@port/interfaces';
     ButtonModule,
     TooltipModule,
     DividerModule,
+    DialogModule,
     CardModule,
     TranslatePipe
   ],
@@ -56,6 +58,42 @@ export class ConfirmationComponent {
     }
   }
   public showSpinner: boolean = false
+  public visible: any = {
+    info: false
+  }
+
+  public currentProject: IProjectData = {
+    _id: '',
+    name: '',
+    subinfo: '',
+    type: '',
+    budget: 0,
+    budgetSource: '',
+    processDuration: 0,
+    profit: 0,
+    traffic: 0,
+    road: 0,
+    distance: 0,
+    mainRoad: false,
+    inTown: false,
+    town: '',
+    addressStart: '',
+    addressEnd: '',
+    des: '',
+    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    dateCreation: '',
+    dateInitialization: '',
+    permissionDuration: 0,
+    score: 0,
+    priority: 0,
+    options: {
+      eco: 0,
+      war: 0,
+      log: 0,
+      soc: 0,
+      struc: 0
+    }
+  }
 
   constructor(
     private router: Router,
@@ -68,6 +106,56 @@ export class ConfirmationComponent {
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
+  }
+
+  public showInfoProjectDialog(id?: string, tier?: string, event?: any): void {
+    event.stopPropagation()
+    if (id) {
+      // TODO: type error
+      // @ts-expect-error
+      const index = this.data.projectIds[tier].findIndex((el: any) => el._id === id)
+      // TODO: type error
+      // @ts-expect-error
+      Object.keys(this.data.projectIds[tier][index]).forEach((key: string) => {
+        // TODO: type error
+        // @ts-expect-error
+        this.currentProject[key] = this.data.projectIds[tier][index][key]
+      })
+    } else {
+      this.currentProject = {
+        _id: '',
+        name: '',
+        subinfo: '',
+        type: '',
+        budget: 0,
+        budgetSource: '',
+        processDuration: 0,
+        profit: 0,
+        traffic: 0,
+        road: 0,
+        distance: 0,
+        mainRoad: false,
+        inTown: false,
+        town: '',
+        addressStart: '',
+        addressEnd: '',
+        des: '',
+        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+        dateCreation: '',
+        dateInitialization: '',
+        permissionDuration: 0,
+        score: 0,
+        priority: 0,
+        options: {
+          eco: 0,
+          war: 0,
+          log: 0,
+          soc: 0,
+          struc: 0
+        }
+      }
+    }
+    this.visible.info = !this.visible.info
   }
 
   public createPorfolio(): void {

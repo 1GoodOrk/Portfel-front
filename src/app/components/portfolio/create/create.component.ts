@@ -192,11 +192,13 @@ export class CreateComponent {
     this.navigate('confirmation')
   }
 
-  public select(index: number): void {
+  public select(index: number, event: any): void {
+    event.stopPropagation()
     this.projectsSelected.push(this.projectsUnselected[index])
     this.projectsUnselected.splice(index, 1)
   }
-  public unselect(index: number): void {
+  public unselect(index: number, event: any): void {
+    event.stopPropagation()
     this.projectsUnselected.push(this.projectsSelected[index])
     this.projectsSelected.splice(index, 1)
   }

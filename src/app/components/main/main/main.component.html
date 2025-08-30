@@ -121,57 +121,12 @@
 </main>
 <app-footer></app-footer>
 
-<p-dialog
-  [header]="`${'pages.main.main.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.main.main.infoDialogHeaderLastPart' | translate}`"
-  [modal]="true"
-  [(visible)]="visible.info"
-  [style]="{ width: '40rem' }">
-  <div>
-    <img alt="Card" class="w-full" [src]="currentProject.img" />
-  </div>
-  <div>
-    <p> <span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{currentProject.subinfo}}</p>
-    <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}:</span> {{currentProject.priority}}</p>
-    <p> <span class="bold">{{'pages.main.main.scoreLabel' | translate}}:</span> {{currentProject.score}}</p>
-    <p> <span class="bold">{{'pages.main.main.typeLabel' | translate}}:</span> {{currentProject.type}}</p>
-    <p-divider />
-    <p> <span class="bold">{{'pages.main.main.advantageLabel' | translate}}:</span> {{currentProject.budget - currentProject.profit}}</p>
-    <p> <span class="bold">{{'pages.main.main.profitLabel' | translate}}:</span> {{currentProject.profit}}</p>
-    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{currentProject.budget}}</p>
-    <p> <span class="bold">{{'pages.main.main.budgetSourceLabel' | translate}}:</span> {{currentProject.budgetSource}}</p>
-    <p> <span class="bold">{{'pages.main.main.processDurationLabel' | translate}}:</span> {{currentProject.processDuration}}</p>
-    <p> <span class="bold">{{'pages.main.main.trafficLabel' | translate}}:</span> {{currentProject.traffic}} {{'pages.main.main.trafficSuffixLabel' | translate}}</p>
-    <p> <span class="bold">{{'pages.main.main.roadCodeLabel' | translate}}:</span> {{currentProject.road}}</p>
-    <p> <span class="bold">{{'pages.main.main.distanceLabel' | translate}}:</span> {{currentProject.distance}} {{'pages.main.main.distanceSuffixLabel' | translate}}</p>
-    <p-divider />
-    <p> <span class="bold">{{'pages.main.main.mainRoadLabel' | translate}}:</span> {{currentProject.mainRoad ? `${'pages.main.main.yes' | translate}` : `${'pages.main.main.no' | translate}`}}</p>
-    <p> <span class="bold">{{'pages.main.main.inTownLabel' | translate}}:</span> {{currentProject.inTown ? `${'pages.main.main.yes' | translate}` : `${'pages.main.main.no' | translate}`}}</p>
-    @if (currentProject.inTown) {
-      <p> <span class="bold">{{'pages.main.main.townLabel' | translate}}:</span> {{currentProject.town}}</p>
-    }
-    <p-divider />
-    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{currentProject.dateCreation}}</p>
-    <p> <span class="bold">{{'pages.main.main.dateInitializationLabel' | translate}}:</span> {{currentProject.dateInitialization}}</p>
-    <p> <span class="bold">{{'pages.main.main.permissionDurationLabel' | translate}}:</span> {{currentProject.permissionDuration}}</p>
-    <p-divider />
-    <p> <span class="bold">{{'pages.main.main.optionsLabel' | translate}}:</span></p>
-    <p> {{'pages.main.main.optionsEconomicLabel' | translate}}: {{currentProject.options.eco}}</p>
-    <p> {{'pages.main.main.optionsWarLabel' | translate}}: {{currentProject.options.war}}</p>
-    <p> {{'pages.main.main.optionsLogisticLabel' | translate}}: {{currentProject.options.log}}</p>
-    <p> {{'pages.main.main.optionsSocialLabel' | translate}}: {{currentProject.options.soc}}</p>
-    <p> {{'pages.main.main.optionsSctructureLabel' | translate}}: {{currentProject.options.struc}}</p>
-    <p-divider />
-    <p> <span class="bold">{{'pages.main.main.addressStartLabel' | translate}}:</span> {{currentProject.addressStart}}</p>
-    <p> <span class="bold">{{'pages.main.main.addressEndLabel' | translate}}:</span> {{currentProject.addressEnd}}</p>
-    <p-divider />
-    <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{currentProject.des}}</p>
-  </div>
-</p-dialog>
+<app-info-dialog [visible]="visible.info" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 
 <p-dialog
   [header]="formData._id ?
-   `${'pages.main.main.updateDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.main.main.updateDialogHeaderLastPart' | translate}` :
-   `${'pages.main.main.createDialogHeader' | translate}`"
+   `${'pages.portfolio.dialog.updateDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.dialog.updateDialogHeaderLastPart' | translate}` :
+   `${'pages.portfolio.dialog.createDialogHeader' | translate}`"
   header="Edit Profile"
   [modal]="true"
   [(visible)]="visible.creation"
@@ -180,13 +135,13 @@
     <div class="form-container row">
       <div class="form-container column">
         <div class="flex flex-col gap-1">
-          <label for="name" class="bold">{{'pages.main.main.nameLabel' | translate}}</label>
+          <label for="name" class="bold">{{'pages.portfolio.dialog.nameLabel' | translate}}</label>
           <input
             pInputText
             type="text"
             id="name"
-            [placeholder]="'pages.main.main.namePlaceholder' | translate"
-            [pTooltip]="'pages.main.main.nameTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.namePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.nameTolltip' | translate"
             tooltipPosition="right"
             name="name"
             [(ngModel)]="formData.name"
@@ -195,17 +150,17 @@
             [invalid]="name.invalid && (name.touched || form.submitted)"
             required />
           @if (name.invalid && (name.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.main.main.nameRequired' | translate}}</p-message>
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.nameRequired' | translate}}</p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="subinfo" class="bold">{{'pages.main.main.subinfoLabel' | translate}}</label>
+          <label for="subinfo" class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}</label>
           <input
             pInputText
             type="text"
             id="subinfo"
-            [placeholder]="'pages.main.main.subinfoPlaceholder' | translate"
-            [pTooltip]="'pages.main.main.subinfoTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.subinfoPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.subinfoTolltip' | translate"
             tooltipPosition="right"
             name="subinfo"
             [(ngModel)]="formData.subinfo"
@@ -214,16 +169,16 @@
             [invalid]="subinfo.invalid && (subinfo.touched || form.submitted)"
             required />
           @if (subinfo.invalid && (subinfo.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.main.main.subinfoRequired' | translate}}</p-message>
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.subinfoRequired' | translate}}</p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="priority" class="bold">{{'pages.main.main.priorityLabel' | translate}}</label>
+          <label for="priority" class="bold">{{'pages.portfolio.dialog.priorityLabel' | translate}}</label>
           <p-inputnumber
             inputId="priority"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.priorityTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.priorityTolltip' | translate"
             tooltipPosition="right"
             name="priority"
             [(ngModel)]="formData.priority"
@@ -248,32 +203,32 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.priorityRequired' | translate}}
+              {{'pages.portfolio.dialog.priorityRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="type" class="bold">{{'pages.main.main.typeLabel' | translate}}</label>
+          <label for="type" class="bold">{{'pages.portfolio.dialog.typeLabel' | translate}}</label>
           <p-select
             inputId="type"
             [options]="items"
             [(ngModel)]="formData.type"
             [ngModelOptions]="{ standalone: true }"
             #type="ngModel"
-            [placeholder]="'pages.main.main.typeTolltip' | translate"
-            [pTooltip]="'pages.main.main.typeTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.typeTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.typeTolltip' | translate"
             tooltipPosition="right"
             class="w-full md:w-56" />
           @if (type.invalid && (type.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.main.main.typeRequired' | translate}}</p-message>
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.typeRequired' | translate}}</p-message>
           }
         </div>
         <p-divider />
         <div class="flex flex-col gap-1">
-          <label for="profit" class="bold">{{'pages.main.main.profitLabel' | translate}}</label>
+          <label for="profit" class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}</label>
           <p-inputnumber
             inputId="profit"
-            [pTooltip]="'pages.main.main.profitTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.profitTolltip' | translate"
             tooltipPosition="right"
             name="profit"
             mode="currency"
@@ -290,15 +245,15 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.profitRequired' | translate}}
+              {{'pages.portfolio.dialog.profitRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="budget" class="bold">{{'pages.main.main.budgetLabel' | translate}}</label>
+          <label for="budget" class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}</label>
           <p-inputnumber
             inputId="budget"
-            [pTooltip]="'pages.main.main.budgetTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.budgetTolltip' | translate"
             tooltipPosition="right"
             name="budget"
             mode="currency"
@@ -315,18 +270,18 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.budgetRequired' | translate}}
+              {{'pages.portfolio.dialog.budgetRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="budgetSource" class="bold">{{'pages.main.main.budgetSourceLabel' | translate}}</label>
+          <label for="budgetSource" class="bold">{{'pages.portfolio.dialog.budgetSourceLabel' | translate}}</label>
           <input
             pInputText
             type="text"
             id="budgetSource"
-            [placeholder]="'pages.main.main.budgetSourcePlaceholder' | translate"
-            [pTooltip]="'pages.main.main.budgetSourceTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.budgetSourcePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.budgetSourceTolltip' | translate"
             tooltipPosition="right"
             name="budgetSource"
             [(ngModel)]="formData.budgetSource"
@@ -335,21 +290,21 @@
             [invalid]="budgetSource.invalid && (budgetSource.touched || form.submitted)"
             required />
           @if (budgetSource.invalid && (budgetSource.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.main.main.budgetSourceRequired' | translate}}</p-message>
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.budgetSourceRequired' | translate}}</p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="processDuration" class="bold">{{'pages.main.main.processDurationLabel' | translate}}</label>
+          <label for="processDuration" class="bold">{{'pages.portfolio.dialog.processDurationLabel' | translate}}</label>
           <p-inputnumber
             inputId="processDuration"
-            [pTooltip]="'pages.main.main.processDurationTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.processDurationTolltip' | translate"
             tooltipPosition="right"
             name="processDuration"
             [(ngModel)]="formData.processDuration"
             [ngModelOptions]="{ standalone: true }"
             #processDuration="ngModel"
             [invalid]="processDuration.invalid && (processDuration.touched || form.submitted)"
-            [suffix]="'pages.main.main.processDurationSuffix' | translate"
+            [suffix]="'pages.portfolio.dialog.processDurationSuffix' | translate"
             required
             [minFractionDigits]="0" />
           @if (processDuration.invalid && (processDuration.touched || form.submitted)) {
@@ -358,22 +313,22 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.processDurationRequired' | translate}}
+              {{'pages.portfolio.dialog.processDurationRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="traffic" class="bold">{{'pages.main.main.trafficLabel' | translate}}</label>
+          <label for="traffic" class="bold">{{'pages.portfolio.dialog.trafficLabel' | translate}}</label>
           <p-inputnumber
             inputId="traffic"
-            [pTooltip]="'pages.main.main.trafficTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.trafficTolltip' | translate"
             tooltipPosition="right"
             name="traffic"
             [(ngModel)]="formData.traffic"
             [ngModelOptions]="{ standalone: true }"
             #traffic="ngModel"
             [invalid]="traffic.invalid && (traffic.touched || form.submitted)"
-            [suffix]="'pages.main.main.trafficSuffix' | translate"
+            [suffix]="'pages.portfolio.dialog.trafficSuffix' | translate"
             required
             [minFractionDigits]="0" />
           @if (traffic.invalid && (traffic.touched || form.submitted)) {
@@ -382,45 +337,41 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.trafficRequired' | translate}}
+              {{'pages.portfolio.dialog.trafficRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="roadCode" class="bold">{{'pages.main.main.roadCodeLabel' | translate}}</label>
-          <p-inputnumber
-            inputId="roadCode"
-            [pTooltip]="'pages.main.main.roadCodeTolltip' | translate"
+          <label for="roadCode" class="bold">{{'pages.portfolio.dialog.roadCodeLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="roadCode"
+            [placeholder]="'pages.portfolio.dialog.roadCodePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.roadCodeTolltip' | translate"
             tooltipPosition="right"
             name="roadCode"
-            [(ngModel)]="formData.roadCode"
+            [(ngModel)]="formData.road"
             [ngModelOptions]="{ standalone: true }"
             #roadCode="ngModel"
             [invalid]="roadCode.invalid && (roadCode.touched || form.submitted)"
-            required
-            [minFractionDigits]="0" />
+            required />
           @if (roadCode.invalid && (roadCode.touched || form.submitted)) {
-            <p-message
-              severity="error"
-              size="small"
-              variant="simple"
-            >
-              {{'pages.main.main.roadCodeRequired' | translate}}
-            </p-message>
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.roadCodeRequired' | translate}}</p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="distance" class="bold">{{'pages.main.main.distanceLabel' | translate}}</label>
+          <label for="distance" class="bold">{{'pages.portfolio.dialog.distanceLabel' | translate}}</label>
           <p-inputnumber
             inputId="distance"
-            [pTooltip]="'pages.main.main.distanceTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.distanceTolltip' | translate"
             tooltipPosition="right"
             name="distance"
             [(ngModel)]="formData.distance"
             [ngModelOptions]="{ standalone: true }"
             #distance="ngModel"
             [invalid]="distance.invalid && (distance.touched || form.submitted)"
-            [suffix]="'pages.main.main.distanceSuffix' | translate"
+            [suffix]="'pages.portfolio.dialog.distanceSuffix' | translate"
             required
             [minFractionDigits]="0" />
           @if (distance.invalid && (distance.touched || form.submitted)) {
@@ -429,7 +380,7 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.distanceRequired' | translate}}
+              {{'pages.portfolio.dialog.distanceRequired' | translate}}
             </p-message>
           }
         </div>
@@ -437,36 +388,36 @@
         <div class="form-group w-300">
           <p-checkbox
             inputId="mainRoad"
-            [pTooltip]="'pages.main.main.mainRoadTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.mainRoadTolltip' | translate"
             tooltipPosition="right"
             name="mainRoad"
             [binary]="true"
             [indeterminate]="true"
             [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formData.mainRoad" />
-          <label for="intown" class="bold">{{'pages.main.main.mainRoadLabel' | translate}}?</label>
+          <label for="intown" class="bold">{{'pages.portfolio.dialog.mainRoadLabel' | translate}}?</label>
         </div>
         <div class="form-group w-300">
           <p-checkbox
             inputId="town"
-            [pTooltip]="'pages.main.main.inTownTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.inTownTolltip' | translate"
             tooltipPosition="right"
             name="intown"
             [binary]="true"
             [indeterminate]="true"
             [ngModelOptions]="{ standalone: true }"
             [(ngModel)]="formData.inTown" />
-          <label for="town" class="bold">{{'pages.main.main.inTownLabel' | translate}}?</label>
+          <label for="town" class="bold">{{'pages.portfolio.dialog.inTownLabel' | translate}}?</label>
         </div>
         @if (formData.inTown) {
           <div class="flex flex-col gap-1">
-            <label for="town" class="bold">{{'pages.main.main.townLabel' | translate}}?</label>
+            <label for="town" class="bold">{{'pages.portfolio.dialog.townLabel' | translate}}?</label>
             <input
               pInputText
               type="text"
               id="town"
-              [placeholder]="'pages.main.main.townPlaceholder' | translate"
-              [pTooltip]="'pages.main.main.townTolltip' | translate"
+              [placeholder]="'pages.portfolio.dialog.townPlaceholder' | translate"
+              [pTooltip]="'pages.portfolio.dialog.townTolltip' | translate"
               tooltipPosition="right"
               name="town"
               [(ngModel)]="formData.town"
@@ -475,19 +426,19 @@
               [invalid]="town.invalid && (town.touched || form.submitted)"
               required />
             @if (town.invalid && (town.touched || form.submitted)) {
-              <p-message severity="error" size="small" variant="simple">{{'pages.main.main.townRequired' | translate}}</p-message>
+              <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.townRequired' | translate}}</p-message>
             }
           </div>
         }
         <p-divider />
         <div class="flex flex-col gap-1">
-          <label for="addressStart" class="bold">{{'pages.main.main.addressStartLabel' | translate}}</label>
+          <label for="addressStart" class="bold">{{'pages.portfolio.dialog.addressStartLabel' | translate}}</label>
           <textarea
             pTextarea
             type="text"
             id="addressStart"
-            [placeholder]="'pages.main.main.addressStartPlaceholder' | translate"
-            [pTooltip]="'pages.main.main.addressStartTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.addressStartPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.addressStartTolltip' | translate"
             tooltipPosition="right"
             name="addressStart"
             [(ngModel)]="formData.addressStart"
@@ -502,18 +453,18 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.addressStartRequired' | translate}}
+              {{'pages.portfolio.dialog.addressStartRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="addressEnd" class="bold">{{'pages.main.main.addressEndLabel' | translate}}</label>
+          <label for="addressEnd" class="bold">{{'pages.portfolio.dialog.addressEndLabel' | translate}}</label>
           <textarea
             pTextarea
             type="text"
             id="addressEnd"
-            [placeholder]="'pages.main.main.addressEndPlaceholder' | translate"
-            [pTooltip]="'pages.main.main.addressEndTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.addressEndPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.addressEndTolltip' | translate"
             tooltipPosition="right"
             name="addressEnd"
             [(ngModel)]="formData.addressEnd"
@@ -528,18 +479,18 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.addressEndRequired' | translate}}
+              {{'pages.portfolio.dialog.addressEndRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="des" class="bold">{{'pages.main.main.descriptionLabel' | translate}}</label>
+          <label for="des" class="bold">{{'pages.portfolio.dialog.descriptionLabel' | translate}}</label>
           <textarea
             pTextarea
             type="text"
             id="description"
-            [placeholder]="'pages.main.main.descriptionPlaceholder' | translate"
-            [pTooltip]="'pages.main.main.descriptionTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.descriptionPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.descriptionTolltip' | translate"
             tooltipPosition="right"
             name="description"
             [(ngModel)]="formData.des"
@@ -554,17 +505,17 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.descriptionRequired' | translate}}
+              {{'pages.portfolio.dialog.descriptionRequired' | translate}}
             </p-message>
           }
         </div>
         <p-divider />
         <div class="flex flex-col gap-1">
-          <label for="dateCreation" class="bold">{{'pages.main.main.dateCreationLabel' | translate}}</label>
+          <label for="dateCreation" class="bold">{{'pages.portfolio.dialog.dateCreationLabel' | translate}}</label>
           <p-datepicker
             inputId="dateCreation"
-            [placeholder]="'pages.main.main.dateCreationPlaceholder' | translate"
-            [pTooltip]="'pages.main.main.dateCreationTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.dateCreationPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.dateCreationTolltip' | translate"
             tooltipPosition="right"
             [(ngModel)]="formData.dateCreation"
             [ngModelOptions]="{ standalone: true }"
@@ -578,16 +529,16 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.dateCreationRequired' | translate}}
+              {{'pages.portfolio.dialog.dateCreationRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="dateInitialization" class="bold">{{'pages.main.main.dateInitializationLabel' | translate}}</label>
+          <label for="dateInitialization" class="bold">{{'pages.portfolio.dialog.dateInitializationLabel' | translate}}</label>
           <p-datepicker
             inputId="dateInitialization"
-            [placeholder]="'pages.main.main.dateInitializationPlaceholder' | translate"
-            [pTooltip]="'pages.main.main.dateInitializationTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.dateInitializationPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.dateInitializationTolltip' | translate"
             tooltipPosition="right"
             [(ngModel)]="formData.dateInitialization"
             [ngModelOptions]="{ standalone: true }"
@@ -601,22 +552,22 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.dateInitializationRequired' | translate}}
+              {{'pages.portfolio.dialog.dateInitializationRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="permissionDuration" class="bold">{{'pages.main.main.permissionDurationLabel' | translate}}</label>
+          <label for="permissionDuration" class="bold">{{'pages.portfolio.dialog.permissionDurationLabel' | translate}}</label>
           <p-inputnumber
             inputId="permissionDuration"
-            [pTooltip]="'pages.main.main.permissionDurationTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.permissionDurationTolltip' | translate"
             tooltipPosition="right"
             name="permissionDuration"
             [(ngModel)]="formData.permissionDuration"
             [ngModelOptions]="{ standalone: true }"
             #permissionDuration="ngModel"
             [invalid]="permissionDuration.invalid && (permissionDuration.touched || form.submitted)"
-            [suffix]="'pages.main.main.permissionDurationSuffix' | translate"
+            [suffix]="'pages.portfolio.dialog.permissionDurationSuffix' | translate"
             required
             [minFractionDigits]="0" />
           @if (permissionDuration.invalid && (permissionDuration.touched || form.submitted)) {
@@ -625,19 +576,19 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.permissionDurationRequired' | translate}}
+              {{'pages.portfolio.dialog.permissionDurationRequired' | translate}}
             </p-message>
           }
         </div>
         <p-divider />
-        <h1>{{'pages.main.main.optionsLabel' | translate}}</h1>
+        <h1>{{'pages.portfolio.dialog.optionsLabel' | translate}}</h1>
         <div class="flex flex-col gap-1">
-          <label for="eco" class="bold">{{'pages.main.main.optionsEconomicLabel' | translate}}</label>
+          <label for="eco" class="bold">{{'pages.portfolio.dialog.optionsEconomicLabel' | translate}}</label>
           <p-inputnumber
             inputId="eco"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.optionsEconomicTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.optionsEconomicTolltip' | translate"
             tooltipPosition="right"
             name="eco"
             [(ngModel)]="formData.options.eco"
@@ -662,17 +613,17 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.optionsEconomicRequired' | translate}}
+              {{'pages.portfolio.dialog.optionsEconomicRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="war" class="bold">{{'pages.main.main.optionsWarLabel' | translate}}</label>
+          <label for="war" class="bold">{{'pages.portfolio.dialog.optionsWarLabel' | translate}}</label>
           <p-inputnumber
             inputId="war"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.optionsWarTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.optionsWarTolltip' | translate"
             tooltipPosition="right"
             name="war"
             [(ngModel)]="formData.options.war"
@@ -697,17 +648,17 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.optionsWarRequired' | translate}}
+              {{'pages.portfolio.dialog.optionsWarRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="log" class="bold">{{'pages.main.main.optionsLogisticLabel' | translate}}</label>
+          <label for="log" class="bold">{{'pages.portfolio.dialog.optionsLogisticLabel' | translate}}</label>
           <p-inputnumber
             inputId="log"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.optionsLogisticTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.optionsLogisticTolltip' | translate"
             tooltipPosition="right"
             name="log"
             [(ngModel)]="formData.options.log"
@@ -732,17 +683,17 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.optionsLogisticRequired' | translate}}
+              {{'pages.portfolio.dialog.optionsLogisticRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="soc" class="bold">{{'pages.main.main.optionsSocialLabel' | translate}}</label>
+          <label for="soc" class="bold">{{'pages.portfolio.dialog.optionsSocialLabel' | translate}}</label>
           <p-inputnumber
             inputId="soc"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.optionsSocialTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.optionsSocialTolltip' | translate"
             tooltipPosition="right"
             name="soc"
             [(ngModel)]="formData.options.soc"
@@ -767,17 +718,17 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.optionsSocialRequired' | translate}}
+              {{'pages.portfolio.dialog.optionsSocialRequired' | translate}}
             </p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="struc" class="bold">{{'pages.main.main.optionsSctructureLabel' | translate}}</label>
+          <label for="struc" class="bold">{{'pages.portfolio.dialog.optionsSctructureLabel' | translate}}</label>
           <p-inputnumber
             inputId="struc"
             [showButtons]="true"
             buttonLayout="horizontal"
-            [pTooltip]="'pages.main.main.optionsSctructureTolltip' | translate"
+            [pTooltip]="'pages.portfolio.dialog.optionsSctructureTolltip' | translate"
             tooltipPosition="right"
             name="struc"
             [(ngModel)]="formData.options.struc"
@@ -802,7 +753,7 @@
               size="small"
               variant="simple"
             >
-              {{'pages.main.main.optionsSctructureRequired' | translate}}
+              {{'pages.portfolio.dialog.optionsSctructureRequired' | translate}}
             </p-message>
           }
         </div>
@@ -810,15 +761,15 @@
       </div>
       <div>
         <p-button
-          [label]="'pages.main.main.saveButton' | translate"
-          [pTooltip]="'pages.main.main.saveButtonTooltip' | translate"
+          [label]="'pages.portfolio.dialog.saveButton' | translate"
+          [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
           [outlined]="true"
           severity="success"
           (click)="formData._id ? updateProject(formData._id, form): createProject(form)" />
         <p-button
           label="Cancel"
-          [label]="'pages.main.main.cancelButton' | translate"
-          [pTooltip]="'pages.main.main.cancelButtonTooltip' | translate"
+          [label]="'pages.portfolio.dialog.cancelButton' | translate"
+          [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
           [text]="true"
           severity="danger"
           (click)="showDialogProjects(false)" />

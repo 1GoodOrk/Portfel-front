@@ -18,11 +18,12 @@ import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 
 import { HttpService } from '@port/services/http.service';
-import { SortingService } from '@port/services/sorting.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
+import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
+import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
 import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
 
 @Component({
@@ -46,6 +47,7 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
+    InfoDialogComponent
   ],
   providers: [],
   templateUrl: './main.component.html',
@@ -99,7 +101,7 @@ export class MainComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
-    road: 0,
+    road: '',
     distance: 0,
     mainRoad: false,
     inTown: false,
@@ -147,15 +149,11 @@ export class MainComponent {
 
   constructor (
     private router: Router,
-    private sortingService: SortingService,
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
-    // TODO: recomment after server connection
     this.getAllProjects()
     this.getAllPortfolios()
-    // this.portfolios = Array.from(this.sortingService.testPortfolios)
-    // this.portfoliosList = Array.from(this.portfolios)
   }
 
   public getAllProjects(): void {
@@ -164,6 +162,10 @@ export class MainComponent {
         this.projects = data
         this.projectsList = Array.from(this.projects)
       })
+  }
+
+  public visibleOnChange(key: string): void {
+    this.visible[key] = !this.visible[key]
   }
 
   public getAllPortfolios(): void {
@@ -240,38 +242,7 @@ export class MainComponent {
         this.currentProject[key] = this.projects[index][key]
       })
     } else {
-      this.currentProject = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
     this.visible.info = !this.visible.info
   }
@@ -290,38 +261,7 @@ export class MainComponent {
       this.formData.dateCreation = new Date(this.formData.dateCreation)
       this.formData.dateInitialization = new Date(this.formData.dateInitialization)
     } else {
-      this.formData = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      this.formData = Object.assign(this.appCommunicationService.clearProject)
     }
     this.visible.creation = mode === undefined ? !this.visible.creation : mode
   }
@@ -335,38 +275,8 @@ export class MainComponent {
             this.getAllProjects()
           }
         })
-      this.formData = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      form.resetForm()
+      this.formData = Object.assign(this.appCommunicationService.clearProject)
     }
   }
 
@@ -382,38 +292,7 @@ export class MainComponent {
           this.getAllProjects()
         })
       form.resetForm()
-      this.formData = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      this.formData = Object.assign(this.appCommunicationService.clearProject)
     }
   }
 

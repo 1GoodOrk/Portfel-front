@@ -11,6 +11,7 @@ import { CardModule } from 'primeng/card';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
+import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
@@ -21,6 +22,7 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
   imports: [
     HeaderComponent,
     FooterComponent,
+    InfoDialogComponent,
     ButtonModule,
     TooltipModule,
     DividerModule,
@@ -72,7 +74,7 @@ export class ConfirmationComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
-    road: 0,
+    road: '',
     distance: 0,
     mainRoad: false,
     inTown: false,
@@ -122,40 +124,13 @@ export class ConfirmationComponent {
         this.currentProject[key] = this.data.projectIds[tier][index][key]
       })
     } else {
-      this.currentProject = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
     this.visible.info = !this.visible.info
+  }
+
+  public visibleOnChange(key: string): void {
+    this.visible[key] = !this.visible[key]
   }
 
   public createPorfolio(): void {

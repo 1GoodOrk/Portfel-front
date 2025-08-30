@@ -8,7 +8,7 @@ export interface IProjectData {
   processDuration: number;
   profit: number;
   traffic: number;
-  road: number;
+  road: string;
   distance: number;
   mainRoad: boolean;
   inTown: boolean;

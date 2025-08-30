@@ -142,7 +142,7 @@ export class CreateComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
-    road: 0,
+    road: '',
     distance: 0,
     mainRoad: false,
     inTown: false,
@@ -253,40 +253,13 @@ export class CreateComponent {
         this.currentProject[key] = this.projects[index][key]
       })
     } else {
-      this.currentProject = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
     this.visible.info = !this.visible.info
+  }
+
+  public visibleOnChange(key: string): void {
+    this.visible[key] = !this.visible[key]
   }
 
   public showDialogProjects(mode?: boolean, id?: string, event?: any) {

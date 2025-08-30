@@ -44,7 +44,7 @@ export class ForgetComponent {
   public showInfoSend: boolean = false
 
   public showSpinner: boolean = false
-  public languages: Array<string> = ['en', 'ru', 'ua'];
+  public languages: Array<string> = ['en', 'ua'];
   public selectedLanguage: string = 'en';
   private langJson: any = {
     en: translationsEN,

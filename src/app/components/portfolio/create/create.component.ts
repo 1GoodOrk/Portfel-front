@@ -19,6 +19,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
 import { DatePickerModule } from 'primeng/datepicker';
+import { DragDropModule } from 'primeng/dragdrop';
 
 import { HttpService } from '@port/services/http.service';
 import { SortingService } from '@port/services/sorting.service';
@@ -55,7 +56,8 @@ import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/
     MultiSelectModule,
     DividerModule,
     DialogModule,
-    DatePickerModule
+    DatePickerModule,
+    DragDropModule
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -135,6 +137,9 @@ export class CreateComponent {
       struc: 0
     }
   }
+
+  public draggedTier: string = 'unselected';
+  public draggedProject: IProjectData | undefined | null;
   public currentProject: IProjectData = {
     _id: '',
     name: '',
@@ -285,5 +290,38 @@ export class CreateComponent {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
     this.visible.creation = true
+  }
+
+  public dragStart(data: IProjectData, tier: string): void {
+    this.draggedTier = tier
+    this.draggedProject = data;
+  }
+
+  public drop(tier: string): void {
+    if (this.draggedProject && tier !== this.draggedTier) {
+      if (tier !== 'unselected') {
+        // TODO: type error
+        // @ts-expect-error
+        this.data.projectIds[tier].push(this.draggedProject)
+      } else {
+        this.projectsUnselected.push(this.draggedProject)
+      }
+      if (this.draggedTier !== 'unselected') {
+        // TODO: type error
+        // @ts-expect-error
+        this.data.projectIds[this.draggedTier] = this.data.projectIds[this.draggedTier].filter((el: any) => el._id !== this.draggedProject?._id)
+      } else {
+        this.projectsUnselected = this.projectsUnselected.filter((el: any) => el._id !== this.draggedProject?._id)
+      }
+      // let draggedProductIndex = this.findIndex(this.draggedProduct);
+      // this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+      // this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
+      // this.draggedProduct = null;
+      this.draggedProject = null;
+    }
+  }
+
+  public dragEnd(): void {
+    this.draggedProject = null;
   }
 }

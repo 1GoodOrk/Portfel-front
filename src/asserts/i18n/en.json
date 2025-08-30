@@ -376,7 +376,7 @@
         "optionsLogisticPLabel": "Logistic",
         "optionsLogisticPPlaceholder": "Logistic percent",
         "optionsLogisticPTolltip": "Select influence of logistic factors",
-        "optionsSocialPLabel": "Economic",
+        "optionsSocialPLabel": "Social",
         "optionsSocialPPlaceholder": "Social percent",
         "optionsSocialPTolltip": "Select influence of social factors",
         "optionsSctructurePLabel": "Sctructure",

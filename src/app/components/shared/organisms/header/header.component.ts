@@ -41,7 +41,7 @@ export class HeaderComponent {
     { label: 'about', path: 'about' },
     { label: 'contacts', path: 'contacts' },
   ]
-  public languages: Array<string> = ['en', 'ru', 'ua'];
+  public languages: Array<string> = ['en', 'ua'];
   public selectedLanguage: string = 'en';
   private langJson: any = {
     en: translationsEN,

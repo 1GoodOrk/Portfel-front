@@ -48,16 +48,8 @@ export class ConfirmationComponent {
     subinfo: '',
     budget: 0,
     profit: 0,
-    duration: 0,
     location: '',
-    town: '',
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
+    town: ''
   }
   public showSpinner: boolean = false
   public visible: any = {

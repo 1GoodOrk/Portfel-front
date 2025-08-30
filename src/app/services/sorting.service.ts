@@ -383,16 +383,8 @@ export class SortingService {
       subinfo: 'string',
       budget: 600000,
       profit: 0,
-      duration: 50,
       location: 'COMPLEX',
       town: 'Town',
-      options: {
-        eco: 50,
-        war: 50,
-        log: 0,
-        soc: 50,
-        struc: 0
-      }
     }, {
       _id: 'port id 2',
       name: 'Portfolio 2',
@@ -407,16 +399,8 @@ export class SortingService {
       subinfo: 'string',
       budget: 600000,
       profit: 0,
-      duration: 50,
       location: 'COMPLEX',
       town: 'Town',
-      options: {
-        eco: 50,
-        war: 50,
-        log: 0,
-        soc: 50,
-        struc: 0
-      }
     }
   ]
 

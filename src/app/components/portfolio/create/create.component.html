@@ -69,79 +69,6 @@
                     </p-message>
                   }
                 </div>
-                <!-- <p-divider /> -->
-                <!-- <div class="flex flex-col gap-1">
-                  <label for="budget" class="bold">{{'pages.portfolio.creation.budgetPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="budget"
-                    [pTooltip]="'pages.portfolio.creation.budgetPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="budget"
-                    mode="currency"
-                    currency="USD"
-                    [(ngModel)]="data.budget"
-                    #budget="ngModel"
-                    [invalid]="budget.invalid && (budget.touched || form.submitted)"
-                    required
-                    [minFractionDigits]="2" />
-                  @if (budget.invalid && (budget.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.budgetPRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label for="profit" class="bold">{{'pages.portfolio.creation.profitPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="profit"
-                    [pTooltip]="'pages.portfolio.creation.profitPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="profit"
-                    mode="currency"
-                    currency="USD"
-                    [(ngModel)]="data.profit"
-                    #profit="ngModel"
-                    [invalid]="profit.invalid && (profit.touched || form.submitted)"
-                    required
-                    [minFractionDigits]="2" />
-                  @if (profit.invalid && (profit.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.profitPRequired' | translate}}
-                    </p-message>
-                  }
-                </div> -->
-                <div class="flex flex-col gap-1">
-                  <label for="duration" class="bold">{{'pages.portfolio.creation.durationPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="duration"
-                    [pTooltip]="'pages.portfolio.creation.durationPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="duration"
-                    [(ngModel)]="data.duration"
-                    #duration="ngModel"
-                    [invalid]="duration.invalid && (duration.touched || form.submitted)"
-                    [suffix]="'pages.portfolio.creation.durationPSuffix' | translate"
-                    suffix=" d"
-                    required
-                    [minFractionDigits]="2" />
-                  @if (duration.invalid && (duration.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.durationPRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
                 <p-divider />
                 <div class="flex flex-wrap gap-4">
                   <label for="location" class="bold">{{'pages.portfolio.creation.locationLabel' | translate}}</label>
@@ -178,183 +105,6 @@
                     }
                   </div>
                 }
-                <p-divider />
-                <h1>{{'pages.portfolio.creation.factorsPTitle' | translate}}</h1>
-                <div class="flex flex-col gap-1">
-                  <label for="eco" class="bold">{{'pages.portfolio.creation.optionsEconomicPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="eco"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.optionsEconomicPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="eco"
-                    [(ngModel)]="data.options.eco"
-                    #eco="ngModel"
-                    [invalid]="eco.invalid && (eco.touched || form.submitted)"
-                    suffix="%"
-                    required
-                    [min]="0"
-                    [max]="100"
-                    [step]="5"
-                    [minFractionDigits]="0" >
-                      <ng-template #incrementbuttonicon>
-                          <span class="pi pi-plus"></span>
-                      </ng-template>
-                      <ng-template #decrementbuttonicon>
-                          <span class="pi pi-minus"></span>
-                      </ng-template>
-                  </p-inputnumber>
-                  @if (eco.invalid && (eco.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.optionsEconomicPRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label for="war" class="bold">{{'pages.portfolio.creation.optionsWarPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="war"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.optionsWarPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="war"
-                    [(ngModel)]="data.options.war"
-                    #war="ngModel"
-                    [invalid]="war.invalid && (war.touched || form.submitted)"
-                    suffix="%"
-                    required
-                    [min]="0"
-                    [max]="100"
-                    [step]="5"
-                    [minFractionDigits]="0" >
-                      <ng-template #incrementbuttonicon>
-                          <span class="pi pi-plus"></span>
-                      </ng-template>
-                      <ng-template #decrementbuttonicon>
-                          <span class="pi pi-minus"></span>
-                      </ng-template>
-                  </p-inputnumber>
-                  @if (war.invalid && (war.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.optionsWarPRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label for="log" class="bold">{{'pages.portfolio.creation.optionsLogisticPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="log"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.optionsLogisticPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="log"
-                    [(ngModel)]="data.options.log"
-                    #log="ngModel"
-                    [invalid]="log.invalid && (log.touched || form.submitted)"
-                    suffix="%"
-                    required
-                    [min]="0"
-                    [max]="100"
-                    [step]="5"
-                    [minFractionDigits]="0" >
-                      <ng-template #incrementbuttonicon>
-                          <span class="pi pi-plus"></span>
-                      </ng-template>
-                      <ng-template #decrementbuttonicon>
-                          <span class="pi pi-minus"></span>
-                      </ng-template>
-                  </p-inputnumber>
-                  @if (log.invalid && (log.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.optionsLogisticPRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label for="soc" class="bold">{{'pages.portfolio.creation.optionsSocialPLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="soc"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.optionsSocialPTolltip' | translate"
-                    tooltipPosition="right"
-                    name="soc"
-                    [(ngModel)]="data.options.soc"
-                    #soc="ngModel"
-                    [invalid]="soc.invalid && (soc.touched || form.submitted)"
-                    suffix="%"
-                    required
-                    [min]="0"
-                    [max]="100"
-                    [step]="5"
-                    [minFractionDigits]="0" >
-                      <ng-template #incrementbuttonicon>
-                          <span class="pi pi-plus"></span>
-                      </ng-template>
-                      <ng-template #decrementbuttonicon>
-                          <span class="pi pi-minus"></span>
-                      </ng-template>
-                  </p-inputnumber>
-                  @if (soc.invalid && (soc.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.optionsSocialPRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label for="struc" class="bold">{{'pages.portfolio.creation.optionsSctructurePLabel' | translate}}</label>
-                  <p-inputnumber
-                    inputId="struc"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    [pTooltip]="'pages.portfolio.creation.optionsSctructurePTolltip' | translate"
-                    tooltipPosition="right"
-                    name="struc"
-                    [(ngModel)]="data.options.struc"
-                    #struc="ngModel"
-                    [invalid]="struc.invalid && (struc.touched || form.submitted)"
-                    suffix="%"
-                    required
-                    [min]="0"
-                    [max]="100"
-                    [step]="5"
-                    [minFractionDigits]="0" >
-                      <ng-template #incrementbuttonicon>
-                          <span class="pi pi-plus"></span>
-                      </ng-template>
-                      <ng-template #decrementbuttonicon>
-                          <span class="pi pi-minus"></span>
-                      </ng-template>
-                  </p-inputnumber>
-                  @if (struc.invalid && (struc.touched || form.submitted)) {
-                    <p-message
-                      severity="error"
-                      size="small"
-                      variant="simple"
-                    >
-                      {{'pages.portfolio.creation.optionsSctructurePRequired' | translate}}
-                    </p-message>
-                  }
-                </div>
               </form>
             </div>
             <div class="py-6">
@@ -478,7 +228,7 @@
                     [pTooltip]="'pages.portfolio.creation.projectsAmountTolltip' | translate"
                     tooltipPosition="right"
                     name="projectsAmount"
-                    [min]="-1"
+                    [min]="0"
                     [max]="projects.length"
                     [(ngModel)]="filterOptions.projectsAmount"
                     [minFractionDigits]="0" >
@@ -509,6 +259,133 @@
                     [min]="0"
                     [max]="10"
                     [step]="1"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                </div>
+                <p-divider />
+                <h1>{{'pages.portfolio.creation.factorsPTitle' | translate}}</h1>
+                <div class="flex flex-col gap-1">
+                  <label for="eco" class="bold">{{'pages.portfolio.creation.optionsEconomicPLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="eco"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.optionsEconomicPTolltip' | translate"
+                    tooltipPosition="right"
+                    name="eco"
+                    [(ngModel)]="filterOptions.options.eco"
+                    #eco="ngModel"
+                    suffix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="war" class="bold">{{'pages.portfolio.creation.optionsWarPLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="war"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.optionsWarPTolltip' | translate"
+                    tooltipPosition="right"
+                    name="war"
+                    [(ngModel)]="filterOptions.options.war"
+                    #war="ngModel"
+                    suffix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="log" class="bold">{{'pages.portfolio.creation.optionsLogisticPLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="log"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.optionsLogisticPTolltip' | translate"
+                    tooltipPosition="right"
+                    name="log"
+                    [(ngModel)]="filterOptions.options.log"
+                    #log="ngModel"
+                    suffix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="soc" class="bold">{{'pages.portfolio.creation.optionsSocialPLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="soc"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.optionsSocialPTolltip' | translate"
+                    tooltipPosition="right"
+                    name="soc"
+                    [(ngModel)]="filterOptions.options.soc"
+                    #soc="ngModel"
+                    suffix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="struc" class="bold">{{'pages.portfolio.creation.optionsSctructurePLabel' | translate}}</label>
+                  <p-inputnumber
+                    inputId="struc"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="'pages.portfolio.creation.optionsSctructurePTolltip' | translate"
+                    tooltipPosition="right"
+                    name="struc"
+                    [(ngModel)]="filterOptions.options.struc"
+                    #struc="ngModel"
+                    suffix="%"
+                    required
+                    [min]="0"
+                    [max]="100"
+                    [step]="5"
                     [minFractionDigits]="0" >
                       <ng-template #incrementbuttonicon>
                           <span class="pi pi-plus"></span>

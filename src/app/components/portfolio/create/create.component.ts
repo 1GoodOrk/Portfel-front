@@ -78,9 +78,16 @@ export class CreateComponent {
   public filterOptions = {
     type: '',
     profit: '',
-    projectsAmount: -1,
+    projectsAmount: 0,
     priority: 0,
-    score: 0
+    score: 0,
+    options: {
+      eco: 50,
+      war: 50,
+      log: 0,
+      soc: 50,
+      struc: 0
+    }
   };
   public filterItems = {
     type: [
@@ -219,7 +226,7 @@ export class CreateComponent {
     } else {
       this.selectedSorting = type
       this.projectsSelected = this.sortingService.sortingSystem(Array.from(this.projectsUnselected), type)
-      if (this.filterOptions.projectsAmount > -1) {
+      if (this.filterOptions.projectsAmount > 0) {
         this.projectsUnselected = this.projectsSelected.splice(this.filterOptions.projectsAmount - 1)
       } else {
         this.projectsUnselected = []
@@ -313,10 +320,7 @@ export class CreateComponent {
       } else {
         this.projectsUnselected = this.projectsUnselected.filter((el: any) => el._id !== this.draggedProject?._id)
       }
-      // let draggedProductIndex = this.findIndex(this.draggedProduct);
-      // this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
-      // this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
-      // this.draggedProduct = null;
+
       this.draggedProject = null;
     }
   }

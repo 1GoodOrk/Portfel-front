@@ -19,16 +19,8 @@ export class AppCommunicationService {
     subinfo: '',
     budget: 0,
     profit: 0,
-    duration: 0,
     location: '',
-    town: '',
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
+    town: ''
   }
   public clearPortfolio: IPortfolioDataRO = {
     _id: '',
@@ -44,16 +36,8 @@ export class AppCommunicationService {
     subinfo: '',
     budget: 0,
     profit: 0,
-    duration: 0,
     location: '',
-    town: '',
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
+    town: ''
   }
   public clearProject: IProjectData = {
     _id: '',
@@ -113,16 +97,8 @@ export class AppCommunicationService {
       subinfo: '',
       budget: 0,
       profit: 0,
-      duration: 0,
       location: '',
-      town: '',
-      options: {
-        eco: 0,
-        war: 0,
-        log: 0,
-        soc: 0,
-        struc: 0
-      }
+      town: ''
     }
   }
 

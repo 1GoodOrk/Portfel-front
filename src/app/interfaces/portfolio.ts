@@ -14,14 +14,8 @@ export interface IPortfolioData {
   subinfo: string;
   budget: number;
   profit: number;
-  duration: number;
   location: string;
   town?: string;
-  optionEco: number;
-  optionWar: number;
-  optionLog: number;
-  optionSoc: number;
-  optionStruc: number;
 }
 
 export interface IPortfolioDataRO {
@@ -38,16 +32,8 @@ export interface IPortfolioDataRO {
   subinfo: string;
   budget: number;
   profit: number;
-  duration: number;
   location: string;
   town?: string;
-  options: {
-    eco: number;
-    war: number;
-    log: number;
-    soc: number;
-    struc: number;
-  }
 }
 
 export interface IPortfolioRO {

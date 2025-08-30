@@ -116,7 +116,6 @@
     <p><span class="bold">{{'pages.portfolio.confirmation.budget' | translate}}: </span>{{ data.budget }} USD</p>
     <p><span class="bold">{{'pages.portfolio.confirmation.profit' | translate}}: </span>{{ data.profit }} USD</p>
     <p><span class="bold">{{'pages.portfolio.confirmation.advantage' | translate}}: </span>{{ data.profit - data.budget }} USD</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.duration' | translate}}: </span>{{ data.duration }} {{'pages.portfolio.confirmation.durationSuffix' | translate}}</p>
     @if (data.location === "INSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationInside' | translate}}</p>
     } @else if (data.location === "OUTSIDE") {
@@ -127,13 +126,6 @@
     @if (data.location !== "OUTSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.town' | translate}}: </span>{{ data.town }}</p>
     }
-    <p-divider />
-    <h2><span class="bold">{{'pages.portfolio.confirmation.options' | translate}}</span></h2>
-    <p><span class="bold">{{'pages.portfolio.confirmation.eco' | translate}}: </span>{{ data.options.eco }}%</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.war' | translate}}: </span>{{ data.options.war }}%</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.log' | translate}}: </span>{{ data.options.log }}%</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.soc' | translate}}: </span>{{ data.options.soc }}%</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.struc' | translate}}: </span>{{ data.options.struc }}%</p>
     <p-divider />
     <p>{{ data.des }}</p>
   </div>

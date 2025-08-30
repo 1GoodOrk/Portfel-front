@@ -74,6 +74,7 @@ export class ConfirmationComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
+    forecastProjectTaskAmount: 0,
     road: '',
     distance: 0,
     mainRoad: false,
@@ -130,6 +131,8 @@ export class ConfirmationComponent {
   }
 
   public visibleOnChange(key: string): void {
+    this.appCommunicationService.emptyCurrentProject()
+    this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     this.visible[key] = !this.visible[key]
   }
 

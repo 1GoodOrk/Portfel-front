@@ -8,6 +8,7 @@ export interface IProjectData {
   processDuration: number;
   profit: number;
   traffic: number;
+  forecastProjectTaskAmount: number;
   road: string;
   distance: number;
   mainRoad: boolean;
@@ -21,8 +22,8 @@ export interface IProjectData {
     tier: number;
     _id: string;
   };
-  dateCreation: string;
-  dateInitialization: string;
+  dateCreation: string | Date;
+  dateInitialization: string | Date;
   permissionDuration: number;
   score: number;
   priority: number;

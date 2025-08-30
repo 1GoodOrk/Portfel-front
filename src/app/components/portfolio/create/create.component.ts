@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 import { TranslatePipe } from "@ngx-translate/core";
 import { FormsModule } from '@angular/forms';
 
-import { HeaderComponent } from '@port/shared/organisms/header/header.component';
-import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
-
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -25,15 +22,21 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 import { HttpService } from '@port/services/http.service';
 import { SortingService } from '@port/services/sorting.service';
-import { IProjectData, IPortfolioDataRO } from '@port/interfaces';
 import { AppCommunicationService } from '@port/services/app-communication.service';
+import { IProjectData, IPortfolioDataRO } from '@port/interfaces';
 
+import { HeaderComponent } from '@port/shared/organisms/header/header.component';
+import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
+import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
+import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
 @Component({
   selector: 'app-create',
   standalone: true,
   imports: [
     HeaderComponent,
     FooterComponent,
+    InfoDialogComponent,
+    CreationDialogComponent,
 
     InputTextModule,
     InputNumberModule,
@@ -142,6 +145,7 @@ export class CreateComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
+    forecastProjectTaskAmount: 0,
     road: '',
     distance: 0,
     mainRoad: false,
@@ -259,6 +263,8 @@ export class CreateComponent {
   }
 
   public visibleOnChange(key: string): void {
+    this.appCommunicationService.emptyCurrentProject()
+    this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     this.visible[key] = !this.visible[key]
   }
 
@@ -271,131 +277,13 @@ export class CreateComponent {
       Object.keys(this.projects[index]).forEach((key: string) => {
         // TODO: type error
         // @ts-expect-error
-        this.formDataProject[key] = this.projects[index][key]
+        this.currentProject[key] = this.projects[index][key]
       })
-      this.formDataProject.dateCreation = new Date(this.formDataProject.dateCreation)
-      this.formDataProject.dateInitialization = new Date(this.formDataProject.dateInitialization)
+      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
+      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
-      this.formDataProject = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
+      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
-    this.visible.creation = mode === undefined ? !this.visible.creation : mode
+    this.visible.creation = true
   }
-
-  public updateProject(id: string, form: any) {
-    if (form.valid) {
-      this.visible.creation = false
-      this.httpService.updateProject(id, this.formDataProject)
-        .subscribe((data: any) => {})
-      this.formDataProject = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
-    }
-  }
-
-  public createProject(form: any) {
-    if (form.valid) {
-      this.visible.creation = false
-      this.formDataProject.score = 0.33 * (this.formDataProject.profit - this.formDataProject.budget) + 0.33 * this.formDataProject.permissionDuration + 0.33 * this.formDataProject.priority
-      this.httpService.createProject(this.formDataProject, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-        .subscribe((data: any) => {
-          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-          user.data.projectIds.push(data._id)
-          this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-        })
-      form.resetForm()
-      this.formDataProject = {
-        _id: '',
-        name: '',
-        subinfo: '',
-        type: '',
-        budget: 0,
-        budgetSource: '',
-        processDuration: 0,
-        profit: 0,
-        traffic: 0,
-        road: 0,
-        distance: 0,
-        mainRoad: false,
-        inTown: false,
-        town: '',
-        addressStart: '',
-        addressEnd: '',
-        des: '',
-        img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-        dateCreation: '',
-        dateInitialization: '',
-        permissionDuration: 0,
-        score: 0,
-        priority: 0,
-        options: {
-          eco: 0,
-          war: 0,
-          log: 0,
-          soc: 0,
-          struc: 0
-        }
-      }
-    }
-  }
-
 }

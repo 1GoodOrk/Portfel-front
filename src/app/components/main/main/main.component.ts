@@ -3,19 +3,19 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { TextareaModule } from 'primeng/textarea';
-import { CheckboxModule } from 'primeng/checkbox';
+// import { InputTextModule } from 'primeng/inputtext';
+// import { InputNumberModule } from 'primeng/inputnumber';
+// import { TextareaModule } from 'primeng/textarea';
+// import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
-import { DialogModule } from 'primeng/dialog';
+// import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule  } from 'primeng/message';
-import { SelectModule } from 'primeng/select';
-import { DatePickerModule } from 'primeng/datepicker';
+// import { SelectModule } from 'primeng/select';
+// import { DatePickerModule } from 'primeng/datepicker';
 
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
@@ -31,23 +31,24 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
   standalone: true,
   imports: [
     FormsModule,
-    InputTextModule,
-    InputNumberModule,
-    TextareaModule,
-    CheckboxModule,
+    // InputTextModule,
+    // InputNumberModule,
+    // TextareaModule,
+    // CheckboxModule,
     ButtonModule,
     CardModule,
     FieldsetModule,
-    DialogModule,
+    // DialogModule,
     TooltipModule,
     DividerModule,
     MessageModule,
-    SelectModule,
-    DatePickerModule,
+    // SelectModule,
+    // DatePickerModule,
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    CreationDialogComponent
   ],
   providers: [],
   templateUrl: './main.component.html',
@@ -59,38 +60,6 @@ export class MainComponent {
   public portfoliosList: Array<IPortfolioDataRO> = []
   public portfolios: Array<IPortfolioDataRO> = []
 
-  public formData: any = {
-    _id: '',
-    name: '',
-    subinfo: '',
-    type: '',
-    budget: 0,
-    budgetSource: '',
-    processDuration: 0,
-    profit: 0,
-    traffic: 0,
-    road: 0,
-    distance: 0,
-    mainRoad: false,
-    inTown: false,
-    town: '',
-    addressStart: '',
-    addressEnd: '',
-    des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-    dateCreation: '',
-    dateInitialization: '',
-    permissionDuration: 0,
-    score: 0,
-    priority: 0,
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
-  }
   public currentProject: IProjectData = {
     _id: '',
     name: '',
@@ -101,6 +70,7 @@ export class MainComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
+    forecastProjectTaskAmount: 0,
     road: '',
     distance: 0,
     mainRoad: false,
@@ -136,17 +106,6 @@ export class MainComponent {
     project: {}
   }
 
-  public items = [
-    { label: 'Bridge', value: 'bridge' },
-    { label: 'Fixing', value: 'fix' },
-    { label: 'Build', value: 'build' },
-    { label: 'Overpass', value: 'overpass' },
-    { label: 'Tunnel', value: 'tunnel' },
-    { label: 'Detour', value: 'detour' },
-    { label: 'Cong', value: 'cong' },
-    { label: 'Digitalization', value: 'digitalization' },
-  ]
-
   constructor (
     private router: Router,
     private appCommunicationService: AppCommunicationService,
@@ -165,6 +124,8 @@ export class MainComponent {
   }
 
   public visibleOnChange(key: string): void {
+    this.appCommunicationService.emptyCurrentProject()
+    this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     this.visible[key] = !this.visible[key]
   }
 
@@ -256,44 +217,15 @@ export class MainComponent {
       Object.keys(this.projects[index]).forEach((key: string) => {
         // TODO: type error
         // @ts-expect-error
-        this.formData[key] = this.projects[index][key]
+        this.currentProject[key] = this.projects[index][key]
       })
-      this.formData.dateCreation = new Date(this.formData.dateCreation)
-      this.formData.dateInitialization = new Date(this.formData.dateInitialization)
+
+      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
+      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
-      this.formData = Object.assign(this.appCommunicationService.clearProject)
+      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
-    this.visible.creation = mode === undefined ? !this.visible.creation : mode
-  }
-
-  public updateProject(id: string, form: any) {
-    if (form.valid) {
-      this.visible.creation = false
-      this.httpService.updateProject(id, this.formData)
-        .subscribe((data: any) => {
-          if (data) {
-            this.getAllProjects()
-          }
-        })
-      form.resetForm()
-      this.formData = Object.assign(this.appCommunicationService.clearProject)
-    }
-  }
-
-  public createProject(form: any) {
-    if (form.valid) {
-      this.visible.creation = false
-      this.formData.score = 0.33 * (this.formData.profit - this.formData.budget) + 0.33 * this.formData.permissionDuration + 0.33 * this.formData.priority
-      this.httpService.createProject(this.formData, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-        .subscribe((data: any) => {
-          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-          user.data.projectIds.push(data._id)
-          this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-          this.getAllProjects()
-        })
-      form.resetForm()
-      this.formData = Object.assign(this.appCommunicationService.clearProject)
-    }
+    this.visible.creation = true
   }
 
   public removeProjects(id: string, event: any) {

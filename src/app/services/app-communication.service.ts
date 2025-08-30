@@ -30,7 +30,7 @@ export class AppCommunicationService {
       struc: 0
     }
   }
-    public clearPortfolio: IPortfolioDataRO = {
+  public clearPortfolio: IPortfolioDataRO = {
     _id: '',
     name: '',
     img: '',
@@ -65,6 +65,7 @@ export class AppCommunicationService {
     processDuration: 0,
     profit: 0,
     traffic: 0,
+    forecastProjectTaskAmount: 0,
     road: '',
     distance: 0,
     mainRoad: false,
@@ -115,6 +116,42 @@ export class AppCommunicationService {
       duration: 0,
       location: '',
       town: '',
+      options: {
+        eco: 0,
+        war: 0,
+        log: 0,
+        soc: 0,
+        struc: 0
+      }
+    }
+  }
+
+  public emptyCurrentProject(): void {
+    this.clearProject = {
+      _id: '',
+      name: '',
+      subinfo: '',
+      type: '',
+      budget: 0,
+      budgetSource: '',
+      processDuration: 0,
+      profit: 0,
+      traffic: 0,
+      forecastProjectTaskAmount: 0,
+      road: '',
+      distance: 0,
+      mainRoad: false,
+      inTown: false,
+      town: '',
+      addressStart: '',
+      addressEnd: '',
+      des: '',
+      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+      dateCreation: '',
+      dateInitialization: '',
+      permissionDuration: 0,
+      score: 0,
+      priority: 0,
       options: {
         eco: 0,
         war: 0,

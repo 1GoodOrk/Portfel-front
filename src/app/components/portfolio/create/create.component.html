@@ -811,7 +811,12 @@
   </section>
 </main>
 <app-footer></app-footer>
-<p-dialog
+
+<app-info-dialog [visible]="visible.info" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+
+<app-creation-dialog [formData]="currentProject" [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
+
+<!-- <p-dialog
   [header]="`${'pages.portfolio.dialog.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.dialog.infoDialogHeaderLastPart' | translate}`"
   [modal]="true"
   [(visible)]="visible.info"
@@ -856,9 +861,9 @@
     <p-divider />
     <p> <span class="bold">{{'pages.portfolio.dialog.descriptionLabel' | translate}}:</span> {{currentProject.des}}</p>
   </div>
-</p-dialog>
+</p-dialog> -->
 
-<p-dialog
+<!-- <p-dialog
   [header]="formDataProject._id ?
    `${'pages.portfolio.dialog.updateDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.dialog.updateDialogHeaderLastPart' | translate}` :
    `${'pages.portfolio.dialog.createDialogHeader' | translate}`"
@@ -1492,7 +1497,6 @@
             </p-message>
           }
         </div>
-        <!-- TODO: Map minimize select? -->
       </div>
       <div>
         <p-button
@@ -1511,4 +1515,4 @@
       </div>
     </div>
   </form>
-</p-dialog>
+</p-dialog> -->

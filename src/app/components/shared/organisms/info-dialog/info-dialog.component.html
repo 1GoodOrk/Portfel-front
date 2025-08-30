@@ -13,14 +13,14 @@
     <p> <span class="bold">{{'pages.portfolio.dialog.scoreLabel' | translate}}:</span> {{currentProject.score}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.typeLabel' | translate}}:</span> {{currentProject.type}}</p>
     <p-divider />
-    <p> <span class="bold">{{'pages.portfolio.dialog.advantageLabel' | translate}}:</span> {{currentProject.budget - currentProject.profit}}</p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}:</span> {{currentProject.profit}}</p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}:</span> {{currentProject.budget}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.advantageLabel' | translate}}:</span> {{currentProject.budget - currentProject.profit}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}:</span> {{currentProject.profit}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}:</span> {{currentProject.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.budgetSourceLabel' | translate}}:</span> {{currentProject.budgetSource}}</p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.processDurationLabel' | translate}}:</span> {{currentProject.processDuration}}</p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.trafficLabel' | translate}}:</span> {{currentProject.traffic}} {{'pages.portfolio.dialog.trafficSuffixLabel' | translate}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.processDurationLabel' | translate}}:</span> {{currentProject.processDuration}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.trafficLabel' | translate}}:</span> {{currentProject.traffic}} {{'pages.portfolio.dialog.trafficSuffix' | translate}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.roadCodeLabel' | translate}}:</span> {{currentProject.road}}</p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.distanceLabel' | translate}}:</span> {{currentProject.distance}} {{'pages.portfolio.dialog.distanceSuffixLabel' | translate}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.distanceLabel' | translate}}:</span> {{currentProject.distance}} {{'pages.portfolio.dialog.distanceSuffix' | translate}}</p>
     <p-divider />
     <p> <span class="bold">{{'pages.portfolio.dialog.mainRoadLabel' | translate}}:</span> {{currentProject.mainRoad ? `${'pages.portfolio.dialog.yes' | translate}` : `${'pages.portfolio.dialog.no' | translate}`}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.inTownLabel' | translate}}:</span> {{currentProject.inTown ? `${'pages.portfolio.dialog.yes' | translate}` : `${'pages.portfolio.dialog.no' | translate}`}}</p>
@@ -28,16 +28,16 @@
       <p> <span class="bold">{{'pages.portfolio.dialog.townLabel' | translate}}:</span> {{currentProject.town}}</p>
     }
     <p-divider />
-    <p> <span class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}:</span> {{currentProject.dateCreation}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.dateCreationLabel' | translate}}:</span> {{currentProject.dateCreation}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.dateInitializationLabel' | translate}}:</span> {{currentProject.dateInitialization}}</p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.permissionDurationLabel' | translate}}:</span> {{currentProject.permissionDuration}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.permissionDurationLabel' | translate}}:</span> {{currentProject.permissionDuration}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
     <p-divider />
     <p> <span class="bold">{{'pages.portfolio.dialog.optionsLabel' | translate}}:</span></p>
-    <p> {{'pages.portfolio.dialog.optionsEconomicLabel' | translate}}: {{currentProject.options.eco}}</p>
-    <p> {{'pages.portfolio.dialog.optionsWarLabel' | translate}}: {{currentProject.options.war}}</p>
-    <p> {{'pages.portfolio.dialog.optionsLogisticLabel' | translate}}: {{currentProject.options.log}}</p>
-    <p> {{'pages.portfolio.dialog.optionsSocialLabel' | translate}}: {{currentProject.options.soc}}</p>
-    <p> {{'pages.portfolio.dialog.optionsSctructureLabel' | translate}}: {{currentProject.options.struc}}</p>
+    <p> {{'pages.portfolio.dialog.optionsEconomicLabel' | translate}}: {{currentProject.options.eco}} %</p>
+    <p> {{'pages.portfolio.dialog.optionsWarLabel' | translate}}: {{currentProject.options.war}} %</p>
+    <p> {{'pages.portfolio.dialog.optionsLogisticLabel' | translate}}: {{currentProject.options.log}} %</p>
+    <p> {{'pages.portfolio.dialog.optionsSocialLabel' | translate}}: {{currentProject.options.soc}} %</p>
+    <p> {{'pages.portfolio.dialog.optionsSctructureLabel' | translate}}: {{currentProject.options.struc}} %</p>
     <p-divider />
     <p> <span class="bold">{{'pages.portfolio.dialog.addressStartLabel' | translate}}:</span> {{currentProject.addressStart}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.addressEndLabel' | translate}}:</span> {{currentProject.addressEnd}}</p>

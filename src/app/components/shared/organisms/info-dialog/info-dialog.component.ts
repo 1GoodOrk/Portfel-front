@@ -27,6 +27,7 @@ export class InfoDialogComponent {
     processDuration: 0,
     profit: 0,
     traffic: 0,
+    forecastProjectTaskAmount: 0,
     road: '',
     distance: 0,
     mainRoad: false,
@@ -50,7 +51,7 @@ export class InfoDialogComponent {
     }
   }
 
-  visibleOnChange() {
+  public visibleOnChange(): void {
     this.changeVisibleEvent.emit('info');
   }
 }

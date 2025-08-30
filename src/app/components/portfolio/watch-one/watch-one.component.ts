@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from "@ngx-translate/core";
 
@@ -29,7 +29,7 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
   templateUrl: './watch-one.component.html',
   styleUrl: './watch-one.component.scss'
 })
-export class WatchOneComponent {
+export class WatchOneComponent implements OnDestroy {
   public data: IPortfolioDataRO = {
     _id: '',
     name: '',
@@ -154,5 +154,9 @@ export class WatchOneComponent {
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
+  }
+
+  public ngOnDestroy(): void {
+    this.appCommunicationService.emptyCurrent()
   }
 }

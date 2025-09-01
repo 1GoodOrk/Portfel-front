@@ -3,6 +3,10 @@ export interface IProjectData {
   name: string;
   subinfo: string;
   type: string;
+  responsibleName: string;
+  responsibleSurname: string;
+  responsibleLastname: string;
+  responsibleOrganization: string;
   budget: number;
   budgetSource: string;
   processDuration: number;
@@ -19,7 +23,8 @@ export interface IProjectData {
   des: string;
   img: string;
   portfolioId?: {
-    tier: number;
+    name: string;
+    tier: string;
     _id: string;
   };
   dateCreation: string | Date;

@@ -46,7 +46,6 @@ export class HttpService {
     return this.http.get(`${this.link}/project/${id}`);
   }
   updateProject(id: string, data: any) {
-    console.log(111, data)
     return this.http.put(`${this.link}/projects/${id}`, { data });
   }
   createProject(data: any, token: string) {

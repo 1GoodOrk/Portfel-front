@@ -101,6 +101,83 @@
         </div>
         <p-divider />
         <div class="flex flex-col gap-1">
+          <label for="responsibleName" class="bold">{{'pages.portfolio.dialog.responsibleNameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="responsibleName"
+            [placeholder]="'pages.portfolio.dialog.responsibleNamePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.responsibleNameTolltip' | translate"
+            tooltipPosition="right"
+            name="responsibleName"
+            [(ngModel)]="formData.responsibleName"
+            [ngModelOptions]="{ standalone: true }"
+            #responsibleName="ngModel"
+            [invalid]="responsibleName.invalid && (responsibleName.touched || form.submitted)"
+            required />
+          @if (responsibleName.invalid && (responsibleName.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleNameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="responsibleSurname" class="bold">{{'pages.portfolio.dialog.responsibleSurnameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="responsibleSurname"
+            [placeholder]="'pages.portfolio.dialog.responsibleSurnamePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.responsibleSurnameTolltip' | translate"
+            tooltipPosition="right"
+            name="responsibleSurname"
+            [(ngModel)]="formData.responsibleSurname"
+            [ngModelOptions]="{ standalone: true }"
+            #responsibleSurname="ngModel"
+            [invalid]="responsibleSurname.invalid && (responsibleSurname.touched || form.submitted)"
+            required />
+          @if (responsibleSurname.invalid && (responsibleSurname.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleSurnameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="responsibleLastname" class="bold">{{'pages.portfolio.dialog.responsibleLastnameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="responsibleLastname"
+            [placeholder]="'pages.portfolio.dialog.responsibleLastnamePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.responsibleLastnameTolltip' | translate"
+            tooltipPosition="right"
+            name="responsibleLastname"
+            [(ngModel)]="formData.responsibleLastname"
+            [ngModelOptions]="{ standalone: true }"
+            #responsibleLastname="ngModel"
+            [invalid]="responsibleLastname.invalid && (responsibleLastname.touched || form.submitted)"
+            required />
+          @if (responsibleLastname.invalid && (responsibleLastname.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleLastnameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="responsibleOrganization" class="bold">{{'pages.portfolio.dialog.responsibleOrganizationLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="responsibleOrganization"
+            [placeholder]="'pages.portfolio.dialog.namePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.nameTolltip' | translate"
+            tooltipPosition="right"
+            name="responsibleOrganization"
+            [(ngModel)]="formData.responsibleOrganization"
+            [ngModelOptions]="{ standalone: true }"
+            #responsibleOrganization="ngModel"
+            [invalid]="responsibleOrganization.invalid && (responsibleOrganization.touched || form.submitted)"
+            required />
+          @if (responsibleOrganization.invalid && (responsibleOrganization.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleOrganizationRequired' | translate}}</p-message>
+          }
+        </div>
+        <p-divider />
+        <div class="flex flex-col gap-1">
           <label for="profit" class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}</label>
           <p-inputnumber
             inputId="profit"

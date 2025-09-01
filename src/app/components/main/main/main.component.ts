@@ -65,6 +65,10 @@ export class MainComponent {
     name: '',
     subinfo: '',
     type: '',
+    responsibleName: '',
+    responsibleSurname: '',
+    responsibleLastname: '',
+    responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
     processDuration: 0,
@@ -112,7 +116,6 @@ export class MainComponent {
     private httpService: HttpService
   ) {
     this.getAllProjects()
-    this.getAllPortfolios()
   }
 
   public getAllProjects(): void {
@@ -120,6 +123,7 @@ export class MainComponent {
       .subscribe((data: any) => {
         this.projects = data
         this.projectsList = Array.from(this.projects)
+        this.getAllPortfolios()
       })
   }
 
@@ -132,17 +136,22 @@ export class MainComponent {
   public getAllPortfolios(): void {
     this.httpService.getAllPortfolios(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
       .subscribe((data: any) => {
-        data = data.map((port: IPortfolioDataRO) => {
-          Object.keys(port.projectIds).forEach((key: string) => {
+        this.portfolios = data.map((port: IPortfolioDataRO) => {
+          Object.keys(port.projectIds).forEach((tier: string) => {
+            const array: Array<IProjectData> = []
             // TODO: type error
             // @ts-expect-error
-            port.projectIds[key] = port.projectIds[key].map((el: any) => {
-              return this.projects.find((proj: IProjectData) => proj._id === el._id)
+            port.projectIds[tier].forEach((el: any) => {
+              // TODO: type error
+              // @ts-expect-error
+              array.push(this.projects.find((proj: IProjectData) => proj._id === el))
             })
+            // TODO: type error
+            // @ts-expect-error
+            port.projectIds[tier] = Array.from(array)
           })
           return port
         })
-        this.portfolios = data
         this.portfoliosList = Array.from(this.portfolios)
       })
   }
@@ -185,12 +194,6 @@ export class MainComponent {
 
   public showInfoPortfolio(data: IPortfolioDataRO) {
     this.appCommunicationService.currentPortfolio = data
-    Object.keys(this.appCommunicationService.currentPortfolio.projectIds).forEach((key: string) => {
-      // TODO: type error
-      // @ts-expect-error
-      this.appCommunicationService.currentPortfolio.projectIds[key] = this.appCommunicationService.currentPortfolio.projectIds[key]
-        .map((projId: string) => this.projects.find((proj: any) => proj.id === projId))
-    })
     this.navigate(`portfolio/port-${data._id}`)
   }
 

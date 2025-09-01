@@ -13,6 +13,13 @@
     <p> <span class="bold">{{'pages.portfolio.dialog.scoreLabel' | translate}}:</span> {{currentProject.score}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.typeLabel' | translate}}:</span> {{currentProject.type}}</p>
     <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}:</span> {{currentProject.responsibleName}} {{currentProject.responsibleLastname}} {{currentProject.responsibleSurname}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.responsibleOrganizationLabel' | translate}}:</span> {{currentProject.responsibleOrganization}}</p>
+    @if (currentProject.portfolioId) {
+      <p> <span class="bold">{{'pages.portfolio.dialog.portfolioName' | translate}}:</span> {{currentProject.portfolioId.name}}</p>
+      <p> <span class="bold">{{'pages.portfolio.dialog.portfolioTier' | translate}}:</span> {{currentProject.portfolioId.tier}}</p>
+    }
+    <p-divider />
     <p> <span class="bold">{{'pages.portfolio.dialog.advantageLabel' | translate}}:</span> {{currentProject.budget - currentProject.profit}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}:</span> {{currentProject.profit}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}:</span> {{currentProject.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>

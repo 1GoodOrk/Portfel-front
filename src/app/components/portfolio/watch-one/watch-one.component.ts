@@ -37,6 +37,10 @@ export class WatchOneComponent implements OnDestroy {
     name: '',
     img: '',
     des: '',
+    responsibleName: '',
+    responsibleSurname: '',
+    responsibleLastname: '',
+    responsibleOrganization: '',
     projects: 0,
     projectIds: {
       tierI: [],
@@ -59,6 +63,10 @@ export class WatchOneComponent implements OnDestroy {
     name: '',
     subinfo: '',
     type: '',
+    responsibleName: '',
+    responsibleSurname: '',
+    responsibleLastname: '',
+    responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
     processDuration: 0,
@@ -93,6 +101,7 @@ export class WatchOneComponent implements OnDestroy {
     private appCommunicationService: AppCommunicationService
   ) {
     this.data = this.appCommunicationService.currentPortfolio
+    console.log(this.data)
   }
 
   public visibleOnChange(key: string): void {
@@ -110,9 +119,6 @@ export class WatchOneComponent implements OnDestroy {
       // TODO: type error
       // @ts-expect-error
       Object.keys(this.data.projectIds[tier][index]).forEach((key: string) => {
-        // @ts-expect-error
-        console.log(this.data.projectIds[tier][index], key, this.data.projectIds[tier][index][key])
-        // TODO: type error
         // @ts-expect-error
         this.currentProject[key] = this.data.projectIds[tier][index][key]
       })

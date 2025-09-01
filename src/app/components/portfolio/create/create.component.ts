@@ -152,6 +152,10 @@ export class CreateComponent {
     name: '',
     subinfo: '',
     type: '',
+    responsibleName: '',
+    responsibleSurname: '',
+    responsibleLastname: '',
+    responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
     processDuration: 0,
@@ -198,7 +202,7 @@ export class CreateComponent {
   public getAllProjects(): void {
   this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
     .subscribe((data: any) => {
-      this.projects = data
+      this.projects = data.filter((el: IProjectData) => !el.portfolioId)
       this.projectsUnselected = Array.from(this.projects)
     })
 }

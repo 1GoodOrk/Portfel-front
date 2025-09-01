@@ -6,6 +6,9 @@
   <div>
     <h1>{{'pages.portfolio.confirmation.title' | translate}}: {{ data.name }}</h1>
     <p-divider />
+    <p> <span class="bold">{{'pages.portfolio.confirmation.responsibleLabel' | translate}}:</span> {{data.responsibleName}} {{data.responsibleLastname}} {{data.responsibleSurname}}</p>
+    <p> <span class="bold">{{'pages.portfolio.confirmation.responsibleOrganizationLabel' | translate}}:</span> {{data.responsibleOrganization}}</p>
+    <p-divider />
     <p><span class="bold">{{'pages.portfolio.confirmation.projects' | translate}}</span>: {{ data.projects }}</p>
     <h2>{{'pages.portfolio.creation.thirdTierIHeader' | translate}}</h2>
     <div legend="Projects" class="container">

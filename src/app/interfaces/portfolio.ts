@@ -5,6 +5,10 @@ export interface IPortfolioData {
   name: string;
   img: string;
   des: string;
+  responsibleName: string,
+  responsibleSurname: string,
+  responsibleLastname: string,
+  responsibleOrganization: string,
   projects: number;
   projectIds: {
     tierI: Array<IProjectData>;
@@ -23,6 +27,10 @@ export interface IPortfolioDataRO {
   name: string;
   img: string;
   des: string;
+  responsibleName: string,
+  responsibleSurname: string,
+  responsibleLastname: string,
+  responsibleOrganization: string,
   projects: number;
   projectIds: {
     tierI: Array<IProjectData>;

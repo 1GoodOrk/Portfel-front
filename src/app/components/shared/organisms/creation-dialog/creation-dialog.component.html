@@ -158,13 +158,70 @@
           }
         </div>
         <div class="flex flex-col gap-1">
+          <label for="managerName" class="bold">{{'pages.portfolio.dialog.managerNameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="managerName"
+            [placeholder]="'pages.portfolio.dialog.managerNamePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.managerNameTolltip' | translate"
+            tooltipPosition="right"
+            name="managerName"
+            [(ngModel)]="formData.managerName"
+            [ngModelOptions]="{ standalone: true }"
+            #managerName="ngModel"
+            [invalid]="managerName.invalid && (managerName.touched || form.submitted)"
+            required />
+          @if (managerName.invalid && (managerName.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.managerNameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="managerSurname" class="bold">{{'pages.portfolio.dialog.managerSurnameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="managerSurname"
+            [placeholder]="'pages.portfolio.dialog.managerSurnamePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.managerSurnameTolltip' | translate"
+            tooltipPosition="right"
+            name="managerSurname"
+            [(ngModel)]="formData.managerSurname"
+            [ngModelOptions]="{ standalone: true }"
+            #managerSurname="ngModel"
+            [invalid]="managerSurname.invalid && (managerSurname.touched || form.submitted)"
+            required />
+          @if (managerSurname.invalid && (managerSurname.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.managerSurnameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="managerLastname" class="bold">{{'pages.portfolio.dialog.managerLastnameLabel' | translate}}</label>
+          <input
+            pInputText
+            type="text"
+            id="managerLastname"
+            [placeholder]="'pages.portfolio.dialog.managerLastnamePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.managerLastnameTolltip' | translate"
+            tooltipPosition="right"
+            name="managerLastname"
+            [(ngModel)]="formData.managerLastname"
+            [ngModelOptions]="{ standalone: true }"
+            #managerLastname="ngModel"
+            [invalid]="managerLastname.invalid && (managerLastname.touched || form.submitted)"
+            required />
+          @if (managerLastname.invalid && (managerLastname.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.managerLastnameRequired' | translate}}</p-message>
+          }
+        </div>
+        <div class="flex flex-col gap-1">
           <label for="responsibleOrganization" class="bold">{{'pages.portfolio.dialog.responsibleOrganizationLabel' | translate}}</label>
           <input
             pInputText
             type="text"
             id="responsibleOrganization"
-            [placeholder]="'pages.portfolio.dialog.namePlaceholder' | translate"
-            [pTooltip]="'pages.portfolio.dialog.nameTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.responsibleOrganizationPlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.responsibleOrganizationTolltip' | translate"
             tooltipPosition="right"
             name="responsibleOrganization"
             [(ngModel)]="formData.responsibleOrganization"
@@ -746,7 +803,7 @@
           [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
           [text]="true"
           severity="danger"
-          (click)="visibleOnChange()" />
+          (click)="form.resetForm(); visibleOnChange()" />
       </div>
     </div>
   </form>

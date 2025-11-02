@@ -133,8 +133,8 @@
                     pInputText
                     type="text"
                     id="responsibleOrganization"
-                    [placeholder]="'pages.portfolio.creation.namePlaceholder' | translate"
-                    [pTooltip]="'pages.portfolio.creation.nameTolltip' | translate"
+                    [placeholder]="'pages.portfolio.creation.responsibleOrganizationPlaceholder' | translate"
+                    [pTooltip]="'pages.portfolio.creation.responsibleOrganizationTolltip' | translate"
                     tooltipPosition="right"
                     name="responsibleOrganization"
                     [(ngModel)]="data.responsibleOrganization"
@@ -163,7 +163,7 @@
                   </div>
                 </div>
                 @if (data.location && data.location !== 'OUTSIDE') {
-                  <label for="town" class="bold">{{'pages.portfolio.creation.townPLabel' | translate}}</label>
+                  <label for="town" class="bold">{{'pages.portfolio.creation.townPLabel' | translate}}?</label>
                   <div class="flex flex-col gap-1">
                     <input
                       pInputText

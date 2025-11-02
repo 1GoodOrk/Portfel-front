@@ -155,6 +155,9 @@ export class CreateComponent {
     responsibleName: '',
     responsibleSurname: '',
     responsibleLastname: '',
+    managerName: '',
+    managerSurname: '',
+    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -209,6 +212,7 @@ export class CreateComponent {
 
   public watchPortfolio(): void {
     this.appCommunicationService.currentPortfolio = Object.assign(this.data)
+    this.appCommunicationService.currentPortfolio.projects = this.appCommunicationService.currentPortfolio.projectIds.tierI.length + this.appCommunicationService.currentPortfolio.projectIds.tierII.length + this.appCommunicationService.currentPortfolio.projectIds.tierIII.length
     this.navigate('confirmation')
   }
 
@@ -272,6 +276,8 @@ export class CreateComponent {
         // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
+      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
+      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }

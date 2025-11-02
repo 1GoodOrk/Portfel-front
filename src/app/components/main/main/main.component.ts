@@ -68,6 +68,9 @@ export class MainComponent {
     responsibleName: '',
     responsibleSurname: '',
     responsibleLastname: '',
+    managerName: '',
+    managerSurname: '',
+    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -205,6 +208,8 @@ export class MainComponent {
         // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
+      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
+      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
@@ -237,7 +242,7 @@ export class MainComponent {
       .subscribe(() => {
         const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
         const index = user.data.projectIds.indexOf(id);
-        if (index > -1) {
+        if (index > -1 && user && user.projectIds) {
           user.projectIds.splice(index, 1);
         }
         this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
@@ -263,8 +268,8 @@ export class MainComponent {
       .subscribe(() => {
         const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
         const index = user.data.portfolioIds.indexOf(id);
-        if (index > -1) {
-          user.projectIds.splice(index, 1);
+        if (index > -1 && user && user.portfolioIds) {
+          user.portfolioIds.splice(index, 1);
         }
         this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
         this.getAllPortfolios()

@@ -53,6 +53,9 @@ export class CreationDialogComponent {
     responsibleName: '',
     responsibleSurname: '',
     responsibleLastname: '',
+    managerName: '',
+    managerSurname: '',
+    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -86,22 +89,28 @@ export class CreationDialogComponent {
   @Output() submitionEvent = new EventEmitter<string>();
 
   public items = [
-    { label: 'Bridge', value: 'bridge' },
-    { label: 'Fixing', value: 'fix' },
-    { label: 'Build', value: 'build' },
-    { label: 'Overpass', value: 'overpass' },
-    { label: 'Tunnel', value: 'tunnel' },
-    { label: 'Detour', value: 'detour' },
-    { label: 'Cong', value: 'cong' },
-    { label: 'Digitalization', value: 'digitalization' },
+    // { label: 'Bridge', value: 'bridge' },
+    // { label: 'Fixing', value: 'fix' },
+    // { label: 'Build', value: 'build' },
+    // { label: 'Overpass', value: 'overpass' },
+    // { label: 'Tunnel', value: 'tunnel' },
+    // { label: 'Detour', value: 'detour' },
+    // { label: 'Cong', value: 'cong' },
+    // { label: 'Digitalization', value: 'digitalization' },
+    { label: 'Міст', value: 'bridge' },
+    { label: 'Ремонт', value: 'fix' },
+    { label: 'Будівництво', value: 'build' },
+    { label: 'Естакада', value: 'overpass' },
+    { label: 'Тунель', value: 'tunnel' },
+    { label: 'Об’їзд', value: 'detour' },
+    { label: 'З’їзд', value: 'cong' },
+    { label: 'Цифровізація', value: 'digitalization' },
   ]
 
   constructor(
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
-  ) {
-
-  }
+  ) {}
 
   public visibleOnChange(): void {
     this.changeVisibleEvent.emit('creation');
@@ -113,19 +122,20 @@ export class CreationDialogComponent {
 
   public updateProject(id: string, form: any) {
     if (form.valid) {
+      form.resetForm()
       this.httpService.updateProject(id, this.formData)
         .subscribe((data: any) => {
           if (data) {
             this.getAllProjects()
           }
         })
-      form.resetForm()
       this.formData = Object.assign(this.appCommunicationService.clearProject)
       this.visibleOnChange()
     }
   }
 
   public createProject(form: any) {
+    console.log(this.formData.options)
     if (form.valid) {
       this.formData.score = 0.33 * (this.formData.profit - this.formData.budget) + 0.33 * this.formData.permissionDuration + 0.33 * this.formData.forecastProjectTaskAmount
       this.httpService.createProject(this.formData, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
@@ -135,8 +145,8 @@ export class CreationDialogComponent {
           this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
           this.getAllProjects()
         })
-      form.resetForm()
       this.formData = Object.assign(this.appCommunicationService.clearProject)
+      form.resetForm()
       this.visibleOnChange()
     }
   }

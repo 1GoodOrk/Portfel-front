@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main class="watch-one">
   <div class="image-preview">
-    <img [src]="data.img" alt="portfolio_art">
+    <img src="https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg" alt="portfolio_art">
   </div>
   <div>
     <h1>{{'pages.portfolio.confirmation.title' | translate}}: {{ data.name }}</h1>
@@ -116,10 +116,10 @@
       }
     </div>
     <p-divider />
-    <p><span class="bold">{{'pages.portfolio.confirmation.budget' | translate}}: </span>{{ data.budget }} USD</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.profit' | translate}}: </span>{{ data.profit }} USD</p>
-    <p><span class="bold">{{'pages.portfolio.confirmation.advantage' | translate}}: </span>{{ data.profit - data.budget }} USD</p>
-    @if (data.location === "INSIDE") {
+    <p><span class="bold">{{'pages.portfolio.confirmation.budget' | translate}}: </span>{{ data.budget }} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+    <!-- <p><span class="bold">{{'pages.portfolio.confirmation.profit' | translate}}: </span>{{ data.profit }} USD</p>
+    <p><span class="bold">{{'pages.portfolio.confirmation.advantage' | translate}}: </span>{{ data.profit - data.budget }} USD</p> -->
+    <!-- @if (data.location === "INSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationInside' | translate}}</p>
     } @else if (data.location === "OUTSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.location' | translate}}: </span>{{'pages.portfolio.confirmation.locationOutside' | translate}}</p>
@@ -128,9 +128,9 @@
     }
     @if (data.location !== "OUTSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.town' | translate}}: </span>{{ data.town }}</p>
-    }
+    } -->
     <p-divider />
-    <p>{{ data.des }}</p>
+    <p> <span class="bold">{{'pages.portfolio.confirmation.descriptionLabel' | translate}}: </span>{{ data.des }}</p>
   </div>
 </main>
 <app-footer></app-footer>

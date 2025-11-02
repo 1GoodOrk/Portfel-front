@@ -6,6 +6,9 @@ export interface IProjectData {
   responsibleName: string;
   responsibleSurname: string;
   responsibleLastname: string;
+  managerName: string;
+  managerSurname: string;
+  managerLastname: string;
   responsibleOrganization: string;
   budget: number;
   budgetSource: string;

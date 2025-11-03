@@ -10,7 +10,121 @@
   <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
       <div class="form-container column">
-        <div class="flex flex-col gap-1">
+        @for (input of inputs.vehicle; track input) {
+          @if (input.displayCondition && input.type !== 'line') {
+            <div class="flex flex-col gap-1">
+              @if (input.type !== 'checklist') {
+                <label for="name" class="bold">{{input.label | translate}}</label>
+              }
+              @if (input.type === 'text') {
+                <input
+                  pInputText
+                  type="text"
+                  [id]="input.name"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [name]="input.name || 'name'"
+                  [(ngModel)]="input.model"
+                  [ngModelOptions]="{ standalone: true }"
+                  required />
+                  <!-- #[{{input.refName}}]="ngModel"
+                  [invalid]="form.controls[input.refName].invalid && (form.controls[input.refName].touched || form.controls[input.refName].dirty)" -->
+              } @else if (input.type === 'textarea') {
+                <textarea
+                  pTextarea
+                  type="text"
+                  [id]="input.name"
+                  class="mt-5"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [name]="input.name || 'name'"
+                  [(ngModel)]="input.model"
+                  required>
+                  <!-- #[{{input.refName}}]="ngModel" -->
+                </textarea>
+              } @else if (input.type === 'number') {
+                <p-inputnumber
+                  [inputId]="input.name"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [name]="input.name || 'name'"
+                  [(ngModel)]="input.model"
+                  [ngModelOptions]="{ standalone: true }"
+                  required
+                  [min]="input.min || 1"
+                  [max]="input.max || 10"
+                  [step]="input.step || 1"
+                  [minFractionDigits]="0" >
+                  <!-- #[{{input.refName}}]="ngModel"
+                  [invalid]="form.controls[input.refName].invalid && (form.controls[input.refName].touched || form.controls[input.refName].dirty)" -->
+                    <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                    </ng-template>
+                </p-inputnumber>
+              } @else if (input.type === 'datepicker') {
+                <p-datepicker
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [(ngModel)]="input.model"
+                  [ngModelOptions]="{ standalone: true }"
+                  required />
+                  <!-- #[{{input.refName}}]="ngModel"
+                  [invalid]="form.controls[input.refName].invalid && (form.controls[input.refName].touched || form.controls[input.refName].dirty)" -->
+              } @else if (input.type === 'checklist') {
+                <p-checkbox
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [binary]="true"
+                  [indeterminate]="true"
+                  [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="input.model" />
+                <label for="intown" class="bold">{{input.label | translate}}?</label>
+              } @else if (input.type === 'selector') {
+                <p-select
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [options]="input.items"
+                  [(ngModel)]="input.model"
+                  [ngModelOptions]="{ standalone: true }"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  class="w-full md:w-56" />
+              } @else if (input.type === 'multiselector') {
+                <p-multiselect
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [options]="input.items"
+                  [(ngModel)]="input.model"
+                  [ngModelOptions]="{ standalone: true }"
+                  tooltipPosition="right"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  optionLabel="label"
+                  [showClear]="true"
+                  class="w-full md:w-56" />
+              }              <!-- @if (input.type !== 'checklist' && form.controls[input.refName].invalid && (form.controls[input.refName].touched || form.controls[input.refName].dirty)) {
+                <p-message severity="error" size="small" variant="simple">{{input.errors?.required| translate}}</p-message>
+              } -->
+            </div>
+          } @else if (input.displayCondition) {
+            <p-divider />
+          }
+        }
+        <!-- <div class="flex flex-col gap-1">
           <label for="name" class="bold">{{'pages.portfolio.dialog.nameLabel' | translate}}</label>
           <input
             pInputText
@@ -787,7 +901,7 @@
               {{'pages.portfolio.dialog.optionsStructureRequired' | translate}}
             </p-message>
           }
-        </div>
+        </div> -->
         <!-- TODO: Map minimize select? -->
       </div>
       <div>

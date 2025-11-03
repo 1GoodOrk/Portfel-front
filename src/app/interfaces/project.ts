@@ -47,3 +47,43 @@ export interface IProjectData {
 export interface IProjectRO {
   data: IProjectData;
 }
+
+export interface IProjectDataVehicle {
+  _id: string;
+  name: string;
+  subinfo: string;
+  des: string;
+  responsibleName: string;
+  responsibleSurname: string;
+  responsibleLastname: string;
+  managerName: string;
+  managerSurname: string;
+  managerLastname: string;
+  responsibleOrganization: string;
+  volumeOfWork: number;
+  term: number;
+  actionPlan: string;
+  sphereOfAction: string;
+  budget: number;
+  budgetSource: string;
+  mainLosses: number;
+  actualCost: number;
+  additionalLosses: number;
+  passengerTraffic: number;
+  ticketPrice: number;
+  governmentSubsidies: number;
+  numberOfPassengers: number;
+  vehicle: string;
+  infrastructure: string;
+  staff: string;
+  technology: string;
+  options: {
+    eco: number;
+    war: number;
+    log: number;
+    soc: number;
+    struc: number;
+  }
+  performanceIndex: number;
+  indexOfAssetsEmployed: number;
+}

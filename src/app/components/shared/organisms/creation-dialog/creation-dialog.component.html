@@ -25,7 +25,7 @@
                   [pTooltip]="input.pTooltip | translate"
                   tooltipPosition="right"
                   [name]="input.name || 'name'"
-                  [(ngModel)]="input.model"
+                  [(ngModel)]="input.value"
                   [ngModelOptions]="{ standalone: true }"
                   required />
                   <!-- #[{{input.refName}}]="ngModel"
@@ -40,7 +40,7 @@
                   [pTooltip]="input.pTooltip | translate"
                   tooltipPosition="right"
                   [name]="input.name || 'name'"
-                  [(ngModel)]="input.model"
+                  [(ngModel)]="input.value"
                   required>
                   <!-- #[{{input.refName}}]="ngModel" -->
                 </textarea>
@@ -52,7 +52,7 @@
                   [pTooltip]="input.pTooltip | translate"
                   tooltipPosition="right"
                   [name]="input.name || 'name'"
-                  [(ngModel)]="input.model"
+                  [(ngModel)]="input.value"
                   [ngModelOptions]="{ standalone: true }"
                   required
                   [min]="input.min || 1"
@@ -75,7 +75,7 @@
                   [placeholder]="input.placeholder | translate"
                   [pTooltip]="input.pTooltip | translate"
                   tooltipPosition="right"
-                  [(ngModel)]="input.model"
+                  [(ngModel)]="input.value"
                   [ngModelOptions]="{ standalone: true }"
                   required />
                   <!-- #[{{input.refName}}]="ngModel"
@@ -89,14 +89,14 @@
                   [binary]="true"
                   [indeterminate]="true"
                   [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="input.model" />
+                  [(ngModel)]="input.value" />
                 <label for="intown" class="bold">{{input.label | translate}}?</label>
               } @else if (input.type === 'selector') {
                 <p-select
                   [inputId]="input.name"
                   [name]="input.name || 'name'"
                   [options]="input.items"
-                  [(ngModel)]="input.model"
+                  [(ngModel)]="input.value"
                   [ngModelOptions]="{ standalone: true }"
                   [placeholder]="input.placeholder | translate"
                   [pTooltip]="input.pTooltip | translate"
@@ -107,7 +107,7 @@
                   [inputId]="input.name"
                   [name]="input.name || 'name'"
                   [options]="input.items"
-                  [(ngModel)]="input.model"
+                  [(ngModel)]="input.value"
                   [ngModelOptions]="{ standalone: true }"
                   tooltipPosition="right"
                   [placeholder]="input.placeholder | translate"

@@ -61,6 +61,7 @@ export interface IProjectDataVehicle {
   managerLastname: string;
   responsibleOrganization: string;
   volumeOfWork: number;
+  forecastProjectTaskAmount: number;
   term: number;
   actionPlan: string;
   sphereOfAction: string;
@@ -72,7 +73,6 @@ export interface IProjectDataVehicle {
   passengerTraffic: number;
   ticketPrice: number;
   governmentSubsidies: number;
-  numberOfPassengers: number;
   vehicle: string;
   infrastructure: string;
   staff: string;
@@ -86,4 +86,5 @@ export interface IProjectDataVehicle {
   }
   performanceIndex: number;
   indexOfAssetsEmployed: number;
+  riskScore: number
 }

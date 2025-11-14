@@ -801,6 +801,113 @@ export class AppCommunicationService {
       result[el] = Array.from(this.inputsForm[el])
     })
     return result
+  }
 
+  private infoPageProjectValueKeys: any = {
+    vehicle: [
+      { propName: 'subinfo', label: 'pages.portfolio.dialog.subinfoLabel' },
+      { propName: 'priority', label: 'pages.portfolio.dialog.priorityLabel' },
+      { propName: 'type', label: 'pages.portfolio.dialog.typeLabel' },
+      { type: 'divider' },
+      { type: 'multyInOne', label: 'pages.portfolio.dialog.responsibleLabel', items: [
+        { propName: 'responsibleName' },
+        { propName: 'responsibleSurname' },
+        { propName: 'responsibleLastname' }
+      ] },
+      { type: 'multyInOne', label: 'pages.portfolio.dialog.managerLabel', items: [
+        { propName: 'managerName' },
+        { propName: 'managerSurname' },
+        { propName: 'managerLastname' }
+      ] },
+      { propName: 'responsibleOrganization', label: 'pages.portfolio.dialog.profitLabel' },
+      { type: 'permission', propPermission: 'portfolioId', items: [
+        { type: 'deepInside', propNames: ['portfolioId', 'name'], label: 'pages.portfolio.dialog.portfolioName' },
+        { type: 'deepInside', propNames: ['portfolioId', 'tier'], label: 'pages.portfolio.dialog.portfolioTier' }
+      ]},
+      { propName: 'volumeOfWork', label: 'pages.portfolio.dialog.volumeOfWorkLabel' },
+      { propName: 'forecastProjectTaskAmount', label: 'pages.portfolio.dialog.forecastProjectTaskAmountLabel' },
+      { propName: 'term', label: 'pages.portfolio.dialog.termLabel' },
+      { propName: 'actionPlan', label: 'pages.portfolio.dialog.actionPlanLabel' },
+      { propName: 'sphereOfAction', label: 'pages.portfolio.dialog.sphereOfActionLabel' },
+      { type: 'divider' },
+      { propName: 'budget', label: 'pages.portfolio.dialog.budgetLabel', suffix: 'pages.portfolio.dialog.budgetSuffix' },
+      { propName: 'budgetSource', label: 'pages.portfolio.dialog.budgetSourceLabel' },
+      { propName: 'mainLosses', label: 'pages.portfolio.dialog.mainLossesLabel', suffix: 'pages.portfolio.dialog.budgetSuffix' },
+      { propName: 'actualCost', label: 'pages.portfolio.dialog.actualCostLabel', suffix: 'pages.portfolio.dialog.budgetSuffix' },
+      { propName: 'additionalLosses', label: 'pages.portfolio.dialog.additionalLossesLabel', suffix: 'pages.portfolio.dialog.budgetSuffix' },
+      { propName: 'passengerTraffic', label: 'pages.portfolio.dialog.passengerTrafficLabel' },
+      { propName: 'ticketPrice', label: 'pages.portfolio.dialog.ticketPriceLabel' },
+      { propName: 'governmentSubsidies', label: 'pages.portfolio.dialog.governmentSubsidiesLabel' },
+      { propName: 'vehicle', label: 'pages.portfolio.dialog.vehicleLabel' },
+      { propName: 'infrastructure', label: 'pages.portfolio.dialog.infrastructureLabel' },
+      { propName: 'staff', label: 'pages.portfolio.dialog.staffLabel' },
+      { propName: 'technology', label: 'pages.portfolio.dialog.technologyLabel' },
+      { type: 'divider' },
+      { type: 'options', label: 'pages.portfolio.dialog.optionsLabel', items: [
+        { propName: 'eco', label: 'pages.portfolio.dialog.optionsEconomicLabel' },
+        { propName: 'war', label: 'pages.portfolio.dialog.optionsWarLabel' },
+        { propName: 'log', label: 'pages.portfolio.dialog.optionsLogisticLabel' },
+        { propName: 'soc', label: 'pages.portfolio.dialog.optionsSocialLabel' },
+        { propName: 'struc', label: 'pages.portfolio.dialog.optionsStructureLabel' },
+      ] },
+      // { type: 'divider' },
+      // { propName: 'addressStart', label: 'pages.portfolio.dialog.addressStartLabel' },
+      // { propName: 'addressEnd', label: 'pages.portfolio.dialog.addressEndLabel' },
+      { type: 'divider' },
+      { propName: 'des', label: 'pages.portfolio.dialog.descriptionLabel' },
+    ],
+    roads: [
+      { propName: 'subinfo', label: 'pages.portfolio.dialog.subinfoLabel' },
+      { propName: 'priority', label: 'pages.portfolio.dialog.priorityLabel' },
+      { propName: 'type', label: 'pages.portfolio.dialog.typeLabel' },
+      { type: 'divider' },
+      { type: 'multyInOne', label: 'pages.portfolio.dialog.responsibleLabel', items: [
+        { propName: 'responsibleName' },
+        { propName: 'responsibleSurname' },
+        { propName: 'responsibleLastname' }
+      ] },
+      { type: 'multyInOne', label: 'pages.portfolio.dialog.managerLabel', items: [
+        { propName: 'managerName' },
+        { propName: 'managerSurname' },
+        { propName: 'managerLastname' }
+      ] },
+      { propName: 'responsibleOrganization', label: 'pages.portfolio.dialog.profitLabel' },
+      { type: 'permission', propPermission: 'portfolioId', items: [
+        { type: 'deepInside', propNames: ['portfolioId', 'name'], label: 'pages.portfolio.dialog.portfolioName' },
+        { type: 'deepInside', propNames: ['portfolioId', 'tier'], label: 'pages.portfolio.dialog.portfolioTier' }
+      ]},
+      { type: 'divider' },
+      { propName: 'budget', label: 'pages.portfolio.dialog.budgetLabel', suffix: 'pages.portfolio.dialog.budgetSuffix' },
+      { propName: 'budgetSource', label: 'pages.portfolio.dialog.budgetSourceLabel' },
+      { propName: 'processDuration', label: 'pages.portfolio.dialog.processDurationLabel', suffix: 'pages.portfolio.dialog.processDurationSuffix' },
+      { propName: 'traffic', label: 'pages.portfolio.dialog.trafficLabel', suffix: 'pages.portfolio.dialog.trafficSuffix'  },
+      { propName: 'road', label: 'pages.portfolio.dialog.roadCodeLabel' },
+      { propName: 'distance', label: 'pages.portfolio.dialog.distanceLabel', suffix: 'pages.portfolio.dialog.distanceSuffix'  },
+      { type: 'divider' },
+      { propName: 'mainRoad', label: 'pages.portfolio.dialog.mainRoadLabel' },
+      { propName: 'inTown', label: 'pages.portfolio.dialog.inTownLabel' },
+      { type: 'permission', propPermission: 'inTown', propName: 'dateCreation', label: 'pages.portfolio.dialog.dateCreationLabel' },
+      { type: 'divider' },
+      { type: 'date', propName: 'dateCreation', label: 'pages.portfolio.dialog.dateCreationLabel' },
+      { type: 'date', propName: 'dateInitialization', label: 'pages.portfolio.dialog.dateInitializationLabel' },
+      { propName: 'permissionDuration', label: 'pages.portfolio.dialog.permissionDurationLabel', suffix: 'pages.portfolio.dialog.processDurationSuffix' },
+      { type: 'divider' },
+      { type: 'options', items: [
+        { propName: 'eco', label: 'pages.portfolio.dialog.optionsEconomicLabel' },
+        { propName: 'war', label: 'pages.portfolio.dialog.optionsWarLabel' },
+        { propName: 'log', label: 'pages.portfolio.dialog.optionsLogisticLabel' },
+        { propName: 'soc', label: 'pages.portfolio.dialog.optionsSocialLabel' },
+        { propName: 'struc', label: 'pages.portfolio.dialog.optionsStructureLabel' },
+      ] },
+      { type: 'divider' },
+      { propName: 'addressStart', label: 'pages.portfolio.dialog.addressStartLabel' },
+      { propName: 'addressEnd', label: 'pages.portfolio.dialog.addressEndLabel' },
+      { type: 'divider' },
+      { propName: 'des', label: 'pages.portfolio.dialog.descriptionLabel' },
+    ]
+  }
+
+  public getInfoPageProjectValueKeys(valueKeysSetName: string): any {
+    return this.infoPageProjectValueKeys[valueKeysSetName]
   }
 }

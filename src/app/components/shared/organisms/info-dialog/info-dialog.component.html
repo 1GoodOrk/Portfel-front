@@ -8,9 +8,46 @@
     <img alt="Card" class="w-full" [src]="currentProject.img" />
   </div>
   <div>
-    <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}:</span> {{currentProject.subinfo}}</p>
+    @for (valueKey of infoPageProjectValueKeys; track valueKey) {
+      @if (!valueKey.type) {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName]}}
+          @if (!valueKey.type) {
+            {{valueKey.suffix | translate}}
+          }
+        </p>
+      } @else if (valueKey.type === 'divider') {
+        <p-divider />
+      } @else if (valueKey.type === 'date') {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName] | date: 'dd/MM/yyyy'}}</p>
+      } @else if (valueKey.type === 'multyInOne') {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span>
+          @for (item of valueKey.items; track item) {
+            {{currentProject[item.propName] + ' '}}
+          }
+        </p>
+      } @else if (valueKey.type === 'options') {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
+        @for (item of valueKey.items; track item) {
+          <p> {{item.label | translate}}: {{currentProject.options[item.propName]}} %</p>
+        }
+      } @else if (valueKey.type === 'permission') {
+        @if (currentProject[valueKey.propPermission]) {
+          @if (valueKey.items && valueKey.items[0] && valueKey.items[0].type === 'deepInside') {
+            @for (item of valueKey.items; track item) {
+              <p> <span class="bold">{{item.label | translate}}:</span> {{currentProject[item.propNames[0]][item.propNames[1]]}} </p>
+            }
+          } @else {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName]}}
+              @if (!valueKey.type) {
+                {{valueKey.suffix | translate}}
+              }
+            </p>
+          }
+        }
+      }
+    }
+    <!-- <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}:</span> {{currentProject.subinfo}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.priorityLabel' | translate}}:</span> {{currentProject.priority}}</p>
-    <!-- <p> <span class="bold">{{'pages.portfolio.dialog.scoreLabel' | translate}}:</span> {{currentProject.score}}</p> -->
     <p> <span class="bold">{{'pages.portfolio.dialog.typeLabel' | translate}}:</span> {{currentProject.type}}</p>
     <p-divider />
     <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}:</span> {{currentProject.responsibleName}} {{currentProject.responsibleSurname}} {{currentProject.responsibleLastname}}</p>
@@ -21,10 +58,6 @@
       <p> <span class="bold">{{'pages.portfolio.dialog.portfolioTier' | translate}}:</span> {{currentProject.portfolioId.tier}}</p>
     }
     <p-divider />
-    <!-- <p> <span class="bold">{{'pages.portfolio.dialog.advantageLabel' | translate}}:</span>
-      <span class="bold" [style]="{ 'color': `${currentProject.profit - currentProject.budget > 0 ? 'green' : 'red'}`}"> {{currentProject.profit - currentProject.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</span>
-    </p>
-    <p> <span class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}:</span> {{currentProject.profit}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p> -->
     <p> <span class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}:</span> {{currentProject.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.budgetSourceLabel' | translate}}:</span> {{currentProject.budgetSource}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.processDurationLabel' | translate}}:</span> {{currentProject.processDuration}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
@@ -52,6 +85,6 @@
     <p> <span class="bold">{{'pages.portfolio.dialog.addressStartLabel' | translate}}:</span> {{currentProject.addressStart}}</p>
     <p> <span class="bold">{{'pages.portfolio.dialog.addressEndLabel' | translate}}:</span> {{currentProject.addressEnd}}</p>
     <p-divider />
-    <p> <span class="bold">{{'pages.portfolio.dialog.descriptionLabel' | translate}}:</span> {{currentProject.des}}</p>
+    <p> <span class="bold">{{'pages.portfolio.dialog.descriptionLabel' | translate}}:</span> {{currentProject.des}}</p> -->
   </div>
 </p-dialog>

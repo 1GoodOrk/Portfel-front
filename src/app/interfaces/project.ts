@@ -86,5 +86,6 @@ export interface IProjectDataVehicle {
   }
   performanceIndex: number;
   indexOfAssetsEmployed: number;
-  riskScore: number
+  projectValuation: number;
+  riskScore: number;
 }

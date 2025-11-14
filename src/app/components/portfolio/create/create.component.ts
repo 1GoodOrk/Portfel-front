@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from "@ngx-translate/core";
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DragDropModule } from 'primeng/dragdrop';
+import { ChartModule } from 'primeng/chart';
 
 import { HttpService } from '@port/services/http.service';
 import { SortingService } from '@port/services/sorting.service';
@@ -57,7 +58,8 @@ import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/
     DividerModule,
     DialogModule,
     DatePickerModule,
-    DragDropModule
+    DragDropModule,
+    ChartModule
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -188,14 +190,45 @@ export class CreateComponent {
     }
   }
 
+  public dataProjectValuation: any = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Valuation',
+          data: [],
+          backgroundColor: [],
+          borderColor: [],
+          borderWidth: 1,
+        },
+      ],
+    }
+  public basicProjectValuationOptions: any;
+  public dataRiskScore: any = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Risks',
+          data: [],
+          backgroundColor: [],
+          borderColor: [],
+          borderWidth: 1,
+        },
+      ],
+    }
+  public basicRiskScoreOptions: any;
+
   constructor(
     private router: Router,
+    private cd: ChangeDetectorRef,
     private httpService: HttpService,
     private sortingService: SortingService,
     private appCommunicationService: AppCommunicationService
   ) {
-    this.getAllProjects()
+    // this.getAllProjects()
+    this.refreshCharts()
     this.data = Object.assign(this.appCommunicationService.currentPortfolio)
+    this.projects = this.appCommunicationService.testProjArray
+    this.projectsUnselected = this.appCommunicationService.testProjArray
   }
 
   public navigate(path: string) {
@@ -216,15 +249,118 @@ export class CreateComponent {
     this.navigate('confirmation')
   }
 
+  public refreshCharts(): void {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+    this.dataRiskScore = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Risks',
+          data: [],
+          backgroundColor: [],
+          borderColor: [],
+          borderWidth: 1,
+        },
+      ],
+    }
+    this.dataProjectValuation = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Valuation',
+          data: [],
+          backgroundColor: [],
+          borderColor: [],
+          borderWidth: 1,
+        },
+      ],
+    }
+
+    this.projectsSelected.forEach((el: any) => {
+      this.dataRiskScore.labels.push(el.name)
+      this.dataProjectValuation.labels.push(el.name)
+      this.dataRiskScore.datasets[0].data.push(el.riskScore)
+      this.dataProjectValuation.datasets[0].data.push(el.projectValuation)
+      this.dataRiskScore.datasets[0].backgroundColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+      this.dataProjectValuation.datasets[0].backgroundColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+      this.dataRiskScore.datasets[0].borderColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+      this.dataProjectValuation.datasets[0].borderColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+    })
+
+    this.basicRiskScoreOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+      },
+    }
+    this.basicProjectValuationOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+      },
+    }
+    this.cd.markForCheck()
+  }
+
+
   public select(index: number, event: any): void {
     event.stopPropagation()
     this.projectsSelected.push(this.projectsUnselected[index])
     this.projectsUnselected.splice(index, 1)
+    this.refreshCharts()
   }
   public unselect(index: number, event: any): void {
     event.stopPropagation()
     this.projectsUnselected.push(this.projectsSelected[index])
     this.projectsSelected.splice(index, 1)
+    this.refreshCharts()
   }
   public selectSorting(type: string): void {
     this.projectsSelected = []
@@ -251,7 +387,7 @@ export class CreateComponent {
   }
 
   public tiersFiltering(): void {
-    this.data = this.sortingService.tierFormatting(this.projectsSelected, this.data)
+    // this.data = this.sortingService.tierFormatting(this.projectsSelected, this.data)
   }
 
   public removeProjects(id: string, event: any) {

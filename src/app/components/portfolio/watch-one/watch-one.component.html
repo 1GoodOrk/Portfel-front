@@ -129,6 +129,10 @@
     @if (data.location !== "OUTSIDE") {
       <p><span class="bold">{{'pages.portfolio.confirmation.town' | translate}}: </span>{{ data.town }}</p>
     } -->
+    <div class="">
+      <p-chart type="bar" [data]="dataProjectValuation" [options]="basicProjectValuationOptions" />
+      <p-chart type="bar" [data]="dataRiskScore" [options]="basicRiskScoreOptions" />
+    </div>
     <p-divider />
     <p> <span class="bold">{{'pages.portfolio.confirmation.descriptionLabel' | translate}}: </span>{{ data.des }}</p>
   </div>

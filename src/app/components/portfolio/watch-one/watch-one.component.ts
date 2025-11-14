@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from "@ngx-translate/core";
 
@@ -7,6 +7,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
+import { ChartModule } from 'primeng/chart';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
@@ -26,6 +27,7 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
     DividerModule,
     DialogModule,
     CardModule,
+    ChartModule,
     TranslatePipe
   ],
   templateUrl: './watch-one.component.html',
@@ -99,12 +101,141 @@ export class WatchOneComponent implements OnDestroy {
     }
   }
 
+  public dataProjectValuation: any = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Valuation',
+        data: [],
+        backgroundColor: [],
+        borderColor: [],
+        borderWidth: 1,
+      },
+    ],
+  }
+  public basicProjectValuationOptions: any;
+  public dataRiskScore: any = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Risks',
+        data: [],
+        backgroundColor: [],
+        borderColor: [],
+        borderWidth: 1,
+      },
+    ],
+  }
+  public basicRiskScoreOptions: any;
+
   constructor(
     private router: Router,
+    private cd: ChangeDetectorRef,
     private appCommunicationService: AppCommunicationService
   ) {
     this.data = this.appCommunicationService.currentPortfolio
-    console.log(this.data)
+    this.refreshCharts()
+  }
+
+  public refreshCharts(): void {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+    this.dataRiskScore = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Risks',
+          data: [],
+          backgroundColor: [],
+          borderColor: [],
+          borderWidth: 1,
+        },
+      ],
+    }
+    this.dataProjectValuation = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Valuation',
+          data: [],
+          backgroundColor: [],
+          borderColor: [],
+          borderWidth: 1,
+        },
+      ],
+    }
+    // const projects: any = [...this.data.projectIds.tierI, ...this.data.projectIds.tierII, ...this.data.projectIds.tierIII]
+    const projects: any = this.appCommunicationService.testProjArray
+    projects.forEach((el: any) => {
+      this.dataRiskScore.labels.push(el.name)
+      this.dataProjectValuation.labels.push(el.name)
+      this.dataRiskScore.datasets[0].data.push(el.riskScore)
+      this.dataProjectValuation.datasets[0].data.push(el.projectValuation)
+      this.dataRiskScore.datasets[0].backgroundColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+      this.dataProjectValuation.datasets[0].backgroundColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+      this.dataRiskScore.datasets[0].borderColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+      this.dataProjectValuation.datasets[0].borderColor.push(`rgb(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1})`)
+    })
+
+    this.basicRiskScoreOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+      },
+    }
+    this.basicProjectValuationOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+          },
+        },
+      },
+    }
+    this.cd.markForCheck()
   }
 
   public visibleOnChange(key: string): void {

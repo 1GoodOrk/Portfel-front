@@ -53,6 +53,8 @@ export interface IProjectDataVehicle {
   name: string;
   subinfo: string;
   des: string;
+  img: string;
+  type: string;
   responsibleName: string;
   responsibleSurname: string;
   responsibleLastname: string;

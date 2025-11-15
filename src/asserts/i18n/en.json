@@ -146,6 +146,12 @@
         "optionsLogisticLabel": "Logistic",
         "optionsSocialLabel": "Social",
         "optionsStructureLabel": "Structure",
+
+        "termLabel": "Project forecast project term",
+        "mainLossesLabel": "Main losses",
+        "projectValuationLabel": "Project valuation",
+        "riskScoreLabel": "Project risks score (1-100)",
+
         "updateButton": "Update",
         "removeButton": "Remove",
         "updateButtonTooltip": "Click here to update",

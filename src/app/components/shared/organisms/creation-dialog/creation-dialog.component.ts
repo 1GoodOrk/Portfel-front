@@ -231,26 +231,35 @@ export class CreationDialogComponent {
 
   public createProject(form: any) {
     if (form.valid) {
-      let data: any = {}
+      let data: any = {
+        options: {}
+      }
       this.inputs.vehicle.forEach((el: any) => {
-        data[el.name] = el.value
+        if(el.name === 'budgetSource') {
+          console.log(el, el.value)
+        }
+        if (el.name === 'eco' || el.name === 'war' || el.name === 'log' || el.name === 'soc' || el.name === 'struc') {
+          data.options[el.name] = el.value
+        } else {
+          data[el.name] = el.value
+        }
       })
       data.performanceIndex = data.volumeOfWork / data.budget
       data.indexOfAssetsEmployed = data.volumeOfWork / data.forecastProjectTaskAmount
       data.projectValuation = +Math.abs(((data.actualCost - (data.mainLosses + data.additionalLosses)) * data.performanceIndex * data.indexOfAssetsEmployed) / 7).toFixed(2)
-      data.riskScore = ((data.options.eco + data.options.war + data.options.soc + data.options.struc + data.options.log) / 5).toFixed(2)
-      console.log(111, data)
+      data.riskScore = +((data.options.eco + data.options.war + data.options.soc + data.options.struc + data.options.log) / 5).toFixed(2)
+      data.img = 'https://upload.wikimedia.org/wikipedia/commons/4/46/BVG-Bus_Alexander_Dennis_Enviro_500_in_Berlin_%282022%29.jpg'
       // this.formData.score = 0.33 * (this.formData.profit - this.formData.budget) + 0.33 * this.formData.permissionDuration + 0.33 * this.formData.forecastProjectTaskAmount
-      // this.httpService.createProject(this.formData, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      //   .subscribe((data: any) => {
-      //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-      //     user.data.projectIds.push(data._id)
-      //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-      //     this.getAllProjects()
-      //   })
-      // this.formData = Object.assign(this.appCommunicationService.clearProject)
-      form.resetForm()
-      // this.visibleOnChange()
+      this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+        .subscribe((data: any) => {
+          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+          user.data.projectIds.push(data._id)
+          this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+          this.getAllProjects()
+        })
+      this.formData = Object.assign(this.appCommunicationService.clearProject)
+      // form.resetForm()
+      this.visibleOnChange()
     }
   }
 }

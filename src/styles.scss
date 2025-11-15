@@ -7,6 +7,18 @@ body {
   min-height: calc(100vh - 19px);
 }
 
+body, div {
+  background-color: antiquewhite;
+}
+
+.p-card {
+  background-color: antiquewhite !important;
+}
+
+.p-menubar {
+  background-color: antiquewhite !important;
+}
+
 .spinner {
   position: absolute;
   width: 100vw;

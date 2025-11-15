@@ -282,7 +282,7 @@ export class AppCommunicationService {
       {
         type: 'textarea',
         displayCondition: true,
-        name: 'description',
+        name: 'des',
         label: 'pages.portfolio.dialog.descriptionLabel',
         placeholder: 'pages.portfolio.dialog.descriptionPlaceholder',
         pTooltip: 'pages.portfolio.dialog.descriptionTolltip',
@@ -290,7 +290,7 @@ export class AppCommunicationService {
           required: 'pages.portfolio.dialog.descriptionRequired'
         },
         value: '',
-        refName: 'description'
+        refName: 'des'
       },
       {
         type: 'line',
@@ -475,10 +475,16 @@ export class AppCommunicationService {
         value: '',
         refName: 'vehicle',
         items: [
-          { label: 'bus', value: 'bus' },
-          { label: 'car', value: 'car' },
-          { label: 'low-bus', value: 'low-bus' },
-          { label: 'big-bus', value: 'big-bus' },
+          { label: 'Мікроавтобус', value: 'minibus' },
+          { label: 'Міський автобус', value: 'сityBus' },
+          { label: 'Автобус загального призначення', value: 'generalPurposeBus' },
+          { label: 'Міжміський автобус', value: 'intercityBus' },
+          { label: 'Автобус далекого напрямку', value: 'longDistanceBus' },
+          { label: 'Спеціалізований автобус', value: 'specializedBus' },
+          { label: 'Тричленовий автобус', value: 'threeSeatBus' },
+          { label: 'Двоярусний автобус', value: 'doubleDeckerBus' },
+          { label: 'Тролейбуси', value: 'trolleybus' },
+          { label: 'Трамвай', value: 'tram' },
         ]
       },
       {
@@ -490,10 +496,10 @@ export class AppCommunicationService {
         value: '',
         refName: 'infrastructure',
         items: [
-          { label: 'Отсановка', value: 'stop' },
-          { label: 'Станция', value: 'statin' },
+          { label: 'Зупинка', value: 'stop' },
+          { label: 'Станція', value: 'statin' },
           { label: 'Бензоколонка', value: 'fuel' },
-          { label: 'Информационная система', value: 'infoSystem' },
+          { label: 'Інформаційна система', value: 'infoSystem' },
         ]
       },
       {
@@ -505,10 +511,10 @@ export class AppCommunicationService {
         value: '',
         refName: 'staff',
         items: [
-          { label: 'driver', value: 'driver' },
-          { label: 'dispetcher', value: 'dispetcher' },
-          { label: 'conductor', value: 'conductor' },
-          { label: 'techPersonal', value: 'techPersonal' },
+          { label: 'Водій', value: 'driver' },
+          { label: 'Диспетчер', value: 'dispatcher' },
+          { label: 'Кондуктор', value: 'conductor' },
+          { label: 'Технічний персонал', value: 'techPersonal' },
         ]
       },
       {
@@ -520,9 +526,11 @@ export class AppCommunicationService {
         value: '',
         refName: 'technology',
         items: [
-          { label: 'billet', value: 'billet' },
-          { label: 'gps', value: 'gps' },
-          { label: 'crm', value: 'crm' },
+          { label: 'Система квитків', value: 'billet' },
+          { label: 'Навігація', value: 'navigation' },
+          { label: 'Електронний таблоїд', value: 'electronicTabloid' },
+          { label: 'GPS', value: 'gps' },
+          { label: 'CRM', value: 'crm' },
         ]
       },
       {
@@ -808,6 +816,8 @@ export class AppCommunicationService {
       { propName: 'subinfo', label: 'pages.portfolio.dialog.subinfoLabel' },
       { propName: 'priority', label: 'pages.portfolio.dialog.priorityLabel' },
       { propName: 'type', label: 'pages.portfolio.dialog.typeLabel' },
+      { propName: 'riskScore', label: 'pages.main.main.riskScoreLabel' },
+      { propName: 'projectValuation', label: 'pages.main.main.projectValuationLabel' },
       { type: 'divider' },
       { type: 'multyInOne', label: 'pages.portfolio.dialog.responsibleLabel', items: [
         { propName: 'responsibleName' },
@@ -890,7 +900,6 @@ export class AppCommunicationService {
       { type: 'divider' },
       { type: 'date', propName: 'dateCreation', label: 'pages.portfolio.dialog.dateCreationLabel' },
       { type: 'date', propName: 'dateInitialization', label: 'pages.portfolio.dialog.dateInitializationLabel' },
-      { propName: 'permissionDuration', label: 'pages.portfolio.dialog.permissionDurationLabel', suffix: 'pages.portfolio.dialog.processDurationSuffix' },
       { type: 'divider' },
       { type: 'options', items: [
         { propName: 'eco', label: 'pages.portfolio.dialog.optionsEconomicLabel' },

@@ -10,11 +10,23 @@
   <div>
     @for (valueKey of infoPageProjectValueKeys; track valueKey) {
       @if (!valueKey.type) {
-        <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName]}}
-          @if (!valueKey.type) {
-            {{valueKey.suffix | translate}}
-          }
-        </p>
+        @if (currentProject[valueKey.propName] && currentProject[valueKey.propName][0] && currentProject[valueKey.propName][0].label) {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span>
+            @for (item of currentProject[valueKey.propName]; track item) {
+              @if ($index === currentProject[valueKey.propName].length - 1) {
+                {{item.label}}
+              } @else {
+                {{item.label + ', '}}
+              }
+            }
+          </p>
+        } @else {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName]}}
+            @if (!valueKey.type) {
+              {{valueKey.suffix | translate}}
+            }
+          </p>
+        }
       } @else if (valueKey.type === 'divider') {
         <p-divider />
       } @else if (valueKey.type === 'date') {

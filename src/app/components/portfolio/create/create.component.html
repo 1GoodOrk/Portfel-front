@@ -796,9 +796,9 @@
   <section>
     <p-stepper [value]="1" class="basis-[50rem]">
       <p-step-list>
-        <p-step [value]="1">Header I</p-step>
-        <p-step [value]="2">Header II</p-step>
-        <p-step [value]="3">Header II</p-step>
+        <p-step [value]="1">{{'pages.portfolio.creation.firstHeader' | translate}}</p-step>
+        <p-step [value]="2">{{'pages.portfolio.creation.secondHeader' | translate}}</p-step>
+        <p-step [value]="3">{{'pages.portfolio.creation.thirdHeader' | translate}}</p-step>
       </p-step-list>
       <p-step-panels>
         <p-step-panel [value]="1">
@@ -999,7 +999,7 @@
             </div>
             <div class="card">
               <p-card>
-                <div class="flex flex-col gap-1">
+                <!-- <div class="flex flex-col gap-1">
                   <label for="strucType" class="bold">{{'pages.portfolio.creation.strucTypeLabel' | translate}}</label>
                   <p-multiselect
                     inputId="strucType"
@@ -1011,7 +1011,7 @@
                     optionLabel="label"
                     [showClear]="true"
                     class="w-full md:w-56" />
-                </div>
+                </div> -->
                 <div class="flex flex-col gap-1">
                   <label for="scoreFiltering" class="bold">{{'pages.portfolio.creation.scoreFilteringLabel' | translate}}</label>
                   <p-inputnumber
@@ -1234,9 +1234,14 @@
                             'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
                         <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
                       </ng-template>
-                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                      <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                      <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                      <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+                      <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+                      <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
+                      <!-- <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
                       <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
-                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p> -->
                       <ng-template #footer>
                         <div class="flex space-evenly">
                           <p-button
@@ -1287,9 +1292,15 @@
                             'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
                         <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
                       </ng-template>
-                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                      <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                      <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                      <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+                      <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+                      <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
+
+                      <!-- <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
                       <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
-                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                      <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p> -->
                       <ng-template #footer>
                         <div class="flex space-evenly">
                           <p-button
@@ -1364,9 +1375,14 @@
                           'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
                       <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
                     </ng-template>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+                    <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
+                    <!-- <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
                     <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p> -->
                   </p-card>
                 } @empty {
                   <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
@@ -1402,9 +1418,14 @@
                           'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
                       <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
                     </ng-template>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+                    <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
+                    <!-- <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
                     <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p> -->
                   </p-card>
                 } @empty {
                   <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
@@ -1440,9 +1461,14 @@
                           'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
                       <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
                     </ng-template>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+                    <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
+                    <!-- <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
                     <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p> -->
                   </p-card>
                 } @empty {
                   <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
@@ -1478,10 +1504,15 @@
                           'yellow': project.priority > 4 ? 'green' : 'blue'}">{{project.priority}} </span>
                       <span class="bold">{{'pages.portfolio.creation.projectCardSubinfoLabel' | translate}}:</span> {{project.subinfo}}
                     </ng-template>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
+                    <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+                    <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+                    <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
+                    <!-- <p> <span class="bold">{{'pages.portfolio.creation.projectCardTypeLabel' | translate}}:</span> {{project.type}}</p>
                     <p> <span class="bold">{{'pages.portfolio.creation.projectCardProfitLabel' | translate}}:</span> {{project.profit}}</p>
-                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p>
-                    </p-card>
+                    <p> <span class="bold">{{'pages.portfolio.creation.projectCardScoreLabel' | translate}}:</span> {{project.score}}</p> -->
+                  </p-card>
                 } @empty {
                   <p><span class="bold">{{'pages.portfolio.creation.noProjectHereTitle' | translate}}</span></p>
                 }

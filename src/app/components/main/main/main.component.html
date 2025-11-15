@@ -17,42 +17,46 @@
     </div>
     <div legend="Portfolio" class="container">
       @for (portfolio of portfoliosList; track portfolio) {
-        <p-card
-          [pTooltip]="`${'pages.main.main.watchPortfolioTooltipFirstPart' | translate} ${portfolio.name} ${'pages.main.main.watchPortfolioTooltipLastPart' | translate}`"
-          tooltipPosition="top"
-          [style]="{
-            'max-width': '300px',
-            'margin-top': '10px',
-            'overflow': 'hidden',
-            'cursor': 'pointer'
-          }"
-          (click)="showInfoPortfolio(portfolio)">
-          <ng-template #header>
-            <!-- <img src="https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg" alt="portfolio_art"> -->
+        <!-- TODO: remove that -->
+        @if (portfolio._id !== '1f0a83e6-eb10-68e0-a32d-6ebdeb646b14') {
+          <p-card
+            [pTooltip]="`${'pages.main.main.watchPortfolioTooltipFirstPart' | translate} ${portfolio.name} ${'pages.main.main.watchPortfolioTooltipLastPart' | translate}`"
+            tooltipPosition="top"
+            class="different"
+            [style]="{
+              'max-width': '300px',
+              'margin-top': '10px',
+              'overflow': 'hidden',
+              'cursor': 'pointer'
+            }"
+            (click)="showInfoPortfolio(portfolio)">
+            <ng-template #header>
+              <!-- <img src="https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg" alt="portfolio_art"> -->
 
-            <img alt="Card" class="w-full" src="https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg" />
-          </ng-template>
-          <ng-template #title> {{portfolio.name}} </ng-template>
-          <ng-template #subtitle><span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{portfolio.subinfo}} </ng-template>
-          <p> <span class="bold">{{'pages.main.main.profitLabel' | translate}}:</span> {{portfolio.budget}}  {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
-          <p> <span class="bold">{{'pages.main.main.projectsAmountLabel' | translate}}:</span> {{portfolio.projects}}</p>
-          <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{portfolio.des}}</p>
-          <ng-template #footer>
-            <div class="flex space-evenly">
-              <p-button
-                [label]="`${'pages.main.main.updateButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${portfolio.name}`"
-                tooltipPosition="top"
-                severity="warn"
-                (click)="updatePortfolio(portfolio, $event)"/>
-              <p-button
-                [label]="`${'pages.main.main.removeButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${portfolio.name}`"
-                severity="danger"
-                (click)="removePortfolio(portfolio._id, $event)"/>
-            </div>
-          </ng-template>
-        </p-card>
+              <img alt="Card" class="w-full" src="https://transexpo.ua/wp-content/uploads/2020/02/Ret-0006-scaled.jpg" />
+            </ng-template>
+            <ng-template #title> {{portfolio.name}} </ng-template>
+            <ng-template #subtitle><span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{portfolio.subinfo}} </ng-template>
+            <p> <span class="bold">{{'pages.main.main.profitLabel' | translate}}:</span> {{portfolio.budget}}  {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+            <p> <span class="bold">{{'pages.main.main.projectsAmountLabel' | translate}}:</span> {{portfolio.projects}}</p>
+            <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{portfolio.des}}</p>
+            <ng-template #footer>
+              <div class="flex space-evenly">
+                <p-button
+                  [label]="`${'pages.main.main.updateButton' | translate}`"
+                  [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${portfolio.name}`"
+                  tooltipPosition="top"
+                  severity="warn"
+                  (click)="updatePortfolio(portfolio, $event)"/>
+                <p-button
+                  [label]="`${'pages.main.main.removeButton' | translate}`"
+                  [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${portfolio.name}`"
+                  severity="danger"
+                  (click)="removePortfolio(portfolio._id, $event)"/>
+              </div>
+            </ng-template>
+          </p-card>
+        }
       } @empty {
         <h2 class="bold"> {{'pages.main.main.noPortfoliosExist' | translate}} </h2>
       }
@@ -92,12 +96,19 @@
           <ng-template #title> {{project.name}} </ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{project.subinfo}} </ng-template>
           <ng-template #content>
-            <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
+            <!-- <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
             <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
             <p> <span class="bold">{{'pages.main.main.permissionDurationLabel' | translate}}:</span> {{project.permissionDuration}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
             <p> <span class="bold">{{'pages.main.main.scoreLabel' | translate}}:</span> {{project.score}}</p>
             <p> <span class="bold">{{'pages.main.main.addressStartLabel' | translate}}:</span> {{project.addressStart}}</p>
             <p> <span class="bold">{{'pages.main.main.addressEndLabel' | translate}}:</span> {{project.addressEnd}}</p>
+            <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{project.des}}</p> -->
+            <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
+            <p> <span class="bold">{{'pages.main.main.budgetLabel' | translate}}:</span> {{project.budget}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+            <p> <span class="bold">{{'pages.main.main.mainLossesLabel' | translate}}:</span> {{project.mainLosses + project.additionalLosses}} {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
+            <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
+            <p> <span class="bold">{{'pages.main.main.riskScoreLabel' | translate}}:</span> {{project.riskScore}}</p>
+            <p> <span class="bold">{{'pages.main.main.projectValuationLabel' | translate}}:</span> {{project.projectValuation}}</p>
             <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{project.des}}</p>
           </ng-template>
           <ng-template #footer>

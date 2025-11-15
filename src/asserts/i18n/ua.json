@@ -146,6 +146,12 @@
         "optionsLogisticLabel": "Логістичні",
         "optionsSocialLabel": "Соціальні",
         "optionsStructureLabel": "Структурні",
+
+        "termLabel": "Прогнозований термін проекту",
+        "mainLossesLabel": "Основні втрати",
+        "projectValuationLabel": "Оцінка проекту",
+        "riskScore": "Оцінка ризиків проекту (1-100)",
+
         "updateButton": "Oновити",
         "removeButton": "Видалити",
         "updateButtonTooltip": "Натисніть тут, щоб оновити.",

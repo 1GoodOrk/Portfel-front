@@ -39,20 +39,36 @@ export class HttpService {
     return this.http.post(`${this.link}/update/${id}`, { data });
   }
 
+  // getAllProjects(token: string) {
+  //   return this.http.get(`${this.link}/projects?token=${token}`);
+  // }
+  // getProject(id: string) {
+  //   return this.http.get(`${this.link}/projects/${id}`);
+  // }
+  // updateProject(id: string, data: any) {
+  //   return this.http.put(`${this.link}/projects/${id}`, { data });
+  // }
+  // createProject(data: any, token: string) {
+  //   return this.http.post(`${this.link}/projects?token=${token}`, { data });
+  // }
+  // removeProject(id: string, token: string) {
+  //   return this.http.delete(`${this.link}/projects/${id}?token=${token}`);
+  // }
+
   getAllProjects(token: string) {
-    return this.http.get(`${this.link}/projects?token=${token}`);
+    return this.http.get(`${this.link}/projects-vehicle?token=${token}`);
   }
   getProject(id: string) {
-    return this.http.get(`${this.link}/project/${id}`);
+    return this.http.get(`${this.link}/projects-vehicle/${id}`);
   }
   updateProject(id: string, data: any) {
-    return this.http.put(`${this.link}/projects/${id}`, { data });
+    return this.http.put(`${this.link}/projects-vehicle/${id}`, { data });
   }
   createProject(data: any, token: string) {
-    return this.http.post(`${this.link}/projects?token=${token}`, { data });
+    return this.http.post(`${this.link}/projects-vehicle?token=${token}`, { data });
   }
   removeProject(id: string, token: string) {
-    return this.http.delete(`${this.link}/projects/${id}?token=${token}`);
+    return this.http.delete(`${this.link}/projects-vehicle/${id}?token=${token}`);
   }
 
   getAllPortfolios(id: string | null) {

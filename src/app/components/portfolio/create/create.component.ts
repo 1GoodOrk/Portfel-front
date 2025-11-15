@@ -65,8 +65,10 @@ import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/
   styleUrl: './create.component.scss'
 })
 export class CreateComponent {
-  public data: IPortfolioDataRO
-  public projects: Array<IProjectData> = []
+  // public data: IPortfolioDataRO
+  // public projects: Array<IProjectData> = []
+  public data: any
+  public projects: Array<any> = []
   public formData: any = {
     name: '',
     subinfo: '',
@@ -114,8 +116,10 @@ export class CreateComponent {
     { label: 'Digitalization', value: 'digitalization' },
   ]
   public selectedSorting: string = '';
-  public projectsUnselected: Array<IProjectData> = []
-  public projectsSelected: Array<IProjectData> = []
+  public projectsUnselected: Array<any> = []
+  public projectsSelected: Array<any> = []
+  // public projectsUnselected: Array<IProjectData> = []
+  // public projectsSelected: Array<IProjectData> = []
   public showSpinner: boolean = false
   public visible: any = {
     creation: false,
@@ -224,11 +228,9 @@ export class CreateComponent {
     private sortingService: SortingService,
     private appCommunicationService: AppCommunicationService
   ) {
-    // this.getAllProjects()
+    this.getAllProjects()
     this.refreshCharts()
     this.data = Object.assign(this.appCommunicationService.currentPortfolio)
-    this.projects = this.appCommunicationService.testProjArray
-    this.projectsUnselected = this.appCommunicationService.testProjArray
   }
 
   public navigate(path: string) {
@@ -280,6 +282,7 @@ export class CreateComponent {
     }
 
     this.projectsSelected.forEach((el: any) => {
+      console.log(el)
       this.dataRiskScore.labels.push(el.name)
       this.dataProjectValuation.labels.push(el.name)
       this.dataRiskScore.datasets[0].data.push(el.riskScore)
@@ -388,6 +391,7 @@ export class CreateComponent {
 
   public tiersFiltering(): void {
     // this.data = this.sortingService.tierFormatting(this.projectsSelected, this.data)
+    this.data = this.sortingService.tierVehicleFormatting(this.projectsSelected, this.data)
   }
 
   public removeProjects(id: string, event: any) {
@@ -453,15 +457,13 @@ export class CreateComponent {
   public drop(tier: string): void {
     if (this.draggedProject && tier !== this.draggedTier) {
       if (tier !== 'unselected') {
-        // TODO: type error
-        // @ts-expect-error
+        // TODO: type error @ts-expect-error
         this.data.projectIds[tier].push(this.draggedProject)
       } else {
         this.projectsUnselected.push(this.draggedProject)
       }
       if (this.draggedTier !== 'unselected') {
-        // TODO: type error
-        // @ts-expect-error
+        // TODO: type error @ts-expect-error
         this.data.projectIds[this.draggedTier] = this.data.projectIds[this.draggedTier].filter((el: any) => el._id !== this.draggedProject?._id)
       } else {
         this.projectsUnselected = this.projectsUnselected.filter((el: any) => el._id !== this.draggedProject?._id)

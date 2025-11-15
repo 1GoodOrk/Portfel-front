@@ -55,7 +55,8 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  public projectsList: Array<IProjectData> = []
+  // public projectsList: Array<IProjectData> = []
+  public projectsList: any = []
   public projects: Array<IProjectData> = []
   public portfoliosList: Array<IPortfolioDataRO> = []
   public portfolios: Array<IPortfolioDataRO> = []

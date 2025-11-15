@@ -146,6 +146,12 @@
         "optionsLogisticLabel": "Логистические",
         "optionsSocialLabel": "Социальные",
         "optionsStructureLabel": "Структурные",
+
+        "termLabel": "Срок проекта прогноза проекта",
+        "mainLossesLabel": "Основные потери",
+        "projectValuationLabel": "Оценка проекта",
+        "riskScore": "Оценка рисков проекта (1-100)",
+
         "updateButton": "Обновить",
         "removeButton": "Удалить",
         "updateButtonTooltip": "Нажмите здесь, чтобы обновить.",

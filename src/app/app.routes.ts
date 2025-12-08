@@ -16,5 +16,7 @@ export const routes: Routes = [
   {path: 'confirmation', loadComponent: () => import('./components/portfolio/confirmation/confirmation.component').then(mod => mod.ConfirmationComponent)},
   {path: 'portfolio/:id', loadComponent: () => import('./components/portfolio/watch-one/watch-one.component').then(mod => mod.WatchOneComponent)},
 
+  {path: 'cog-model', loadComponent: () => import('./components/projects/main/main.component').then(mod => mod.MainComponent)},
+
   {path: '**', redirectTo: '/login' },
 ];

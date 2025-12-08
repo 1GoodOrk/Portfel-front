@@ -1,0 +1,60 @@
+<section class="cog-model">
+  <div class="container table-container">
+    <p-table [value]="tableParams.td" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+          <tr>
+            @for (th of tableParams.th; track `th-id-${th}`) {
+              <th [id]="`th-id-${th}`">{{ th }}</th>
+            }
+          </tr>
+      </ng-template>
+      <ng-template #body let-tds>
+          <tr>
+            @for (td of tds; track `td-id-${td}${$index}`) {
+              <td [id]="`td-id-${td}`">{{ td }}</td>
+            }
+          </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="container form-container">
+          <!-- [pTooltip]="input.pTooltip | translate"
+          [name]="input.name || 'name'"
+          [min]="input.min || 1"
+          [max]="input.max || 10"
+          [step]="input.step || 1" -->
+      <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+        @for (param of formParams; track `input-${param.name}${$index}`) {
+          <!-- <label for="name" class="bold">{{param.label | translate}}</label> -->
+          <label for="name" class="bold">{{ param.label }}</label>
+          <p-inputnumber
+            [inputId]="param.name"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            tooltipPosition="right"
+            [ngModel]="param.value"
+            (ngModelChange)="onChange($event, param.name)"
+            [ngModelOptions]="{ standalone: true }"
+            required
+            [step]="1"
+            [minFractionDigits]="0" >
+            <!-- #[{{input.refName}}]="ngModel"
+            [invalid]="form.controls[input.refName].invalid && (form.controls[input.refName].touched || form.controls[input.refName].dirty)" -->
+              <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+              </ng-template>
+          </p-inputnumber>
+        }
+      </form>
+  </div>
+  <div class="container model-container"></div>
+  <!-- <p-button
+    [label]="`${'pages.main.main.processingButton' | translate}`"
+    [pTooltip]="`${'pages.main.main.processingButtonTooltip' | translate} ${project.name}`"
+    severity="success"
+    (click)="navigate('cog-model')"/> -->
+  <!-- <button (click)="refreshModel()">Cog Model</button> -->
+</section>

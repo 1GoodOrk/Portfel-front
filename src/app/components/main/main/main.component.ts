@@ -192,6 +192,18 @@ export class MainComponent {
   //   }, 500)
   // }
 
+  public selectForCogModel(id: any, event: any) {
+    event.stopPropagation()
+    const index = this.projects.findIndex((el: any) => el._id === id)
+    Object.keys(this.projects[index]).forEach((key: string) => {
+      // TODO: type error
+      // @ts-expect-error
+      this.currentProject[key] = this.projects[index][key]
+    })
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    this.navigate('cog-model')
+  }
+
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
   }

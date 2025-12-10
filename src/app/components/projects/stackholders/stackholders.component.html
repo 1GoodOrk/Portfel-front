@@ -1,1 +1,170 @@
-<p>stackholders works!</p>
+<section class="stackholders">
+  <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+    <div class="form-container row">
+      <div class="form-container column">
+        @for (input of inputs.stackholders; track input) {
+          @if (input.displayCondition && input.type !== 'line') {
+            <div class="flex flex-col gap-1">
+              @if (input.type !== 'checklist') {
+                <label for="name" class="bold">{{input.label | translate}}</label>
+              }
+              @if (input.type === 'text') {
+                <input
+                  pInputText
+                  type="text"
+                  [id]="input.name"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [name]="input.name || 'name'"
+                  [(ngModel)]="input.value"
+                  [ngModelOptions]="{ standalone: true }"
+                  required />
+              } @else if (input.type === 'textarea') {
+                <textarea
+                  pTextarea
+                  type="text"
+                  [id]="input.name"
+                  class="mt-5"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [name]="input.name || 'name'"
+                  [(ngModel)]="input.value"
+                  required>
+                </textarea>
+              } @else if (input.type === 'number') {
+                <p-inputnumber
+                  [inputId]="input.name"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [name]="input.name || 'name'"
+                  [(ngModel)]="input.value"
+                  [ngModelOptions]="{ standalone: true }"
+                  required
+                  [min]="input.min || 1"
+                  [max]="input.max || 10"
+                  [step]="input.step || 1"
+                  [minFractionDigits]="0" >
+                    <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                    </ng-template>
+                </p-inputnumber>
+              } @else if (input.type === 'datepicker') {
+                <p-datepicker
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [(ngModel)]="input.value"
+                  [ngModelOptions]="{ standalone: true }"
+                  required />
+              } @else if (input.type === 'checklist') {
+                <p-checkbox
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  [binary]="true"
+                  [indeterminate]="true"
+                  [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="input.value" />
+                <label for="intown" class="bold">{{input.label | translate}}?</label>
+              } @else if (input.type === 'selector') {
+                <p-select
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [options]="input.items"
+                  [(ngModel)]="input.value"
+                  [ngModelOptions]="{ standalone: true }"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  class="w-full md:w-56" />
+              } @else if (input.type === 'multiselector') {
+                <p-multiselect
+                  [inputId]="input.name"
+                  [name]="input.name || 'name'"
+                  [options]="input.items"
+                  [(ngModel)]="input.value"
+                  [ngModelOptions]="{ standalone: true }"
+                  tooltipPosition="right"
+                  [placeholder]="input.placeholder | translate"
+                  [pTooltip]="input.pTooltip | translate"
+                  tooltipPosition="right"
+                  optionLabel="label"
+                  [showClear]="true"
+                  class="w-full md:w-56" />
+              }
+            </div>
+          } @else if (input.displayCondition) {
+            <p-divider />
+          }
+        }
+      </div>
+      <div>
+        <p-button
+          [label]="'pages.portfolio.dialog.saveButton' | translate"
+          [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
+          [outlined]="true"
+          severity="success"
+          (click)="addStackholder(); form.resetForm()" />
+          <!-- (click)="!addStackholder() && form.resetForm()" /> -->
+        <p-button
+          label="Cancel"
+          [label]="'pages.portfolio.dialog.cancelButton' | translate"
+          [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
+          [text]="true"
+          severity="danger"
+          (click)="form.resetForm()" />
+      </div>
+    </div>
+  </form>
+  <div legend="Projects" class="container">
+    @for (stackholder of stackholders; track stackholder) {
+      <p-card
+        [pTooltip]="`${'pages.project.stackholder.stackholder' | translate}`"
+        tooltipPosition="top"
+        [style]="{
+          'max-width': '300px',
+          'margin-top': '10px',
+          'overflow': 'hidden',
+          'cursor': 'pointer'
+        }">
+        <ng-template #title>
+          {{stackholder.responsibleOrganization}}
+          <p-button
+            icon="pi pi-eye"
+            [pTooltip]="`${'pages.project.stackholder.watchStackholderTooltip' | translate}`"
+            tooltipPosition="top"
+            severity="secondary"
+            (click)="showInfoStackholderDialog($index, $event)"/>
+        </ng-template>
+        <ng-template #content>
+          <p>{{stackholder.responsibleName}} {{stackholder.responsibleSurname}} {{stackholder.responsibleLastname}}</p>
+          <p> <span class="bold">{{'pages.project.stackholder.typeStackholderLabel' | translate}}: </span>{{stackholder.type}}</p>
+          <p> <span class="bold">{{'pages.project.stackholder.risksLabel' | translate}}: </span>{{((stackholder.influence / 100) * ((stackholder.eco * (stackholder.ecoPos / 100)) + (stackholder.war * (stackholder.warPos / 100)) + (stackholder.log * (stackholder.logPos / 100)) + (stackholder.soc * (stackholder.socPos / 100)) + (stackholder.struc * (stackholder.strucPos / 100))) / 5).toFixed(2)}}</p>
+          <p> <span class="bold">{{'pages.project.stackholder.valuationLabel' | translate}}: </span>{{(((stackholder.power / 100) * (stackholder.transport + stackholder.social + stackholder.economic + stackholder.ecologic + stackholder.comfort + stackholder.technologic + stackholder.informative + stackholder.security + stackholder.managment) / 400) * this.currentProject.projectValuation).toFixed(2)}}</p>
+        </ng-template>
+        <ng-template #footer>
+          <div class="flex space-evenly">
+            <p-button
+              [label]="`${'pages.main.main.removeButton' | translate}`"
+              [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate}`"
+              severity="danger"
+              (click)="removeStackholder($index, $event)"/>
+          </div>
+        </ng-template>
+      </p-card>
+    } @empty {
+      <h2 class="bold"> {{'pages.main.main.noProjectsExist' | translate}} </h2>
+    }
+  </div>
+</section>
+<app-info-dialog-stack [visible]="visible.info" [currentStackholder]="currentStackholder" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog-stack>

@@ -25,21 +25,19 @@
           [step]="input.step || 1" -->
       <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
         @for (param of formParams; track `input-${param.name}${$index}`) {
-          <!-- <label for="name" class="bold">{{param.label | translate}}</label> -->
           <label for="name" class="bold">{{ param.label }}</label>
           <p-inputnumber
             [inputId]="param.name"
             [showButtons]="true"
             buttonLayout="horizontal"
             tooltipPosition="right"
+            [pTooltip]="param.tooltip"
             [ngModel]="param.value"
             (ngModelChange)="onChange($event, param.name)"
             [ngModelOptions]="{ standalone: true }"
             required
             [step]="1"
             [minFractionDigits]="0" >
-            <!-- #[{{input.refName}}]="ngModel"
-            [invalid]="form.controls[input.refName].invalid && (form.controls[input.refName].touched || form.controls[input.refName].dirty)" -->
               <ng-template #incrementbuttonicon>
                   <span class="pi pi-plus"></span>
               </ng-template>
@@ -51,10 +49,4 @@
       </form>
   </div>
   <div class="container model-container"></div>
-  <!-- <p-button
-    [label]="`${'pages.main.main.processingButton' | translate}`"
-    [pTooltip]="`${'pages.main.main.processingButtonTooltip' | translate} ${project.name}`"
-    severity="success"
-    (click)="navigate('cog-model')"/> -->
-  <!-- <button (click)="refreshModel()">Cog Model</button> -->
 </section>

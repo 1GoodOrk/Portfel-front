@@ -1,12 +1,71 @@
 <app-header></app-header>
 <main class="projects">
-  <p-accordion value="1">
-    <p-accordion-panel value="0">
-        <p-accordion-header>Cog Model</p-accordion-header>
-        <p-accordion-content>
-          <app-card></app-card>
-        </p-accordion-content>
-    </p-accordion-panel>
-  </p-accordion>
+  <div>
+    <p-accordion value="1">
+      <p-accordion-panel value="0">
+          <p-accordion-header>Когнітивна модель</p-accordion-header>
+          <p-accordion-content>
+            <app-card></app-card>
+          </p-accordion-content>
+      </p-accordion-panel>
+    </p-accordion>
+  </div>
+  <div class="flex space-evenly">
+    <p-button
+      icon="pi pi-eye"
+      label="Переглянути проект"
+      tooltipPosition="top"
+      severity="secondary"
+      (click)="showInfoProjectDialog($event)"/>
+  </div>
+
+  <div>
+    <p-stepper [value]="1" class="basis-[50rem]">
+      <p-step-list>
+        <p-step [value]="1">Стейкхолдери</p-step>
+        <p-step [value]="2">Результат</p-step>
+        <!-- <p-step [value]="3">Header III</p-step> -->
+      </p-step-list>
+      <p-step-panels>
+        <p-step-panel [value]="1">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col h-48">
+              <div>
+                <app-stackholders></app-stackholders>
+              </div>
+            </div>
+            <div class="flex pt-6 justify-end">
+              <p-button
+                [label]="`${'pages.portfolio.creation.nextButton' | translate}`"
+                [pTooltip]="'pages.portfolio.creation.nextButtonTooltip' | translate"
+                tooltipPosition="top"
+                severity="primary"
+                (click)="activateCallback(2)"/>
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col h-48">
+              <div>
+                <app-experts></app-experts>
+              </div>
+            </div>
+            <div class="flex pt-6 justify-between">
+              <p-button
+                [label]="`${'pages.portfolio.creation.backButton' | translate}`"
+                [pTooltip]="'pages.portfolio.creation.backButtonTooltip' | translate"
+                tooltipPosition="top"
+                severity="primary"
+                (click)="activateCallback(1)"/>
+              <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-panels>
+    </p-stepper>
+  </div>
 </main>
 <app-footer></app-footer>
+<app-info-dialog [visible]="visible.project" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>

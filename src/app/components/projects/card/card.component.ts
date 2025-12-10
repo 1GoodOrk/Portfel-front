@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import * as d3 from 'd3';
 // import {Swatches} from "@d3/color-legend"
@@ -16,28 +16,25 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 
-import { AppCommunicationService } from '@port/services/app-communication.service';
-
-const IMPORT_ARR = [
-  FormsModule,
-  InputTextModule,
-  InputNumberModule,
-  TextareaModule,
-  CheckboxModule,
-  ButtonModule,
-  CardModule,
-  FieldsetModule,
-  TooltipModule,
-  DividerModule,
-  MessageModule,
-  TableModule,
-  TranslatePipe,
-]
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [...IMPORT_ARR],
+  imports: [
+    FormsModule,
+    InputTextModule,
+    InputNumberModule,
+    TextareaModule,
+    CheckboxModule,
+    ButtonModule,
+    CardModule,
+    FieldsetModule,
+    TooltipModule,
+    DividerModule,
+    MessageModule,
+    TableModule,
+    TranslatePipe
+  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
@@ -58,17 +55,18 @@ export class CardComponent implements AfterContentInit {
       ['R', '–10', '–9', '+7', '–5', '–10', '–9', '–10', '–10', '+8', '0']
     ]
   }
+
   formParams: any = [
-    { name: 'T', label: 'T', value: 0 },
-    { name: 'S', label: 'S', value: 0 },
-    { name: 'E', label: 'E', value: 0 },
-    { name: 'Ec', label: 'Ec', value: 0 },
-    { name: 'C', label: 'C', value: 0 },
-    { name: 'Te', label: 'Te', value: 0 },
-    { name: 'I', label: 'I', value: 0 },
-    { name: 'Se', label: 'Se', value: 0 },
-    { name: 'M', label: 'M', value: 0 },
-    { name: 'R', label: 'R', value: 0 }
+    { name: 'T', label: 'Транспорт, T', tooltip: 'Забезпечення надійного, швидкого та зручного перевезення пасажирів', value: 0 },
+    { name: 'S', label: 'Соціальний / інклюзивний, S', tooltip: 'Доступність послуг для різних категорій населення у тому числі для людей з особливими потребами', value: 0 },
+    { name: 'E', label: 'Економічний, E', tooltip: 'Оптимізація витрат для пасажирів та підвищення прибутковості перевізника', value: 0 },
+    { name: 'Ec', label: 'Екологічний, Ec', tooltip: 'Мінімізація впливу на навколишнє середовище шляхом впровадження сучасних екологічних рішень', value: 0 },
+    { name: 'C', label: 'Комфорт, C', tooltip: 'Створення умов, які підвищують задоволеність клієнтів від користування послугами (зручність, якість)', value: 0 },
+    { name: 'Te', label: 'Технологічний, Te', tooltip: 'Використання інновацій для підвищення ефективності перевезень (автоматизація процесів)', value: 0 },
+    { name: 'I', label: 'Інформативний, I', tooltip: 'Надавання пасажирам актуальної інформації щодо маршрутів, графіків та послуг', value: 0 },
+    { name: 'Se', label: 'Безпека, Se', tooltip: 'Забезпечення високого рівня безпеки під час перевезення', value: 0 },
+    { name: 'M', label: 'Управління та регулятори, M', tooltip: 'Забезпечення політики державного регулювання в сфері транспорту, взаємодія з органами місцевого самоврядування, планування та оптимізація транспортних потоків, рівень інтеграції різних видів транспорту', value: 0 },
+    { name: 'R', label: 'Ризики, R', tooltip: 'Економічні, соціальні, технологічні, екологічні, управлінські та безпекові аспекти, впливаючи на стабільність, ефективність та комфорт транспортної системи', value: 0 }
   ]
 
   private paramsCogModel: any = [
@@ -344,7 +342,7 @@ export class CardComponent implements AfterContentInit {
     const color: any = d3.scaleOrdinal(types, d3.schemeCategory10);
     const simulation = d3.forceSimulation(nodes)
       .force('link', d3.forceLink(links).id((d: any) => d.id))
-      .force('charge', d3.forceManyBody().strength(-3000))
+      .force('charge', d3.forceManyBody().strength(-5000))
       .force('x', d3.forceX())
       .force('y', d3.forceY());
 

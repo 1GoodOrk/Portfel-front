@@ -5,6 +5,8 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
   providedIn: 'root'
 })
 export class AppCommunicationService {
+  public stackholders: any = []
+
   public currentPortfolio: IPortfolioDataRO = {
     _id: '',
     name: '',
@@ -86,6 +88,34 @@ export class AppCommunicationService {
       soc: 0,
       struc: 0
     }
+  }
+  public clearStackholder: any = {
+    type: '',
+    responsibleName: '',
+    responsibleSurname: '',
+    responsibleLastname: '',
+    responsibleOrganization: '',
+    power: 0,
+    influence: 0,
+    transport: 0,
+    social: 0,
+    economic: 0,
+    ecologic: 0,
+    comfort: 0,
+    technologic: 0,
+    informative: 0,
+    security: 0,
+    managment: 0,
+    eco: 0,
+    ecoPos: 0,
+    war: 0,
+    warPos: 0,
+    log: 0,
+    logPos: 0,
+    soc: 0,
+    socPos: 0,
+    struc: 0,
+    strucPos: 0
   }
   public lang: string = 'en'
 
@@ -733,7 +763,407 @@ export class AppCommunicationService {
         step: 1,
       }
     ],
-    road: []
+    road: [],
+    stackholders: [
+      {
+        type: 'selector',
+        displayCondition: true,
+        name: 'type',
+        label: 'pages.project.stackholder.typeStackholderLabel',
+        pTooltip: 'pages.project.stackholder.typeStackholderTolltip',
+        value: '',
+        refName: 'type',
+        items: [
+          { label: 'Замовник проєкту', value: 'customer' },
+          { label: 'Власник проєкту', value: 'owner' },
+          { label: 'Керівник проєкту', value: 'team-lid' },
+          { label: 'Команда проєкту', value: 'team' },
+          { label: 'Інвестори', value: 'investors' },
+          { label: 'Конкуренти', value: 'competitors' },
+          { label: 'Органи влади', value: 'government' },
+          { label: 'Транспортні регулятори', value: 'transportRegulators' },
+          { label: 'Громадські організації', value: 'civilOrganizations' },
+          { label: 'Населення', value: 'population' },
+          { label: 'Перевізники', value: 'carriers' },
+          { label: 'Інші групи', value: 'others' },
+        ]
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleOrganization',
+        label: 'pages.project.stackholder.responsibleOrganizationLabel',
+        placeholder: 'pages.project.stackholder.responsibleOrganizationPlaceholder',
+        pTooltip: 'pages.project.stackholder.responsibleOrganizationTolltip',
+        errors: {
+          required: 'pages.project.stackholder.responsibleOrganizationRequired'
+        },
+        value: '',
+        refName: 'responsibleOrganization'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleName',
+        label: 'pages.project.stackholder.responsibleNameLabel',
+        placeholder: 'pages.project.stackholder.responsibleNamePlaceholder',
+        pTooltip: 'pages.project.stackholder.responsibleNameTolltip',
+        errors: {
+          required: 'pages.project.stackholder.responsibleNameRequired'
+        },
+        value: '',
+        refName: 'responsibleName'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleSurname',
+        label: 'pages.project.stackholder.responsibleSurnameLabel',
+        placeholder: 'pages.project.stackholder.responsibleSurnamePlaceholder',
+        pTooltip: 'pages.project.stackholder.responsibleSurnameTolltip',
+        errors: {
+          required: 'pages.project.stackholder.responsibleSurnameRequired'
+        },
+        value: '',
+        refName: 'responsibleSurname'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleLastname',
+        label: 'pages.project.stackholder.responsibleLastnameLabel',
+        placeholder: 'pages.project.stackholder.responsibleLastnamePlaceholder',
+        pTooltip: 'pages.project.stackholder.responsibleLastnameTolltip',
+        errors: {
+          required: 'pages.project.stackholder.responsibleLastnameRequired'
+        },
+        value: '',
+        refName: 'responsibleLastname'
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'power',
+        label: 'pages.project.stackholder.powerLabel',
+        pTooltip: 'pages.project.stackholder.powerTolltip',
+        errors: {
+          required: 'pages.project.stackholder.powerRequired'
+        },
+        value: '',
+        refName: 'power',
+        min: 1,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'influence',
+        label: 'pages.project.stackholder.influenceLabel',
+        pTooltip: 'pages.project.stackholder.influenceTolltip',
+        errors: {
+          required: 'pages.project.stackholder.influenceRequired'
+        },
+        value: '',
+        refName: 'influence',
+        min: 1,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'line',
+        displayCondition: true
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'transport',
+        label: 'pages.project.stackholder.transportFactorLabel',
+        pTooltip: 'pages.project.stackholder.transportFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.transportFactorRequired'
+        },
+        value: '',
+        refName: 'transport',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'social',
+        label: 'pages.project.stackholder.socialFactorLabel',
+        pTooltip: 'pages.project.stackholder.socialFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.socialFactorRequired'
+        },
+        value: '',
+        refName: 'social',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'economic',
+        label: 'pages.project.stackholder.economicFactorLabel',
+        pTooltip: 'pages.project.stackholder.economicFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.economicFactorRequired'
+        },
+        value: '',
+        refName: 'economic',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'ecologic',
+        label: 'pages.project.stackholder.ecologicFactorLabel',
+        pTooltip: 'pages.project.stackholder.ecologicFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.ecologicFactorRequired'
+        },
+        value: '',
+        refName: 'ecologic',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'comfort',
+        label: 'pages.project.stackholder.comfortFactorLabel',
+        pTooltip: 'pages.project.stackholder.comfortFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.comfortFactorRequired'
+        },
+        value: '',
+        refName: 'comfort',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'technologic',
+        label: 'pages.project.stackholder.technologicFactorLabel',
+        pTooltip: 'pages.project.stackholder.technologicFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.technologicFactorRequired'
+        },
+        value: '',
+        refName: 'technologic',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'informative',
+        label: 'pages.project.stackholder.informativeFactorLabel',
+        pTooltip: 'pages.project.stackholder.informativeFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.informativeFactorRequired'
+        },
+        value: '',
+        refName: 'informative',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'security',
+        label: 'pages.project.stackholder.securityFactorLabel',
+        pTooltip: 'pages.project.stackholder.securityFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.securityFactorRequired'
+        },
+        value: '',
+        refName: 'security',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'managment',
+        label: 'pages.project.stackholder.managmentFactorLabel',
+        pTooltip: 'pages.project.stackholder.managmentFactorTolltip',
+        errors: {
+          required: 'pages.project.stackholder.managmentFactorRequired'
+        },
+        value: '',
+        refName: 'managment',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'line',
+        displayCondition: true
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'eco',
+        label: 'pages.project.stackholder.optionsEconomicLabel',
+        pTooltip: 'pages.project.stackholder.optionsEconomicTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsEconomicRequired'
+        },
+        value: '',
+        refName: 'eco',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'ecoPos',
+        label: 'pages.project.stackholder.optionsEconomicPosibilityLabel',
+        pTooltip: 'pages.project.stackholder.optionsEconomicPosibilityTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsEconomicPosibilityRequired'
+        },
+        value: '',
+        refName: 'ecoPos',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'war',
+        label: 'pages.project.stackholder.optionsWarLabel',
+        pTooltip: 'pages.project.stackholder.optionsWarTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsWarRequired'
+        },
+        value: '',
+        refName: 'war',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'warPos',
+        label: 'pages.project.stackholder.optionsWarPosibilityLabel',
+        pTooltip: 'pages.project.stackholder.optionsWarPosibilityTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsWarRequired'
+        },
+        value: '',
+        refName: 'warPos',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'log',
+        label: 'pages.project.stackholder.optionsLogisticLabel',
+        pTooltip: 'pages.project.stackholder.optionsLogisticTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsLogisticRequired'
+        },
+        value: '',
+        refName: 'log',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'logPos',
+        label: 'pages.project.stackholder.optionsLogisticPosibilityLabel',
+        pTooltip: 'pages.project.stackholder.optionsLogisticPosibilityTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsLogisticPosibilityRequired'
+        },
+        value: '',
+        refName: 'logPos',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'soc',
+        label: 'pages.project.stackholder.optionsSocialLabel',
+        pTooltip: 'pages.project.stackholder.optionsSocialTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsSocialRequired'
+        },
+        value: '',
+        refName: 'soc',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'socPos',
+        label: 'pages.project.stackholder.optionsSocialPosibilityLabel',
+        pTooltip: 'pages.project.stackholder.optionsSocialPosibilityTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsSocialPosibilityRequired'
+        },
+        value: '',
+        refName: 'socPos',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'struc',
+        label: 'pages.project.stackholder.optionsStructureLabel',
+        pTooltip: 'pages.project.stackholder.optionsStructureTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsStructureRequired'
+        },
+        value: '',
+        refName: 'struc',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'strucPos',
+        label: 'pages.project.stackholder.optionsStructurePosibilityLabel',
+        pTooltip: 'pages.project.stackholder.optionsStructurePosibilityTolltip',
+        errors: {
+          required: 'pages.project.stackholder.optionsStructurePosibilityRequired'
+        },
+        value: '',
+        refName: 'strucPos',
+        min: 0,
+        max: 100,
+        step: 1,
+      }
+    ]
   }
 
   public emptyCurrent(): void {
@@ -913,10 +1343,63 @@ export class AppCommunicationService {
       { propName: 'addressEnd', label: 'pages.portfolio.dialog.addressEndLabel' },
       { type: 'divider' },
       { propName: 'des', label: 'pages.portfolio.dialog.descriptionLabel' },
+    ],
+    stackholder: [
+      { propName: 'type', label: 'pages.project.stackholder.typeStackholderLabel' },
+      { propName: 'responsibleOrganization', label: 'pages.project.stackholder.profitLabel' },
+      { type: 'multyInOne', label: 'pages.project.stackholder.responsibleLabel', items: [
+        { propName: 'responsibleName' },
+        { propName: 'responsibleSurname' },
+        { propName: 'responsibleLastname' }
+      ] },
+      { propName: 'power', label: 'pages.project.stackholder.powerLabel' },
+      { propName: 'influence', label: 'pages.project.stackholder.influenceLabel' },
+      { type: 'divider' },
+      { propName: 'transport', label: 'pages.project.stackholder.transportFactorLabel' },
+      { propName: 'social', label: 'pages.project.stackholder.socialFactorLabel' },
+      { propName: 'economic', label: 'pages.project.stackholder.economicFactorLabel' },
+      { propName: 'ecologic', label: 'pages.project.stackholder.ecologicFactorLabel' },
+      { propName: 'comfort', label: 'pages.project.stackholder.comfortFactorLabel' },
+      { propName: 'technologic', label: 'pages.project.stackholder.technologicFactorLabel' },
+      { propName: 'informative', label: 'pages.project.stackholder.informativeFactorLabel' },
+      { propName: 'security', label: 'pages.project.stackholder.securityFactorLabel' },
+      { propName: 'managment', label: 'pages.project.stackholder.managmentFactorLabel' },
+      { type: 'divider' },
+      { propName: 'eco', label: 'pages.project.stackholder.optionsEconomicLabel' },
+      { propName: 'ecoPos', label: 'pages.project.stackholder.optionsEconomicPosibilityLabel' },
+      { propName: 'war', label: 'pages.project.stackholder.optionsWarLabel' },
+      { propName: 'warPos', label: 'pages.project.stackholder.optionsWarPosibilityLabel' },
+      { propName: 'log', label: 'pages.project.stackholder.optionsLogisticLabel' },
+      { propName: 'logPos', label: 'pages.project.stackholder.optionsLogisticPosibilityLabel' },
+      { propName: 'soc', label: 'pages.project.stackholder.optionsSocialLabel' },
+      { propName: 'socPos', label: 'pages.project.stackholder.optionsSocialPosibilityLabel' },
+      { propName: 'struc', label: 'pages.project.stackholder.optionsStructureLabel' },
+      { propName: 'strucPos', label: 'pages.project.stackholder.optionsStructurePosibilityLabel' },
     ]
   }
 
   public getInfoPageProjectValueKeys(valueKeysSetName: string): any {
     return this.infoPageProjectValueKeys[valueKeysSetName]
+  }
+
+  public saveStackholder(data: any): any {
+    this.stackholders.push(data)
+  }
+
+  public getStackholder(): any {
+    return this.stackholders
+  }
+
+  public deleteStackholder(index: any): any {
+    this.stackholders.splice(index, 1)
+  }
+  public currentProject: any = {}
+
+  public saveCurrentProject(data: any): any {
+    this.currentProject = data
+  }
+
+  public getCurrentProject(): any {
+    return this.currentProject
   }
 }

@@ -11,7 +11,22 @@
       <ng-template #body let-tds>
           <tr>
             @for (td of tds; track `td-id-${td}${$index}`) {
+              @if ($index === 0) {
               <td [id]="`td-id-${td}`">{{ td }}</td>
+              } @else {
+                <td [style]="{ 'max-width': '30px'}" [id]="`td-id-${td}`">
+                  <p-inputnumber
+                    [inputId]="`td-id-${tds[0]}-${$index}-input`"
+                    [ngModel]="td"
+                    class="different"
+                    [inputStyle]="{ width: '30px', border: '0', 'box-shadow': 'none' }"
+                    (ngModelChange)="onTableChange($event, tds[0], $index)"
+                    [ngModelOptions]="{ standalone: true }"
+                    [step]="1"
+                    [minFractionDigits]="0" >
+                  </p-inputnumber>
+                </td>
+              }
             }
           </tr>
       </ng-template>
@@ -48,5 +63,23 @@
         }
       </form>
   </div>
+  <div class="container flex">
+    <div class="flex line">
+      <div class="square blue"></div>
+      <p> + </p>
+    </div>
+    <div class="flex line">
+      <div class="square light"></div>
+      <p> - </p>
+    </div>
+  </div>
   <div class="container model-container"></div>
+  <div class="container">
+    <p><span class="bold">{{'pages.project.stackholder.mostConnectionAmount' | translate}}: </span>{{analyzeTable.mostConnectionAmount.name}} -> {{analyzeTable.mostConnectionAmount.value}}</p>
+    <p><span class="bold">{{'pages.project.stackholder.lessConnectionAmount' | translate}}: </span>{{analyzeTable.lessConnectionAmount.name}} -> {{analyzeTable.lessConnectionAmount.value}}</p>
+    <p><span class="bold">{{'pages.project.stackholder.mostNegativeConnectionAmount' | translate}}: </span>{{analyzeTable.mostNegativeConnectionAmount.name}} -> {{analyzeTable.mostNegativeConnectionAmount.value}}</p>
+    <p><span class="bold">{{'pages.project.stackholder.mostPositiveConnectionAmount' | translate}}: </span>{{analyzeTable.mostPositiveConnectionAmount.name}} -> {{analyzeTable.mostPositiveConnectionAmount.value}}</p>
+    <p><span class="bold">{{'pages.project.stackholder.mostInfluenceAmount' | translate}}: </span>{{analyzeTable.mostInfluenceAmount.name}} -> {{analyzeTable.mostInfluenceAmount.value}}</p>
+    <p><span class="bold">{{'pages.project.stackholder.lessInfluenceAmount' | translate}}: </span>{{analyzeTable.lessInfluenceAmount.name}} -> {{analyzeTable.lessInfluenceAmount.value}}</p>
+  </div>
 </section>

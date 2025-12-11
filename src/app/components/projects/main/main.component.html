@@ -3,7 +3,7 @@
   <div>
     <p-accordion value="1">
       <p-accordion-panel value="0">
-          <p-accordion-header>Когнітивна модель</p-accordion-header>
+          <p-accordion-header>{{'pages.project.stackholder.cogModel' | translate}}</p-accordion-header>
           <p-accordion-content>
             <app-card></app-card>
           </p-accordion-content>
@@ -13,7 +13,7 @@
   <div class="flex space-evenly">
     <p-button
       icon="pi pi-eye"
-      label="Переглянути проект"
+      [label]="`${'pages.project.stackholder.watchProject' | translate}`"
       tooltipPosition="top"
       severity="secondary"
       (click)="showInfoProjectDialog($event)"/>
@@ -22,9 +22,8 @@
   <div>
     <p-stepper [value]="1" class="basis-[50rem]">
       <p-step-list>
-        <p-step [value]="1">Стейкхолдери</p-step>
-        <p-step [value]="2">Результат</p-step>
-        <!-- <p-step [value]="3">Header III</p-step> -->
+        <p-step [value]="1">{{'pages.project.stackholder.stackholder' | translate}}</p-step>
+        <p-step [value]="2">{{'pages.project.stackholder.result' | translate}}</p-step>
       </p-step-list>
       <p-step-panels>
         <p-step-panel [value]="1">

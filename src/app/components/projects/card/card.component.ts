@@ -43,17 +43,25 @@ export class CardComponent implements AfterContentInit {
 
   tableParams: any = {
     th: ['\\', 'T', 'S', 'E', 'Ec', 'С', 'Te', 'I', 'Se', 'M', 'R'],
-    td: [['T', '0', '+7', '+9', '–5', '+7', '+8', '+8', '+9', '+8', '–10'],
-      ['S', '+7', '0', '+7', '0', '+9', '+5', '0', '+9', '+8', '–9'],
-      ['E', '+9', '+3', '0', '+5', '+8', '+7', '0', '+8', '0', '+7'],
-      ['Ec', '–5', '0', '+5', '0', '+3', '–5', '0', '–3', '–6', '–5'],
-      ['С', '+7', '+9', '+8', '+3', '0', '+9', '+10', '+8', '+5', '–10'],
-      ['Te', '+8', '+5', '+7', '–5', '+9', '0', '0', '+8', '0', '–9'],
-      ['I', '+8', '0', '0', '0', '+10', '0', '0', '+10', '0', '–10'],
-      ['Se', '+9', '+9', '+8', '–3', '+8', '+8', '+10', '0', '+8', '–10'],
-      ['M', '+8', '+8', '0', '–6', '+5', '0', '0', '+8', '0', '+8'],
-      ['R', '–10', '–9', '+7', '–5', '–10', '–9', '–10', '–10', '+8', '0']
+    td: [['T', 0, 7, 9, -5, 7, 8, 8, 9, 8, -10],
+      ['S', 7, 0, 7, 0, 9, 5, 0, 9, 8, -9],
+      ['E', 9, 3, 0, 5, 8, 7, 0, 8, 0, 7],
+      ['Ec', -5, 0, 5, 0, 3, -5, 0, -3, -6, -5],
+      ['С', 7, 9, 8, 3, 0, 9, 10, 8, 5, -10],
+      ['Te', 8, 5, 7, -5, 9, 0, 0, 8, 0, -9],
+      ['I', 8, 0, 0, 0, 10, 0, 0, 10, 0, -10],
+      ['Se', 9, 9, 8, -3, 8, 8, 10, 0, 8, -10],
+      ['M', 8, 8, 0, -6, 5, 0, 0, 8, 0, 8],
+      ['R', -10, -9, 7, -5, -10, -9, -10, -10, 8, 0]
     ]
+  }
+  analyzeTable: any = {
+    mostConnectionAmount: { name: '', value: 0 },
+    lessConnectionAmount: { name: '', value: 20 },
+    mostNegativeConnectionAmount: { name: '', value: 0 },
+    mostPositiveConnectionAmount: { name: '', value: 0 },
+    mostInfluenceAmount: { name: '', value: 0 },
+    lessInfluenceAmount: { name: '', value: 100 }
   }
 
   formParams: any = [
@@ -69,104 +77,9 @@ export class CardComponent implements AfterContentInit {
     { name: 'R', label: 'Ризики, R', tooltip: 'Економічні, соціальні, технологічні, екологічні, управлінські та безпекові аспекти, впливаючи на стабільність, ефективність та комфорт транспортної системи', value: 0 }
   ]
 
-  private paramsCogModel: any = [
-    { name: 'T', influence: [
-      { name: 'S', value: 7 },
-      { name: 'E', value: 9 },
-      { name: 'Ec', value: -5 },
-      { name: 'C', value: 7 },
-      { name: 'Te', value: 8 },
-      { name: 'I', value: 8 },
-      { name: 'Se', value: 9 },
-      { name: 'M', value: 8 },
-      { name: 'R', value: -10 }
-    ]},
-    { name: 'S', influence: [
-      { name: 'T', value: 7 },
-      { name: 'E', value: 7 },
-      { name: 'C', value: 9 },
-      { name: 'Te', value: 5 },
-      { name: 'Se', value: 9 },
-      { name: 'M', value: 8 },
-      { name: 'R', value: -9 }
-    ]},
-    { name: 'E', influence: [
-      { name: 'T', value: 9 },
-      { name: 'S', value: 3 },
-      { name: 'Ec', value: 5 },
-      { name: 'C', value: 8 },
-      { name: 'Te', value: 7 },
-      { name: 'Se', value: 8 },
-      { name: 'R', value: 7 }
-    ]},
-    { name: 'Ec', influence: [
-      { name: 'T', value: -5 },
-      { name: 'E', value: 5 },
-      { name: 'C', value: 3 },
-      { name: 'Te', value: -5 },
-      { name: 'Se', value: -3 },
-      { name: 'M', value: -6 },
-      { name: 'R', value: -10 }
-    ]},
-    { name: 'C', influence: [
-      { name: 'T', value: 7 },
-      { name: 'S', value: 8 },
-      { name: 'E', value: 9 },
-      { name: 'Ec', value: 3 },
-      { name: 'Te', value: 9 },
-      { name: 'I', value: 10 },
-      { name: 'Se', value: 8 },
-      { name: 'M', value: 5 },
-      { name: 'R', value: -10 }
-    ]},
-    { name: 'Te', influence: [
-      { name: 'T', value: 8 },
-      { name: 'S', value: 5 },
-      { name: 'E', value: 7 },
-      { name: 'Ec', value: -5 },
-      { name: 'C', value: 9 },
-      { name: 'Se', value: 8 },
-      { name: 'R', value: -9 }
-    ]},
-    { name: 'I', influence: [
-      { name: 'T', value: 8 },
-      { name: 'C', value: 10 },
-      { name: 'Se', value: 10 },
-      { name: 'R', value: -10 }
-    ]},
-    { name: 'Se', influence: [
-      { name: 'T', value: 9 },
-      { name: 'S', value: 9 },
-      { name: 'E', value: 8 },
-      { name: 'Ec', value: -3 },
-      { name: 'C', value: 8 },
-      { name: 'Te', value: 8 },
-      { name: 'I', value: 10 },
-      { name: 'M', value: 8 },
-      { name: 'R', value: -10 }
-    ]},
-    { name: 'M', influence: [
-      { name: 'T', value: 8 },
-      { name: 'S', value: 8 },
-      { name: 'Ec', value: -6 },
-      { name: 'C', value: 5 },
-      { name: 'Se', value: 8 },
-      { name: 'R', value: 8 }
-    ]},
-    { name: 'R', influence: [
-      { name: 'T', value: -10 },
-      { name: 'S', value: -9 },
-      { name: 'E', value: +7 },
-      { name: 'Ec', value: -5 },
-      { name: 'C', value: -10 },
-      { name: 'Te', value: -9 },
-      { name: 'I', value: -10 },
-      { name: 'Se', value: -10 },
-      { name: 'M', value: 8 }
-    ]}
-  ]
-
+  private debounceTimeout: any
   ngAfterContentInit(): void {
+    this.analyzeTableData()
     this.createCharts()
   }
 
@@ -176,106 +89,90 @@ export class CardComponent implements AfterContentInit {
     this.createCharts()
   }
 
+  analyzeTableData(): void {
+    this.tableParams.td.forEach((el: any) => {
+      const current: any = {
+        connectionAmount: 0,
+        mostNegativeConnectionAmount: 0,
+        mostPositiveConnectionAmount: 0,
+        influenceAmount: 0
+      }
+      el
+        .filter((subEl: any) => !isNaN(subEl) && subEl)
+        .forEach((el: any) => {
+          current.connectionAmount++
+          if (el > 0) {
+            current.mostPositiveConnectionAmount++
+          } else {
+            current.mostNegativeConnectionAmount++
+          }
+          current.influenceAmount += el
+        })
+      if (this.analyzeTable.mostConnectionAmount.value < current.connectionAmount) {
+        this.analyzeTable.mostConnectionAmount = { name: el[0], value: current.connectionAmount }
+      }
+      if (this.analyzeTable.lessConnectionAmount.value > current.connectionAmount) {
+        this.analyzeTable.lessConnectionAmount = { name: el[0], value: current.connectionAmount }
+      }
+      if (this.analyzeTable.mostNegativeConnectionAmount.value < current.mostNegativeConnectionAmount) {
+        this.analyzeTable.mostNegativeConnectionAmount = { name: el[0], value: current.mostNegativeConnectionAmount }
+      }
+      if (this.analyzeTable.mostPositiveConnectionAmount.value < current.mostPositiveConnectionAmount) {
+        this.analyzeTable.mostPositiveConnectionAmount = { name: el[0], value: current.mostPositiveConnectionAmount }
+      }
+      if (this.analyzeTable.mostInfluenceAmount.value < current.influenceAmount) {
+        this.analyzeTable.mostInfluenceAmount = { name: el[0], value: current.influenceAmount }
+      }
+      if (this.analyzeTable.lessInfluenceAmount.value > current.influenceAmount) {
+        this.analyzeTable.lessInfluenceAmount = { name: el[0], value: current.influenceAmount }
+      }
+    })
+  }
+
+
+  onTableChange(newData: any, rowName: string, index: number) {
+    clearTimeout(this.debounceTimeout)
+    this.debounceTimeout = setTimeout(() => {
+      const rowIndex: number = this.tableParams.td.findIndex((el: any) => el[0] === rowName)
+      this.tableParams.td[rowIndex][index] = newData
+      this.analyzeTableData()
+      this.refreshModel()
+    }, 500)
+  }
+
   onChange(newObj: any, paramName: string) {
-    const index: number = this.formParams.findIndex((el: any) => el.name === paramName)
-    // const sign: number = this.formParams[index].value < newObj ? 1 : -1
-    this.paramsCogModel
+    const  index: number = this.formParams.findIndex((el: any) => el.name === paramName)
+    const paramsCogModel: any = []
+    this.tableParams.td.forEach((td: any) => {
+      const influence: any = []
+      td.forEach((elTd: any, tdIndex: number) => {
+        if (!isNaN(elTd) && elTd !== 0) {
+          influence.push({ name: this.tableParams.th[tdIndex], value: elTd })
+        }
+      })
+      paramsCogModel.push({ name: td[0], influence })
+    })
+    paramsCogModel
       .find((el: any) => el.name === paramName)
       .influence.forEach((inf: any) => {
         const indexParams: number = this.formParams.findIndex((el: any) => el.name === inf.name)
-        // this.formParams[indexParams].value = this.formParams[indexParams].value + (newObj - this.formParams[index].value) * inf.value
-        this.formParams[indexParams].value = this.formParams[indexParams].value + (newObj - this.formParams[index].value) * inf.value
+        if (indexParams > -1) {
+          this.formParams[indexParams].value = this.formParams[indexParams].value + (newObj - this.formParams[index].value) * inf.value
+        }
       })
       this.formParams[index].value = newObj
   }
 
   async createCharts() {
     // const links = await d3.csv('./data.csv');
-    const links: any = [
-      {source: "T", target: "S", type: "+"},
-      {source: "T", target: "E", type: "+"},
-      {source: "T", target: "Ec", type: "-"},
-      {source: "T", target: "С", type: "+"},
-      {source: "T", target: "Te", type: "+"},
-      {source: "T", target: "I", type: "+"},
-      {source: "T", target: "Se", type: "+"},
-      {source: "T", target: "M", type: "+"},
-      {source: "T", target: "R", type: "-"},
-      //
-      {source: "S", target: "T", type: "+"},
-      {source: "S", target: "E", type: "+"},
-      {source: "S", target: "С", type: "+"},
-      {source: "S", target: "Te", type: "+"},
-      {source: "S", target: "Se", type: "+"},
-      {source: "S", target: "M", type: "+"},
-      {source: "S", target: "R", type: "-"},
-      //
-      {source: "E", target: "T", type: "+"},
-      {source: "E", target: "S", type: "+"},
-      {source: "E", target: "Ec", type: "-"},
-      {source: "E", target: "С", type: "+"},
-      {source: "E", target: "Te", type: "+"},
-      {source: "E", target: "Se", type: "+"},
-      {source: "E", target: "R", type: "-"},
-      //
-      {source: "Ec", target: "T", type: "-"},
-      {source: "Ec", target: "E", type: "+"},
-      {source: "Ec", target: "С", type: "+"},
-      {source: "Ec", target: "Te", type: "-"},
-      {source: "Ec", target: "Se", type: "-"},
-      {source: "Ec", target: "M", type: "-"},
-      {source: "Ec", target: "R", type: "-"},
-      //
-      {source: "С", target: "T", type: "+"},
-      {source: "С", target: "S", type: "+"},
-      {source: "С", target: "E", type: "+"},
-      {source: "С", target: "Ec", type: "+"},
-      {source: "С", target: "Te", type: "+"},
-      {source: "С", target: "I", type: "+"},
-      {source: "С", target: "Se", type: "+"},
-      {source: "С", target: "M", type: "+"},
-      {source: "С", target: "R", type: "-"},
-      //
-      {source: "Te", target: "T", type: "+"},
-      {source: "Te", target: "S", type: "+"},
-      {source: "Te", target: "E", type: "+"},
-      {source: "Te", target: "Ec", type: "-"},
-      {source: "Te", target: "С", type: "+"},
-      {source: "Te", target: "Se", type: "+"},
-      {source: "Te", target: "R", type: "-"},
-      //
-      {source: "I", target: "T", type: "+"},
-      {source: "I", target: "С", type: "+"},
-      {source: "I", target: "Se", type: "+"},
-      {source: "I", target: "R", type: "-"},
-      //
-      {source: "Se", target: "T", type: "+"},
-      {source: "Se", target: "S", type: "+"},
-      {source: "Se", target: "E", type: "+"},
-      {source: "Se", target: "Ec", type: "-"},
-      {source: "Se", target: "С", type: "+"},
-      {source: "Se", target: "Te", type: "+"},
-      {source: "Se", target: "I", type: "+"},
-      {source: "Se", target: "M", type: "+"},
-      {source: "Se", target: "R", type: "-"},
-      //
-      {source: "M", target: "T", type: "+"},
-      {source: "M", target: "S", type: "+"},
-      {source: "M", target: "Ec", type: "-"},
-      {source: "M", target: "С", type: "+"},
-      {source: "M", target: "Se", type: "+"},
-      {source: "M", target: "R", type: "+"},
-      //
-      {source: "R", target: "T", type: "-"},
-      {source: "R", target: "S", type: "-"},
-      {source: "R", target: "E", type: "+"},
-      {source: "R", target: "Ec", type: "-"},
-      {source: "R", target: "С", type: "-"},
-      {source: "R", target: "Te", type: "-"},
-      {source: "R", target: "I", type: "-"},
-      {source: "R", target: "Se", type: "-"},
-      {source: "R", target: "M", type: "+"},
-    ]
+    const links: any = []
+    this.tableParams.td.forEach((td: any) => {
+      td.forEach((elTd: any, tdIndex: number) => {
+        if (!isNaN(elTd) && elTd !== 0) {
+          links.push({ source: td[0], target: this.tableParams.th[tdIndex], type: elTd > 0 ? '+' : '-' })
+        }
+      })
+    })
 
     const data = {
       nodes: Array.from(new Set(links.flatMap((l: any) => [l.source, l.target])), id => ({
@@ -342,7 +239,7 @@ export class CardComponent implements AfterContentInit {
     const color: any = d3.scaleOrdinal(types, d3.schemeCategory10);
     const simulation = d3.forceSimulation(nodes)
       .force('link', d3.forceLink(links).id((d: any) => d.id))
-      .force('charge', d3.forceManyBody().strength(-5000))
+      .force('charge', d3.forceManyBody().strength(-7000))
       .force('x', d3.forceX())
       .force('y', d3.forceY());
 
@@ -452,10 +349,9 @@ export class CardComponent implements AfterContentInit {
     const unknown = formatUnknown == null ? undefined : color.unknown();
     const unknowns = unknown == null || unknown === d3.scaleImplicit ? [] : [unknown];
     const domain = color.domain().concat(unknowns);
-    console.log(domain)
     if (format === undefined) {
-    // TODO: type error
-    // @ts-expect-error
+      // TODO: type error
+      // @ts-expect-error
       format = (x: any) => x === unknown ? formatUnknown : x;
     }
 
@@ -491,16 +387,6 @@ export class CardComponent implements AfterContentInit {
       // @ts-expect-error
       .text(d => format(d));
 
-    console.log(color)
-
-    svg.append('text')
-      .attr('x', 8)
-      .attr('y', '0.31em')
-      .text((d: any) => d)
-      .clone(true).lower()
-      .attr('fill', 'none')
-      .attr('stroke', 'white')
-      .attr('stroke-width', 3);
 
     return svg.node();
   }

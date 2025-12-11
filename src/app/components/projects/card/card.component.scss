@@ -8,4 +8,31 @@
   .container {
     margin: 20px 0;
   }
+
+  .different {
+    max-width: 50px !important;
+    width: 100%;
+    .p-inputnumber-input {
+      max-width: 50px !important;;
+    }
+
+  }
+  .p-inputnumber-input {
+    max-width: 50px !important;;
+  }
+  .line {
+    align-items: center;
+    margin-right: 40px;
+  }
+  .square {
+    width: 15px;
+    height: 15px;
+    margin-right: 20px;
+  }
+  .light {
+    background-color: rgb(255, 127, 14);
+  }
+  .blue {
+    background-color: rgb(31, 119, 180);
+  }
 }

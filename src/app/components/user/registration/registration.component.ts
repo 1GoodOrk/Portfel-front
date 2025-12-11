@@ -85,9 +85,9 @@ export class RegistrationComponent {
         organization: this.user.organization
       })
         .subscribe((data: IUserData) => {
-          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
-          this.showSpinner = false
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
           form.resetForm()
+          this.showSpinner = false
           this.navigate('main')
         })
     }

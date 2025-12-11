@@ -154,7 +154,7 @@
 
         "updateButton": "Update",
         "removeButton": "Remove",
-        "processingButton": "Processing",
+        "processingButton": "Stackholder",
         "processingButtonTooltip": "Click here to process the project",
         "updateButtonTooltip": "Click here to update",
         "removeButtonTooltip": "Click here to remove",
@@ -545,10 +545,21 @@
     "project": {
       "stackholder": {
         "stackholder": "Your stackholder",
+        "result": "Result",
+        "cogModel": "Cognitive Model",
+        "watchProject": "Rewatch the project",
         "infoDialogStackholderHeader": "The stackholder informative window",
         "watchStackholderTooltip": "Click here to check the stackholder info",
         "typeStackholderLabel": "Stackholder Type",
         "typeStackholderTolltip": "Select the stackholder type",
+
+        "mostConnectionAmount": "Largest number of connections",
+        "lessConnectionAmount": "Least number of connections",
+        "mostNegativeConnectionAmount": "Largest number of negative connections",
+        "mostPositiveConnectionAmount": "Largest number of positive connections",
+        "mostInfluenceAmount": "Largest influence on other factors",
+        "lessInfluenceAmount": "Least influence on other factors",
+
         "responsibleLabel": "Stackholder",
         "responsibleNameLabel": "Stackholder supervisor name",
         "responsibleNamePlaceholder": "Name",

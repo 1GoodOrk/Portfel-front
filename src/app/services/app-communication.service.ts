@@ -849,9 +849,9 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.powerRequired'
         },
-        value: '',
+        value: 0,
         refName: 'power',
-        min: 1,
+        min: 0,
         max: 100,
         step: 1,
       },
@@ -864,9 +864,9 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.influenceRequired'
         },
-        value: '',
+        value: 0,
         refName: 'influence',
-        min: 1,
+        min: 0,
         max: 100,
         step: 1,
       },
@@ -883,7 +883,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.transportFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'transport',
         min: 0,
         max: 100,
@@ -898,7 +898,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.socialFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'social',
         min: 0,
         max: 100,
@@ -913,7 +913,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.economicFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'economic',
         min: 0,
         max: 100,
@@ -928,7 +928,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.ecologicFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'ecologic',
         min: 0,
         max: 100,
@@ -943,7 +943,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.comfortFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'comfort',
         min: 0,
         max: 100,
@@ -958,7 +958,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.technologicFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'technologic',
         min: 0,
         max: 100,
@@ -973,7 +973,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.informativeFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'informative',
         min: 0,
         max: 100,
@@ -988,7 +988,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.securityFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'security',
         min: 0,
         max: 100,
@@ -1003,7 +1003,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.managmentFactorRequired'
         },
-        value: '',
+        value: 0,
         refName: 'managment',
         min: 0,
         max: 100,
@@ -1022,7 +1022,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsEconomicRequired'
         },
-        value: '',
+        value: 0,
         refName: 'eco',
         min: 0,
         max: 100,
@@ -1037,7 +1037,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsEconomicPosibilityRequired'
         },
-        value: '',
+        value: 0,
         refName: 'ecoPos',
         min: 0,
         max: 100,
@@ -1052,7 +1052,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsWarRequired'
         },
-        value: '',
+        value: 0,
         refName: 'war',
         min: 0,
         max: 100,
@@ -1067,7 +1067,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsWarRequired'
         },
-        value: '',
+        value: 0,
         refName: 'warPos',
         min: 0,
         max: 100,
@@ -1082,7 +1082,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsLogisticRequired'
         },
-        value: '',
+        value: 0,
         refName: 'log',
         min: 0,
         max: 100,
@@ -1097,7 +1097,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsLogisticPosibilityRequired'
         },
-        value: '',
+        value: 0,
         refName: 'logPos',
         min: 0,
         max: 100,
@@ -1112,7 +1112,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsSocialRequired'
         },
-        value: '',
+        value: 0,
         refName: 'soc',
         min: 0,
         max: 100,
@@ -1127,7 +1127,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsSocialPosibilityRequired'
         },
-        value: '',
+        value: 0,
         refName: 'socPos',
         min: 0,
         max: 100,
@@ -1142,7 +1142,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsStructureRequired'
         },
-        value: '',
+        value: 0,
         refName: 'struc',
         min: 0,
         max: 100,
@@ -1157,7 +1157,7 @@ export class AppCommunicationService {
         errors: {
           required: 'pages.project.stackholder.optionsStructurePosibilityRequired'
         },
-        value: '',
+        value: 0,
         refName: 'strucPos',
         min: 0,
         max: 100,

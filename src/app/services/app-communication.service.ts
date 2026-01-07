@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
+import { IProjectData } from '@port/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -7,48 +7,6 @@ import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
 export class AppCommunicationService {
   public stackholders: any = []
 
-  public currentPortfolio: IPortfolioDataRO = {
-    _id: '',
-    name: '',
-    img: '',
-    des: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    responsibleOrganization: '',
-    projects: 0,
-    projectIds: {
-      tierI: [],
-      tierII: [],
-      tierIII: []
-    },
-    subinfo: '',
-    budget: 0,
-    profit: 0,
-    location: '',
-    town: ''
-  }
-  public clearPortfolio: IPortfolioDataRO = {
-    _id: '',
-    name: '',
-    img: '',
-    des: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    responsibleOrganization: '',
-    projects: 0,
-    projectIds: {
-      tierI: [],
-      tierII: [],
-      tierIII: []
-    },
-    subinfo: '',
-    budget: 0,
-    profit: 0,
-    location: '',
-    town: ''
-  }
   public clearProject: IProjectData = {
     _id: '',
     name: '',
@@ -1164,30 +1122,6 @@ export class AppCommunicationService {
         step: 1,
       }
     ]
-  }
-
-  public emptyCurrent(): void {
-    this.currentPortfolio = {
-      _id: '',
-      name: '',
-      img: '',
-      des: '',
-      responsibleName: '',
-      responsibleSurname: '',
-      responsibleLastname: '',
-      responsibleOrganization: '',
-      projects: 0,
-      projectIds: {
-        tierI: [],
-        tierII: [],
-        tierIII: []
-      },
-      subinfo: '',
-      budget: 0,
-      profit: 0,
-      location: '',
-      town: ''
-    }
   }
 
   public emptyCurrentProject(): void {

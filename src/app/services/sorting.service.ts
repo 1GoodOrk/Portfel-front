@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IPortfolioDataRO, IProjectData } from '@port/interfaces';
+import { IProjectData } from '@port/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SortingService {
   public testProjects: Array<IProjectData> = []
-  public testPortfolios: Array<IPortfolioDataRO> = []
 
   public sortingSystem(projects: Array<IProjectData>, sortingType: string): Array<IProjectData> {
     switch (sortingType) {
@@ -101,77 +100,5 @@ export class SortingService {
       return 0
     })
     return projects
-  }
-
-  public tierFormatting(projects: Array<IProjectData>, portfolio: IPortfolioDataRO): IPortfolioDataRO {
-    portfolio.projectIds = {
-      tierI: [],
-      tierII: [],
-      tierIII: []
-    }
-    const options = {
-      maxScore: projects[0].score,
-      minScore: projects[0].score,
-      averageDownScore: projects[0].score,
-      averageUpScore: projects[0].score
-    }
-    projects.forEach((el: IProjectData) => {
-      portfolio.budget += el.budget
-      portfolio.profit += el.profit
-      if (el.score > options.maxScore) {
-        options.maxScore = el.score
-      }
-      if (el.score < options.minScore) {
-        options.minScore = el.score
-      }
-    })
-    options.averageDownScore = (options.maxScore + options.minScore) / 2
-    options.averageUpScore = Math.round((options.maxScore + options.averageDownScore) / 2)
-    options.averageDownScore = Math.round((options.averageDownScore + options.minScore) / 2)
-    projects.forEach((el: IProjectData) => {
-      if (el.score >= options.minScore && el.score < options.averageDownScore) {
-        portfolio.projectIds.tierI.push(el)
-      } else if (el.score >= options.averageDownScore && el.score < options.averageUpScore) {
-        portfolio.projectIds.tierII.push(el)
-      } else {
-        portfolio.projectIds.tierIII.push(el)
-      }
-    })
-    return portfolio
-  }
-  public tierVehicleFormatting(projects: any, portfolio: IPortfolioDataRO): IPortfolioDataRO {
-    portfolio.projectIds = {
-      tierI: [],
-      tierII: [],
-      tierIII: []
-    }
-    const options = {
-      maxScore: projects[0].riskScore,
-      minScore: projects[0].riskScore,
-      averageDownScore: projects[0].riskScore,
-      averageUpScore: projects[0].riskScore
-    }
-    projects.forEach((el: any) => {
-      portfolio.budget += el.budget
-      if (el.riskScore > options.maxScore) {
-        options.maxScore = el.riskScore
-      }
-      if (el.riskScore < options.minScore) {
-        options.minScore = el.riskScore
-      }
-    })
-    options.averageDownScore = (options.maxScore + options.minScore) / 2
-    options.averageUpScore = Math.round((options.maxScore + options.averageDownScore) / 2)
-    options.averageDownScore = Math.round((options.averageDownScore + options.minScore) / 2)
-    projects.forEach((el: any) => {
-      if (el.riskScore >= options.minScore && el.riskScore < options.averageDownScore) {
-        portfolio.projectIds.tierI.push(el)
-      } else if (el.riskScore >= options.averageDownScore && el.riskScore < options.averageUpScore) {
-        portfolio.projectIds.tierII.push(el)
-      } else {
-        portfolio.projectIds.tierIII.push(el)
-      }
-    })
-    return portfolio
   }
 }

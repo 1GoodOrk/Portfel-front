@@ -57,6 +57,22 @@
         }
       </div>
       <div class="flex flex-col gap-1">
+        <p-select
+          id="type"
+          name="type"
+          [placeholder]="'pages.user.registration.typePlaceholder' | translate"
+          [pTooltip]="'pages.user.registration.typeTolltip' | translate"
+          tooltipPosition="right"
+          [options]="types"
+          [(ngModel)]="user.type"
+          #type="ngModel"
+          [invalid]="type.invalid && (type.touched || form.submitted)"
+          required />
+        @if (type.invalid && (type.touched || form.submitted)) {
+          <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.typeRequired' | translate}}</p-message>
+        }
+      </div>
+      <div class="flex flex-col gap-1">
         <input
           pInputText
           type="password"

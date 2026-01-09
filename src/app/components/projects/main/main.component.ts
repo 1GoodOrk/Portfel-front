@@ -8,7 +8,6 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { CardComponent } from '../card/card.component';
-import { StackholdersComponent } from '../stackholders/stackholders.component';
 import { ExpertsComponent } from '../experts/experts.component';
 
 import { TooltipModule } from 'primeng/tooltip';
@@ -24,7 +23,6 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     HeaderComponent,
     FooterComponent,
     CardComponent,
-    StackholdersComponent,
     ExpertsComponent,
     TooltipModule,
     InfoDialogComponent

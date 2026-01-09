@@ -38,6 +38,9 @@ export class HttpService {
   updateUser(id: null | string, data: any) {
     return this.http.post(`${this.link}/update/${id}`, { data });
   }
+  getExperts(): Observable<any> {
+    return this.http.get(`${this.link}/users?filter=EXPERT`);
+  }
 
   getAllProjects(token: string) {
     return this.http.get(`${this.link}/projects-science?token=${token}`);

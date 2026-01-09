@@ -721,6 +721,337 @@ export class AppCommunicationService {
         step: 1,
       }
     ],
+    science: [
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'name',
+        label: 'pages.portfolio.dialog.nameLabel',
+        placeholder: 'pages.portfolio.dialog.namePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.nameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.nameRequired'
+        },
+        value: '',
+        refName: 'name'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'subinfo',
+        label: 'pages.portfolio.dialog.subinfoLabel',
+        placeholder: 'pages.portfolio.dialog.subinfoPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.subinfoTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.subinfoRequired'
+        },
+        value: '',
+        refName: 'subinfo'
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'priority',
+        label: 'pages.portfolio.dialog.priorityLabel',
+        pTooltip: 'pages.portfolio.dialog.priorityTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.priorityRequired'
+        },
+        value: '',
+        refName: 'priority',
+        min: 1,
+        max: 10,
+        step: 1
+      },
+      {
+        type: 'selector',
+        displayCondition: true,
+        name: 'type',
+        label: 'pages.portfolio.dialog.typeLabel',
+        pTooltip: 'pages.portfolio.dialog.typeTolltip',
+        value: '',
+        refName: 'type',
+        items: [
+          { label: 'Перевірка', value: 'Examination' },
+          { label: 'Реорганізація', value: 'Reorganization' },
+          { label: 'Цифровізація', value: 'Digitalization' },
+          { label: 'Систематизація', value: 'Systematization' },
+          { label: 'Модернізація', value: 'Modernization' },
+        ]
+      },
+      {
+        type: 'textarea',
+        displayCondition: true,
+        name: 'des',
+        label: 'pages.portfolio.dialog.descriptionLabel',
+        placeholder: 'pages.portfolio.dialog.descriptionPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.descriptionTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.descriptionRequired'
+        },
+        value: '',
+        refName: 'des'
+      },
+      {
+        type: 'line',
+        displayCondition: true
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleName',
+        label: 'pages.portfolio.dialog.responsibleNameLabel',
+        placeholder: 'pages.portfolio.dialog.responsibleNamePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.responsibleNameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.responsibleNameRequired'
+        },
+        value: '',
+        refName: 'responsibleName'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleSurname',
+        label: 'pages.portfolio.dialog.responsibleSurnameLabel',
+        placeholder: 'pages.portfolio.dialog.responsibleSurnamePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.responsibleSurnameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.responsibleSurnameRequired'
+        },
+        value: '',
+        refName: 'responsibleSurname'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleLastname',
+        label: 'pages.portfolio.dialog.responsibleLastnameLabel',
+        placeholder: 'pages.portfolio.dialog.responsibleLastnamePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.responsibleLastnameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.responsibleLastnameRequired'
+        },
+        value: '',
+        refName: 'responsibleLastname'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'managerName',
+        label: 'pages.portfolio.dialog.managerNameLabel',
+        placeholder: 'pages.portfolio.dialog.managerNamePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.managerNameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.managerNameRequired'
+        },
+        value: '',
+        refName: 'managerName'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'managerSurname',
+        label: 'pages.portfolio.dialog.managerSurnameLabel',
+        placeholder: 'pages.portfolio.dialog.managerSurnamePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.managerSurnameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.managerSurnameRequired'
+        },
+        value: '',
+        refName: 'managerSurname'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'managerLastname',
+        label: 'pages.portfolio.dialog.managerLastnameLabel',
+        placeholder: 'pages.portfolio.dialog.managerLastnamePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.managerLastnameTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.managerLastnameRequired'
+        },
+        value: '',
+        refName: 'managerLastname'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'responsibleOrganization',
+        label: 'pages.portfolio.dialog.responsibleOrganizationLabel',
+        placeholder: 'pages.portfolio.dialog.responsibleOrganizationPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.responsibleOrganizationTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.responsibleOrganizationRequired'
+        },
+        value: '',
+        refName: 'responsibleOrganization'
+      },
+      {
+        type: 'line',
+        displayCondition: true
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'budget',
+        label: 'pages.portfolio.dialog.budgetLabel',
+        pTooltip: 'pages.portfolio.dialog.budgetTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.budgetRequired'
+        },
+        value: '',
+        refName: 'budget',
+        min: 1,
+        max: 1000000000,
+        step: 1,
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'budgetSource',
+        label: 'pages.portfolio.dialog.budgetSourceLabel',
+        placeholder: 'pages.portfolio.dialog.budgetSourcePlaceholder',
+        pTooltip: 'pages.portfolio.dialog.budgetSourceTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.budgetSourceRequired'
+        },
+        value: '',
+        refName: 'budgetSource'
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'volumeOfWork',
+        label: 'pages.portfolio.dialog.volumeOfWorkLabel',
+        pTooltip: 'pages.portfolio.dialog.volumeOfWorkTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.volumeOfWorkRequired'
+        },
+        value: '',
+        refName: 'volumeOfWork',
+        min: 1,
+        max: 5000,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'forecastProjectTaskAmount',
+        label: 'pages.portfolio.dialog.forecastProjectTaskAmountLabel',
+        pTooltip: 'pages.portfolio.dialog.forecastProjectTaskAmountTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.forecastProjectTaskAmountRequired'
+        },
+        value: '',
+        refName: 'forecastProjectTaskAmount',
+        min: 1,
+        max: 5000,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'term',
+        label: 'pages.portfolio.dialog.termLabel',
+        pTooltip: 'pages.portfolio.dialog.termTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.termRequired'
+        },
+        value: '',
+        refName: 'term',
+        min: 1,
+        max: 5000,
+        step: 1,
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'actionPlan',
+        label: 'pages.portfolio.dialog.actionPlanLabel',
+        placeholder: 'pages.portfolio.dialog.actionPlanPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.actionPlanTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.actionPlanRequired'
+        },
+        value: '',
+        refName: 'actionPlan'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'sphereOfAction',
+        label: 'pages.portfolio.dialog.sphereOfActionLabel',
+        placeholder: 'pages.portfolio.dialog.sphereOfActionPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.sphereOfActionTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.sphereOfActionRequired'
+        },
+        value: '',
+        refName: 'sphereOfAction'
+      },
+      {
+        type: 'line',
+        displayCondition: true
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'governmentSubsidies',
+        label: 'pages.portfolio.dialog.governmentSubsidiesLabel',
+        placeholder: 'pages.portfolio.dialog.governmentSubsidiesPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.governmentSubsidiesTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.governmentSubsidiesRequired'
+        },
+        value: '',
+        refName: 'governmentSubsidies'
+      },
+      {
+        type: 'text',
+        displayCondition: true,
+        name: 'numberOfOrderDocument',
+        label: 'pages.portfolio.dialog.numberOfOrderDocumentLabel',
+        placeholder: 'pages.portfolio.dialog.numberOfOrderDocumentPlaceholder',
+        pTooltip: 'pages.portfolio.dialog.numberOfOrderDocumentTolltip',
+        errors: {
+          required: 'pages.portfolio.dialog.numberOfOrderDocumentRequired'
+        },
+        value: '',
+        refName: 'numberOfOrderDocument'
+      },
+      {
+        type: 'multiselector',
+        displayCondition: true,
+        name: 'staff',
+        label: 'pages.portfolio.dialog.staffLabel',
+        pTooltip: 'pages.portfolio.dialog.staffTolltip',
+        value: '',
+        refName: 'staff',
+        items: [
+          { label: 'Управління', value: 'Management' },
+          { label: 'Викладацький склад', value: 'Faculty' },
+          { label: 'Юрист', value: 'Lawyer' },
+          { label: 'Архів', value: 'Archive' },
+          { label: 'ІТ-відділ', value: 'ITDepartment' },
+        ]
+      },
+      {
+        type: 'multiselector',
+        displayCondition: true,
+        name: 'technology',
+        label: 'pages.portfolio.dialog.technologyLabel',
+        pTooltip: 'pages.portfolio.dialog.technologyTolltip',
+        value: '',
+        refName: 'technology',
+        items: [
+          { label: 'ІКТ', value: 'ICT, VR/AR, adaptive learning, electronic platforms' },
+          { label: 'VR/AR', value: 'VR/AR' },
+          { label: 'адаптивне навчання', value: 'adaptiveLearning' },
+          { label: 'електронні платформи', value: 'electronicPlatforms' },
+        ]
+      },
+    ],
     road: [],
     stackholders: [
       {
@@ -1121,6 +1452,577 @@ export class AppCommunicationService {
         max: 100,
         step: 1,
       }
+    ],
+    risksLean: [
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'burden',
+        label: 'pages.project.science.burdenLabel',
+        pTooltip: 'pages.project.science.burdenTolltip',
+        errors: {
+          required: 'pages.project.science.burdenRequired'
+        },
+        value: 0,
+        refName: 'burden',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'contentQuality',
+        label: 'pages.project.science.contentQualityLabel',
+        pTooltip: 'pages.project.science.contentQualityTolltip',
+        errors: {
+          required: 'pages.project.science.contentQualityRequired'
+        },
+        value: 0,
+        refName: 'contentQuality',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'staffQuality',
+        label: 'pages.project.science.staffQualityLabel',
+        pTooltip: 'pages.project.science.staffQualityTolltip',
+        errors: {
+          required: 'pages.project.science.staffQualityRequired'
+        },
+        value: 0,
+        refName: 'staffQuality',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'staffAmount',
+        label: 'pages.project.science.staffAmountLabel',
+        pTooltip: 'pages.project.science.staffAmountTolltip',
+        errors: {
+          required: 'pages.project.science.staffAmountRequired'
+        },
+        value: 0,
+        refName: 'staffAmount',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'managementQuality',
+        label: 'pages.project.science.managementQualityLabel',
+        pTooltip: 'pages.project.science.managementQualityTolltip',
+        errors: {
+          required: 'pages.project.science.managementQualityRequired'
+        },
+        value: 0,
+        refName: 'managementQuality',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'dataRedundancy',
+        label: 'pages.project.science.dataRedundancyLabel',
+        pTooltip: 'pages.project.science.dataRedundancyTolltip',
+        errors: {
+          required: 'pages.project.science.dataRedundancyRequired'
+        },
+        value: 0,
+        refName: 'dataRedundancy',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'inaccuracies',
+        label: 'pages.project.science.inaccuraciesLabel',
+        pTooltip: 'pages.project.science.inaccuraciesTolltip',
+        errors: {
+          required: 'pages.project.science.inaccuraciesRequired'
+        },
+        value: 0,
+        refName: 'inaccuracies',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'systematicErrors',
+        label: 'pages.project.science.systematicErrorsLabel',
+        pTooltip: 'pages.project.science.systematicErrorsTolltip',
+        errors: {
+          required: 'pages.project.science.systematicErrorsRequired'
+        },
+        value: 0,
+        refName: 'systematicErrors',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'infrastructure',
+        label: 'pages.project.science.infrastructureLabel',
+        pTooltip: 'pages.project.science.infrastructureTolltip',
+        errors: {
+          required: 'pages.project.science.infrastructureRequired'
+        },
+        value: 0,
+        refName: 'infrastructure',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'logistic',
+        label: 'pages.project.science.logisticLabel',
+        pTooltip: 'pages.project.science.logisticTolltip',
+        errors: {
+          required: 'pages.project.science.logisticRequired'
+        },
+        value: 0,
+        refName: 'logistic',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+    ],
+    risksDigital: [
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'cyberSecurity',
+        label: 'pages.project.science.cyberSecurityLabel',
+        pTooltip: 'pages.project.science.cyberSecurityTolltip',
+        errors: {
+          required: 'pages.project.science.cyberSecurityRequired'
+        },
+        value: 0,
+        refName: 'cyberSecurity',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'hardware',
+        label: 'pages.project.science.hardwareLabel',
+        pTooltip: 'pages.project.science.hardwareTolltip',
+        errors: {
+          required: 'pages.project.science.hardwareRequired'
+        },
+        value: 0,
+        refName: 'hardware',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'software',
+        label: 'pages.project.science.softwareLabel',
+        pTooltip: 'pages.project.science.softwareTolltip',
+        errors: {
+          required: 'pages.project.science.softwareRequired'
+        },
+        value: 0,
+        refName: 'software',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'infrastructure',
+        label: 'pages.project.science.infrastructureLabel',
+        pTooltip: 'pages.project.science.infrastructureTolltip',
+        errors: {
+          required: 'pages.project.science.infrastructureRequired'
+        },
+        value: 0,
+        refName: 'infrastructure',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'levelCompetence',
+        label: 'pages.project.science.levelCompetenceLabel',
+        pTooltip: 'pages.project.science.levelCompetenceTolltip',
+        errors: {
+          required: 'pages.project.science.levelCompetenceRequired'
+        },
+        value: 0,
+        refName: 'levelCompetence',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      {
+        type: 'number',
+        displayCondition: true,
+        name: 'adaptive',
+        label: 'pages.project.science.adaptiveLabel',
+        pTooltip: 'pages.project.science.adaptiveTolltip',
+        errors: {
+          required: 'pages.project.science.adaptiveRequired'
+        },
+        value: 0,
+        refName: 'adaptive',
+        min: 0,
+        max: 100,
+        step: 1,
+      }
+    ],
+    risksClassic: [
+      {
+        name: 'pages.project.science.NPPCompetenceLabel',
+        inputs: [
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'levelOfCompetenceOfTheNPP',
+            label: 'pages.project.science.levelOfCompetenceOfTheNPPLabel',
+            pTooltip: 'pages.project.science.levelOfCompetenceOfTheNPPTolltip',
+            errors: {
+              required: 'pages.project.science.levelOfCompetenceOfTheNPPRequired'
+            },
+            value: 0,
+            refName: 'levelOfCompetenceOfTheNPP',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'ensuringTheNumberOfNPP',
+            label: 'pages.project.science.ensuringTheNumberOfNPPLabel',
+            pTooltip: 'pages.project.science.ensuringTheNumberOfNPPTolltip',
+            errors: {
+              required: 'pages.project.science.ensuringTheNumberOfNPPRequired'
+            },
+            value: 0,
+            refName: 'ensuringTheNumberOfNPP',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'staffTurnover',
+            label: 'pages.project.science.staffTurnoverLabel',
+            pTooltip: 'pages.project.science.staffTurnoverTolltip',
+            errors: {
+              required: 'pages.project.science.staffTurnoverRequired'
+            },
+            value: 0,
+            refName: 'staffTurnover',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'humanFactorNPPCompetence',
+            label: 'pages.project.science.humanFactorLabel',
+            pTooltip: 'pages.project.science.humanFactorTolltip',
+            errors: {
+              required: 'pages.project.science.humanFactorRequired'
+            },
+            value: 0,
+            refName: 'humanFactorNPPCompetence',
+            min: 0,
+            max: 100,
+            step: 1,
+          }
+        ]
+      },
+      {
+        name: 'pages.project.science.studentsLabel',
+        inputs: [
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'underrecruitment',
+            label: 'pages.project.science.underrecruitmentLabel',
+            pTooltip: 'pages.project.science.underrecruitmentTolltip',
+            errors: {
+              required: 'pages.project.science.underrecruitmentRequired'
+            },
+            value: 0,
+            refName: 'underrecruitment',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'successRate',
+            label: 'pages.project.science.successRateLabel',
+            pTooltip: 'pages.project.science.successRateTolltip',
+            errors: {
+              required: 'pages.project.science.successRateRequired'
+            },
+            value: 0,
+            refName: 'successRate',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'attrition',
+            label: 'pages.project.science.attritionLabel',
+            pTooltip: 'pages.project.science.attritionTolltip',
+            errors: {
+              required: 'pages.project.science.attritionRequired'
+            },
+            value: 0,
+            refName: 'attrition',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'imbalance',
+            label: 'pages.project.science.imbalanceLabel',
+            pTooltip: 'pages.project.science.imbalanceTolltip',
+            errors: {
+              required: 'pages.project.science.imbalanceRequired'
+            },
+            value: 0,
+            refName: 'imbalance',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'humanFactorStudents',
+            label: 'pages.project.science.humanFactorLabel',
+            pTooltip: 'pages.project.science.humanFactorTolltip',
+            errors: {
+              required: 'pages.project.science.humanFactorRequired'
+            },
+            value: 0,
+            refName: 'humanFactorStudents',
+            min: 0,
+            max: 100,
+            step: 1,
+          }
+        ]
+      },
+      {
+        name: 'pages.project.science.structureLabel',
+        inputs: [
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'externalFactors',
+            label: 'pages.project.science.externalFactorsLabel',
+            pTooltip: 'pages.project.science.externalFactorsTolltip',
+            errors: {
+              required: 'pages.project.science.externalFactorsRequired'
+            },
+            value: 0,
+            refName: 'externalFactors',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'agreement',
+            label: 'pages.project.science.agreementLabel',
+            pTooltip: 'pages.project.science.agreementTolltip',
+            errors: {
+              required: 'pages.project.science.agreementRequired'
+            },
+            value: 0,
+            refName: 'agreement',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'delay',
+            label: 'pages.project.science.delayLabel',
+            pTooltip: 'pages.project.science.delayTolltip',
+            errors: {
+              required: 'pages.project.science.delayRequired'
+            },
+            value: 0,
+            refName: 'delay',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'humanFactorStructure',
+            label: 'pages.project.science.humanFactorLabel',
+            pTooltip: 'pages.project.science.humanFactorTolltip',
+            errors: {
+              required: 'pages.project.science.humanFactorRequired'
+            },
+            value: 0,
+            refName: 'humanFactorStructure',
+            min: 0,
+            max: 100,
+            step: 1,
+          }
+        ]
+      },
+      {
+        name: 'pages.project.science.unevenLoadsLabel',
+        inputs: [
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'systemLoad',
+            label: 'pages.project.science.systemLoadLabel',
+            pTooltip: 'pages.project.science.systemLoadTolltip',
+            errors: {
+              required: 'pages.project.science.systemLoadRequired'
+            },
+            value: 0,
+            refName: 'systemLoad',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'departmentLoad',
+            label: 'pages.project.science.departmentLoadLabel',
+            pTooltip: 'pages.project.science.departmentLoadTolltip',
+            errors: {
+              required: 'pages.project.science.departmentLoadRequired'
+            },
+            value: 0,
+            refName: 'departmentLoad',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'staffLoad',
+            label: 'pages.project.science.staffLoadLabel',
+            pTooltip: 'pages.project.science.staffLoadTolltip',
+            errors: {
+              required: 'pages.project.science.staffLoadRequired'
+            },
+            value: 0,
+            refName: 'staffLoad',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'humanFactorUnevenLoads',
+            label: 'pages.project.science.humanFactorUnevenLoadsLabel',
+            pTooltip: 'pages.project.science.humanFactorUnevenLoadsTolltip',
+            errors: {
+              required: 'pages.project.science.humanFactorUnevenLoadsRequired'
+            },
+            value: 0,
+            refName: 'humanFactorUnevenLoads',
+            min: 0,
+            max: 100,
+            step: 1,
+          }
+        ]
+      },
+      {
+        name: 'pages.project.science.forceMajeureLabel',
+        inputs: [
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'epidemic',
+            label: 'pages.project.science.epidemicLabel',
+            pTooltip: 'pages.project.science.epidemicTolltip',
+            errors: {
+              required: 'pages.project.science.epidemicRequired'
+            },
+            value: 0,
+            refName: 'epidemic',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'wartime',
+            label: 'pages.project.science.wartimeLabel',
+            pTooltip: 'pages.project.science.wartimeTolltip',
+            errors: {
+              required: 'pages.project.science.wartimeRequired'
+            },
+            value: 0,
+            refName: 'wartime',
+            min: 0,
+            max: 100,
+            step: 1,
+          },
+          {
+            type: 'number',
+            displayCondition: true,
+            name: 'naturalDisaster',
+            label: 'pages.project.science.naturalDisasterLabel',
+            pTooltip: 'pages.project.science.naturalDisasterTolltip',
+            errors: {
+              required: 'pages.project.science.naturalDisasterRequired'
+            },
+            value: 0,
+            refName: 'naturalDisaster',
+            min: 0,
+            max: 100,
+            step: 1,
+          }
+        ]
+      }
     ]
   }
 
@@ -1227,6 +2129,37 @@ export class AppCommunicationService {
       // { type: 'divider' },
       // { propName: 'addressStart', label: 'pages.portfolio.dialog.addressStartLabel' },
       // { propName: 'addressEnd', label: 'pages.portfolio.dialog.addressEndLabel' },
+      { type: 'divider' },
+      { propName: 'des', label: 'pages.portfolio.dialog.descriptionLabel' },
+    ],
+    science: [
+      { propName: 'subinfo', label: 'pages.portfolio.dialog.subinfoLabel' },
+      { propName: 'priority', label: 'pages.portfolio.dialog.priorityLabel' },
+      { propName: 'type', label: 'pages.portfolio.dialog.typeLabel' },
+      { type: 'divider' },
+      { type: 'multyInOne', label: 'pages.portfolio.dialog.responsibleLabel', items: [
+        { propName: 'responsibleName' },
+        { propName: 'responsibleSurname' },
+        { propName: 'responsibleLastname' }
+      ] },
+      { type: 'multyInOne', label: 'pages.portfolio.dialog.managerLabel', items: [
+        { propName: 'managerName' },
+        { propName: 'managerSurname' },
+        { propName: 'managerLastname' }
+      ] },
+      { propName: 'responsibleOrganization', label: 'pages.portfolio.dialog.profitLabel' },
+      { type: 'divider' },
+      { propName: 'budget', label: 'pages.portfolio.dialog.budgetLabel', suffix: 'pages.portfolio.dialog.budgetSuffix' },
+      { propName: 'budgetSource', label: 'pages.portfolio.dialog.budgetSourceLabel' },
+      { propName: 'volumeOfWork', label: 'pages.portfolio.dialog.volumeOfWorkLabel' },
+      { propName: 'forecastProjectTaskAmount', label: 'pages.portfolio.dialog.forecastProjectTaskAmountLabel' },
+      { propName: 'term', label: 'pages.portfolio.dialog.termLabel' },
+      { propName: 'actionPlan', label: 'pages.portfolio.dialog.actionPlanLabel' },
+      { propName: 'sphereOfAction', label: 'pages.portfolio.dialog.sphereOfActionLabel' },
+      { propName: 'governmentSubsidies', label: 'pages.portfolio.dialog.governmentSubsidiesLabel' },
+      { propName: 'numberOfOrderDocument', label: 'pages.portfolio.dialog.numberOfOrderDocumentLabel' },
+      { propName: 'staff', label: 'pages.portfolio.dialog.staffLabel' },
+      { propName: 'technology', label: 'pages.portfolio.dialog.technologyLabel' },
       { type: 'divider' },
       { propName: 'des', label: 'pages.portfolio.dialog.descriptionLabel' },
     ],

@@ -1,19 +1,9 @@
 <app-header></app-header>
 <main class="projects">
-  <div>
-    <p-accordion value="1">
-      <p-accordion-panel value="0">
-          <p-accordion-header>{{'pages.project.stackholder.cogModel' | translate}}</p-accordion-header>
-          <p-accordion-content>
-            <app-card></app-card>
-          </p-accordion-content>
-      </p-accordion-panel>
-    </p-accordion>
-  </div>
   <div class="flex space-evenly">
     <p-button
       icon="pi pi-eye"
-      [label]="`${'pages.project.stackholder.watchProject' | translate}`"
+      [label]="`${'pages.project.science.watchProject' | translate}`"
       tooltipPosition="top"
       severity="secondary"
       (click)="showInfoProjectDialog($event)"/>
@@ -22,21 +12,19 @@
   <div>
     <p-stepper [value]="1" class="basis-[50rem]">
       <p-step-list>
-        <p-step [value]="1">{{'pages.project.stackholder.stackholder' | translate}}</p-step>
-        <p-step [value]="2">{{'pages.project.stackholder.result' | translate}}</p-step>
+        <p-step [value]="1">{{'pages.project.science.risks' | translate}}</p-step>
+        <p-step [value]="2">{{'pages.project.science.result' | translate}}</p-step>
       </p-step-list>
       <p-step-panels>
         <p-step-panel [value]="1">
           <ng-template #content let-activateCallback="activateCallback">
             <div class="flex flex-col h-48">
-              <div>
-                <app-stackholders></app-stackholders>
-              </div>
+              <app-cog-card></app-cog-card>
             </div>
             <div class="flex pt-6 justify-end">
               <p-button
-                [label]="`${'pages.portfolio.creation.nextButton' | translate}`"
-                [pTooltip]="'pages.portfolio.creation.nextButtonTooltip' | translate"
+                [label]="`${'pages.portfolio.dialog.nextButton' | translate}`"
+                [pTooltip]="'pages.portfolio.dialog.nextButtonTooltip' | translate"
                 tooltipPosition="top"
                 severity="primary"
                 (click)="activateCallback(2)"/>
@@ -53,8 +41,8 @@
             </div>
             <div class="flex pt-6 justify-between">
               <p-button
-                [label]="`${'pages.portfolio.creation.backButton' | translate}`"
-                [pTooltip]="'pages.portfolio.creation.backButtonTooltip' | translate"
+                [label]="`${'pages.portfolio.dialog.backButton' | translate}`"
+                [pTooltip]="'pages.portfolio.dialog.backButtonTooltip' | translate"
                 tooltipPosition="top"
                 severity="primary"
                 (click)="activateCallback(1)"/>

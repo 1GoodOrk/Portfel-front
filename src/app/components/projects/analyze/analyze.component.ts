@@ -15,9 +15,8 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
-// import { InfoDialogStackholderComponent } from '@port/shared/organisms/info-dialog-stackholders/info-dialog.component';
 @Component({
-  selector: 'app-experts',
+  selector: 'app-analyze',
   standalone: true,
   imports: [
     FormsModule,
@@ -29,13 +28,12 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
     MessageModule,
     TranslatePipe,
     HeaderComponent,
-    FooterComponent,
-
+    FooterComponent
   ],
-  templateUrl: './experts.component.html',
-  styleUrl: './experts.component.scss',
+  templateUrl: './analyze.component.html',
+  styleUrl: './analyze.component.scss',
 })
-export class ExpertsComponent {
+export class AnalyzeComponent {
   public currentProject: any = {}
   public stackholders: any = []
   public resultCalc: any = {

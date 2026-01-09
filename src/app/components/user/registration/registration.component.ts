@@ -47,12 +47,14 @@ export class RegistrationComponent {
     organization: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    type: 'USER'
   };
   public error: undefined | Error
 
   public showSpinner: boolean = false
   public languages: Array<string> = ['en', 'ua'];
+  public types: Array<string> = ['USER', 'EXPERT'];
   public selectedLanguage: string = 'en';
   private langJson: any = {
     en: translationsEN,
@@ -82,7 +84,8 @@ export class RegistrationComponent {
       this.httpService.registration({
         email: this.user.email,
         password: this.user.password,
-        organization: this.user.organization
+        organization: this.user.organization,
+        type: this.user.type
       })
         .subscribe((data: IUserData) => {
           this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))

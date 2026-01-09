@@ -118,6 +118,11 @@ export class MainComponent {
     private httpService: HttpService
   ) {
     this.getAllProjects()
+    // this.httpService.getExperts()
+    //   .subscribe((data: any) => {
+    //     console.log(data)
+    //   })
+
   }
 
   public getAllProjects(): void {
@@ -153,6 +158,7 @@ export class MainComponent {
       this.currentProject[key] = this.projects[index][key]
     })
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    console.log('cog-model')
     this.navigate('cog-model')
   }
 

@@ -91,3 +91,30 @@ export interface IProjectDataVehicle {
   projectValuation: number;
   riskScore: number;
 }
+
+export interface IProjectDataScience {
+  _id: string;
+  name: string;
+  subinfo: string;
+  type: string;
+  priority: number;
+  des: string;
+  responsibleName: string;
+  responsibleSurname: string;
+  responsibleLastname: string;
+  managerName: string;
+  managerSurname: string;
+  managerLastname: string;
+  responsibleOrganization: string;
+  volumeOfWork: number;
+  forecastProjectTaskAmount: number;
+  term: number;
+  actionPlan: string;
+  sphereOfAction: string;
+  budget: number;
+  budgetSource: string;
+  governmentSubsidies: string;
+  numberOfOrderDocument: string;
+  staff: string;
+  technology: string;
+}

@@ -38,9 +38,26 @@ export class HttpService {
   updateUser(id: null | string, data: any) {
     return this.http.post(`${this.link}/update/${id}`, { data });
   }
+
   getExperts(): Observable<any> {
     return this.http.get(`${this.link}/users?filter=EXPERT`);
   }
+  getAllExpertise(id: null | string) {
+    return this.http.get(`${this.link}/expertise?project=${id}`);
+  }
+  getExpertise(id: null | string) {
+    return this.http.get(`${this.link}/expertise/${id}`);
+  }
+  addExpertise(data: any, id: null | string) {
+    return this.http.post(`${this.link}/expertise?project=${id}`, { data });
+  }
+  removeExpertise(id: string) {
+    return this.http.delete(`${this.link}/expertise/${id}`);
+  }
+  updateExpertise(data: any) {
+    return this.http.put(`${this.link}/expertise`, { data });
+  }
+
 
   getAllProjects(token: string) {
     return this.http.get(`${this.link}/projects-science?token=${token}`);

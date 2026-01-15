@@ -1,0 +1,39 @@
+<p-dialog
+  [header]="`${'pages.portfolio.dialog.infoDialogExpertise' | translate}`"
+  [modal]="true"
+  [(visible)]="visible"
+  (visibleChange)="visibleOnChange()"
+  [style]="{ width: '40rem' }">
+  <div>
+    @for (valueKey of infoPageProjectValueKeys; track valueKey) {
+      @if (!valueKey.type) {
+        @if (current[valueKey.propName] && current[valueKey.propName][0] && current[valueKey.propName][0].label) {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span>
+            @for (item of current[valueKey.propName]; track item) {
+              @if ($index === current[valueKey.propName].length - 1) {
+                {{item.label}}
+              } @else {
+                {{item.label + ', '}}
+              }
+            }
+          </p>
+        } @else {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.mainProp][valueKey.propName]}} %
+            @if (!valueKey.type) {
+              {{valueKey.suffix | translate}}
+            }
+          </p>
+        }
+      } @else if (valueKey.type === 'divider') {
+        <p-divider />
+      } @else if (valueKey.type === 'risksClassic') {
+        <p> <span class="bold">{{valueKey.label | translate}}: </span></p>
+        @if (valueKey.items.length) {
+          @for (item of valueKey.items; track item) {
+            <p> {{item.label | translate}}: {{current.risksClassic[valueKey.label][item.propName]}} %</p>
+          }
+        }
+      }
+    }
+  </div>
+</p-dialog>

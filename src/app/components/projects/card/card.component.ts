@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -20,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { IProjectData, IProjectDataVehicle } from '@port/interfaces';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
+import { InfoDialogExpertiseComponent } from '@port/shared/organisms/info-expertise-dialog/info-expertise-dialog.component';
 
 
 @Component({
@@ -42,47 +44,110 @@ import { HttpService } from '@port/services/http.service';
     MultiSelectModule,
     DatePickerModule,
     TranslatePipe,
+    InfoDialogExpertiseComponent
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
+  @ViewChild(InfoDialogExpertiseComponent) child:InfoDialogExpertiseComponent | undefined;
   public inputs: any = {}
+  public currentProject: any = {}
+  public currentExpertise: any = {
+    risksLean: [],
+    risksDigital: [],
+    risksClassic: [],
+  }
+  public user: any = {}
+  public experts: any = []
+  public expertises: any = []
   public newInputName: any = []
   public newGroupName: any = ''
+  public selectedEmail: any = {}
 
+  public visible: any = {
+    expertise: false
+  }
   constructor(
+    private router: Router,
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
+    this.httpService.getExperts()
+      .subscribe((data: any) => {
+        this.experts = data
+      })
+    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
     this.inputs = this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital', 'risksClassic'])
+    this.currentProject = this.appCommunicationService.getCurrentProject()
+    this.getAllExpertise()
   }
 
-  public addNewGroup() {
-    this.inputs.risksClassic.push({
-      name: this.newGroupName,
-      inputs: []
-    })
-    this.newGroupName = ''
+  public getAllExpertise() {
+    this.httpService.getAllExpertise(this.currentProject._id)
+      .subscribe((data: any) => {
+        this.expertises = data
+      })
   }
 
-  public addNewInput(name: string, index: number) {
-    this.inputs.risksClassic[index].inputs.push({
-      type: 'number',
-      displayCondition: true,
-      name: name,
-      label: name,
-      pTooltip: name,
-      errors: {
-        required: ''
-      },
-      value: 0,
-      refName: name,
-      min: 0,
-      max: 100,
-      step: 1,
+  public createExpertise() {
+      const data: any = {
+        email: this.selectedEmail.email,
+        risksLean: {},
+        risksDigital: {},
+        risksClassic: {},
+        status: 'NEW'
+      }
+      this.inputs.risksLean.forEach((el: any) => {
+        data.risksLean[el.name] = el.value
+      })
+      this.inputs.risksDigital.forEach((el: any) => {
+        data.risksDigital[el.name] = el.value
+      })
+      this.inputs.risksClassic.forEach((el: any) => {
+        data.risksClassic[el.name] = {}
+        el.inputs.forEach((input: any) => {
+          data.risksClassic[el.name][input.name] = input.value
+        })
+      })
+      console.log('Expertise', data)
+      this.httpService.addExpertise(data, this.currentProject._id)
+        .subscribe((data: any) => {
+          this.getAllExpertise()
+      })
+  }
+
+  public removeExpertise(id: string, event: any) {
+    event.stopPropagation()
+    this.httpService.removeExpertise(id)
+      .subscribe(() => this.getAllExpertise())
+  }
+
+  public navigate(path: string) {
+    this.router.navigateByUrl(`/${path}`);
+  }
+
+  public approveExpertise(data: any, event: any) {
+    this.appCommunicationService.saveCurrentExpertise(data)
+    this.navigate(`approve/${data._id}`)
+  }
+
+  public updateExpertise(data: any, event: any) {
+    this.appCommunicationService.saveCurrentExpertise(data)
+    this.navigate(`expertise/${data._id}`)
+  }
+
+  public showInfoDialogExpertise(index: number): void {
+    Object.keys(this.expertises[index]).forEach((key: string) => {
+      this.currentExpertise[key] = this.expertises[index][key]
     })
-    this.newInputName[index] = ''
+    this.appCommunicationService.saveCurrentExpertise(this.currentExpertise)
+    this.child?.updateView();
+    this.visible.expertise = !this.visible.expertise
+  }
+
+  public visibleOnChange(key: string): void {
+    this.visible[key] = !this.visible[key]
   }
 }
 // Muda – длительное утверждение учебных планов, смет научных проектов, задержки поставки необходимого для выполнения проекта оборудования (ожидания);

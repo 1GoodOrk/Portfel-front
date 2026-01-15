@@ -25,7 +25,7 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     CardComponent,
     ExpertsComponent,
     TooltipModule,
-    InfoDialogComponent
+    InfoDialogComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

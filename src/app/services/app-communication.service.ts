@@ -2077,6 +2077,55 @@ export class AppCommunicationService {
     return result
   }
 
+
+  public getDynamicInputsForm(setName: string, inputs: any, data: any): any {
+    inputs[setName] = Array.from(this.inputsForm[setName])
+    Object.keys(data[setName]).forEach((key: string) => {
+      if (inputs[setName].findIndex((el: any) => el.name === key) !== -1) {
+        const groupIndex = inputs[setName].findIndex((el: any) => el.name === key)
+        Object.keys(data[setName][key]).forEach((keyData: string) => {
+          if (inputs[setName][groupIndex].inputs.findIndex((el: any) => el.name === keyData) === -1) {
+            inputs[setName][groupIndex].inputs.push({
+              type: 'number',
+              displayCondition: true,
+              name: keyData,
+              label: keyData,
+              pTooltip: keyData,
+              errors: {
+                required: ''
+              },
+              value: data[setName][key][keyData],
+              refName: keyData,
+              min: 0,
+              max: 100,
+              step: 1,
+            })
+          }
+        })
+      } else {
+        inputs[setName].push({
+          name: key,
+          inputs: Object.keys(data[setName][key]).map((keyData: string) => ({
+            type: 'number',
+            displayCondition: true,
+            name: keyData,
+            label: keyData,
+            pTooltip: keyData,
+            errors: {
+              required: ''
+            },
+            value: data[setName][key][keyData],
+            refName: keyData,
+            min: 0,
+            max: 100,
+            step: 1,
+          }))
+        })
+      }
+    })
+    return inputs
+  }
+
   private infoPageProjectValueKeys: any = {
     vehicle: [
       { propName: 'subinfo', label: 'pages.portfolio.dialog.subinfoLabel' },
@@ -2242,11 +2291,106 @@ export class AppCommunicationService {
       { propName: 'socPos', label: 'pages.project.stackholder.optionsSocialPosibilityLabel' },
       { propName: 'struc', label: 'pages.project.stackholder.optionsStructureLabel' },
       { propName: 'strucPos', label: 'pages.project.stackholder.optionsStructurePosibilityLabel' },
+    ],
+    risksLean: [
+      { propName: 'burden', mainProp: 'risksLean', label: 'pages.project.science.burdenLabel' },
+      { propName: 'contentQuality', mainProp: 'risksLean', label: 'pages.project.science.contentQualityLabel' },
+      { propName: 'dataRedundancy', mainProp: 'risksLean', label: 'pages.project.science.dataRedundancyLabel' },
+      { propName: 'inaccuracies', mainProp: 'risksLean', label: 'pages.project.science.inaccuraciesLabel' },
+      { propName: 'infrastructure', mainProp: 'risksLean', label: 'pages.project.science.infrastructureLabel' },
+      { propName: 'logistic', mainProp: 'risksLean', label: 'pages.project.science.logisticLabel' },
+      { propName: 'managementQuality', mainProp: 'risksLean', label: 'pages.project.science.managementQualityLabel' },
+      { propName: 'staffAmount', mainProp: 'risksLean', label: 'pages.project.science.staffAmountLabel' },
+      { propName: 'staffQuality', mainProp: 'risksLean', label: 'pages.project.science.staffQualityLabel' },
+      { propName: 'systematicErrors', mainProp: 'risksLean', label: 'pages.project.science.systematicErrorsLabel' },
+      { type: 'divider' },
+    ],
+    risksDigital: [
+      { propName: 'adaptive', mainProp: 'risksDigital', label: 'pages.project.science.adaptiveLabel' },
+      { propName: 'cyberSecurity', mainProp: 'risksDigital', label: 'pages.project.science.cyberSecurityLabel' },
+      { propName: 'hardware', mainProp: 'risksDigital', label: 'pages.project.science.hardwareLabel' },
+      { propName: 'infrastructure', mainProp: 'risksDigital', label: 'pages.project.science.infrastructureLabel' },
+      { propName: 'levelCompetence', mainProp: 'risksDigital', label: 'pages.project.science.levelCompetenceLabel' },
+      { propName: 'software', mainProp: 'risksDigital', label: 'pages.project.science.softwareLabel' },
+      { type: 'divider' },
+    ],
+    risksClassic: [
+      { type: 'risksClassic',
+        label: 'pages.project.science.NPPCompetenceLabel',
+        items: [
+          { propName: 'ensuringTheNumberOfNPP', label: 'pages.project.science.ensuringTheNumberOfNPPLabel' },
+          { propName: 'humanFactorNPPCompetence', label: 'pages.project.science.humanFactorNPPCompetenceLabel' },
+          { propName: 'levelOfCompetenceOfTheNPP', label: 'pages.project.science.levelOfCompetenceOfTheNPPLabel' },
+          { propName: 'staffTurnover', label: 'pages.project.science.staffTurnoverLabel' },
+        ]
+      },
+      { type: 'divider' },
+      { type: 'risksClassic',
+        label: 'pages.project.science.forceMajeureLabel',
+        items: [
+          { propName: 'epidemic', label: 'pages.project.science.epidemicLabel' },
+          { propName: 'naturalDisaster', label: 'pages.project.science.naturalDisasterLabel' },
+          { propName: 'wartime', label: 'pages.project.science.wartimeLabel' },
+        ]
+      },
+      { type: 'divider' },
+      { type: 'risksClassic',
+        label: 'pages.project.science.structureLabel',
+        items: [
+          { propName: 'agreement', label: 'pages.project.science.agreementLabel' },
+          { propName: 'delay', label: 'pages.project.science.delayLabel' },
+          { propName: 'externalFactors', label: 'pages.project.science.externalFactorsLabel' },
+          { propName: 'humanFactorStructure', label: 'pages.project.science.humanFactorStructureLabel' },
+        ]
+      },
+      { type: 'divider' },
+      { type: 'risksClassic',
+        label: 'pages.project.science.studentsLabel',
+        items: [
+          { propName: 'attrition', label: 'pages.project.science.attritionLabel' },
+          { propName: 'humanFactorStudents', label: 'pages.project.science.humanFactorStudentsLabel' },
+          { propName: 'imbalance', label: 'pages.project.science.imbalanceLabel' },
+          { propName: 'successRate', label: 'pages.project.science.successRateLabel' },
+          { propName: 'underrecruitment', label: 'pages.project.science.underrecruitmentLabel' },
+        ]
+      },
+      { type: 'divider' },
+      { type: 'risksClassic',
+        label: 'pages.project.science.unevenLoadsLabel',
+        items: [
+          { propName: 'departmentLoad', label: 'pages.project.science.departmentLoadLabel' },
+          { propName: 'humanFactorUnevenLoads', label: 'pages.project.science.humanFactorUnevenLoadsLabel' },
+          { propName: 'staffLoad', label: 'pages.project.science.staffLoadLabel' },
+          { propName: 'systemLoad', label: 'pages.project.science.systemLoadLabel' },
+        ]
+      },
     ]
   }
 
   public getInfoPageProjectValueKeys(valueKeysSetName: string): any {
     return this.infoPageProjectValueKeys[valueKeysSetName]
+  }
+
+  public getDynamicValueKeys(valueKeysSetName: string, data: any): any {
+    const infoDynamicValueKeys: any = Array.from(this.infoPageProjectValueKeys[valueKeysSetName])
+    // Object.keys(data[valueKeysSetName]).forEach((key: string) => {
+    //   if (infoDynamicValueKeys.findIndex((el: any) => el.label === key) !== -1) {
+    //     const groupIndex = infoDynamicValueKeys.findIndex((el: any) => el.label === key)
+    //     Object.keys(data[valueKeysSetName][key]).forEach((keyData: string) => {
+    //       if (infoDynamicValueKeys[groupIndex].items.findIndex((el: any) => el.propName === keyData) === -1) {
+    //         infoDynamicValueKeys[groupIndex].items.push({ propName: keyData, label: keyData })
+    //       }
+    //     })
+    //   } else {
+    //     infoDynamicValueKeys.push({ type: 'divider' })
+    //     infoDynamicValueKeys.push({
+    //       type: 'risksClassic',
+    //       label: key,
+    //       items: Object.keys(data[valueKeysSetName][key]).map((keyData: string) => ({ propName: keyData, label: keyData }))
+    //     })
+    //   }
+    // })
+    return infoDynamicValueKeys
   }
 
   public saveStackholder(data: any): any {
@@ -2268,5 +2412,15 @@ export class AppCommunicationService {
 
   public getCurrentProject(): any {
     return this.currentProject
+  }
+
+  public currentExpertise: any = {}
+
+  public saveCurrentExpertise(data: any): any {
+    this.currentExpertise = data
+  }
+
+  public getCurrentExpertise(): any {
+    return this.currentExpertise
   }
 }

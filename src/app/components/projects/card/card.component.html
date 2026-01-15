@@ -1,399 +1,83 @@
 <section class="cog-model">
   <div class="container form-container">
-      <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="form-container row">
-      <h1>{{'pages.project.science.risksLeanLabel' | translate}}</h1>
-      <p-divider />
-      <div class="form-container column">
-        @for (input of inputs.risksLean; track input) {
-          @if (input.displayCondition && input.type !== 'line') {
-            <div class="flex flex-col gap-1">
-              @if (input.type !== 'checklist') {
-                <label for="name" class="bold">{{input.label | translate}}</label>
-              }
-              @if (input.type === 'text') {
-                <input
-                  pInputText
-                  type="text"
-                  [id]="input.name"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [name]="input.name || 'name'"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  required />
-              } @else if (input.type === 'textarea') {
-                <textarea
-                  pTextarea
-                  type="text"
-                  [id]="input.name"
-                  class="mt-5"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [name]="input.name || 'name'"
-                  [(ngModel)]="input.value"
-                  required>
-                </textarea>
-              } @else if (input.type === 'number') {
-                <p-inputnumber
-                  [inputId]="input.name"
-                  [showButtons]="true"
-                  buttonLayout="horizontal"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [name]="input.name || 'name'"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  required
-                  [min]="input.min || 1"
-                  [max]="input.max || 10"
-                  [step]="input.step || 1"
-                  [minFractionDigits]="0" >
-                    <ng-template #incrementbuttonicon>
-                        <span class="pi pi-plus"></span>
-                    </ng-template>
-                    <ng-template #decrementbuttonicon>
-                        <span class="pi pi-minus"></span>
-                    </ng-template>
-                </p-inputnumber>
-              } @else if (input.type === 'datepicker') {
-                <p-datepicker
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  required />
-              } @else if (input.type === 'checklist') {
-                <p-checkbox
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [binary]="true"
-                  [indeterminate]="true"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="input.value" />
-                <label for="intown" class="bold">{{input.label | translate}}?</label>
-              } @else if (input.type === 'selector') {
-                <p-select
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [options]="input.items"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  class="w-full md:w-56" />
-              } @else if (input.type === 'multiselector') {
-                <p-multiselect
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [options]="input.items"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  tooltipPosition="right"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  optionLabel="label"
-                  [showClear]="true"
-                  class="w-full md:w-56" />
-              }
-            </div>
-          } @else if (input.displayCondition) {
-            <p-divider />
-          }
-        }
-      </div>
-      <p-divider />
-      <h1>{{'pages.project.science.risksDigitalLabel' | translate}}</h1>
-      <p-divider />
-      <div class="form-container column">
-        @for (input of inputs.risksDigital; track input) {
-          @if (input.displayCondition && input.type !== 'line') {
-            <div class="flex flex-col gap-1">
-              @if (input.type !== 'checklist') {
-                <label for="name" class="bold">{{input.label | translate}}</label>
-              }
-              @if (input.type === 'text') {
-                <input
-                  pInputText
-                  type="text"
-                  [id]="input.name"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [name]="input.name || 'name'"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  required />
-              } @else if (input.type === 'textarea') {
-                <textarea
-                  pTextarea
-                  type="text"
-                  [id]="input.name"
-                  class="mt-5"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [name]="input.name || 'name'"
-                  [(ngModel)]="input.value"
-                  required>
-                </textarea>
-              } @else if (input.type === 'number') {
-                <p-inputnumber
-                  [inputId]="input.name"
-                  [showButtons]="true"
-                  buttonLayout="horizontal"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [name]="input.name || 'name'"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  required
-                  [min]="input.min || 1"
-                  [max]="input.max || 10"
-                  [step]="input.step || 1"
-                  [minFractionDigits]="0" >
-                    <ng-template #incrementbuttonicon>
-                        <span class="pi pi-plus"></span>
-                    </ng-template>
-                    <ng-template #decrementbuttonicon>
-                        <span class="pi pi-minus"></span>
-                    </ng-template>
-                </p-inputnumber>
-              } @else if (input.type === 'datepicker') {
-                <p-datepicker
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  required />
-              } @else if (input.type === 'checklist') {
-                <p-checkbox
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  [binary]="true"
-                  [indeterminate]="true"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="input.value" />
-                <label for="intown" class="bold">{{input.label | translate}}?</label>
-              } @else if (input.type === 'selector') {
-                <p-select
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [options]="input.items"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  class="w-full md:w-56" />
-              } @else if (input.type === 'multiselector') {
-                <p-multiselect
-                  [inputId]="input.name"
-                  [name]="input.name || 'name'"
-                  [options]="input.items"
-                  [(ngModel)]="input.value"
-                  [ngModelOptions]="{ standalone: true }"
-                  tooltipPosition="right"
-                  [placeholder]="input.placeholder | translate"
-                  [pTooltip]="input.pTooltip | translate"
-                  tooltipPosition="right"
-                  optionLabel="label"
-                  [showClear]="true"
-                  class="w-full md:w-56" />
-              }
-            </div>
-          } @else if (input.displayCondition) {
-            <p-divider />
-          }
-        }
-      </div>
-      <p-divider />
-      <h1>{{'pages.project.science.risksClassicLabel' | translate}}</h1>
-      @for (inputGroup of inputs.risksClassic; track inputGroup) {
-        <h2 for="name" class="bold">{{inputGroup.name | translate}}</h2>
-        <p-divider />
-        <div class="form-container column">
-          @for (input of inputGroup.inputs; track input) {
-            @if (input.displayCondition && input.type !== 'line') {
-              <div class="flex flex-col gap-1">
-                @if (input.type !== 'checklist') {
-                  <label for="name" class="bold">{{input.label | translate}}</label>
-                }
-                @if (input.type === 'text') {
-                  <input
-                    pInputText
-                    type="text"
-                    [id]="input.name"
-                    [placeholder]="input.placeholder | translate"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    [name]="input.name || 'name'"
-                    [(ngModel)]="input.value"
-                    [ngModelOptions]="{ standalone: true }"
-                    required />
-                } @else if (input.type === 'textarea') {
-                  <textarea
-                    pTextarea
-                    type="text"
-                    [id]="input.name"
-                    class="mt-5"
-                    [placeholder]="input.placeholder | translate"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    [name]="input.name || 'name'"
-                    [(ngModel)]="input.value"
-                    required>
-                  </textarea>
-                } @else if (input.type === 'number') {
-                  <p-inputnumber
-                    [inputId]="input.name"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    [name]="input.name || 'name'"
-                    [(ngModel)]="input.value"
-                    [ngModelOptions]="{ standalone: true }"
-                    required
-                    [min]="input.min || 1"
-                    [max]="input.max || 10"
-                    [step]="input.step || 1"
-                    [minFractionDigits]="0" >
-                      <ng-template #incrementbuttonicon>
-                          <span class="pi pi-plus"></span>
-                      </ng-template>
-                      <ng-template #decrementbuttonicon>
-                          <span class="pi pi-minus"></span>
-                      </ng-template>
-                  </p-inputnumber>
-                } @else if (input.type === 'datepicker') {
-                  <p-datepicker
-                    [inputId]="input.name"
-                    [name]="input.name || 'name'"
-                    [placeholder]="input.placeholder | translate"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    [(ngModel)]="input.value"
-                    [ngModelOptions]="{ standalone: true }"
-                    required />
-                } @else if (input.type === 'checklist') {
-                  <p-checkbox
-                    [inputId]="input.name"
-                    [name]="input.name || 'name'"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    [binary]="true"
-                    [indeterminate]="true"
-                    [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="input.value" />
-                  <label for="intown" class="bold">{{input.label | translate}}?</label>
-                } @else if (input.type === 'selector') {
-                  <p-select
-                    [inputId]="input.name"
-                    [name]="input.name || 'name'"
-                    [options]="input.items"
-                    [(ngModel)]="input.value"
-                    [ngModelOptions]="{ standalone: true }"
-                    [placeholder]="input.placeholder | translate"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    class="w-full md:w-56" />
-                } @else if (input.type === 'multiselector') {
-                  <p-multiselect
-                    [inputId]="input.name"
-                    [name]="input.name || 'name'"
-                    [options]="input.items"
-                    [(ngModel)]="input.value"
-                    [ngModelOptions]="{ standalone: true }"
-                    tooltipPosition="right"
-                    [placeholder]="input.placeholder | translate"
-                    [pTooltip]="input.pTooltip | translate"
-                    tooltipPosition="right"
-                    optionLabel="label"
-                    [showClear]="true"
-                    class="w-full md:w-56" />
-                }
-              </div>
-            } @else if (input.displayCondition) {
-              <p-divider />
-            }
-          }
-          <p-card>
-            <label for="name" class="bold">{{'pages.project.science.newInputNameLabel' | translate}}</label>
-            <div>
-              <input
-                pInputText
-                type="text"
-                id="newInputName"
-                [placeholder]="'pages.project.science.newInputNamePlaceholder' | translate"
-                [pTooltip]="'pages.project.science.newInputNameTooltip' | translate"
-                tooltipPosition="right"
-                name="newInputName"
-                [(ngModel)]="newInputName[$index]"
-                [ngModelOptions]="{ standalone: true }" />
-              <p-button
-                [label]="'pages.project.science.addNewInputButtonLabel' | translate"
-                [pTooltip]="'pages.project.science.addNewInputButtonTooltip' | translate"
-                [outlined]="true"
-                [disabled]="!newInputName[$index]"
-                severity="success"
-                (click)="addNewInput(newInputName[$index], $index)" />
-            </div>
-          </p-card>
-        </div>
-      }
-      <p-card>
-        <label for="name" class="bold">{{'pages.project.science.newGroupNameLabel' | translate}}</label>
-        <div>
-          <input
-            pInputText
-            type="text"
-            id="newGroupName"
-            [placeholder]="'pages.project.science.newGroupNamePlaceholder' | translate"
-            [pTooltip]="'pages.project.science.newGroupNameTooltip' | translate"
-            tooltipPosition="right"
-            name="newGroupName"
-            [(ngModel)]="newGroupName"
-            [ngModelOptions]="{ standalone: true }" />
-          <p-button
-            [label]="'pages.project.science.addNewGroupButtonLabel' | translate"
-            [pTooltip]="'pages.project.science.addNewGroupButtonTooltip' | translate"
-            [outlined]="true"
-            [disabled]="!newGroupName"
-            severity="success"
-            (click)="addNewGroup()" />
-        </div>
-      </p-card>
-      <!-- <div>
+
+    @if (user.type === 'USER') {
+      <div legend="Projects" class="container">
+        <p-select
+          [options]="experts"
+          [(ngModel)]="selectedEmail"
+          optionLabel="email"
+          placeholder="Select an expert"
+          class="w-full md:w-56" />
         <p-button
-          [label]="'pages.portfolio.dialog.saveButton' | translate"
-          [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
+          [label]="'pages.project.science.addNewExpertiseButtonLabel' | translate"
+          [pTooltip]="'pages.project.science.addNewExpertiseButtonTooltip' | translate"
           [outlined]="true"
-          severity="success"
-          (click)="formDataLeanRisk._id ? updateProject(formDataLeanRisk._id, form): createProject(form)" />
-        <p-button
-          label="Cancel"
-          [label]="'pages.portfolio.dialog.cancelButton' | translate"
-          [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
-          [text]="true"
-          severity="danger"
-          (click)="form.resetForm(); visibleOnChange()" />
-      </div> -->
+          [disabled]="!selectedEmail"
+          severity="primary"
+          (click)="createExpertise()" />
+      </div>
+    }
+    <div legend="Projects" class="container-card">
+      @for (expertise of expertises; track expertise) {
+        <p-card
+          [pTooltip]="`${'pages.project.science.watchExpertiseMainTooltip' | translate}`"
+          tooltipPosition="top"
+          [style]="{
+            'max-width': '300px',
+            'margin-top': '10px',
+            'overflow': 'hidden',
+            'cursor': 'pointer'
+          }"
+          (click)="showInfoDialogExpertise($index)">
+          <ng-template #title> <span class="bold">{{'pages.project.science.expertLabel' | translate}}: </span>{{expertise.email}} </ng-template>
+          <ng-template #subtitle><span class="bold">{{'pages.project.science.statusLabel' | translate}}:</span>
+            <span class="bold" [style]="{ 'color': expertise.status === 'NEW' ?
+              'darkorange' : expertise.status === 'UPDATED' ?
+              'darkblue' : expertise.status === 'APPROVED' ?
+              'darkcyan' : 'firebrick'}"> {{expertise.status}}</span>
+          </ng-template>
+          <ng-template #content>
+            <p> <span class="bold">{{'pages.project.science.risksLeanLabel' | translate}}: </span>{{expertise.risksLean}}</p>
+            <p> <span class="bold">{{'pages.project.science.risksDigitalLabel' | translate}}:</span> {{expertise.risksDigital}}</p>
+            <p> <span class="bold">{{'pages.project.science.risksClassicLabel' | translate}}:</span> {{expertise.risksClassic}}</p>
+          </ng-template>
+          <ng-template #footer>
+            @if (user.type === 'USER') {
+              <div class="flex space-evenly">
+                <p-button
+                  [label]="`${'pages.main.main.removeButton' | translate}`"
+                  [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate}`"
+                  severity="danger"
+                  (click)="removeExpertise(expertise._id, $event)"/>
+              </div>
+            }
+            @if (user.type === 'EXPERT') {
+              @if (user.email === expertise.email) {
+                <div class="flex space-evenly">
+                  <p-button
+                    [label]="`${'pages.project.science.updateButton' | translate}`"
+                    [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
+                    severity="warn"
+                    (click)="updateExpertise(expertise, $event)"/>
+                </div>
+              } @else {
+                <div class="flex space-evenly">
+                  <p-button
+                    [label]="`${'pages.project.science.approveButton' | translate}`"
+                    [pTooltip]="`${'pages.project.science.approveButtonTooltip' | translate}`"
+                    severity="success"
+                    (click)="approveExpertise(expertise, $event)"/>
+                </div>
+              }
+            }
+          </ng-template>
+        </p-card>
+      } @empty {
+        <h2 class="bold"> {{'pages.project.science.noExpertisesExist' | translate}} </h2>
+      }
     </div>
-  </form>
   </div>
 </section>
+
+<app-info-expertise-dialog [visible]="visible.expertise" [current]="currentExpertise" (changeVisibleEvent)="visibleOnChange($event)"></app-info-expertise-dialog>

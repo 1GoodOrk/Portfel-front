@@ -13,6 +13,8 @@ export const routes: Routes = [
   {path: 'terms', loadComponent: () => import('./components/main/terms/terms.component').then(mod => mod.TermsComponent)},
 
   {path: 'cog-model', loadComponent: () => import('./components/projects/main/main.component').then(mod => mod.MainComponent)},
+  {path: 'expertise/:id', loadComponent: () => import('./components/projects/experts/experts.component').then(mod => mod.ExpertsComponent)},
+  {path: 'approve/:id', loadComponent: () => import('./components/projects/approve/approve.component').then(mod => mod.ApproveComponent)},
 
   {path: '**', redirectTo: '/login' },
 ];

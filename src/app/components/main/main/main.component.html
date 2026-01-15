@@ -2,19 +2,21 @@
 <main class="main">
   <section>
     <h1>{{'pages.main.main.headerProjects' | translate}}</h1>
-    <div class="flex space-between">
-      <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
-      <input
-        type="text"
-        pInputText
-        [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
-        [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
-        tooltipPosition="top"
-        name="name"
-        [(ngModel)]="search.project"
-        (ngModelChange)="findProjects()"
-        />
-    </div>
+    @if (user.type === 'USER') {
+      <div class="flex space-between">
+        <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
+        <input
+          type="text"
+          pInputText
+          [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
+          [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
+          tooltipPosition="top"
+          name="name"
+          [(ngModel)]="search.project"
+          (ngModelChange)="findProjects()"
+          />
+      </div>
+    }
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
         <p-card
@@ -40,19 +42,21 @@
             <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{project.des}}</p>
           </ng-template>
           <ng-template #footer>
-            <div class="flex space-evenly">
-              <p-button
-                [label]="`${'pages.main.main.updateButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
-                tooltipPosition="top"
-                severity="warn"
-                (click)="showDialogProjects(true, project._id, $event)"/>
-              <p-button
-                [label]="`${'pages.main.main.removeButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
-                severity="danger"
-                (click)="removeProjects(project._id, $event)"/>
-            </div>
+            @if (user.type === 'USER') {
+              <div class="flex space-evenly">
+                <p-button
+                  [label]="`${'pages.main.main.updateButton' | translate}`"
+                  [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
+                  tooltipPosition="top"
+                  severity="warn"
+                  (click)="showDialogProjects(true, project._id, $event)"/>
+                <p-button
+                  [label]="`${'pages.main.main.removeButton' | translate}`"
+                  [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
+                  severity="danger"
+                  (click)="removeProjects(project._id, $event)"/>
+              </div>
+            }
             <div class="flex space-evenly">
               <p-button
                 [label]="`${'pages.main.main.processingButton' | translate}`"

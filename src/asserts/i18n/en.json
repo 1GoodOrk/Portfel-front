@@ -852,7 +852,8 @@
         "nextButton": "Next step",
         "nextButtonTooltip": "Click here to go to the next step",
         "backButton": "Previos step",
-        "backButtonTooltip": "Click here to return to previos step"
+        "backButtonTooltip": "Click here to return to previos step",
+        "noExpertisesExist": "No expertises exist..."
       }
     }
   }

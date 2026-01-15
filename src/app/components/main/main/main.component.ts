@@ -57,6 +57,7 @@ import { IProjectData } from '@port/interfaces';
 export class MainComponent {
   // public projectsList: Array<IProjectData> = []
   public projectsList: any = []
+  public user: any = {}
   public projects: Array<IProjectData> = []
 
   public currentProject: IProjectData = {
@@ -118,11 +119,7 @@ export class MainComponent {
     private httpService: HttpService
   ) {
     this.getAllProjects()
-    // this.httpService.getExperts()
-    //   .subscribe((data: any) => {
-    //     console.log(data)
-    //   })
-
+    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
   }
 
   public getAllProjects(): void {
@@ -158,7 +155,6 @@ export class MainComponent {
       this.currentProject[key] = this.projects[index][key]
     })
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    console.log('cog-model')
     this.navigate('cog-model')
   }
 

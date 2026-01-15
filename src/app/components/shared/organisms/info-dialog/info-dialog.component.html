@@ -4,9 +4,11 @@
   [(visible)]="visible"
   (visibleChange)="visibleOnChange()"
   [style]="{ width: '40rem' }">
-  <div>
-    <img alt="Card" class="w-full" [src]="currentProject.img" />
-  </div>
+  @if (currentProject.img) {
+    <div>
+      <img alt="Card" class="w-full" [src]="currentProject.img" />
+    </div>
+  }
   <div>
     @for (valueKey of infoPageProjectValueKeys; track valueKey) {
       @if (!valueKey.type) {

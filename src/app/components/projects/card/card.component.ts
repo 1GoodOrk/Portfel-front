@@ -96,7 +96,9 @@ export class CardComponent {
         risksLean: {},
         risksDigital: {},
         risksClassic: {},
-        status: 'NEW'
+        recommendationDescription: '',
+        status: 'NEW',
+        approve: []
       }
       this.inputs.risksLean.forEach((el: any) => {
         data.risksLean[el.name] = el.value
@@ -110,7 +112,6 @@ export class CardComponent {
           data.risksClassic[el.name][input.name] = input.value
         })
       })
-      console.log('Expertise', data)
       this.httpService.addExpertise(data, this.currentProject._id)
         .subscribe((data: any) => {
           this.getAllExpertise()

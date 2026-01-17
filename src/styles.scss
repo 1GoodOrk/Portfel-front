@@ -61,7 +61,9 @@ p-button {
 .flex {
   display: flex;
 }
-
+.align-center {
+  align-items: center;
+}
 .flex-col {
   flex-direction: column;
 }

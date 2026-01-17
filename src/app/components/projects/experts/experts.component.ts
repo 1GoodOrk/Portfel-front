@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
@@ -54,22 +54,20 @@ export class ExpertsComponent {
   public inputs: any = {}
   public currentProject: any = {}
   public currentExpertise: any = {}
-  public user: any = {}
   public experts: any = []
   public expertises: any = []
   public newInputName: any = []
   public newGroupName: any = ''
+  public recommendationDescription: string = ''
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
     this.currentExpertise = this.appCommunicationService.getCurrentExpertise()
-    this.inputs = this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital'])
-    this.inputs = this.appCommunicationService.getDynamicInputsForm('risksClassic', this.inputs, this.currentExpertise)
+    this.inputs = this.appCommunicationService.getDynamicInputsForm('risksClassic', this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital']), this.currentExpertise)
   }
 
   public addNewGroup() {
@@ -102,29 +100,30 @@ export class ExpertsComponent {
   public updateExpertise(form: any) {
     if (form.valid) {
       this.currentExpertise
-      console.log(this.currentExpertise)
-        this.inputs.risksLean.forEach((el: any) => {
-          this.currentExpertise.risksLean[el.name] = el.value
-        })
-        this.inputs.risksDigital.forEach((el: any) => {
-          this.currentExpertise.risksDigital[el.name] = el.value
-        })
-        this.inputs.risksClassic.forEach((el: any) => {
-          if (!this.currentExpertise.risksClassic[el.name]) {
-            this.currentExpertise.risksClassic[el.name] = {}
-          }
-          el.inputs.forEach((input: any) => {
-            this.currentExpertise.risksClassic[el.name][input.name] = input.value
-          })
-        })
-        if (this.currentExpertise.status === 'NEW') {
-          this.currentExpertise.status = 'UPDATED'
+      this.inputs.risksLean.forEach((el: any) => {
+        this.currentExpertise.risksLean[el.name] = el.value
+      })
+      this.inputs.risksDigital.forEach((el: any) => {
+        this.currentExpertise.risksDigital[el.name] = el.value
+      })
+      this.inputs.risksClassic.forEach((el: any) => {
+        if (!this.currentExpertise.risksClassic[el.name]) {
+          this.currentExpertise.risksClassic[el.name] = {}
         }
-        this.httpService.updateExpertise(this.currentExpertise)
-          .subscribe((data: any) => {
-            form.resetForm()
-            this.back()
+        el.inputs.forEach((input: any) => {
+          this.currentExpertise.risksClassic[el.name][input.name] = input.value
         })
+      })
+      if (this.currentExpertise.status === 'pages.project.science.newStatus') {
+        this.currentExpertise.status = 'pages.project.science.updatedStatus'
+      }
+      this.currentExpertise.approve = []
+      this.currentExpertise.recommendationDescription = this.recommendationDescription
+      this.httpService.updateExpertise(this.currentExpertise)
+        .subscribe((data: any) => {
+          form.resetForm()
+          this.back()
+      })
     }
   }
 

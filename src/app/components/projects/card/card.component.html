@@ -30,24 +30,25 @@
             'cursor': 'pointer'
           }"
           (click)="showInfoDialogExpertise($index)">
-          <ng-template #title> <span class="bold">{{'pages.project.science.expertLabel' | translate}}: </span>{{expertise.email}} </ng-template>
+          <ng-template #title> <span class="bold">{{'pages.project.science.expertEmailLabel' | translate}}: </span>{{expertise.email}} </ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.project.science.statusLabel' | translate}}:</span>
-            <span class="bold" [style]="{ 'color': expertise.status === 'NEW' ?
-              'darkorange' : expertise.status === 'UPDATED' ?
-              'darkblue' : expertise.status === 'APPROVED' ?
-              'darkcyan' : 'firebrick'}"> {{expertise.status}}</span>
+            <span class="bold" [style]="{ 'color': expertise.status === 'pages.project.science.newStatus' ?
+              'darkorange' : expertise.status === 'pages.project.science.updatedStatus' ?
+              'darkblue' : expertise.status === 'pages.project.science.approvedStatus' ?
+              'darkcyan' : 'firebrick'}"> {{expertise.status | translate}}</span>
           </ng-template>
           <ng-template #content>
             <p> <span class="bold">{{'pages.project.science.risksLeanLabel' | translate}}: </span>{{expertise.risksLean}}</p>
             <p> <span class="bold">{{'pages.project.science.risksDigitalLabel' | translate}}:</span> {{expertise.risksDigital}}</p>
             <p> <span class="bold">{{'pages.project.science.risksClassicLabel' | translate}}:</span> {{expertise.risksClassic}}</p>
+            <p> <span class="bold">{{'pages.project.science.recommendationDescriptionLabel' | translate}}:</span> {{expertise.recommendationDescription}}</p>
           </ng-template>
           <ng-template #footer>
             @if (user.type === 'USER') {
               <div class="flex space-evenly">
                 <p-button
-                  [label]="`${'pages.main.main.removeButton' | translate}`"
-                  [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate}`"
+                  [label]="`${'pages.project.science.removeButton' | translate}`"
+                  [pTooltip]="`${'pages.project.science.removeButtonTooltip' | translate}`"
                   severity="danger"
                   (click)="removeExpertise(expertise._id, $event)"/>
               </div>

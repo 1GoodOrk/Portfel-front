@@ -18,11 +18,15 @@
             }
           </p>
         } @else {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.mainProp][valueKey.propName]}} %
-            @if (!valueKey.type) {
-              {{valueKey.suffix | translate}}
-            }
-          </p>
+          @if (valueKey.mainProp) {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.mainProp][valueKey.propName]}} %
+              @if (!valueKey.type) {
+                {{valueKey.suffix | translate}}
+              }
+            </p>
+          } @else {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.propName]}}</p>
+          }
         }
       } @else if (valueKey.type === 'divider') {
         <p-divider />

@@ -1750,10 +1750,10 @@ export class AppCommunicationService {
             type: 'number',
             displayCondition: true,
             name: 'humanFactorNPPCompetence',
-            label: 'pages.project.science.humanFactorLabel',
-            pTooltip: 'pages.project.science.humanFactorTolltip',
+            label: 'pages.project.science.humanFactorNPPCompetenceLabel',
+            pTooltip: 'pages.project.science.humanFactorNPPCompetenceTolltip',
             errors: {
-              required: 'pages.project.science.humanFactorRequired'
+              required: 'pages.project.science.humanFactorNPPCompetenceRequired'
             },
             value: 0,
             refName: 'humanFactorNPPCompetence',
@@ -1830,10 +1830,10 @@ export class AppCommunicationService {
             type: 'number',
             displayCondition: true,
             name: 'humanFactorStudents',
-            label: 'pages.project.science.humanFactorLabel',
-            pTooltip: 'pages.project.science.humanFactorTolltip',
+            label: 'pages.project.science.humanFactorStudentsLabel',
+            pTooltip: 'pages.project.science.humanFactorStudentsTolltip',
             errors: {
-              required: 'pages.project.science.humanFactorRequired'
+              required: 'pages.project.science.humanFactorStudentsRequired'
             },
             value: 0,
             refName: 'humanFactorStudents',
@@ -1895,10 +1895,10 @@ export class AppCommunicationService {
             type: 'number',
             displayCondition: true,
             name: 'humanFactorStructure',
-            label: 'pages.project.science.humanFactorLabel',
-            pTooltip: 'pages.project.science.humanFactorTolltip',
+            label: 'pages.project.science.humanFactorStructureLabel',
+            pTooltip: 'pages.project.science.humanFactorStructureTolltip',
             errors: {
-              required: 'pages.project.science.humanFactorRequired'
+              required: 'pages.project.science.humanFactorStructureRequired'
             },
             value: 0,
             refName: 'humanFactorStructure',
@@ -2373,25 +2373,52 @@ export class AppCommunicationService {
 
   public getDynamicValueKeys(valueKeysSetName: string, data: any): any {
     const infoDynamicValueKeys: any = Array.from(this.infoPageProjectValueKeys[valueKeysSetName])
-    // Object.keys(data[valueKeysSetName]).forEach((key: string) => {
-    //   if (infoDynamicValueKeys.findIndex((el: any) => el.label === key) !== -1) {
-    //     const groupIndex = infoDynamicValueKeys.findIndex((el: any) => el.label === key)
-    //     Object.keys(data[valueKeysSetName][key]).forEach((keyData: string) => {
-    //       if (infoDynamicValueKeys[groupIndex].items.findIndex((el: any) => el.propName === keyData) === -1) {
-    //         infoDynamicValueKeys[groupIndex].items.push({ propName: keyData, label: keyData })
-    //       }
-    //     })
-    //   } else {
-    //     infoDynamicValueKeys.push({ type: 'divider' })
-    //     infoDynamicValueKeys.push({
-    //       type: 'risksClassic',
-    //       label: key,
-    //       items: Object.keys(data[valueKeysSetName][key]).map((keyData: string) => ({ propName: keyData, label: keyData }))
-    //     })
-    //   }
-    // })
+    Object.keys(data[valueKeysSetName]).forEach((key: string) => {
+      if (infoDynamicValueKeys.findIndex((el: any) => el.label === key) !== -1) {
+        const groupIndex = infoDynamicValueKeys.findIndex((el: any) => el.label === key)
+        Object.keys(data[valueKeysSetName][key]).forEach((keyData: string) => {
+          if (infoDynamicValueKeys[groupIndex].items.findIndex((el: any) => el.propName === keyData) === -1) {
+            infoDynamicValueKeys[groupIndex].items.push({ propName: keyData, label: keyData })
+          }
+        })
+      } else {
+        infoDynamicValueKeys.push({ type: 'divider' })
+        infoDynamicValueKeys.push({
+          type: 'risksClassic',
+          label: key,
+          items: Object.keys(data[valueKeysSetName][key]).map((keyData: string) => ({ propName: keyData, label: keyData }))
+        })
+      }
+    })
+    infoDynamicValueKeys.push({ propName: 'recommendationDescription', label: 'pages.project.science.recommendationDescriptionLabel' })
     return infoDynamicValueKeys
   }
+
+  public getDynamicApproveKeys(valueKeysSetName: string, data: any): any {
+    const infoDynamicApproveKeys: any = {}
+    Object.keys(data[valueKeysSetName]).forEach((key: string) => {
+      if (!key.match('pages')) {
+        infoDynamicApproveKeys[key] = {}
+        Object.keys(data[valueKeysSetName][key]).forEach((keyData: string) => {
+          infoDynamicApproveKeys[key][keyData] = false
+        })
+      } else {
+        const groupIndex = this.infoPageProjectValueKeys[valueKeysSetName].findIndex((el: any) => el.label === key)
+        if (this.infoPageProjectValueKeys[valueKeysSetName][groupIndex].items.findIndex((el: any) => el.label.match('pages')) !== -1) {
+          this.infoPageProjectValueKeys[valueKeysSetName][groupIndex].items.forEach((el: any) => {
+            if (!el.label.match('pages')) {
+              if (!infoDynamicApproveKeys[key]) {
+                infoDynamicApproveKeys[key] = {}
+              }
+              infoDynamicApproveKeys[key][el.label] = false
+            }
+          })
+        }
+      }
+    })
+    return infoDynamicApproveKeys
+  }
+
 
   public saveStackholder(data: any): any {
     this.stackholders.push(data)

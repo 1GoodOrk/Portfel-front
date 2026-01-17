@@ -125,8 +125,8 @@
                 </div>
                 <div class="flex pt-6 justify-end">
                   <p-button
-                    [label]="`${'pages.portfolio.dialog.nextButton' | translate}`"
-                    [pTooltip]="'pages.portfolio.dialog.nextButtonTooltip' | translate"
+                    [label]="`${'pages.project.science.nextButton' | translate}`"
+                    [pTooltip]="'pages.project.science.nextButtonTooltip' | translate"
                     tooltipPosition="top"
                     severity="primary"
                     (click)="activateCallback(2)"/>
@@ -249,14 +249,14 @@
                 </div>
                 <div class="flex pt-6 justify-between">
                   <p-button
-                    [label]="`${'pages.portfolio.dialog.backButton' | translate}`"
-                    [pTooltip]="'pages.portfolio.dialog.backButtonTooltip' | translate"
+                    [label]="`${'pages.project.science.backButton' | translate}`"
+                    [pTooltip]="'pages.project.science.backButtonTooltip' | translate"
                     tooltipPosition="top"
                     severity="secondary"
                     (click)="activateCallback(1)"/>
                   <p-button
-                    [label]="`${'pages.portfolio.dialog.nextButton' | translate}`"
-                    [pTooltip]="'pages.portfolio.dialog.nextButtonTooltip' | translate"
+                    [label]="`${'pages.project.science.nextButton' | translate}`"
+                    [pTooltip]="'pages.project.science.nextButtonTooltip' | translate"
                     tooltipPosition="top"
                     severity="primary"
                     (click)="activateCallback(3)"/>
@@ -421,6 +421,21 @@
                         (click)="addNewGroup()" />
                     </div>
                   </p-card>
+                  <div class="flex flex-col gap-1">
+                    <label for="name" class="bold">{{'pages.project.science.recommendationDescriptionLabel' | translate}}</label>
+                    <textarea
+                      pTextarea
+                      type="text"
+                      id="recommendationDescription"
+                      class="mt-5"
+                      [placeholder]="'pages.project.science.recommendationDescriptionPlaceholder' | translate"
+                      [pTooltip]="'pages.project.science.recommendationDescriptionTolltip' | translate"
+                      tooltipPosition="top"
+                      name="recommendationDescription"
+                      [(ngModel)]="recommendationDescription"
+                      required>
+                    </textarea>
+                  </div>
                   <p-button
                     [label]="'pages.project.science.updateExpertiseButtonLabel' | translate"
                     [pTooltip]="'pages.project.science.updateExpertiseButtonTooltip' | translate"
@@ -436,8 +451,8 @@
                 </div>
                 <div class="flex pt-6 justify-between">
                   <p-button
-                    [label]="`${'pages.portfolio.dialog.backButton' | translate}`"
-                    [pTooltip]="'pages.portfolio.dialog.backButtonTooltip' | translate"
+                    [label]="`${'pages.project.science.backButton' | translate}`"
+                    [pTooltip]="'pages.project.science.backButtonTooltip' | translate"
                     tooltipPosition="top"
                     outlined="true"
                     severity="secondary"

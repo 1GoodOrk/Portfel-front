@@ -14,11 +14,31 @@
             }
           </p>
         } @else {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.mainProp][valueKey.propName]}} %
-            @if (!valueKey.type) {
-              {{valueKey.suffix | translate}}
-            }
-          </p>
+          @if (valueKey.mainProp) {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.mainProp][valueKey.propName]}} %
+              @if (!valueKey.type) {
+                {{valueKey.suffix | translate}}
+              }
+            </p>
+          } @else {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.propName]}}</p>
+            <p-button
+              icon="pi pi-times"
+              [rounded]="true"
+              [text]="true"
+              (click)="recommendationApprove = false"
+              [pTooltip]="'pages.project.science.unapproveCurrentRecommendationButtonTooltip' | translate"
+              [disabled]="!recommendationApprove"
+              severity="danger" />
+            <p-button
+              icon="pi pi-check"
+              [rounded]="true"
+              [text]="true"
+              (click)="recommendationApprove = true"
+              [pTooltip]="'pages.project.science.approveCurrentRecommendationButtonTooltip' | translate"
+              [disabled]="recommendationApprove"
+              severity="primary" />
+          }
         }
       } @else if (valueKey.type === 'divider') {
         <p-divider />
@@ -26,19 +46,73 @@
         @if (valueKey.label.match('pages')) {
           <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
         } @else {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
-          <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
+          <div class="flex align-center">
+            <p-button
+              icon="pi pi-times"
+              [rounded]="true"
+              [text]="true"
+              [pTooltip]="'pages.project.science.unapproveCurrentAllButtonTooltip' | translate"
+              (click)="unapprove('group', valueKey.label)"
+              severity="danger" />
+            <p-button
+              icon="pi pi-check"
+              [rounded]="true"
+              [text]="true"
+              [pTooltip]="'pages.project.science.approveCurrentAllButtonTooltip' | translate"
+              (click)="approve('group', valueKey.label)"
+              severity="primary" />
+            <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
+          </div>
         }
         @for (item of valueKey.items; track item) {
-          @if (item.label === item.propName) {
-            <p> {{item.label | translate}}: {{current.risksClassic[valueKey.label][item.propName]}} %</p>
-            <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
+          @if (approvedFields[valueKey.label] && (approvedFields[valueKey.label][item.propName] === false || approvedFields[valueKey.label][item.propName] === true)) {
+            <div class="flex align-center">
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                [text]="true"
+                [pTooltip]="'pages.project.science.unapproveCurrentButtonTooltip' | translate"
+                (click)="unapprove('field', valueKey.label, item.propName)"
+                [disabled]="!approvedFields[valueKey.label][item.propName]"
+                severity="danger" />
+              <p-button
+                icon="pi pi-check"
+                [rounded]="true"
+                [text]="true"
+                [pTooltip]="'pages.project.science.approveCurrentButtonTooltip' | translate"
+                (click)="approve('field', valueKey.label, item.propName)"
+                [disabled]="approvedFields[valueKey.label][item.propName]"
+                severity="primary" />
+              <p> {{item.label | translate}}: {{current.risksClassic[valueKey.label][item.propName]}} %</p>
+            </div>
           } @else {
             <p> {{item.label | translate}}: {{current.risksClassic[valueKey.label][item.propName]}} %</p>
           }
         }
       }
     }
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="name" class="bold">{{'pages.project.science.decisionDescriptionLabel' | translate}}</label>
+    <textarea
+      pTextarea
+      type="text"
+      id="decisionDescription"
+      class="mt-5"
+      [placeholder]="'pages.project.science.decisionDescriptionPlaceholder' | translate"
+      [pTooltip]="'pages.project.science.decisionDescriptionTolltip' | translate"
+      tooltipPosition="top"
+      name="decisionDescription"
+      [(ngModel)]="decisionDescription"
+      required>
+    </textarea>
+  </div>
+  <div>
+    <p-button
+      [label]="`${'pages.project.science.finishButton' | translate}`"
+      [pTooltip]="`${'pages.project.science.finishButtonTooltip' | translate}`"
+      severity="success"
+      (click)="finish()"/>
   </div>
 </section>
 <app-footer></app-footer>

@@ -259,7 +259,7 @@
                     [pTooltip]="'pages.project.science.nextButtonTooltip' | translate"
                     tooltipPosition="top"
                     severity="primary"
-                    (click)="activateCallback(3)"/>
+                    (click)="activateCallback(3); refreshAllModel()"/>
                 </div>
               </ng-template>
             </p-step-panel>
@@ -271,6 +271,43 @@
                   @for (inputGroup of inputs.risksClassic; track inputGroup) {
                     <h2 for="name" class="bold">{{inputGroup.name | translate}}</h2>
                     <p-divider />
+                    @if (riskClassicGroupData[inputGroup.name]) {
+                      <div class="table-container">
+                        <p-table [value]="riskClassicGroupData[inputGroup.name].tableParams.td" [tableStyle]="{ 'min-width': '50rem' }">
+                          <ng-template #header>
+                              <tr>
+                                @for (th of riskClassicGroupData[inputGroup.name].tableParams.th; track `th-id-${th}`) {
+                                  <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+                                }
+                              </tr>
+                          </ng-template>
+                          <ng-template #body let-tds>
+                              <tr>
+                                @for (td of tds; track `td-id-${td}${$index}`) {
+                                  @if ($index === 0) {
+                                    <td [id]="`td-id-${td}`">{{ td  | translate }}</td>
+                                  } @if ($index !== 0 && tds[0] === riskClassicGroupData[inputGroup.name].tableParams.th[$index]) {
+                                    <td [id]="`td-id-${td}`">-</td>
+                                  } @else if ($index !== 0) {
+                                    <td [style]="{ 'max-width': '50px'}" [id]="`td-id-${td}`">
+                                      <p-inputnumber
+                                        [inputId]="`td-id-${tds[0]}-${$index}-input`"
+                                        [ngModel]="td"
+                                        class="different"
+                                        [inputStyle]="{ width: '50px', border: '0', 'box-shadow': 'none' }"
+                                        (ngModelChange)="onTableChange($event, tds[0], $index, inputGroup.name)"
+                                        [ngModelOptions]="{ standalone: true }"
+                                        [step]="1"
+                                        [minFractionDigits]="0" >
+                                      </p-inputnumber>
+                                    </td>
+                                  }
+                                }
+                              </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                    }
                     <div class="form-container column">
                       @for (input of inputGroup.inputs; track input) {
                         @if (input.displayCondition && input.type !== 'line') {
@@ -287,7 +324,8 @@
                                 [pTooltip]="input.pTooltip | translate"
                                 tooltipPosition="right"
                                 [name]="input.name || 'name'"
-                                [(ngModel)]="input.value"
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"
                                 [ngModelOptions]="{ standalone: true }"
                                 required />
                             } @else if (input.type === 'textarea') {
@@ -300,7 +338,8 @@
                                 [pTooltip]="input.pTooltip | translate"
                                 tooltipPosition="right"
                                 [name]="input.name || 'name'"
-                                [(ngModel)]="input.value"
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"
                                 required>
                               </textarea>
                             } @else if (input.type === 'number') {
@@ -311,7 +350,8 @@
                                 [pTooltip]="input.pTooltip | translate"
                                 tooltipPosition="right"
                                 [name]="input.name || 'name'"
-                                [(ngModel)]="input.value"
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"
                                 [ngModelOptions]="{ standalone: true }"
                                 required
                                 [min]="input.min || 1"
@@ -332,7 +372,8 @@
                                 [placeholder]="input.placeholder | translate"
                                 [pTooltip]="input.pTooltip | translate"
                                 tooltipPosition="right"
-                                [(ngModel)]="input.value"
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"
                                 [ngModelOptions]="{ standalone: true }"
                                 required />
                             } @else if (input.type === 'checklist') {
@@ -344,14 +385,16 @@
                                 [binary]="true"
                                 [indeterminate]="true"
                                 [ngModelOptions]="{ standalone: true }"
-                                [(ngModel)]="input.value" />
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"/>
                               <label for="intown" class="bold">{{input.label | translate}}?</label>
                             } @else if (input.type === 'selector') {
                               <p-select
                                 [inputId]="input.name"
                                 [name]="input.name || 'name'"
                                 [options]="input.items"
-                                [(ngModel)]="input.value"
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"
                                 [ngModelOptions]="{ standalone: true }"
                                 [placeholder]="input.placeholder | translate"
                                 [pTooltip]="input.pTooltip | translate"
@@ -362,7 +405,8 @@
                                 [inputId]="input.name"
                                 [name]="input.name || 'name'"
                                 [options]="input.items"
-                                [(ngModel)]="input.value"
+                                [ngModel]="input.value"
+                                (ngModelChange)="onChange($event, inputGroup.name, $index)"
                                 [ngModelOptions]="{ standalone: true }"
                                 tooltipPosition="right"
                                 [placeholder]="input.placeholder | translate"
@@ -377,6 +421,27 @@
                           <p-divider />
                         }
                       }
+                      @if (riskClassicGroupData[inputGroup.name]) {
+                        <div class="container flex">
+                          <div class="flex line">
+                            <div class="square blue"></div>
+                            <p> + </p>
+                          </div>
+                          <div class="flex line">
+                            <div class="square light"></div>
+                            <p> - </p>
+                          </div>
+                        </div>
+                        <div class="container">
+                          <p><span class="bold">{{'pages.project.science.mostConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.lessConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.mostNegativeConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostNegativeConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostNegativeConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.mostPositiveConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostPositiveConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostPositiveConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.value}}</p>
+                        </div>
+                      }
+                      <div [id]="`model-container-${inputGroup.name}`" [class]="`container model-container-${inputGroup.name}`"></div>
                       <p-card>
                         <label for="name" class="bold">{{'pages.project.science.newInputNameLabel' | translate}}</label>
                         <div>

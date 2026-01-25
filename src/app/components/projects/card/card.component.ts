@@ -155,11 +155,13 @@ export class CardComponent {
   }
 
   public approveExpertise(data: any, event: any) {
+    event.stopPropagation()
     this.appCommunicationService.saveCurrentExpertise(data)
     this.navigate(`approve/${data._id}`)
   }
 
   public updateExpertise(data: any, event: any) {
+    event.stopPropagation()
     this.appCommunicationService.saveCurrentExpertise(data)
     this.navigate(`expertise/${data._id}`)
   }

@@ -269,7 +269,20 @@
                 <div class="flex flex-col h-48">
                   <h1>{{'pages.project.science.risksClassicLabel' | translate}}</h1>
                   @for (inputGroup of inputs.risksClassic; track inputGroup) {
-                    <h2 for="name" class="bold">{{inputGroup.name | translate}}</h2>
+                    @if (!inputGroup.name.match('page')) {
+                      <div class="flex align-center">
+                        <p-button
+                          icon="pi pi-times"
+                          [rounded]="true"
+                          [text]="true"
+                          [pTooltip]="'pages.project.science.removeCurrentInputGroupTooltip' | translate"
+                          (click)="removeNewGroup(inputGroup.name, $index)"
+                          severity="danger" />
+                        <h2 for="name" class="bold">{{inputGroup.name}}</h2>
+                      </div>
+                    } @else {
+                      <h2 for="name" class="bold">{{inputGroup.name | translate}}</h2>
+                    }
                     <p-divider />
                     @if (riskClassicGroupData[inputGroup.name]) {
                       <div class="table-container">
@@ -313,7 +326,20 @@
                         @if (input.displayCondition && input.type !== 'line') {
                           <div class="flex flex-col gap-1">
                             @if (input.type !== 'checklist') {
-                              <label for="name" class="bold">{{input.label | translate}}</label>
+                              @if (input.label !== input.name) {
+                                <label for="name" class="bold">{{input.label | translate}}</label>
+                              } @else {
+                                <div class="flex align-center">
+                                  <p-button
+                                    icon="pi pi-times"
+                                    [rounded]="true"
+                                    [text]="true"
+                                    [pTooltip]="'pages.project.science.removeCurrentInputTooltip' | translate"
+                                    (click)="removeNewInput(input.name, inputGroup.name)"
+                                    severity="danger" />
+                                  <label for="name" class="bold">{{input.label}}</label>
+                                </div>
+                              }
                             }
                             @if (input.type === 'text') {
                               <input

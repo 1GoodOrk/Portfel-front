@@ -887,7 +887,9 @@
         "noExpertisesExist": "No expertises exist...",
         "noExpertisesApprovedExist": "No approved expertises exist...",
         "expertNameLabel": "Expert name",
-        "emailLabel": "Contact"
+        "emailLabel": "Contact",
+        "removeCurrentInputGroupTooltip": "Remove that input group",
+        "removeCurrentInputTooltip": "Remove that input"
       }
     }
   }

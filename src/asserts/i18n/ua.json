@@ -886,7 +886,9 @@
         "noExpertisesExist": "Немає експертиз...",
         "noExpertisesApprovedExist": "Немає схвалених експертиз...",
         "expertNameLabel": "Ім'я експерту",
-        "emailLabel": "Контакт"
+        "emailLabel": "Контакт",
+        "removeCurrentInputGroupTooltip": "Видалити всю групу",
+        "removeCurrentInputTooltip": "Видалити це поле"
       }
     }
 

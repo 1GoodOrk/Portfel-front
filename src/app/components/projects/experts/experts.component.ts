@@ -129,6 +129,22 @@ export class ExpertsComponent implements AfterContentInit {
     this.newGroupName = ''
   }
 
+  public removeNewGroup(name: string, index: number) {
+    this.inputs.risksClassic[index].inputs.forEach((input: any) => {
+      this.removeNewInput(input.name, this.inputs.risksClassic[index].name)
+    })
+    delete this.riskClassicGroupData[name]
+    this.inputs.risksClassic.push({
+      name: this.newGroupName,
+      inputs: []
+    })
+    const targetPrevVersion: any = document.getElementById(`mobile-patent-suits-${name}`);
+    if (targetPrevVersion) {
+      targetPrevVersion.remove();
+    }
+
+  }
+
   public addNewInput(name: string, index: number) {
     this.inputs.risksClassic[index].inputs.push({
       type: 'number',
@@ -152,6 +168,21 @@ export class ExpertsComponent implements AfterContentInit {
     this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.td.push([name, ...Array.from(this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.th).map(() => 0)])
     this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.th.push(name)
     this.newInputName[index] = ''
+  }
+
+  public removeNewInput(inputName: string, groupName: string) {
+    const currentIndex = this.inputs.risksClassic.findIndex((el: any) => el.name === groupName)
+    this.inputs.risksClassic[currentIndex].inputs.splice(this.inputs.risksClassic[currentIndex].inputs.findIndex((el: any) => el.name === inputName), 1)
+    const thIndex = this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.th.findIndex((th: string) => th === inputName)
+    this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.th.splice(this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.th.findIndex((th: string) => th === inputName), 1)
+    this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td.splice(this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td.findIndex((el: any) => {
+      el[0] === inputName
+    }), 1)
+    this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td = this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td.map((el: any) => {
+      el.splice(thIndex, 1)
+      return el
+    })
+    this.refreshModel(this.inputs.risksClassic[currentIndex].name)
   }
 
   public updateExpertise(form: any) {

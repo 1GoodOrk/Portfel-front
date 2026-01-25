@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import { FormsModule } from '@angular/forms';
 
-
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { MessageModule  } from 'primeng/message';

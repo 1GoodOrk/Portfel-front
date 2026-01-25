@@ -3,19 +3,12 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-// import { InputTextModule } from 'primeng/inputtext';
-// import { InputNumberModule } from 'primeng/inputnumber';
-// import { TextareaModule } from 'primeng/textarea';
-// import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
-// import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule  } from 'primeng/message';
-// import { SelectModule } from 'primeng/select';
-// import { DatePickerModule } from 'primeng/datepicker';
 
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';

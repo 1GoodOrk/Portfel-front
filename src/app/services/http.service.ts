@@ -51,8 +51,8 @@ export class HttpService {
   addExpertise(data: any, id: null | string) {
     return this.http.post(`${this.link}/expertise?project=${id}`, { data });
   }
-  removeExpertise(id: string) {
-    return this.http.delete(`${this.link}/expertise/${id}`);
+  removeExpertise(id: string, idProj: null | string) {
+    return this.http.delete(`${this.link}/expertise/${id}?project=${idProj}`);
   }
   updateExpertise(data: any) {
     return this.http.put(`${this.link}/expertise`, { data });

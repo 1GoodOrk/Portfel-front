@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { TranslatePipe } from "@ngx-translate/core";
 
 import { DialogModule } from 'primeng/dialog';
@@ -12,7 +12,7 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
 @Component({
   selector: 'app-info-dialog',
   standalone: true,
-  imports: [DialogModule, DividerModule, TranslatePipe, DatePipe, JsonPipe],
+  imports: [DialogModule, DividerModule, TranslatePipe, DatePipe],
   templateUrl: './info-dialog.component.html',
   styleUrl: './info-dialog.component.scss'
 })

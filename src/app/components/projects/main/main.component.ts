@@ -8,11 +8,12 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { CardComponent } from '../card/card.component';
-import { ExpertsComponent } from '../experts/experts.component';
 
 import { TooltipModule } from 'primeng/tooltip';
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
+import { ExpertisesAnalyzeComponent } from '../expertises-analyze/expertises-analyze.component';
+
 @Component({
   selector: 'app-main',
   imports: [
@@ -23,9 +24,9 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     HeaderComponent,
     FooterComponent,
     CardComponent,
-    ExpertsComponent,
     TooltipModule,
     InfoDialogComponent,
+    ExpertisesAnalyzeComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

@@ -1501,7 +1501,7 @@
             },
             "value": 0,
             "refName": "levelOfCompetenceOfTheNPP",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1516,7 +1516,7 @@
             },
             "value": 0,
             "refName": "ensuringTheNumberOfNPP",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1531,7 +1531,7 @@
             },
             "value": 0,
             "refName": "staffTurnover",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1546,7 +1546,7 @@
             },
             "value": 0,
             "refName": "humanFactorNPPCompetence",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           }
@@ -1566,7 +1566,7 @@
             },
             "value": 0,
             "refName": "underrecruitment",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1581,7 +1581,7 @@
             },
             "value": 0,
             "refName": "successRate",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1596,7 +1596,7 @@
             },
             "value": 0,
             "refName": "attrition",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1611,7 +1611,7 @@
             },
             "value": 0,
             "refName": "imbalance",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1626,7 +1626,7 @@
             },
             "value": 0,
             "refName": "humanFactorStudents",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           }
@@ -1646,7 +1646,7 @@
             },
             "value": 0,
             "refName": "externalFactors",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1661,7 +1661,7 @@
             },
             "value": 0,
             "refName": "agreement",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1676,7 +1676,7 @@
             },
             "value": 0,
             "refName": "delay",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1691,7 +1691,7 @@
             },
             "value": 0,
             "refName": "humanFactorStructure",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           }
@@ -1711,7 +1711,7 @@
             },
             "value": 0,
             "refName": "systemLoad",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1726,7 +1726,7 @@
             },
             "value": 0,
             "refName": "departmentLoad",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1741,7 +1741,7 @@
             },
             "value": 0,
             "refName": "staffLoad",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1756,7 +1756,7 @@
             },
             "value": 0,
             "refName": "humanFactorUnevenLoads",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           }
@@ -1776,7 +1776,7 @@
             },
             "value": 0,
             "refName": "epidemic",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1791,7 +1791,7 @@
             },
             "value": 0,
             "refName": "wartime",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           },
@@ -1806,7 +1806,7 @@
             },
             "value": 0,
             "refName": "naturalDisaster",
-            "min": -100000,
+            "min": 0,
             "max": 100000,
             "step": 1
           }

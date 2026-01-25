@@ -55,7 +55,7 @@ export class RegistrationComponent {
   public showSpinner: boolean = false
   public languages: Array<string> = ['en', 'ua'];
   public types: Array<string> = ['USER', 'EXPERT'];
-  public selectedLanguage: string = 'en';
+  public selectedLanguage: string = 'ua';
   private langJson: any = {
     en: translationsEN,
     ru: translationsRU,

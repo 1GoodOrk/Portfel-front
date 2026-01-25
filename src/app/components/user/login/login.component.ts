@@ -51,7 +51,7 @@ export class LoginComponent {
 
   public showSpinner: boolean = false
   public languages: Array<string> = ['en', 'ua'];
-  public selectedLanguage: string = 'en';
+  public selectedLanguage: string = 'ua';
   private langJson: any = {
     en: translationsEN,
     ru: translationsRU,

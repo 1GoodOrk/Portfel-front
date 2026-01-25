@@ -15,6 +15,7 @@ export const routes: Routes = [
   {path: 'cog-model', loadComponent: () => import('./components/projects/main/main.component').then(mod => mod.MainComponent)},
   {path: 'expertise/:id', loadComponent: () => import('./components/projects/experts/experts.component').then(mod => mod.ExpertsComponent)},
   {path: 'approve/:id', loadComponent: () => import('./components/projects/approve/approve.component').then(mod => mod.ApproveComponent)},
+  {path: 'expert/:id', loadComponent: () => import('./components/projects/info-expertise-dialog/info-expertise-dialog.component').then(mod => mod.InfoDialogExpertiseComponent)},
 
   {path: '**', redirectTo: '/login' },
 ];

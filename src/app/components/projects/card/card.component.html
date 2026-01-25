@@ -38,9 +38,10 @@
               'darkcyan' : 'firebrick'}"> {{expertise.status | translate}}</span>
           </ng-template>
           <ng-template #content>
-            <p> <span class="bold">{{'pages.project.science.risksLeanLabel' | translate}}: </span>{{expertise.risksLean}}</p>
-            <p> <span class="bold">{{'pages.project.science.risksDigitalLabel' | translate}}:</span> {{expertise.risksDigital}}</p>
-            <p> <span class="bold">{{'pages.project.science.risksClassicLabel' | translate}}:</span> {{expertise.risksClassic}}</p>
+            <p> <span class="bold">{{'pages.project.science.expertNameLabel' | translate}}:</span> {{expertise.expertName}}</p>
+            <p> <span class="bold">{{results[$index].risksLean.label | translate}}:</span> {{results[$index].risksLean.value}}</p>
+            <p> <span class="bold">{{results[$index].risksDigital.label | translate}}:</span> {{results[$index].risksDigital.value}}</p>
+            <p> <span class="bold">{{results[$index].risksClassic.label | translate}}:</span> {{results[$index].risksClassic.value}}</p>
             <p> <span class="bold">{{'pages.project.science.recommendationDescriptionLabel' | translate}}:</span> {{expertise.recommendationDescription}}</p>
           </ng-template>
           <ng-template #footer>
@@ -80,5 +81,3 @@
     </div>
   </div>
 </section>
-
-<app-info-expertise-dialog [visible]="visible.expertise" [current]="currentExpertise" (changeVisibleEvent)="visibleOnChange($event)"></app-info-expertise-dialog>

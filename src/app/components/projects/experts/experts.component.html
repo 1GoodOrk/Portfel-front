@@ -286,7 +286,7 @@
                                 @for (td of tds; track `td-id-${td}${$index}`) {
                                   @if ($index === 0) {
                                     <td [id]="`td-id-${td}`">{{ td  | translate }}</td>
-                                  } @if ($index !== 0 && tds[0] === riskClassicGroupData[inputGroup.name].tableParams.th[$index]) {
+                                  } @else if ($index !== 0 && tds[0] === riskClassicGroupData[inputGroup.name].tableParams.th[$index]) {
                                     <td [id]="`td-id-${td}`">-</td>
                                   } @else if ($index !== 0) {
                                     <td [style]="{ 'max-width': '50px'}" [id]="`td-id-${td}`">
@@ -422,6 +422,14 @@
                         }
                       }
                       @if (riskClassicGroupData[inputGroup.name]) {
+                        <div class="container">
+                          <p><span class="bold">{{'pages.project.science.mostConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.lessConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.mostNegativeConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostNegativeConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostNegativeConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.mostPositiveConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostPositiveConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostPositiveConnectionAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.value}}</p>
+                          <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.value}}</p>
+                        </div>
                         <div class="container flex">
                           <div class="flex line">
                             <div class="square blue"></div>
@@ -431,14 +439,6 @@
                             <div class="square light"></div>
                             <p> - </p>
                           </div>
-                        </div>
-                        <div class="container">
-                          <p><span class="bold">{{'pages.project.science.mostConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.value}}</p>
-                          <p><span class="bold">{{'pages.project.science.lessConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.value}}</p>
-                          <p><span class="bold">{{'pages.project.science.mostNegativeConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostNegativeConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostNegativeConnectionAmount.value}}</p>
-                          <p><span class="bold">{{'pages.project.science.mostPositiveConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostPositiveConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostPositiveConnectionAmount.value}}</p>
-                          <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.value}}</p>
-                          <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.value}}</p>
                         </div>
                       }
                       <div [id]="`model-container-${inputGroup.name}`" [class]="`container model-container-${inputGroup.name}`"></div>

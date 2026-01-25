@@ -77,7 +77,7 @@ export class AppCommunicationService {
     struc: 0,
     strucPos: 0
   }
-  public lang: string = 'en'
+  public lang: string = 'ua'
 
 
   public testProjArray: any = [

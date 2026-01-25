@@ -21,8 +21,9 @@ import { DialogModule } from 'primeng/dialog';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
 
+
 @Component({
-  selector: 'app-cog-card',
+  selector: 'app-expertises-analyze',
   standalone: true,
   imports: [
     FormsModule,
@@ -42,23 +43,13 @@ import { HttpService } from '@port/services/http.service';
     DatePickerModule,
     TranslatePipe,
   ],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
+  templateUrl: './expertises-analyze.component.html',
+  styleUrl: './expertises-analyze.component.scss',
 })
-export class CardComponent {
-  public inputs: any = {}
-  public currentProject: any = {}
-  public currentExpertise: any = {
-    risksLean: [],
-    risksDigital: [],
-    risksClassic: [],
-  }
-  public user: any = {}
+export class ExpertisesAnalyzeComponent {
   public experts: any = []
   public expertises: any = []
-  public newInputName: any = []
-  public newGroupName: any = ''
-  public selectedEmail: any = {}
+  public currentProject: any = {}
   public results: any = []
 
   public visible: any = {
@@ -73,8 +64,6 @@ export class CardComponent {
       .subscribe((data: any) => {
         this.experts = data
       })
-    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
-    this.inputs = this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital', 'risksClassic'])
     this.currentProject = this.appCommunicationService.getCurrentProject()
     this.getAllExpertise()
   }
@@ -82,10 +71,11 @@ export class CardComponent {
   public getAllExpertise() {
     this.httpService.getAllExpertise(this.currentProject._id)
       .subscribe((data: any) => {
-        this.expertises = data
+        data = data.filter((expertise: any) => expertise.status === 'pages.project.science.approvedStatus')
         data.forEach((expertise: any, index: number) => {
           this.resultCalculation(expertise, index)
         })
+        this.expertises = data
         this.expertises = this.expertises.map((expertise: any) => {
           expertise.expertName = this.experts.find((expert: any) => expert.email === expertise.email).organization
           return expertise
@@ -93,39 +83,11 @@ export class CardComponent {
       })
   }
 
-  public createExpertise() {
-    const data: any = {
-      email: this.selectedEmail.email,
-      risksLean: {},
-      risksDigital: {},
-      risksClassic: {},
-      recommendationDescription: '',
-      status: 'NEW',
-      approve: []
-    }
-    this.inputs.risksLean.forEach((el: any) => {
-      data.risksLean[el.name] = el.value
-    })
-    this.inputs.risksDigital.forEach((el: any) => {
-      data.risksDigital[el.name] = el.value
-    })
-    this.inputs.risksClassic.forEach((el: any) => {
-      data.risksClassic[el.name] = {}
-      el.inputs.forEach((input: any) => {
-        data.risksClassic[el.name][input.name] = input.value
-      })
-    })
-    this.httpService.addExpertise(data, this.currentProject._id)
-      .subscribe((data: any) => {
-        this.getAllExpertise()
-    })
-  }
-
   private resultCalculation(current: any, index: number): void {
     this.results.push({
-      risksLean: { label: 'pages.project.science.risksLeanLabel', value: 0 },
-      risksDigital: { label: 'pages.project.science.risksDigitalLabel', value: 0 },
-      risksClassic: { label: 'pages.project.science.risksClassicLabel', value: 0 },
+      risksLean: { label: 'pages.project.science.risksLeanCalucationLabel', value: 0 },
+      risksDigital: { label: 'pages.project.science.risksDigitalCalucationLabel', value: 0 },
+      risksClassic: { label: 'pages.project.science.risksClassicCalucationLabel', value: 0 },
     })
     Object.keys(current.risksLean).forEach((key: string) => {
       this.results[index].risksLean.value += current.risksLean[key]
@@ -144,35 +106,5 @@ export class CardComponent {
     this.results[index].risksClassic.value = this.results[index].risksClassic.value.toFixed(2)
   }
 
-  public removeExpertise(id: string, event: any) {
-    event.stopPropagation()
-    this.httpService.removeExpertise(id, this.currentProject._id)
-      .subscribe(() => this.getAllExpertise())
-  }
 
-  public navigate(path: string) {
-    this.router.navigateByUrl(`/${path}`);
-  }
-
-  public approveExpertise(data: any, event: any) {
-    this.appCommunicationService.saveCurrentExpertise(data)
-    this.navigate(`approve/${data._id}`)
-  }
-
-  public updateExpertise(data: any, event: any) {
-    this.appCommunicationService.saveCurrentExpertise(data)
-    this.navigate(`expertise/${data._id}`)
-  }
-
-  public showInfoDialogExpertise(index: number): void {
-    Object.keys(this.expertises[index]).forEach((key: string) => {
-      this.currentExpertise[key] = this.expertises[index][key]
-    })
-    this.appCommunicationService.saveCurrentExpertise(this.currentExpertise)
-    this.navigate(`expert/${this.currentExpertise._id}`)
-  }
-
-  public visibleOnChange(key: string): void {
-    this.visible[key] = !this.visible[key]
-  }
 }

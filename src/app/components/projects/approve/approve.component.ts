@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { DatePipe, JsonPipe } from '@angular/common';
 import { TranslatePipe } from "@ngx-translate/core";
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
@@ -28,9 +27,7 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     FormsModule,
     TranslatePipe,
     ButtonModule,
-    TooltipModule,
-    DatePipe,
-    JsonPipe
+    TooltipModule
   ],
   templateUrl: './approve.component.html',
   styleUrl: './approve.component.scss',

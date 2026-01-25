@@ -23,8 +23,8 @@
             </div>
             <div class="flex pt-6 justify-end">
               <p-button
-                [label]="`${'pages.portfolio.dialog.nextButton' | translate}`"
-                [pTooltip]="'pages.portfolio.dialog.nextButtonTooltip' | translate"
+                [label]="`${'pages.project.science.nextButton' | translate}`"
+                [pTooltip]="'pages.project.science.nextButtonTooltip' | translate"
                 tooltipPosition="top"
                 severity="primary"
                 (click)="activateCallback(2)"/>
@@ -36,17 +36,16 @@
           <ng-template #content let-activateCallback="activateCallback">
             <div class="flex flex-col h-48">
               <div>
-                <app-experts></app-experts>
+                <app-expertises-analyze></app-expertises-analyze>
               </div>
             </div>
             <div class="flex pt-6 justify-between">
               <p-button
-                [label]="`${'pages.portfolio.dialog.backButton' | translate}`"
-                [pTooltip]="'pages.portfolio.dialog.backButtonTooltip' | translate"
+                [label]="`${'pages.project.science.backButton' | translate}`"
+                [pTooltip]="'pages.project.science.backButtonTooltip' | translate"
                 tooltipPosition="top"
                 severity="primary"
                 (click)="activateCallback(1)"/>
-              <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
             </div>
           </ng-template>
         </p-step-panel>

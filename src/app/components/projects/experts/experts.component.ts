@@ -254,12 +254,10 @@ export class ExpertsComponent implements AfterContentInit {
   analyzeTableData(groupName: string): void {
     this.riskClassicGroupData[groupName].tableParams.td.forEach((el: any) => {
       const current: any = {
-        mostConnectionAmount: { value: 0, name: '-' },
-        lessConnectionAmount: { value: 0, name: '-' },
-        mostNegativeConnectionAmount: { value: 0, name: '-' },
-        mostPositiveConnectionAmount: { value: 0, name: '-' },
-        mostInfluenceAmount: { value: 0, name: '-' },
-        lessInfluenceAmount: { value: 0, name: '-' }
+        connectionAmount: 0,
+        mostPositiveConnectionAmount: 0,
+        mostNegativeConnectionAmount: 0,
+        influenceAmount: 0
       }
       el
         .filter((subEl: any) => !isNaN(subEl) && subEl)

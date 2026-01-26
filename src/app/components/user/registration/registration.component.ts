@@ -67,7 +67,9 @@ export class RegistrationComponent {
     private translate: TranslateService,
     private httpService: HttpService,
     private appCommunicationService: AppCommunicationService
-  ) { }
+  ) {
+    this.changeLanguage()
+  }
 
   public changeLanguage (): void {
     this.translate.setTranslation(this.selectedLanguage, this.langJson[this.selectedLanguage])

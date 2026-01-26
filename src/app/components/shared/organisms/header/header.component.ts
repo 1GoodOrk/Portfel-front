@@ -55,7 +55,7 @@ export class HeaderComponent {
     private appCommunicationService: AppCommunicationService
   ) {
     this.selectedLanguage = this.appCommunicationService.lang
-     this.translate.use(this.selectedLanguage)
+    this.translate.use(this.selectedLanguage)
   }
 
   public navigate(path: string) {

@@ -62,6 +62,7 @@ export class InfoDialogExpertiseComponent {
     Array.from(this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current))
       .filter((el: any) => el.type && el.type !== 'divider')
       .forEach((el: any) => {
+        console.log(el.label, this.current.risksClassicTables)
         this.riskClassicGroupData[el.label] = {
           tableParams: Object.assign(this.current.risksClassicTables[el.label].tableParams),
           analyzeTable: Object.assign(this.current.risksClassicTables[el.label].analyzeTable),

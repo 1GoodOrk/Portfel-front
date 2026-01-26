@@ -56,7 +56,9 @@ export class ForgetComponent {
     private router: Router,
     private translate: TranslateService,
     private httpService: HttpService
-  ) { }
+  ) {
+    this.changeLanguage()
+  }
 
   public changeLanguage (): void {
     this.translate.setTranslation(this.selectedLanguage, this.langJson[this.selectedLanguage])

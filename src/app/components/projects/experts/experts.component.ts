@@ -113,7 +113,7 @@ export class ExpertsComponent implements AfterContentInit {
     })
     this.riskClassicGroupData[this.newGroupName] = {
       tableParams: {
-        th: [],
+        th: ['\\'],
         td: []
       },
       analyzeTable: {
@@ -134,15 +134,11 @@ export class ExpertsComponent implements AfterContentInit {
       this.removeNewInput(input.name, this.inputs.risksClassic[index].name)
     })
     delete this.riskClassicGroupData[name]
-    this.inputs.risksClassic.push({
-      name: this.newGroupName,
-      inputs: []
-    })
     const targetPrevVersion: any = document.getElementById(`mobile-patent-suits-${name}`);
     if (targetPrevVersion) {
       targetPrevVersion.remove();
     }
-
+    this.inputs.risksClassic.splice(index, 1)
   }
 
   public addNewInput(name: string, index: number) {
@@ -341,7 +337,13 @@ export class ExpertsComponent implements AfterContentInit {
     this.riskClassicGroupData[groupName].tableParams.td.forEach((td: any) => {
       td.forEach((elTd: any, tdIndex: number) => {
         if (!isNaN(elTd) && elTd !== 0) {
-          links.push({ source: td[0], target: this.riskClassicGroupData[groupName].tableParams.th[tdIndex], type: elTd > 0 ? '+' : '-' })
+          links.push({
+            source: td[0].match('page') ? td[0].split('.')[td[0].split('.').length - 1] : td[0],
+            target: this.riskClassicGroupData[groupName].tableParams.th[tdIndex].match('page') ?
+              this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.')[this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.').length - 1] :
+              this.riskClassicGroupData[groupName].tableParams.th[tdIndex],
+            type: elTd > 0 ? '+' : '-'
+          })
         }
       })
     })
@@ -352,17 +354,18 @@ export class ExpertsComponent implements AfterContentInit {
       })),
       links
     };
-
-    const chart = this.mobilePatentSuits(data, {svgId: `mobile-patent-suits-${groupName}`});
-    // const chartSwatches = this.swatches(chart.scales.color);
-    const elem: any = document.getElementById(`model-container-${groupName}`);
-    if (elem) {
-      setTimeout(() => {
-        // d3.select(`.model-container-${groupName}`).append(() => chart);
-        elem.append(chart)
-      }, 1000)
+    if (data.links.length) {
+      this.riskClassicGroupData[groupName].graph = { data: {} }
+      const chart = this.mobilePatentSuits(data, {svgId: `mobile-patent-suits-${groupName}`});
+      const elem: any = document.getElementById(`model-container-${groupName}`);
+      if (elem) {
+        setTimeout(() => {
+          elem.append(chart)
+        }, 1000)
+      }
     }
 
+    // const chartSwatches = this.swatches(chart.scales.color);
     // d3.select('.model-container').append(() => chartSwatches);
   }
 

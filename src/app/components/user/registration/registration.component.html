@@ -17,23 +17,6 @@
       <div class="flex flex-col gap-1">
         <input
           pInputText
-          type="text"
-          id="organization"
-          [placeholder]="'pages.user.registration.organizationPlaceholder' | translate"
-          [pTooltip]="'pages.user.registration.organizationTolltip' | translate"
-          tooltipPosition="right"
-          name="organization"
-          [(ngModel)]="user.organization"
-          #organization="ngModel"
-          [invalid]="organization.invalid && (organization.touched || form.submitted)"
-          required />
-        @if (organization.invalid && (organization.touched || form.submitted)) {
-          <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.organizationRequired' | translate}}</p-message>
-        }
-      </div>
-      <div class="flex flex-col gap-1">
-        <input
-          pInputText
           type="email"
           id="email"
           name="email"
@@ -72,6 +55,43 @@
           <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.typeRequired' | translate}}</p-message>
         }
       </div>
+      @if (user.type === 'USER') {
+        <div class="flex flex-col gap-1">
+          <input
+            pInputText
+            type="text"
+            id="organization"
+            [placeholder]="'pages.user.registration.organizationPlaceholder' | translate"
+            [pTooltip]="'pages.user.registration.organizationTolltip' | translate"
+            tooltipPosition="right"
+            name="organization"
+            [(ngModel)]="user.organization"
+            #organization="ngModel"
+            [invalid]="organization.invalid && (organization.touched || form.submitted)"
+            required />
+          @if (organization.invalid && (organization.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.organizationRequired' | translate}}</p-message>
+          }
+        </div>
+      } @else {
+        <div class="flex flex-col gap-1">
+          <input
+              pInputText
+              type="text"
+              id="organization"
+              [placeholder]="'pages.user.registration.namePlaceholder' | translate"
+              [pTooltip]="'pages.user.registration.nameTolltip' | translate"
+              tooltipPosition="right"
+              name="organization"
+              [(ngModel)]="user.organization"
+              #organization="ngModel"
+              [invalid]="organization.invalid && (organization.touched || form.submitted)"
+              required />
+            @if (organization.invalid && (organization.touched || form.submitted)) {
+              <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.nameRequired' | translate}}</p-message>
+            }
+        </div>
+      }
       <div class="flex flex-col gap-1">
         <input
           pInputText

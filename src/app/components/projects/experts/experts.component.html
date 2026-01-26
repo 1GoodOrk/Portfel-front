@@ -447,7 +447,7 @@
                           <p-divider />
                         }
                       }
-                      @if (riskClassicGroupData[inputGroup.name]) {
+                      @if (riskClassicGroupData[inputGroup.name] && riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.name !== '-') {
                         <div class="container">
                           <p><span class="bold">{{'pages.project.science.mostConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostConnectionAmount.value}}</p>
                           <p><span class="bold">{{'pages.project.science.lessConnectionAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessConnectionAmount.value}}</p>
@@ -456,6 +456,8 @@
                           <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.mostInfluenceAmount.value}}</p>
                           <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.name}} -> {{riskClassicGroupData[inputGroup.name].analyzeTable.lessInfluenceAmount.value}}</p>
                         </div>
+                      }
+                      @if (this.riskClassicGroupData[inputGroup.name].graph.data ) {
                         <div class="container flex">
                           <div class="flex line">
                             <div class="square blue"></div>
@@ -467,7 +469,12 @@
                           </div>
                         </div>
                       }
-                      <div [id]="`model-container-${inputGroup.name}`" [class]="`container model-container-${inputGroup.name}`"></div>
+                      <div
+                        [id]="`model-container-${inputGroup.name}`"
+                        [class]="
+                          this.riskClassicGroupData[inputGroup.name].graph.data ?
+                          `container model-container-${inputGroup.name}` :
+                          `model-container-${inputGroup.name}`"></div>
                       <p-card>
                         <label for="name" class="bold">{{'pages.project.science.newInputNameLabel' | translate}}</label>
                         <div>

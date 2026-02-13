@@ -4,7 +4,7 @@
   min-height: calc(100vh - 109px);
   p {
     overflow: hidden;
-    white-space: nowrap;
+    white-space: wrap;
     text-overflow: ellipsis;
   }
   .container {

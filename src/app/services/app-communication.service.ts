@@ -256,27 +256,64 @@ export class AppCommunicationService {
     }
   }
 
-  public getInputsForm(setName: Array<string>): any {
+  public getInputsForm(setName: Array<string>, data?: any): any {
     const result: any = {}
-    setName.forEach((el:string) => {
-      result[el] = Array.from(this.inputsForm[el])
-    })
+    setName
+      .forEach((el:string) => {
+        result[el] = Array.from(this.inputsForm[el])
+        if (data) {
+          Object
+            .keys(data[el])
+            .forEach((key: string) => {
+              const ind: number = result[el].findIndex((res: any) => res.name === key)
+              if (ind > -1) {
+                result[el][ind].value = data[el][key]
+              }
+            })
+        }
+      })
     return result
   }
 
 
   public getDynamicInputsForm(setName: string, inputs: any, data: any): any {
     inputs[setName] = Array.from(this.inputsForm[setName])
-    Object.keys(inputs[setName]).forEach((key: string) => {
-      data[setName]
-    })
-    Object.keys(data[setName]).forEach((key: string) => {
-      if (inputs[setName].findIndex((el: any) => el.name === key) !== -1) {
-        const groupIndex = inputs[setName].findIndex((el: any) => el.name === key)
-        Object.keys(data[setName][key]).forEach((keyData: string) => {
-          const inputIndex = inputs[setName][groupIndex].inputs.findIndex((el: any) => el.name === keyData)
-          if (inputIndex === -1) {
-            inputs[setName][groupIndex].inputs.push({
+    Object
+      .keys(inputs[setName])
+      .forEach((key: string) => {
+        data[setName]
+      })
+    Object
+      .keys(data[setName])
+      .forEach((key: string) => {
+        if (inputs[setName].findIndex((el: any) => el.name === key) !== -1) {
+          const groupIndex = inputs[setName].findIndex((el: any) => el.name === key)
+          Object.keys(data[setName][key]).forEach((keyData: string) => {
+            const inputIndex = inputs[setName][groupIndex].inputs.findIndex((el: any) => el.name === keyData)
+            if (inputIndex === -1) {
+              inputs[setName][groupIndex].inputs.push({
+                type: 'number',
+                displayCondition: true,
+                name: keyData,
+                label: keyData,
+                pTooltip: keyData,
+                errors: {
+                  required: ''
+                },
+                value: data[setName][key][keyData],
+                refName: keyData,
+                min: 0,
+                max: 100000,
+                step: 1,
+              })
+            } else {
+              inputs[setName][groupIndex].inputs[inputIndex].value = data[setName][key][keyData]
+            }
+          })
+        } else {
+          inputs[setName].push({
+            name: key,
+            inputs: Object.keys(data[setName][key]).map((keyData: string) => ({
               type: 'number',
               displayCondition: true,
               name: keyData,
@@ -290,32 +327,10 @@ export class AppCommunicationService {
               min: 0,
               max: 100000,
               step: 1,
-            })
-          } else {
-            inputs[setName][groupIndex].inputs[inputIndex].value = data[setName][key][keyData]
-          }
-        })
-      } else {
-        inputs[setName].push({
-          name: key,
-          inputs: Object.keys(data[setName][key]).map((keyData: string) => ({
-            type: 'number',
-            displayCondition: true,
-            name: keyData,
-            label: keyData,
-            pTooltip: keyData,
-            errors: {
-              required: ''
-            },
-            value: data[setName][key][keyData],
-            refName: keyData,
-            min: 0,
-            max: 100000,
-            step: 1,
-          }))
-        })
-      }
-    })
+            }))
+          })
+        }
+      })
     return inputs
   }
 

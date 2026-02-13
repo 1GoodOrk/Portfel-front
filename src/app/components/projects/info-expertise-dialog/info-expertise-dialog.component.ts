@@ -104,7 +104,13 @@ export class InfoDialogExpertiseComponent {
     this.riskClassicGroupData[groupName].tableParams.td.forEach((td: any) => {
       td.forEach((elTd: any, tdIndex: number) => {
         if (!isNaN(elTd) && elTd !== 0) {
-          links.push({ source: td[0], target: this.riskClassicGroupData[groupName].tableParams.th[tdIndex], type: elTd > 0 ? '+' : '-' })
+          links.push({
+            source: td[0].match('page') ? td[0].split('.')[td[0].split('.').length - 1] : td[0],
+            target: this.riskClassicGroupData[groupName].tableParams.th[tdIndex].match('page') ?
+              this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.')[this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.').length - 1] :
+              this.riskClassicGroupData[groupName].tableParams.th[tdIndex],
+            type: elTd > 0 ? '+' : '-'
+          })
         }
       })
     })

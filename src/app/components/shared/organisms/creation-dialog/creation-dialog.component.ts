@@ -57,9 +57,6 @@ export class CreationDialogComponent {
     responsibleName: '',
     responsibleSurname: '',
     responsibleLastname: '',
-    managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -70,24 +67,11 @@ export class CreationDialogComponent {
     road: '',
     distance: 0,
     mainRoad: false,
-    inTown: false,
-    town: '',
-    addressStart: '',
-    addressEnd: '',
-    des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
     dateCreation: '',
     dateInitialization: '',
     permissionDuration: 0,
     score: 0,
-    priority: 0,
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
+    priority: 0
   };
 
   @Output() changeVisibleEvent = new EventEmitter<string>();
@@ -130,7 +114,11 @@ export class CreationDialogComponent {
         options: {}
       }
       this.inputs.science.forEach((el: any) => {
-        data[el.name] = el.value
+        if (el.name === 'type') {
+          data[el.name] = el.items.find((item: any) => item.value === el.value).label
+        } else {
+          data[el.name] = el.value
+        }
       })
       this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
         .subscribe((data: any) => {

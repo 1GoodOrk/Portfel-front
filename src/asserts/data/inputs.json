@@ -252,15 +252,15 @@
         "value": "",
         "refName": "vehicle",
         "items": [
-          { "label": "Мікроавтобус", "value": "minibus" },
-          { "label": "Міський автобус", "value": "сityBus" },
-          { "label": "Автобус загального призначення", "value": "generalPurposeBus" },
-          { "label": "Міжміський автобус", "value": "intercityBus" },
-          { "label": "Автобус далекого напрямку", "value": "longDistanceBus" },
-          { "label": "Спеціалізований автобус", "value": "specializedBus" },
-          { "label": "Тричленовий автобус", "value": "threeSeatBus" },
-          { "label": "Двоярусний автобус", "value": "doubleDeckerBus" },
-          { "label": "Тролейбуси", "value": "trolleybus" },
+          { "label": "Мікроавтобуc", "value": "minibus" },
+          { "label": "Міcький автобуc", "value": "cityBus" },
+          { "label": "Автобуc загального призначення", "value": "generalPurposeBus" },
+          { "label": "Міжміcький автобуc", "value": "intercityBus" },
+          { "label": "Автобуc далекого напрямку", "value": "longDistanceBus" },
+          { "label": "Спеціалізований автобуc", "value": "specializedBus" },
+          { "label": "Тричленовий автобуc", "value": "threeSeatBus" },
+          { "label": "Двояруcний автобуc", "value": "doubleDeckerBus" },
+          { "label": "Тролейбуcи", "value": "trolleybus" },
           { "label": "Трамвай", "value": "tram" }
         ]
       },
@@ -276,7 +276,7 @@
           { "label": "Зупинка", "value": "stop" },
           { "label": "Станція", "value": "statin" },
           { "label": "Бензоколонка", "value": "fuel" },
-          { "label": "Інформаційна система", "value": "infoSystem" }
+          { "label": "Інформаційна cиcтема", "value": "infoSystem" }
         ]
       },
       {
@@ -289,9 +289,9 @@
         "refName": "staff",
         "items": [
           { "label": "Водій", "value": "driver" },
-          { "label": "Диспетчер", "value": "dispatcher" },
+          { "label": "Диcпетчер", "value": "dispatcher" },
           { "label": "Кондуктор", "value": "conductor" },
-          { "label": "Технічний персонал", "value": "techPersonal" }
+          { "label": "Технічний перcонал", "value": "techPersonal" }
         ]
       },
       {
@@ -303,7 +303,7 @@
         "value": "",
         "refName": "technology",
         "items": [
-          { "label": "Система квитків", "value": "billet" },
+          { "label": "Сиcтема квитків", "value": "billet" },
           { "label": "Навігація", "value": "navigation" },
           { "label": "Електронний таблоїд", "value": "electronicTabloid" },
           { "label": "GPS", "value": "gps" },
@@ -525,19 +525,6 @@
         "refName": "name"
       },
       {
-        "type": "text",
-        "displayCondition": true,
-        "name": "subinfo",
-        "label": "pages.portfolio.dialog.subinfoLabel",
-        "placeholder": "pages.portfolio.dialog.subinfoPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.subinfoTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.subinfoRequired"
-        },
-        "value": "",
-        "refName": "subinfo"
-      },
-      {
         "type": "number",
         "displayCondition": true,
         "name": "priority",
@@ -553,39 +540,6 @@
         "step": 1
       },
       {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "type",
-        "label": "pages.portfolio.dialog.typeLabel",
-        "pTooltip": "pages.portfolio.dialog.typeTolltip",
-        "value": "",
-        "refName": "type",
-        "items": [
-          { "label": "Перевірка", "value": "Examination" },
-          { "label": "Реорганізація", "value": "Reorganization" },
-          { "label": "Цифровізація", "value": "Digitalization" },
-          { "label": "Систематизація", "value": "Systematization" },
-          { "label": "Модернізація", "value": "Modernization" }
-        ]
-      },
-      {
-        "type": "textarea",
-        "displayCondition": true,
-        "name": "des",
-        "label": "pages.portfolio.dialog.descriptionLabel",
-        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.descriptionRequired"
-        },
-        "value": "",
-        "refName": "des"
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
         "type": "text",
         "displayCondition": true,
         "name": "responsibleName",
@@ -597,71 +551,6 @@
         },
         "value": "",
         "refName": "responsibleName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleSurname",
-        "label": "pages.portfolio.dialog.responsibleSurnameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleSurnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleSurnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleSurnameRequired"
-        },
-        "value": "",
-        "refName": "responsibleSurname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleLastname",
-        "label": "pages.portfolio.dialog.responsibleLastnameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleLastnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleLastnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleLastnameRequired"
-        },
-        "value": "",
-        "refName": "responsibleLastname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerName",
-        "label": "pages.portfolio.dialog.managerNameLabel",
-        "placeholder": "pages.portfolio.dialog.managerNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerNameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.managerNameRequired"
-        },
-        "value": "",
-        "refName": "managerName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerSurname",
-        "label": "pages.portfolio.dialog.managerSurnameLabel",
-        "placeholder": "pages.portfolio.dialog.managerSurnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerSurnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.managerSurnameRequired"
-        },
-        "value": "",
-        "refName": "managerSurname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerLastname",
-        "label": "pages.portfolio.dialog.managerLastnameLabel",
-        "placeholder": "pages.portfolio.dialog.managerLastnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerLastnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.managerLastnameRequired"
-        },
-        "value": "",
-        "refName": "managerLastname"
       },
       {
         "type": "text",
@@ -681,6 +570,77 @@
         "displayCondition": true
       },
       {
+        "type": "selector",
+        "displayCondition": true,
+        "name": "type",
+        "label": "pages.portfolio.dialog.typeLabel",
+        "pTooltip": "pages.portfolio.dialog.typeTolltip",
+        "value": "",
+        "refName": "type",
+        "items": [
+          { "label": "Перевірка", "value": "Examination" },
+          { "label": "Реорганізація", "value": "Reorganization" },
+          { "label": "Цифровізація", "value": "Digitalization" },
+          { "label": "Сиcтематизація", "value": "Systematization" },
+          { "label": "Модернізація", "value": "Modernization" },
+          { "label": "Науковий", "value": "Science" },
+          { "label": "ІТ-проект", "value": "IT-Proj" },
+          { "label": "Спеціалізований", "value": "Special" }
+        ]
+      },
+      {
+        "type": "textarea",
+        "displayCondition": true,
+        "name": "des",
+        "label": "pages.portfolio.dialog.descriptionLabel",
+        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.descriptionRequired"
+        },
+        "value": "",
+        "refName": "des"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "customer",
+        "label": "pages.portfolio.dialog.customerLabel",
+        "placeholder": "pages.portfolio.dialog.customerPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.customerTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.customerRequired"
+        },
+        "value": "",
+        "refName": "customer"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "projectGoal",
+        "label": "pages.portfolio.dialog.projectGoalLabel",
+        "placeholder": "pages.portfolio.dialog.projectGoalPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.projectGoalTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.projectGoalRequired"
+        },
+        "value": "",
+        "refName": "projectGoal"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "projectProduct",
+        "label": "pages.portfolio.dialog.projectProductLabel",
+        "placeholder": "pages.portfolio.dialog.projectProductPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.projectProductTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.projectProductRequired"
+        },
+        "value": "",
+        "refName": "projectProduct"
+      },
+      {
         "type": "number",
         "displayCondition": true,
         "name": "budget",
@@ -689,6 +649,7 @@
         "errors": {
           "required": "pages.portfolio.dialog.budgetRequired"
         },
+        "suffix": "pages.portfolio.dialog.budgetSuffix",
         "value": "",
         "refName": "budget",
         "min": 1,
@@ -711,37 +672,8 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "volumeOfWork",
-        "label": "pages.portfolio.dialog.volumeOfWorkLabel",
-        "pTooltip": "pages.portfolio.dialog.volumeOfWorkTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.volumeOfWorkRequired"
-        },
-        "value": "",
-        "refName": "volumeOfWork",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "forecastProjectTaskAmount",
-        "label": "pages.portfolio.dialog.forecastProjectTaskAmountLabel",
-        "pTooltip": "pages.portfolio.dialog.forecastProjectTaskAmountTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.forecastProjectTaskAmountRequired"
-        },
-        "value": "",
-        "refName": "forecastProjectTaskAmount",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
         "name": "term",
+        "suffix": "pages.main.main.permissionDurationSuffix",
         "label": "pages.portfolio.dialog.termLabel",
         "pTooltip": "pages.portfolio.dialog.termTolltip",
         "errors": {
@@ -754,47 +686,34 @@
         "step": 1
       },
       {
-        "type": "text",
+        "type": "datepicker",
         "displayCondition": true,
-        "name": "actionPlan",
-        "label": "pages.portfolio.dialog.actionPlanLabel",
-        "placeholder": "pages.portfolio.dialog.actionPlanPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.actionPlanTolltip",
+        "name": "dataProjectStart",
+        "label": "pages.portfolio.dialog.dataProjectStartLabel",
+        "placeholder": "pages.portfolio.dialog.dataProjectStartPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.dataProjectStartTolltip",
         "errors": {
-          "required": "pages.portfolio.dialog.actionPlanRequired"
+          "required": "pages.portfolio.dialog.dataProjectStartRequired"
         },
         "value": "",
-        "refName": "actionPlan"
+        "refName": "dataProjectStart"
       },
       {
-        "type": "text",
+        "type": "datepicker",
         "displayCondition": true,
-        "name": "sphereOfAction",
-        "label": "pages.portfolio.dialog.sphereOfActionLabel",
-        "placeholder": "pages.portfolio.dialog.sphereOfActionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.sphereOfActionTolltip",
+        "name": "dataProjectEnd",
+        "label": "pages.portfolio.dialog.dataProjectEndLabel",
+        "placeholder": "pages.portfolio.dialog.dataProjectEndPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.dataProjectEndTolltip",
         "errors": {
-          "required": "pages.portfolio.dialog.sphereOfActionRequired"
+          "required": "pages.portfolio.dialog.dataProjectEndRequired"
         },
         "value": "",
-        "refName": "sphereOfAction"
+        "refName": "dataProjectEnd"
       },
       {
         "type": "line",
         "displayCondition": true
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "governmentSubsidies",
-        "label": "pages.portfolio.dialog.governmentSubsidiesLabel",
-        "placeholder": "pages.portfolio.dialog.governmentSubsidiesPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.governmentSubsidiesTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.governmentSubsidiesRequired"
-        },
-        "value": "",
-        "refName": "governmentSubsidies"
       },
       {
         "type": "text",
@@ -818,27 +737,34 @@
         "value": "",
         "refName": "staff",
         "items": [
-          { "label": "Управління", "value": "Management" },
-          { "label": "Викладацький склад", "value": "Faculty" },
-          { "label": "Юрист", "value": "Lawyer" },
-          { "label": "Архів", "value": "Archive" },
-          { "label": "ІТ-відділ", "value": "ITDepartment" }
+          { "label": "Юриcт", "value": "lawyer" },
+          { "label": "Менеджер", "value": "management" },
+          { "label": "Інженер", "value": "engeneer" },
+          { "label": "Бухгалтер", "value": "Accountant" },
+          { "label": "Декан", "value": "dean" },
+          { "label": "Заступник декана", "value": "advocateDean" },
+          { "label": "Ректор", "value": "rector" },
+          { "label": "Проректор", "value": "viceRector" },
+          { "label": "Завідувач кафедри", "value": "headOfDepartment" },
+          { "label": "Викладач", "value": "faculty" },
+          { "label": "Архіваріус", "value": "archive" },
+          { "label": "Розробник", "value": "developer" },
+          { "label": "Тестувальник", "value": "Test" },
+          { "label": "Девопс", "value": "devops" }
         ]
       },
       {
-        "type": "multiselector",
+        "type": "text",
         "displayCondition": true,
-        "name": "technology",
-        "label": "pages.portfolio.dialog.technologyLabel",
-        "pTooltip": "pages.portfolio.dialog.technologyTolltip",
+        "name": "subinfo",
+        "label": "pages.portfolio.dialog.subinfoLabel",
+        "placeholder": "pages.portfolio.dialog.subinfoPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.subinfoTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.subinfoRequired"
+        },
         "value": "",
-        "refName": "technology",
-        "items": [
-          { "label": "ІКТ", "value": "ICT, VR/AR, adaptive learning, electronic platforms" },
-          { "label": "VR/AR", "value": "VR/AR" },
-          { "label": "адаптивне навчання", "value": "adaptiveLearning" },
-          { "label": "електронні платформи", "value": "electronicPlatforms" }
-        ]
+        "refName": "subinfo"
       }
     ],
     "road": [],
@@ -853,15 +779,15 @@
         "refName": "type",
         "items": [
           { "label": "Замовник проєкту", "value": "customer" },
-          { "label": "Власник проєкту", "value": "owner" },
+          { "label": "Влаcник проєкту", "value": "owner" },
           { "label": "Керівник проєкту", "value": "team-lid" },
           { "label": "Команда проєкту", "value": "team" },
-          { "label": "Інвестори", "value": "investors" },
+          { "label": "Інвеcтори", "value": "investors" },
           { "label": "Конкуренти", "value": "competitors" },
           { "label": "Органи влади", "value": "government" },
-          { "label": "Транспортні регулятори", "value": "transportRegulators" },
-          { "label": "Громадські організації", "value": "civilOrganizations" },
-          { "label": "Населення", "value": "population" },
+          { "label": "Транcпортні регулятори", "value": "transportRegulators" },
+          { "label": "Громадcькі організації", "value": "civilOrganizations" },
+          { "label": "Наcелення", "value": "population" },
           { "label": "Перевізники", "value": "carriers" },
           { "label": "Інші групи", "value": "others" }
         ]

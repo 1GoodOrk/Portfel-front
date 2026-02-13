@@ -73,7 +73,7 @@ export class ExpertsComponent implements AfterContentInit {
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
     this.currentExpertise = this.appCommunicationService.getCurrentExpertise()
-    this.inputs = this.appCommunicationService.getDynamicInputsForm('risksClassic', this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital']), this.currentExpertise)
+    this.inputs = this.appCommunicationService.getDynamicInputsForm('risksClassic', this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital'], this.currentExpertise), this.currentExpertise)
     if (this.currentExpertise.risksClassicTables) {
       Object.keys(this.currentExpertise.risksClassicTables).forEach((key: string) => {
         this.riskClassicGroupData[key] = {
@@ -230,7 +230,7 @@ export class ExpertsComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     Object.keys(this.riskClassicGroupData).forEach((groupName: string) => {
       this.analyzeTableData(groupName)
-      this.createCharts(groupName)
+      this.refreshModel(groupName)
     })
   }
   refreshAllModel() {
@@ -238,7 +238,7 @@ export class ExpertsComponent implements AfterContentInit {
     this.debounceTimeout = setTimeout(() => {
       Object.keys(this.riskClassicGroupData).forEach((groupName: string) => {
         this.analyzeTableData(groupName)
-        this.createCharts(groupName)
+        this.refreshModel(groupName)
       })
     }, 500)
   }
@@ -299,7 +299,7 @@ export class ExpertsComponent implements AfterContentInit {
       this.riskClassicGroupData[groupName].tableParams.td[rowIndex][index] = newData
       this.analyzeTableData(groupName)
       this.refreshModel(groupName)
-    }, 500)
+    }, 1000)
   }
 
   onChange(newObj: any, groupName: string, indexInput: number) {

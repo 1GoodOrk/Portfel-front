@@ -6,8 +6,8 @@
         <p-select
           [options]="experts"
           [(ngModel)]="selectedEmail"
-          optionLabel="email"
-          placeholder="Select an expert"
+          optionLabel="organization"
+          [placeholder]="'pages.project.science.selectExpertLabel' | translate"
           class="w-full md:w-56" />
         <p-button
           [label]="'pages.project.science.addNewExpertiseButtonLabel' | translate"

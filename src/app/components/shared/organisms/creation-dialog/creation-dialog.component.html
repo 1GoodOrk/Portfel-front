@@ -14,7 +14,11 @@
           @if (input.displayCondition && input.type !== 'line') {
             <div class="flex flex-col gap-1">
               @if (input.type !== 'checklist') {
-                <label for="name" class="bold">{{input.label | translate}}</label>
+                <label for="name" class="bold">{{input.label | translate}}
+                  @if (input.suffix) {
+                    {{input.suffix | translate}}
+                  }
+                </label>
               }
               @if (input.type === 'text') {
                 <input

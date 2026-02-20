@@ -56,6 +56,20 @@ export class StackholdersComponent {
     stackholder: false
   }
 
+  public types = [
+              { label: 'Замовник проєкту', value: 'customer' },
+          { label: 'Власник проєкту', value: 'owner' },
+          { label: 'Керівник проєкту', value: 'team-lid' },
+          { label: 'Команда проєкту', value: 'team' },
+          { label: 'Інвестори', value: 'investors' },
+          { label: 'Конкуренти', value: 'competitors' },
+          { label: 'Органи влади', value: 'government' },
+          { label: 'Транспортні регулятори', value: 'transportRegulators' },
+          { label: 'Громадські організації', value: 'civilOrganizations' },
+          { label: 'Населення', value: 'population' },
+          { label: 'Перевізники', value: 'carriers' },
+          { label: 'Інші групи', value: 'others' },]
+
   constructor(
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
@@ -85,6 +99,12 @@ export class StackholdersComponent {
 
   public getStackholders() {
     this.stackholders = this.appCommunicationService.getStackholder()
+    this.stackholders = this.stackholders.map((el: any) => {
+      if (this.types.find((type: any) => el.type === type.value)) {
+        el.type = this.types.find((type: any) => el.type === type.value)?.label
+      }
+      return el
+    })
   }
 
   public showInfoStackholderDialog(index: number, event?: any) {

@@ -30,9 +30,12 @@
         <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentStackholder[valueKey.propName] | date: 'dd/MM/yyyy'}}</p>
       } @else if (valueKey.type === 'multyInOne') {
         <p> <span class="bold">{{valueKey.label | translate}}:</span>
-          @for (item of valueKey.items; track item) {
+            {{currentStackholder[valueKey.items[1].propName] + ' '}}
+            {{currentStackholder[valueKey.items[0].propName] + ' '}}
+            {{currentStackholder[valueKey.items[2].propName] + ' '}}
+          <!-- @for (item of valueKey.items; track item) {
             {{currentStackholder[item.propName] + ' '}}
-          }
+          } -->
         </p>
       } @else if (valueKey.type === 'permission') {
         @if (currentStackholder[valueKey.propPermission]) {

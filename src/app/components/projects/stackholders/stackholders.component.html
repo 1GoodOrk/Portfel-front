@@ -147,7 +147,7 @@
             (click)="showInfoStackholderDialog($index, $event)"/>
         </ng-template>
         <ng-template #content>
-          <p>{{stackholder.responsibleName}} {{stackholder.responsibleSurname}} {{stackholder.responsibleLastname}}</p>
+          <p>{{stackholder.responsibleSurname}} {{stackholder.responsibleName}} {{stackholder.responsibleLastname}}</p>
           <p> <span class="bold">{{'pages.project.stackholder.typeStackholderLabel' | translate}}: </span>{{stackholder.type}}</p>
           <p> <span class="bold">{{'pages.project.stackholder.risksLabel' | translate}}: </span>{{((stackholder.influence / 100) * ((stackholder.eco * (stackholder.ecoPos / 100)) + (stackholder.war * (stackholder.warPos / 100)) + (stackholder.log * (stackholder.logPos / 100)) + (stackholder.soc * (stackholder.socPos / 100)) + (stackholder.struc * (stackholder.strucPos / 100))) / 5).toFixed(2)}}</p>
           <p> <span class="bold">{{'pages.project.stackholder.valuationLabel' | translate}}: </span>{{(((stackholder.power / 100) * (stackholder.transport + stackholder.social + stackholder.economic + stackholder.ecologic + stackholder.comfort + stackholder.technologic + stackholder.informative + stackholder.security + stackholder.managment) / 400) * this.currentProject.projectValuation).toFixed(2)}}</p>

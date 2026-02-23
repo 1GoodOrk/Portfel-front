@@ -58,7 +58,9 @@ export class CardComponent {
   public expertises: any = []
   public newInputName: any = []
   public newGroupName: any = ''
-  public selectedEmail: any = {}
+  public selectedEmail: any = []
+  public types: any = ['CLD', 'КО']
+  public selectedType: any = ''
   public results: any = []
 
   public visible: any = {
@@ -87,7 +89,7 @@ export class CardComponent {
           this.resultCalculation(expertise, index)
         })
         this.expertises = this.expertises.map((expertise: any) => {
-          expertise.expertName = this.experts.find((expert: any) => expert.email === expertise.email).organization
+          expertise.expertName = expertise.email.map((item: any) => item.name).join(', ')
           return expertise
         })
       })
@@ -95,14 +97,16 @@ export class CardComponent {
 
   public createExpertise() {
     const data: any = {
-      email: this.selectedEmail.email,
+      email: this.selectedEmail,
+      type: this.selectedType,
       risksLean: {},
       risksDigital: {},
       risksClassic: {},
       recommendationDescription: '',
-      status: 'NEW',
-      approve: []
+      status: 'НОВИЙ',
+      approve: {}
     }
+    data.email = data.email.map((item: any) => ({ name: item.organization, email: item.email }))
     this.inputs.risksLean.forEach((el: any) => {
       data.risksLean[el.name] = el.value
     })
@@ -117,6 +121,8 @@ export class CardComponent {
     })
     this.httpService.addExpertise(data, this.currentProject._id)
       .subscribe((data: any) => {
+        this.selectedEmail = []
+        this.selectedType = ''
         this.getAllExpertise()
     })
   }
@@ -141,7 +147,7 @@ export class CardComponent {
           prev * current.risksClassic[keyGroup][next] :
           prev, 1) ** (1 / Object.keys(current.risksClassic[keyGroup]).length)
     })
-    this.results[index].risksClassic.value = this.results[index].risksClassic.value.toFixed(2)
+    // this.results[index].risksClassic.value = this.results[index].risksClassic.value.toFixed(2)
   }
 
   public removeExpertise(id: string, event: any) {

@@ -73,7 +73,7 @@
         [link]="true"
         (click)="navigate('forget')"
         [style]="{ 'padding-left': '0', 'color': '#4a4afb' }"/>
-      <div class="buttons">
+      <div>
         @if (form.valid) {
           <p-button
             [label]="'pages.user.login.buttonSubmit' | translate"
@@ -90,13 +90,6 @@
             severity="secondary"
             type="submit" />
         }
-        <p-button
-          [label]="'pages.user.login.buttonRegistration' | translate"
-          [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
-          tooltipPosition="bottom"
-          severity="secondary"
-          type="button"
-          (click)="navigate('registration')" />
         @if (error) {
           <p-message severity="error" size="small" variant="simple">
             @if (password.hasError('required')) {
@@ -104,6 +97,22 @@
             }
           </p-message>
         }
+        <div class="buttons">
+          <p-button
+            label="Реєстрація власника"
+            [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
+            tooltipPosition="bottom"
+            severity="secondary"
+            type="button"
+            (click)="navigate('registration-owner')" />
+          <p-button
+            label="Реєстрація експерта"
+            [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
+            tooltipPosition="bottom"
+            severity="secondary"
+            type="button"
+            (click)="navigate('registration-expert')" />
+        </div>
       </div>
     </form>
   </p-card>

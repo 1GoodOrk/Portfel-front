@@ -39,7 +39,7 @@
           </p-message>
         }
       </div>
-      <div class="flex flex-col gap-1">
+      <!-- <div class="flex flex-col gap-1">
         <p-select
           id="type"
           name="type"
@@ -54,7 +54,7 @@
         @if (type.invalid && (type.touched || form.submitted)) {
           <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.typeRequired' | translate}}</p-message>
         }
-      </div>
+      </div> -->
       @if (user.type === 'USER') {
         <div class="flex flex-col gap-1">
           <input

@@ -1,118 +1,107 @@
 <app-header></app-header>
 <section class="approve">
+  <p-button
+    label="Експертиза"
+    pTooltip="Повернення до вибору експертизи"
+    tooltipPosition="top"
+    severity="primary"
+    (click)="back()"/>
   <div>
-    @for (valueKey of infoPageProjectValueKeys; track valueKey) {
-      @if (!valueKey.type) {
-        @if (current[valueKey.propName] && current[valueKey.propName][0] && current[valueKey.propName][0].label) {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span>
-            @for (item of current[valueKey.propName]; track item) {
-              @if ($index === current[valueKey.propName].length - 1) {
-                {{item.label}}
-              } @else {
-                {{item.label + ', '}}
-              }
+    <div class="flex flex-col h-48">
+      <div class="container w-full column">
+        <div>
+          <p><span class="bold">Виберіть критерії експертизи</span></p>
+          <p-multiselect
+            inputId="selectFieldsForExpertise"
+            name="selectFieldsForExpertise"
+            [options]="fields"
+            [ngModel]="selectedFields"
+            (ngModelChange)="changeSelectedFields($event)"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Виберіть критерії експертизи"
+            pTooltip="Виберіть критерії експертизи зі списку. Можна вибрати більше одного разу."
+            tooltipPosition="right"
+            [showClear]="true"
+            class="w-full md:w-56" />
+        </div>
+        <div>
+          <p><span class="bold">Введіть новий критерій експертизи</span></p>
+          <input
+            pInputText
+            type="text"
+            id="createFieldForExpertise"
+            placeholder="Критерія"
+            pTooltip="Введіть новий критерій експертизи"
+            tooltipPosition="right"
+            name="createFieldForExpertise"
+            [(ngModel)]="additionalFields"
+            [ngModelOptions]="{ standalone: true }" />
+          <p-button
+            label="Додати критерій"
+            pTooltip="Натисніть, щоб додати новий критерій"
+            [outlined]="true"
+            severity="success"
+            (click)="addField()" />
+        </div>
+      </div>
+      @if (this.fieldsToApprove.length) {
+        <div>
+          <h2>Реєстр ризиків (1 - {{this.fieldsToApprove.length}})</h2>
+          <div class="container">
+            @for (field of this.fieldsToApprove; track field) {
+              <div class="flex space-between w-full">
+                <div class="flex align-center">
+                  <p><span class="bold">{{field.label | translate}}</span></p>
+                  <p-button
+                    icon="pi pi-times"
+                    [rounded]="true"
+                    [text]="true"
+                    (click)="removeField($index)"
+                    pTooltip=""
+                    severity="danger" />
+                </div>
+                <p-inputnumber
+                  [inputId]="field.label + $index"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  [pTooltip]="`Введіть ранг для поля '${field.label}'`"
+                  tooltipPosition="right"
+                  [name]="field.label + $index"
+                  [(ngModel)]="field.grade"
+                  [ngModelOptions]="{ standalone: true }"
+                  required
+                  [min]="1"
+                  [max]="this.fieldsToApprove.length"
+                  [step]="1"
+                  [minFractionDigits]="0" >
+                    <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                    </ng-template>
+                </p-inputnumber>
+              </div>
             }
-          </p>
-        } @else {
-          @if (valueKey.mainProp) {
-            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.mainProp][valueKey.propName]}} %
-              @if (!valueKey.type) {
-                {{valueKey.suffix | translate}}
-              }
-            </p>
-          } @else {
-            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{current[valueKey.propName]}}</p>
-            <p-button
-              icon="pi pi-times"
-              [rounded]="true"
-              [text]="true"
-              (click)="recommendationApprove = false"
-              [pTooltip]="'pages.project.science.unapproveCurrentRecommendationButtonTooltip' | translate"
-              [disabled]="!recommendationApprove"
-              severity="danger" />
-            <p-button
-              icon="pi pi-check"
-              [rounded]="true"
-              [text]="true"
-              (click)="recommendationApprove = true"
-              [pTooltip]="'pages.project.science.approveCurrentRecommendationButtonTooltip' | translate"
-              [disabled]="recommendationApprove"
-              severity="primary" />
-          }
-        }
-      } @else if (valueKey.type === 'divider') {
-        <p-divider />
-      }  @else if (valueKey.type === 'risksClassic') {
-        @if (valueKey.label.match('pages')) {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
-        } @else {
-          <div class="flex align-center">
-            <p-button
-              icon="pi pi-times"
-              [rounded]="true"
-              [text]="true"
-              [pTooltip]="'pages.project.science.unapproveCurrentAllButtonTooltip' | translate"
-              (click)="unapprove('group', valueKey.label)"
-              severity="danger" />
-            <p-button
-              icon="pi pi-check"
-              [rounded]="true"
-              [text]="true"
-              [pTooltip]="'pages.project.science.approveCurrentAllButtonTooltip' | translate"
-              (click)="approve('group', valueKey.label)"
-              severity="primary" />
-            <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
           </div>
-        }
-        @for (item of valueKey.items; track item) {
-          @if (approvedFields[valueKey.label] && (approvedFields[valueKey.label][item.propName] === false || approvedFields[valueKey.label][item.propName] === true)) {
-            <div class="flex align-center">
-              <p-button
-                icon="pi pi-times"
-                [rounded]="true"
-                [text]="true"
-                [pTooltip]="'pages.project.science.unapproveCurrentButtonTooltip' | translate"
-                (click)="unapprove('field', valueKey.label, item.propName)"
-                [disabled]="!approvedFields[valueKey.label][item.propName]"
-                severity="danger" />
-              <p-button
-                icon="pi pi-check"
-                [rounded]="true"
-                [text]="true"
-                [pTooltip]="'pages.project.science.approveCurrentButtonTooltip' | translate"
-                (click)="approve('field', valueKey.label, item.propName)"
-                [disabled]="approvedFields[valueKey.label][item.propName]"
-                severity="primary" />
-              <p> {{item.label | translate}}: {{current.risksClassic[valueKey.label][item.propName]}} %</p>
-            </div>
-          } @else {
-            <p> {{item.label | translate}}: {{current.risksClassic[valueKey.label][item.propName]}} %</p>
-          }
-        }
+        </div>
       }
-    }
-  </div>
-  <div class="flex flex-col gap-1">
-    <label for="name" class="bold">{{'pages.project.science.decisionDescriptionLabel' | translate}}</label>
-    <textarea
-      pTextarea
-      type="text"
-      id="decisionDescription"
-      class="mt-5"
-      [placeholder]="'pages.project.science.decisionDescriptionPlaceholder' | translate"
-      [pTooltip]="'pages.project.science.decisionDescriptionTolltip' | translate"
-      tooltipPosition="top"
-      name="decisionDescription"
-      [(ngModel)]="decisionDescription"
-      required>
-    </textarea>
-  </div>
-  <div>
     <p-button
-      [label]="`${'pages.project.science.finishButton' | translate}`"
-      [pTooltip]="`${'pages.project.science.finishButtonTooltip' | translate}`"
-      severity="success"
-      (click)="finish()"/>
+      label="Зберегти реєстр"
+      pTooltip="Натисніть, щоб зберегти поточний реєстр"
+      tooltipPosition="top"
+      severity="primary"
+      (click)="updateExpertise()"/>
+    </div>
+
+    <div class="flex flex-col h-48">
+      <div>
+        <p>
+          <span class="bold">Узгодженість</span>:
+          <span class="bold" [style]="{ 'color': current.approve.consistency > 0.5 ?'darkcyan' : 'firebrick'}"> {{current.approve.consistency > 0.5 ? 'Достатньо' : 'Недостатньо'}} ({{current.approve.consistency}})</span>
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 <app-footer></app-footer>

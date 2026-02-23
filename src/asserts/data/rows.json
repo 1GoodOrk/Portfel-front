@@ -51,24 +51,17 @@
       { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" }
     ],
     "science": [
-      { "propName": "subinfo", "label": "pages.portfolio.dialog.subinfoLabel" },
-      { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },
       { "propName": "type", "label": "pages.portfolio.dialog.typeLabel" },
-      { "propName": "responsibleName", "label": "pages.portfolio.dialog.responsibleLabel" },
-      { "propName": "responsibleOrganization", "label": "pages.project.science.responsibleOrganizationLabel" },
-      { "type": "divider" },
-      { "propName": "customer", "label": "pages.portfolio.dialog.customerLabel" },
       { "propName": "projectGoal", "label": "pages.portfolio.dialog.projectGoalLabel" },
       { "propName": "projectProduct", "label": "pages.portfolio.dialog.projectProductLabel" },
-      { "propName": "budget", "label": "pages.portfolio.dialog.budgetLabel", "suffix": "pages.portfolio.dialog.budgetSuffix" },
-      { "propName": "budgetSource", "label": "pages.portfolio.dialog.budgetSourceLabel" },
-      { "propName": "term", "label": "pages.portfolio.dialog.termLabel", "suffix": "pages.main.main.permissionDurationSuffix" },
-      { "type": "date", "propName": "dataProjectStart", "label": "pages.portfolio.dialog.dataProjectStartLabel" },
-      { "type": "date", "propName": "dataProjectEnd", "label": "pages.portfolio.dialog.dataProjectEndLabel" },
-      { "propName": "numberOfOrderDocument", "label": "pages.portfolio.dialog.numberOfOrderDocumentLabel" },
-      { "propName": "staff", "label": "pages.portfolio.dialog.staffLabel" },
+      { "propName": "responsibleName", "label": "pages.portfolio.dialog.responsibleLabel" },
+      { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" },
+      { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },
       { "type": "divider" },
-      { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" }
+      { "propName": "customer", "label": "pages.portfolio.dialog.customerLabel" },
+      { "type": "date", "propName": "data", "label": "pages.portfolio.dialog.dataProjectLabel" },
+      { "propName": "numberOfOrderDocument", "label": "pages.portfolio.dialog.numberOfOrderDocumentLabel" },
+      { "propName": "staff", "label": "pages.portfolio.dialog.staffLabel" }
     ],
     "roads": [
       { "propName": "subinfo", "label": "pages.portfolio.dialog.subinfoLabel" },

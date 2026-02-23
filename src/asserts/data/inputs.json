@@ -525,51 +525,6 @@
         "refName": "name"
       },
       {
-        "type": "number",
-        "displayCondition": true,
-        "name": "priority",
-        "label": "pages.portfolio.dialog.priorityLabel",
-        "pTooltip": "pages.portfolio.dialog.priorityTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.priorityRequired"
-        },
-        "value": "",
-        "refName": "priority",
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleName",
-        "label": "pages.portfolio.dialog.responsibleNameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleNameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleNameRequired"
-        },
-        "value": "",
-        "refName": "responsibleName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleOrganization",
-        "label": "pages.portfolio.dialog.responsibleOrganizationLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleOrganizationPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleOrganizationTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleOrganizationRequired"
-        },
-        "value": "",
-        "refName": "responsibleOrganization"
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
         "type": "selector",
         "displayCondition": true,
         "name": "type",
@@ -587,32 +542,6 @@
           { "label": "ІТ-проект", "value": "IT-Proj" },
           { "label": "Спеціалізований", "value": "Special" }
         ]
-      },
-      {
-        "type": "textarea",
-        "displayCondition": true,
-        "name": "des",
-        "label": "pages.portfolio.dialog.descriptionLabel",
-        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.descriptionRequired"
-        },
-        "value": "",
-        "refName": "des"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "customer",
-        "label": "pages.portfolio.dialog.customerLabel",
-        "placeholder": "pages.portfolio.dialog.customerPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.customerTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.customerRequired"
-        },
-        "value": "",
-        "refName": "customer"
       },
       {
         "type": "text",
@@ -641,79 +570,62 @@
         "refName": "projectProduct"
       },
       {
-        "type": "number",
+        "type": "textarea",
         "displayCondition": true,
-        "name": "budget",
-        "label": "pages.portfolio.dialog.budgetLabel",
-        "pTooltip": "pages.portfolio.dialog.budgetTolltip",
+        "name": "des",
+        "label": "pages.portfolio.dialog.descriptionLabel",
+        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
         "errors": {
-          "required": "pages.portfolio.dialog.budgetRequired"
-        },
-        "suffix": "pages.portfolio.dialog.budgetSuffix",
-        "value": "",
-        "refName": "budget",
-        "min": 1,
-        "max": 1000000000,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "budgetSource",
-        "label": "pages.portfolio.dialog.budgetSourceLabel",
-        "placeholder": "pages.portfolio.dialog.budgetSourcePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.budgetSourceTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.budgetSourceRequired"
+          "required": "pages.portfolio.dialog.descriptionRequired"
         },
         "value": "",
-        "refName": "budgetSource"
+        "refName": "des"
       },
       {
         "type": "number",
         "displayCondition": true,
-        "name": "term",
-        "suffix": "pages.main.main.permissionDurationSuffix",
-        "label": "pages.portfolio.dialog.termLabel",
-        "pTooltip": "pages.portfolio.dialog.termTolltip",
+        "name": "priority",
+        "label": "pages.portfolio.dialog.priorityLabel",
+        "pTooltip": "pages.portfolio.dialog.priorityTolltip",
         "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
+          "required": "pages.portfolio.dialog.priorityRequired"
         },
         "value": "",
-        "refName": "term",
+        "refName": "priority",
         "min": 1,
-        "max": 5000,
+        "max": 10,
         "step": 1
-      },
-      {
-        "type": "datepicker",
-        "displayCondition": true,
-        "name": "dataProjectStart",
-        "label": "pages.portfolio.dialog.dataProjectStartLabel",
-        "placeholder": "pages.portfolio.dialog.dataProjectStartPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.dataProjectStartTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.dataProjectStartRequired"
-        },
-        "value": "",
-        "refName": "dataProjectStart"
-      },
-      {
-        "type": "datepicker",
-        "displayCondition": true,
-        "name": "dataProjectEnd",
-        "label": "pages.portfolio.dialog.dataProjectEndLabel",
-        "placeholder": "pages.portfolio.dialog.dataProjectEndPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.dataProjectEndTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.dataProjectEndRequired"
-        },
-        "value": "",
-        "refName": "dataProjectEnd"
       },
       {
         "type": "line",
         "displayCondition": true
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "responsibleName",
+        "label": "pages.portfolio.dialog.responsibleNameLabel",
+        "placeholder": "pages.portfolio.dialog.responsibleNamePlaceholder",
+        "pTooltip": "pages.portfolio.dialog.responsibleNameTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.responsibleNameRequired"
+        },
+        "value": "",
+        "refName": "responsibleName"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "customer",
+        "label": "pages.portfolio.dialog.customerLabel",
+        "placeholder": "pages.portfolio.dialog.customerPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.customerTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.customerRequired"
+        },
+        "value": "",
+        "refName": "customer"
       },
       {
         "type": "text",
@@ -727,6 +639,19 @@
         },
         "value": "",
         "refName": "numberOfOrderDocument"
+      },
+      {
+        "type": "datepicker",
+        "displayCondition": true,
+        "name": "data",
+        "label": "pages.portfolio.dialog.dataProjectLabel",
+        "placeholder": "pages.portfolio.dialog.dataProjectPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.dataProjectTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.dataProjectRequired"
+        },
+        "value": "",
+        "refName": "dataProject"
       },
       {
         "type": "multiselector",
@@ -752,19 +677,6 @@
           { "label": "Тестувальник", "value": "Test" },
           { "label": "Девопс", "value": "devops" }
         ]
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "subinfo",
-        "label": "pages.portfolio.dialog.subinfoLabel",
-        "placeholder": "pages.portfolio.dialog.subinfoPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.subinfoTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.subinfoRequired"
-        },
-        "value": "",
-        "refName": "subinfo"
       }
     ],
     "road": [],

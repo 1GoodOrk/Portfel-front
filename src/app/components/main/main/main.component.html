@@ -39,8 +39,6 @@
           <ng-template #content>
             <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}: </span>{{project.responsibleName}}</p>
             <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
-            <p> <span class="bold">{{'pages.main.main.termLabel' | translate}}:</span> {{project.term}} {{'pages.portfolio.dialog.processDurationSuffix' | translate}}</p>
-            <p> <span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{project.subinfo}}</p>
           </ng-template>
           <ng-template #footer>
             @if (user.type === 'USER') {

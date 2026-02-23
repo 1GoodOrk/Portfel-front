@@ -3,11 +3,20 @@
 
     @if (user.type === 'USER') {
       <div legend="Projects" class="container">
-        <p-select
+        <p-multiselect
+          name="expertSelector"
           [options]="experts"
           [(ngModel)]="selectedEmail"
+          [ngModelOptions]="{ standalone: true }"
           optionLabel="organization"
-          [placeholder]="'pages.project.science.selectExpertLabel' | translate"
+          [showClear]="true"
+          class="w-full md:w-56" />
+        <p-select
+          name="typeSelector"
+          [options]="types"
+          [(ngModel)]="selectedType"
+          [ngModelOptions]="{ standalone: true }"
+          [showClear]="true"
           class="w-full md:w-56" />
         <p-button
           [label]="'pages.project.science.addNewExpertiseButtonLabel' | translate"
@@ -30,19 +39,16 @@
             'cursor': 'pointer'
           }"
           (click)="showInfoDialogExpertise($index)">
-          <ng-template #title> <span class="bold">{{'pages.project.science.expertEmailLabel' | translate}}: </span>{{expertise.email}} </ng-template>
+          <ng-template #title> <span class="bold">{{'pages.project.science.expertEmailLabel' | translate}} </span></ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.project.science.statusLabel' | translate}}:</span>
-            <span class="bold" [style]="{ 'color': expertise.status === 'pages.project.science.newStatus' ?
-              'darkorange' : expertise.status === 'pages.project.science.updatedStatus' ?
-              'darkblue' : expertise.status === 'pages.project.science.approvedStatus' ?
+            <span class="bold" [style]="{ 'color': expertise.status === 'НОВИЙ' ?
+              'darkorange' : expertise.status === 'ПОГОДЖЕННЯ' ?
+              'darkblue' : expertise.status === 'ОЦІНКА' ?
               'darkcyan' : 'firebrick'}"> {{expertise.status | translate}}</span>
           </ng-template>
           <ng-template #content>
+            <p> <span class="bold">{{'pages.project.science.typeExperiseLabel' | translate}}:</span> {{expertise.type}}</p>
             <p> <span class="bold">{{'pages.project.science.expertNameLabel' | translate}}:</span> {{expertise.expertName}}</p>
-            <p> <span class="bold">{{results[$index].risksLean.label | translate}}:</span> {{results[$index].risksLean.value}}</p>
-            <p> <span class="bold">{{results[$index].risksDigital.label | translate}}:</span> {{results[$index].risksDigital.value}}</p>
-            <p> <span class="bold">{{results[$index].risksClassic.label | translate}}:</span> {{results[$index].risksClassic.value}}</p>
-            <p> <span class="bold">{{'pages.project.science.recommendationDescriptionLabel' | translate}}:</span> {{expertise.recommendationDescription}}</p>
           </ng-template>
           <ng-template #footer>
             @if (user.type === 'USER') {
@@ -55,23 +61,20 @@
               </div>
             }
             @if (user.type === 'EXPERT') {
-              @if (user.email === expertise.email) {
-                <div class="flex space-evenly">
+              <div class="flex space-evenly">
+                <p-button
+                  [label]="`${'pages.project.science.approveButton' | translate}`"
+                  [pTooltip]="`${'pages.project.science.approveButtonTooltip' | translate}`"
+                  severity="success"
+                  (click)="approveExpertise(expertise, $event)"/>
+                @if (expertise.status !== 'НОВИЙ' && expertise.status !== 'ПОГОДЖЕННЯ') {
                   <p-button
                     [label]="`${'pages.project.science.updateButton' | translate}`"
                     [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
                     severity="warn"
                     (click)="updateExpertise(expertise, $event)"/>
-                </div>
-              } @else {
-                <div class="flex space-evenly">
-                  <p-button
-                    [label]="`${'pages.project.science.approveButton' | translate}`"
-                    [pTooltip]="`${'pages.project.science.approveButtonTooltip' | translate}`"
-                    severity="success"
-                    (click)="approveExpertise(expertise, $event)"/>
-                </div>
-              }
+                }
+              </div>
             }
           </ng-template>
         </p-card>

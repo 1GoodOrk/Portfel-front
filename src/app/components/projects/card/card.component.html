@@ -43,8 +43,8 @@
           <ng-template #subtitle><span class="bold">{{'pages.project.science.statusLabel' | translate}}:</span>
             <span class="bold" [style]="{ 'color': expertise.status === 'НОВИЙ' ?
               'darkorange' : expertise.status === 'ПОГОДЖЕННЯ' ?
-              'darkblue' : expertise.status === 'ОЦІНКА' ?
-              'darkcyan' : 'firebrick'}"> {{expertise.status | translate}}</span>
+              'firebrick' : expertise.status === 'ОЦІНКА' ?
+              'darkcyan' : 'darkblue'}"> {{expertise.status | translate}}</span>
           </ng-template>
           <ng-template #content>
             <p> <span class="bold">{{'pages.project.science.typeExperiseLabel' | translate}}:</span> {{expertise.type}}</p>
@@ -67,12 +67,20 @@
                   [pTooltip]="`${'pages.project.science.approveButtonTooltip' | translate}`"
                   severity="success"
                   (click)="approveExpertise(expertise, $event)"/>
-                @if (expertise.status !== 'НОВИЙ' && expertise.status !== 'ПОГОДЖЕННЯ') {
-                  <p-button
-                    [label]="`${'pages.project.science.updateButton' | translate}`"
-                    [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
-                    severity="warn"
-                    (click)="updateExpertise(expertise, $event)"/>
+                @if (expertise.status !== 'НОВИЙ' && expertise.status !== 'ПОГОДЖЕННЯ' && expertise.approve.consistency >= 0.5) {
+                  @if (expertise.type === 'CLD') {
+                    <p-button
+                      label="CLD"
+                      [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
+                      severity="warn"
+                      (click)="updateExpertise(expertise, $event, 'CLD')"/>
+                  } @else {
+                    <p-button
+                      label="KO"
+                      [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
+                      severity="warn"
+                      (click)="updateExpertise(expertise, $event, 'KO')"/>
+                  }
                 }
               </div>
             }

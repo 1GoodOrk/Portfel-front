@@ -276,60 +276,64 @@ export class AppCommunicationService {
   }
 
 
-  public getDynamicInputsForm(setName: string, inputs: any, data: any): any {
-    inputs[setName] = Array.from(this.inputsForm[setName])
-    Object
-      .keys(inputs[setName])
-      .forEach((key: string) => {
-        data[setName]
+  public getDynamicKOInputsForm(data: any, userEmail: string, inputs: any): any {
+    data
+      .forEach((field: any) => {
+        const currentApprove = field.approve.find((app: any) => app.email === userEmail)
+        inputs.push({
+          type: 'number',
+          displayCondition: true,
+          name: field.label,
+          label: field.label,
+          pTooltip: `Задати дані для поля ${field.label}`,
+          errors: {
+            required: ''
+          },
+          value: currentApprove.value,
+          min: 0,
+          max: 100000,
+          step: 1,
+        })
       })
-    Object
-      .keys(data[setName])
-      .forEach((key: string) => {
-        if (inputs[setName].findIndex((el: any) => el.name === key) !== -1) {
-          const groupIndex = inputs[setName].findIndex((el: any) => el.name === key)
-          Object.keys(data[setName][key]).forEach((keyData: string) => {
-            const inputIndex = inputs[setName][groupIndex].inputs.findIndex((el: any) => el.name === keyData)
-            if (inputIndex === -1) {
-              inputs[setName][groupIndex].inputs.push({
-                type: 'number',
-                displayCondition: true,
-                name: keyData,
-                label: keyData,
-                pTooltip: keyData,
-                errors: {
-                  required: ''
-                },
-                value: data[setName][key][keyData],
-                refName: keyData,
-                min: 0,
-                max: 100000,
-                step: 1,
-              })
-            } else {
-              inputs[setName][groupIndex].inputs[inputIndex].value = data[setName][key][keyData]
-            }
-          })
-        } else {
-          inputs[setName].push({
-            name: key,
-            inputs: Object.keys(data[setName][key]).map((keyData: string) => ({
-              type: 'number',
-              displayCondition: true,
-              name: keyData,
-              label: keyData,
-              pTooltip: keyData,
-              errors: {
-                required: ''
-              },
-              value: data[setName][key][keyData],
-              refName: keyData,
-              min: 0,
-              max: 100000,
-              step: 1,
-            }))
-          })
-        }
+    return inputs
+  }
+  public getInfoPageKOValueKeys(valueKeysSetName: string): any {
+    // return this.infoPageProjectValueKeys[valueKeysSetName]
+    // { "propName": "burden", "mainProp": "risksLean", "label": "pages.project.science.burdenLabel" }
+  }
+
+  public getDynamicCLDInputsForm(data: any, userEmail: string, inputs: any): any {
+    data
+      .forEach((field: any) => {
+        const currentApprove = field.approve.find((app: any) => app.email === userEmail)
+        inputs.push({
+          type: 'number',
+          displayCondition: true,
+          name: field.label,
+          label: `Вплив поля ${field.label}`,
+          pTooltip: `Задати дані для впливу поля ${field.label}`,
+          errors: {
+            required: ''
+          },
+          value: currentApprove.quality,
+          min: 0,
+          max: 100000,
+          step: 1,
+        })
+        inputs.push({
+          type: 'number',
+          displayCondition: true,
+          name: field.label,
+          label: field.label,
+          pTooltip: `Задати дані для поля ${field.label}`,
+          errors: {
+            required: ''
+          },
+          value: currentApprove.value,
+          min: 0,
+          max: 100000,
+          step: 1,
+        })
       })
     return inputs
   }

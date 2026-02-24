@@ -26,9 +26,8 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
-
 @Component({
-  selector: 'app-experts',
+  selector: 'app-ko',
   standalone: true,
   imports: [
     FormsModule,
@@ -51,171 +50,59 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
     TranslatePipe,
     TableModule
   ],
-  templateUrl: './experts.component.html',
-  styleUrl: './experts.component.scss',
+  templateUrl: './ko.component.html',
+  styleUrl: './ko.component.scss',
 })
-export class ExpertsComponent implements AfterContentInit {
-  public inputs: any = {}
+export class KOComponent implements AfterContentInit {
+  public inputs: any = []
   public currentProject: any = {}
   public currentExpertise: any = {}
-  public experts: any = []
-  public expertises: any = []
-  public newInputName: any = []
-  public newGroupName: any = ''
+  public riskData: any = {}
   public recommendationDescription: string = ''
-
-  public riskClassicGroupData: any = {}
+  public currentSessionMail: string = ''
 
   constructor(
     private router: Router,
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
+    this.pre()
+  }
+
+  private pre(): void {
     this.currentProject = this.appCommunicationService.getCurrentProject()
     this.currentExpertise = this.appCommunicationService.getCurrentExpertise()
-    // this.inputs = this.appCommunicationService.getDynamicInputsForm('risksClassic', this.appCommunicationService.getInputsForm(['risksLean', 'risksDigital'], this.currentExpertise), this.currentExpertise)
-    if (this.currentExpertise.risksClassicTables) {
-      Object.keys(this.currentExpertise.risksClassicTables).forEach((key: string) => {
-        this.riskClassicGroupData[key] = {
-          tableParams: Object.assign(this.currentExpertise.risksClassicTables[key].tableParams),
-          analyzeTable: Object.assign(this.currentExpertise.risksClassicTables[key].analyzeTable),
-          graph: {}
-        }
-      })
-    } else {
-      Array.from(this.inputs.risksClassic).forEach((inputGroup: any) => {
-        this.riskClassicGroupData[inputGroup.name] = {
-          tableParams: {
-            th: Array.from(inputGroup.inputs).map((input: any) => input.label),
-            td: Array.from(inputGroup.inputs).map((input: any) => {
-              return [input.label, ...Array.from(inputGroup.inputs).map((data: any, index: number) => 0)]
-            })
-          },
-          analyzeTable: {
-            mostConnectionAmount: { value: 0, name: '-' },
-            lessConnectionAmount: { value: 0, name: '-' },
-            mostNegativeConnectionAmount: { value: 0, name: '-' },
-            mostPositiveConnectionAmount: { value: 0, name: '-' },
-            mostInfluenceAmount: { value: 0, name: '-' },
-            lessInfluenceAmount: { value: 0, name: '-' }
-          },
-          graph: {}
-        }
-        this.riskClassicGroupData[inputGroup.name].tableParams.th.unshift('\\')
-      })
-    }
-  }
+    this.currentSessionMail = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.email
+    this.inputs = this.appCommunicationService.getDynamicKOInputsForm(this.currentExpertise.approve.fields, this.currentSessionMail, this.inputs)
 
-  public addNewGroup() {
-    this.inputs.risksClassic.push({
-      name: this.newGroupName,
-      inputs: []
-    })
-    this.riskClassicGroupData[this.newGroupName] = {
-      tableParams: {
-        th: ['\\'],
-        td: []
-      },
-      analyzeTable: {
-        mostConnectionAmount: { value: 0, name: '-' },
-        lessConnectionAmount: { value: 0, name: '-' },
-        mostNegativeConnectionAmount: { value: 0, name: '-' },
-        mostPositiveConnectionAmount: { value: 0, name: '-' },
-        mostInfluenceAmount: { value: 0, name: '-' },
-        lessInfluenceAmount: { value: 0, name: '-' }
-      },
-      graph: {}
-    }
-    this.newGroupName = ''
-  }
-
-  public removeNewGroup(name: string, index: number) {
-    this.inputs.risksClassic[index].inputs.forEach((input: any) => {
-      this.removeNewInput(input.name, this.inputs.risksClassic[index].name)
-    })
-    delete this.riskClassicGroupData[name]
-    const targetPrevVersion: any = document.getElementById(`mobile-patent-suits-${name}`);
-    if (targetPrevVersion) {
-      targetPrevVersion.remove();
-    }
-    this.inputs.risksClassic.splice(index, 1)
-  }
-
-  public addNewInput(name: string, index: number) {
-    this.inputs.risksClassic[index].inputs.push({
-      type: 'number',
-      displayCondition: true,
-      name: name,
-      label: name,
-      pTooltip: name,
-      errors: {
-        required: ''
-      },
-      value: 0,
-      refName: name,
-      min: 0,
-      max: 100,
-      step: 1,
-    })
-    this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.td = this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.td.map((arr: any) => {
-      arr.push(0)
-      return arr
-    })
-    this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.td.push([name, ...Array.from(this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.th).map(() => 0)])
-    this.riskClassicGroupData[this.inputs.risksClassic[index].name].tableParams.th.push(name)
-    this.newInputName[index] = ''
-  }
-
-  public removeNewInput(inputName: string, groupName: string) {
-    const currentIndex = this.inputs.risksClassic.findIndex((el: any) => el.name === groupName)
-    this.inputs.risksClassic[currentIndex].inputs.splice(this.inputs.risksClassic[currentIndex].inputs.findIndex((el: any) => el.name === inputName), 1)
-    const thIndex = this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.th.findIndex((th: string) => th === inputName)
-    this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.th.splice(this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.th.findIndex((th: string) => th === inputName), 1)
-    this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td.splice(this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td.findIndex((el: any) => {
-      el[0] === inputName
-    }), 1)
-    this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td = this.riskClassicGroupData[this.inputs.risksClassic[currentIndex].name].tableParams.td.map((el: any) => {
-      el.splice(thIndex, 1)
-      return el
-    })
-    this.refreshModel(this.inputs.risksClassic[currentIndex].name)
-  }
-
-  public updateExpertise(form: any) {
-    if (form.valid) {
-      this.currentExpertise
-      this.inputs.risksLean.forEach((el: any) => {
-        this.currentExpertise.risksLean[el.name] = el.value
-      })
-      this.inputs.risksDigital.forEach((el: any) => {
-        this.currentExpertise.risksDigital[el.name] = el.value
-      })
-      this.inputs.risksClassic.forEach((el: any) => {
-        if (!this.currentExpertise.risksClassic[el.name]) {
-          this.currentExpertise.risksClassic[el.name] = {}
-        }
-        el.inputs.forEach((input: any) => {
-          this.currentExpertise.risksClassic[el.name][input.name] = input.value
-        })
-      })
-      if (this.currentExpertise.status === 'pages.project.science.newStatus') {
-        this.currentExpertise.status = 'pages.project.science.updatedStatus'
+    if (this.currentExpertise.risksData && this.currentExpertise.risksData.findIndex((riskData: any) => riskData.email === this.currentSessionMail) !== -1) {
+      const currentDataIndex = this.currentExpertise.risksData.findIndex((riskData: any) => riskData.email === this.currentSessionMail)
+      this.recommendationDescription = this.currentExpertise.risksData[currentDataIndex].recommendationDescription
+      this.riskData = {
+        tableParams: Object.assign(this.currentExpertise.risksData[currentDataIndex].tableParams),
+        analyzeTable: Object.assign(this.currentExpertise.risksData[currentDataIndex].analyzeTable),
       }
-      this.currentExpertise.risksClassicTables = {}
-      Object.keys(this.riskClassicGroupData).forEach((key: string)  => {
-        this.currentExpertise.risksClassicTables[key] = {
-          tableParams: this.riskClassicGroupData[key].tableParams,
-          analyzeTable: this.riskClassicGroupData[key].analyzeTable
-        }
-      })
-      this.currentExpertise.approve = []
-      this.currentExpertise.recommendationDescription = this.recommendationDescription
-      this.httpService.updateExpertise(this.currentExpertise)
-        .subscribe((data: any) => {
-          form.resetForm()
-          this.back()
-      })
+    } else {
+      this.riskData = {
+        tableParams: {
+          th: ['/', ...Array.from(this.inputs).map((input: any) => input.label)],
+          td: Array.from(this.inputs).map((input: any) => {
+            return [input.label, ... Array.from(this.inputs).map((data: any, index: number) => 0)]
+          })
+        },
+        analyzeTable: {
+          mostConnectionAmount: { value: 0, name: '-' },
+          lessConnectionAmount: { value: 0, name: '-' },
+          mostNegativeConnectionAmount: { value: 0, name: '-' },
+          mostPositiveConnectionAmount: { value: 0, name: '-' },
+          mostInfluenceAmount: { value: 0, name: '-' },
+          lessInfluenceAmount: { value: 0, name: '-' }
+        },
+        graph: {}
+      }
     }
+    this.analyzeTableData()
+    this.refreshModel()
   }
 
   public navigate(path: string) {
@@ -226,33 +113,65 @@ export class ExpertsComponent implements AfterContentInit {
     this.navigate('cog-model')
   }
 
+  public updateExpertise(form: any) {
+    if (form.valid) {
+      this.inputs.forEach((input: any) => {
+        const updateFieldIndex = this.currentExpertise.approve.fields.findIndex((field: any) => field.label === input.label)
+        const approveIndex = this.currentExpertise.approve.fields[updateFieldIndex].approve.findIndex((appr: any) => appr.email === this.currentSessionMail)
+        this.currentExpertise.approve.fields[updateFieldIndex].approve[approveIndex].value = input.value
+      });
+      if (!this.currentExpertise.risksData) {
+        this.currentExpertise.risksData = []
+      }
+      const findRisksDataIndex = this.currentExpertise.risksData.findIndex((riskData: any) => riskData.email === this.currentSessionMail)
+      if (findRisksDataIndex !== -1) {
+        this.currentExpertise.risksData[findRisksDataIndex].tableParams = this.riskData.tableParams
+        this.currentExpertise.risksData[findRisksDataIndex].analyzeTable = this.riskData.analyzeTable
+        this.currentExpertise.risksData[findRisksDataIndex].recommendationDescription = this.recommendationDescription
+      } else {
+        this.currentExpertise.risksData.push({
+          email: this.currentSessionMail,
+          tableParams: this.riskData.tableParams,
+          analyzeTable: this.riskData.analyzeTable,
+          recommendationDescription: this.recommendationDescription
+        })
+      }
+      if (this.currentExpertise.status === 'ОЦІНКА' && this.currentExpertise.risksData.length === this.currentExpertise.email.length) {
+        this.currentExpertise.status = 'ЗАКІНЧЕНО'
+      }
+      this.gradeCalculation()
+      this.httpService.updateExpertise(this.currentExpertise)
+        .subscribe((data: any) => {})
+    }
+  }
+
+  gradeCalculation() {
+    this.currentExpertise.approve.grade = 0
+    this.currentExpertise.approve.grade = (this.currentExpertise.approve.fields.reduce((prevField: number, nextFields: any) => {
+      const currentApproveIndex = nextFields.approve.findIndex((appr: any) => appr.email === this.currentSessionMail)
+      return nextFields.approve[currentApproveIndex].value ? prevField * nextFields.approve[currentApproveIndex].value : prevField
+    }, 1) ** (1 / this.currentExpertise.approve.fields.length)).toFixed(2)
+  }
+
   private debounceTimeout: any
   ngAfterContentInit(): void {
-    Object.keys(this.riskClassicGroupData).forEach((groupName: string) => {
-      this.analyzeTableData(groupName)
-      this.refreshModel(groupName)
-    })
-  }
-  refreshAllModel() {
-    clearTimeout(this.debounceTimeout)
-    this.debounceTimeout = setTimeout(() => {
-      Object.keys(this.riskClassicGroupData).forEach((groupName: string) => {
-        this.analyzeTableData(groupName)
-        this.refreshModel(groupName)
-      })
+    setTimeout(() => {
+      this.analyzeTableData()
+      this.refreshModel()
     }, 500)
   }
 
-  refreshModel(groupName: string) {
-    const targetPrevVersion: any = document.getElementById(`mobile-patent-suits-${groupName}`);
-    if (targetPrevVersion) {
+  refreshModel() {
+    let targetPrevVersion: any = document.getElementById('mobile-patent-suits-KO')
+    while (targetPrevVersion) {
       targetPrevVersion.remove();
+      targetPrevVersion = document.getElementById('mobile-patent-suits-KO')
     }
-    this.createCharts(groupName)
+    this.createCharts()
   }
 
-  analyzeTableData(groupName: string): void {
-    this.riskClassicGroupData[groupName].tableParams.td.forEach((el: any) => {
+  analyzeTableData(): void {
+    this.riskData.tableParams.td.forEach((el: any) => {
       const current: any = {
         connectionAmount: 0,
         mostPositiveConnectionAmount: 0,
@@ -270,76 +189,75 @@ export class ExpertsComponent implements AfterContentInit {
           }
           current.influenceAmount += el
         })
-      if (this.riskClassicGroupData[groupName].analyzeTable.mostConnectionAmount.value < current.connectionAmount) {
-        this.riskClassicGroupData[groupName].analyzeTable.mostConnectionAmount = { name: el[0], value: current.connectionAmount }
+      if (this.riskData.analyzeTable.mostConnectionAmount.value < current.connectionAmount) {
+        this.riskData.analyzeTable.mostConnectionAmount = { name: el[0], value: current.connectionAmount }
       }
-      if (this.riskClassicGroupData[groupName].analyzeTable.lessConnectionAmount.value > current.connectionAmount) {
-        this.riskClassicGroupData[groupName].analyzeTable.lessConnectionAmount = { name: el[0], value: current.connectionAmount }
+      if (this.riskData.analyzeTable.lessConnectionAmount.value > current.connectionAmount) {
+        this.riskData.analyzeTable.lessConnectionAmount = { name: el[0], value: current.connectionAmount }
       }
-      if (this.riskClassicGroupData[groupName].analyzeTable.mostNegativeConnectionAmount.value < current.mostNegativeConnectionAmount) {
-        this.riskClassicGroupData[groupName].analyzeTable.mostNegativeConnectionAmount = { name: el[0], value: current.mostNegativeConnectionAmount }
+      if (this.riskData.analyzeTable.mostNegativeConnectionAmount.value < current.mostNegativeConnectionAmount) {
+        this.riskData.analyzeTable.mostNegativeConnectionAmount = { name: el[0], value: current.mostNegativeConnectionAmount }
       }
-      if (this.riskClassicGroupData[groupName].analyzeTable.mostPositiveConnectionAmount.value < current.mostPositiveConnectionAmount) {
-        this.riskClassicGroupData[groupName].analyzeTable.mostPositiveConnectionAmount = { name: el[0], value: current.mostPositiveConnectionAmount }
+      if (this.riskData.analyzeTable.mostPositiveConnectionAmount.value < current.mostPositiveConnectionAmount) {
+        this.riskData.analyzeTable.mostPositiveConnectionAmount = { name: el[0], value: current.mostPositiveConnectionAmount }
       }
-      if (this.riskClassicGroupData[groupName].analyzeTable.mostInfluenceAmount.value < current.influenceAmount) {
-        this.riskClassicGroupData[groupName].analyzeTable.mostInfluenceAmount = { name: el[0], value: current.influenceAmount }
+      if (this.riskData.analyzeTable.mostInfluenceAmount.value < current.influenceAmount) {
+        this.riskData.analyzeTable.mostInfluenceAmount = { name: el[0], value: current.influenceAmount }
       }
-      if (this.riskClassicGroupData[groupName].analyzeTable.lessInfluenceAmount.value > current.influenceAmount) {
-        this.riskClassicGroupData[groupName].analyzeTable.lessInfluenceAmount = { name: el[0], value: current.influenceAmount }
+      if (this.riskData.analyzeTable.lessInfluenceAmount.value > current.influenceAmount) {
+        this.riskData.analyzeTable.lessInfluenceAmount = { name: el[0], value: current.influenceAmount }
       }
     })
   }
 
-
-  onTableChange(newData: any, rowName: string, index: number, groupName: string) {
+  onTableChange(newData: any, rowName: string, index: number) {
     clearTimeout(this.debounceTimeout)
     this.debounceTimeout = setTimeout(() => {
-      const rowIndex: number = this.riskClassicGroupData[groupName].tableParams.td.findIndex((el: any) => el[0] === rowName)
-      this.riskClassicGroupData[groupName].tableParams.td[rowIndex][index] = newData
-      this.analyzeTableData(groupName)
-      this.refreshModel(groupName)
-    }, 1000)
+      const rowIndex: number = this.riskData.tableParams.td.findIndex((el: any) => el[0] === rowName)
+      this.riskData.tableParams.td[rowIndex][index] = newData
+      this.analyzeTableData()
+      this.refreshModel()
+    }, 500)
   }
 
-  onChange(newObj: any, groupName: string, indexInput: number) {
-    const groupIndex: number = this.inputs.risksClassic.findIndex((el: any) => el.name === groupName)
+  onChange(newObj: any, indexInput: number) {
     const paramsCogModel: any = []
-    this.riskClassicGroupData[groupName].tableParams.td.forEach((td: any) => {
+    const tableInfluenceIndex = this.riskData.tableParams.th.findIndex((key: string) => key === this.inputs[indexInput].label)
+    this.riskData.tableParams.td.forEach((td: any) => {
       const influence: any = []
       td.forEach((elTd: any, tdIndex: number) => {
         if (!isNaN(elTd) && elTd !== 0) {
-          influence.push({ name: this.riskClassicGroupData[groupName].tableParams.th[tdIndex], value: elTd })
+          influence.push({ name: this.riskData.tableParams.th[tdIndex], value: elTd })
         }
       })
       paramsCogModel.push({ name: td[0], influence })
     })
     paramsCogModel
-      .find((el: any) => el.name === this.inputs.risksClassic[groupIndex].inputs[indexInput].label)
+      .find((el: any) => el.name === this.inputs[indexInput].label)
       .influence.forEach((inf: any) => {
-        const indexParams: number = this.inputs.risksClassic[groupIndex].inputs.findIndex((el: any) => el.label === inf.name)
+        const indexParams: number = this.inputs.findIndex((el: any) => el.label === inf.name)
         if (indexParams > -1) {
-          this.inputs.risksClassic[groupIndex].inputs[indexParams].value =
-            this.inputs.risksClassic[groupIndex].inputs[indexParams].value +
-            (newObj - this.inputs.risksClassic[groupIndex].inputs[indexInput].value) * inf.value
-          if (this.inputs.risksClassic[groupIndex].inputs[indexParams].value < 0) {
-            this.inputs.risksClassic[groupIndex].inputs[indexParams].value = 0
+          this.inputs[indexParams].value =
+            this.inputs[indexParams].value +
+            (newObj - this.inputs[indexInput].value) * inf.value
+          if (this.inputs[indexParams].value < 0) {
+            this.inputs[indexParams].value = 0
           }
         }
       })
-    this.inputs.risksClassic[groupIndex].inputs[indexInput].value = newObj
+    this.inputs[indexInput].value = newObj
   }
 
-  async createCharts(groupName: string) {
+  async createCharts() {
     const links: any = []
-    this.riskClassicGroupData[groupName].tableParams.td.forEach((td: any) => {
+    this.riskData.tableParams.td.forEach((td: any) => {
       td.forEach((elTd: any, tdIndex: number) => {
         if (!isNaN(elTd) && elTd !== 0) {
           links.push({
             source: td[0].match('page') ? td[0].split('.')[td[0].split('.').length - 1] : td[0],
-            target: this.riskClassicGroupData[groupName].tableParams.th[tdIndex].match('page') ?
-              this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.')[this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.').length - 1] :
-              this.riskClassicGroupData[groupName].tableParams.th[tdIndex],
+            target: this.riskData.tableParams.th[tdIndex].match('page') ?
+              this.riskData.tableParams.th[tdIndex].split('.')[this.riskData.tableParams.th[tdIndex].split('.').length - 1] :
+              this.riskData.tableParams.th[tdIndex],
             type: elTd > 0 ? '+' : '-'
           })
         }
@@ -353,9 +271,9 @@ export class ExpertsComponent implements AfterContentInit {
       links
     };
     if (data.links.length) {
-      this.riskClassicGroupData[groupName].graph = { data: {} }
-      const chart = this.mobilePatentSuits(data, {svgId: `mobile-patent-suits-${groupName}`});
-      const elem: any = document.getElementById(`model-container-${groupName}`);
+      this.riskData.graph = { data: {} }
+      const chart = this.mobilePatentSuits(data, {svgId: 'mobile-patent-suits-KO'});
+      const elem: any = document.getElementById('model-container-KO');
       if (elem) {
         setTimeout(() => {
           elem.append(chart)
@@ -512,7 +430,7 @@ export class ExpertsComponent implements AfterContentInit {
     format = () => {},
     // TODO: type error
     // @ts-expect-error
-   unknown: formatUnknown,
+    unknown: formatUnknown,
     // TODO: type error
     // @ts-expect-error
     swatchSize = 15,
@@ -726,5 +644,4 @@ export class ExpertsComponent implements AfterContentInit {
 
     return svg.node();
   }
-
 }

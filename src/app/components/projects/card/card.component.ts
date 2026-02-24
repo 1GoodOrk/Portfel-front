@@ -85,13 +85,16 @@ export class CardComponent {
     this.httpService.getAllExpertise(this.currentProject._id)
       .subscribe((data: any) => {
         this.expertises = data
-        data.forEach((expertise: any, index: number) => {
-          this.resultCalculation(expertise, index)
-        })
+        // data.forEach((expertise: any, index: number) => {
+        //   this.resultCalculation(expertise, index)
+        // })
         this.expertises = this.expertises.map((expertise: any) => {
           expertise.expertName = expertise.email.map((item: any) => item.name).join(', ')
           return expertise
         })
+        if (this.user.type === 'EXPERT') {
+          this.expertises = this.expertises.filter((expertise: any) => expertise.email.find((item: any) => item.email === this.user.email))
+        }
       })
   }
 
@@ -99,9 +102,6 @@ export class CardComponent {
     const data: any = {
       email: this.selectedEmail,
       type: this.selectedType,
-      risksLean: {},
-      risksDigital: {},
-      risksClassic: {},
       recommendationDescription: '',
       status: 'НОВИЙ',
       approve: {}
@@ -166,10 +166,10 @@ export class CardComponent {
     this.navigate(`approve/${data._id}`)
   }
 
-  public updateExpertise(data: any, event: any) {
+  public updateExpertise(data: any, event: any, type: string) {
     event.stopPropagation()
     this.appCommunicationService.saveCurrentExpertise(data)
-    this.navigate(`expertise/${data._id}`)
+    this.navigate(`${type === 'KO' ? 'analyze-ko' : 'analyze-cld'}/${data._id}`)
   }
 
   public showInfoDialogExpertise(index: number): void {

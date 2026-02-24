@@ -31,64 +31,59 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
   styleUrl: './info-expertise-dialog.component.scss'
 })
 export class InfoDialogExpertiseComponent {
-  public current: any = {
-    risksLean: [],
-    risksDigital: [],
-    risksClassic: [],
-  }
-  public results: any = {
-    risksLean: { label: 'pages.project.science.risksLeanCalucationLabel', value: 0 },
-    risksDigital: { label: 'pages.project.science.risksDigitalCalucationLabel', value: 0 },
-    risksClassic: { label: 'pages.project.science.risksClassicCalucationLabel', value: 0 },
-  }
-  public infoPageProjectValueKeys: any = []
-  public riskClassicGroupData: any = {}
+  public current: any = {}
+  public risksData: any = []
 
   constructor (
     private router: Router,
     private appCommunicationService: AppCommunicationService,
   ) {
     this.current = this.appCommunicationService.getCurrentExpertise()
+    console.log(this.current)
     this.updateView()
-    this.resultCalculation()
+    // this.resultCalculation()
   }
 
   public updateView() {
-    this.infoPageProjectValueKeys = [
-      ...this.appCommunicationService.getInfoPageProjectValueKeys('risksLean'),
-      ...this.appCommunicationService.getInfoPageProjectValueKeys('risksDigital'),
-      ...this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current)
-    ]
-    Array.from(this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current))
-      .filter((el: any) => el.type && el.type !== 'divider')
-      .forEach((el: any) => {
-        console.log(el.label, this.current.risksClassicTables)
-        this.riskClassicGroupData[el.label] = {
-          tableParams: Object.assign(this.current.risksClassicTables[el.label].tableParams),
-          analyzeTable: Object.assign(this.current.risksClassicTables[el.label].analyzeTable),
+    // this.infoPageProjectValueKeys = [
+    //   ...this.appCommunicationService.getInfoPageProjectValueKeys('risksLean'),
+    //   ...this.appCommunicationService.getInfoPageProjectValueKeys('risksDigital'),
+    //   ...this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current)
+    // ]
+    this.current.risksData
+    // Array.from(this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current))
+    //   .filter((el: any) => el.type && el.type !== 'divider')
+      .forEach((el: any, index: number) => {
+
+        this.risksData.push({
+          expert: this.current.email.find((mail: any) => mail.email === el.email).name,
+          tableParams: el.tableParams,
+          analyzeTable: el.analyzeTable,
+          recommendationDescription: el.recommendationDescription,
+          fields: this.current.approve.fields.map((field: any) => ({ label: field.label, value: field.approve.find((appr: any) => appr.email === el.email).value })),
           graph: {}
-        }
-        console.log(this.riskClassicGroupData[el.label].tableParams)
-        this.createCharts(el.label)
+        })
+        console.log(this.risksData)
+        this.createCharts(index)
       })
   }
 
   private resultCalculation(): void {
-    Object.keys(this.current.risksLean).forEach((key: string) => {
-      this.results.risksLean.value += this.current.risksLean[key]
-    })
-    this.results.risksLean.value = (this.results.risksLean.value / Object.keys(this.current.risksLean).length).toFixed(2)
-    Object.keys(this.current.risksDigital).forEach((key: string) => {
-      this.results.risksDigital.value += this.current.risksDigital[key]
-    })
-    this.results.risksDigital.value = (this.results.risksDigital.value / Object.keys(this.current.risksDigital).length).toFixed(2)
-    Object.keys(this.current.risksClassic).forEach((keyGroup: string) => {
-      this.results.risksClassic.value += Object.keys(this.current.risksClassic[keyGroup])
-        .reduce((prev: number, next: any) => this.current.risksClassic[keyGroup][next] ?
-          prev * this.current.risksClassic[keyGroup][next] :
-          prev, 1) ** (1 / Object.keys(this.current.risksClassic[keyGroup]).length)
-    })
-    this.results.risksClassic.value = this.results.risksClassic.value.toFixed(2)
+    // Object.keys(this.current.risksLean).forEach((key: string) => {
+    //   this.results.risksLean.value += this.current.risksLean[key]
+    // })
+    // this.results.risksLean.value = (this.results.risksLean.value / Object.keys(this.current.risksLean).length).toFixed(2)
+    // Object.keys(this.current.risksDigital).forEach((key: string) => {
+    //   this.results.risksDigital.value += this.current.risksDigital[key]
+    // })
+    // this.results.risksDigital.value = (this.results.risksDigital.value / Object.keys(this.current.risksDigital).length).toFixed(2)
+    // Object.keys(this.current.risksClassic).forEach((keyGroup: string) => {
+    //   this.results.risksClassic.value += Object.keys(this.current.risksClassic[keyGroup])
+    //     .reduce((prev: number, next: any) => this.current.risksClassic[keyGroup][next] ?
+    //       prev * this.current.risksClassic[keyGroup][next] :
+    //       prev, 1) ** (1 / Object.keys(this.current.risksClassic[keyGroup]).length)
+    // })
+    // this.results.risksClassic.value = this.results.risksClassic.value.toFixed(2)
   }
 
   public navigate(path: string) {
@@ -99,16 +94,16 @@ export class InfoDialogExpertiseComponent {
     this.navigate('cog-model')
   }
 
-  async createCharts(groupName: string) {
+  async createCharts(index: number) {
     const links: any = []
-    this.riskClassicGroupData[groupName].tableParams.td.forEach((td: any) => {
+    this.risksData[index].tableParams.td.forEach((td: any) => {
       td.forEach((elTd: any, tdIndex: number) => {
         if (!isNaN(elTd) && elTd !== 0) {
           links.push({
             source: td[0].match('page') ? td[0].split('.')[td[0].split('.').length - 1] : td[0],
-            target: this.riskClassicGroupData[groupName].tableParams.th[tdIndex].match('page') ?
-              this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.')[this.riskClassicGroupData[groupName].tableParams.th[tdIndex].split('.').length - 1] :
-              this.riskClassicGroupData[groupName].tableParams.th[tdIndex],
+            target: this.risksData[index].tableParams.th[tdIndex].match('page') ?
+              this.risksData[index].tableParams.th[tdIndex].split('.')[this.risksData[index].tableParams.th[tdIndex].split('.').length - 1] :
+              this.risksData[index].tableParams.th[tdIndex],
             type: elTd > 0 ? '+' : '-'
           })
         }
@@ -122,11 +117,11 @@ export class InfoDialogExpertiseComponent {
       links
     };
 
-    const chart = this.mobilePatentSuits(data, {svgId: `mobile-patent-suits-${groupName}`});
+    const chart = this.mobilePatentSuits(data, {svgId: `mobile-patent-suits-KO-${[index]}`});
     // const chartSwatches = this.swatches(chart.scales.color);
     if (links.length) {
       setTimeout(() => {
-        const elem: any = document.getElementById(`model-container-${groupName}`);
+        const elem: any = document.getElementById(`model-container-KO-${[index]}`);
         elem.append(chart)
       }, 500)
     }

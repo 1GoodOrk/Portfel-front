@@ -12,7 +12,6 @@ import { CardComponent } from '../card/card.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { ExpertisesAnalyzeComponent } from '../expertises-analyze/expertises-analyze.component';
 
 @Component({
   selector: 'app-main',
@@ -25,8 +24,7 @@ import { ExpertisesAnalyzeComponent } from '../expertises-analyze/expertises-ana
     FooterComponent,
     CardComponent,
     TooltipModule,
-    InfoDialogComponent,
-    ExpertisesAnalyzeComponent
+    InfoDialogComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

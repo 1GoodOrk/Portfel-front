@@ -38,6 +38,12 @@ body {
   right: 20px;
 }
 
+body {
+  background-image: url('./asserts/main.jpeg');
+  backdrop-filter: blur(5px);
+  background-size: cover;
+}
+
 html {
   font-size: 14px;
   font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -75,7 +81,7 @@ p-button {
 .no-border {
   border: 0;
 }
-// rgb(27, 93, 171) - чдту
+
 .column {
   flex-direction: column !important;
 }

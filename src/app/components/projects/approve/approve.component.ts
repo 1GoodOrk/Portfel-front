@@ -126,6 +126,9 @@ export class ApproveComponent {
     if (selectedFieldsIndex > -1) {
       this.selectedFields.splice(selectedFieldsIndex, 1)
     }
+    if (this.current.approve.fields[index]) {
+      this.current.approve.fields.splice(index, 1)
+    }
     this.fieldsToApprove.splice(index, 1)
   }
 
@@ -159,10 +162,10 @@ export class ApproveComponent {
     }
   }
 
-
-
   public updateExpertise(): void {
-    if (this.current.status === 'НОВИЙ') {
+    if (this.current.status === 'НОВИЙ' && this.current.type === 'CLD') {
+      this.current.status = 'ВАГА ОЦІНКИ'
+    } else if (this.current.status === 'НОВИЙ') {
       this.current.status = 'ПОГОДЖЕННЯ'
     }
     if (!this.current.approve.fields) {

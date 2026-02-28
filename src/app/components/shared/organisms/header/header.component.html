@@ -1,8 +1,14 @@
 <header>
-  <p-menubar [model]="items">
+  <p-menubar [model]="items" [style]="{
+    'background-color': '#1d4ed8',
+    'border-color': '#1d4ed8',
+    'color': 'white'
+  }">
     <ng-template #start>
       <div (click)="navigate('main')">
-        <p-avatar image="https://cdn-icons-png.flaticon.com/512/11604/11604264.png" shape="circle" />
+        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
+        <!-- <img src="/" alt="">
+        <p-avatar image="../../../../../../public/Logo-CLD.jpg" shape="circle" /> -->
       </div>
     </ng-template>
     <ng-template #item let-item let-root="root">
@@ -12,7 +18,7 @@
         tooltipPosition="right"
         (click)="navigate(item.path)"
         class="flex items-center p-menubar-item-link">
-        <span>{{`pages.main.header.${item.label}` | translate}}</span>
+        <span [style]="{'color': 'white'}">{{`pages.main.header.${item.label}` | translate}}</span>
       </a>
     </ng-template>
     <ng-template #end>

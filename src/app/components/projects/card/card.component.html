@@ -18,11 +18,20 @@
           [ngModelOptions]="{ standalone: true }"
           [showClear]="true"
           class="w-full md:w-56" />
+        @if (selectedType === 'CLD') {
+          <p-select
+            name="selectedGeneralExperts"
+            [options]="selectedEmail"
+            [(ngModel)]="selectedGeneralExperts"
+            [ngModelOptions]="{ standalone: true }"
+            optionLabel="organization"
+            [showClear]="true"
+            class="w-full md:w-56" />
+        }
         <p-button
           [label]="'pages.project.science.addNewExpertiseButtonLabel' | translate"
-          [pTooltip]="'pages.project.science.addNewExpertiseButtonTooltip' | translate"
-          [outlined]="true"
-          [disabled]="!selectedEmail"
+          pTooltip="Натисніть, щоб створити нову експертизу"
+          [disabled]="!selectedEmail || !selectedType || (selectedType === 'CLD' && !selectedGeneralExperts)"
           severity="primary"
           (click)="createExpertise()" />
       </div>
@@ -42,7 +51,7 @@
           <ng-template #title> <span class="bold">{{'pages.project.science.expertEmailLabel' | translate}} </span></ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.project.science.statusLabel' | translate}}:</span>
             <span class="bold" [style]="{ 'color': expertise.status === 'НОВИЙ' ?
-              'darkorange' : expertise.status === 'ПОГОДЖЕННЯ' ?
+              'darkorange' : expertise.status === 'ПОГОДЖЕННЯ' || expertise.status === 'ВАГА ОЦІНКИ' ?
               'firebrick' : expertise.status === 'ОЦІНКА' ?
               'darkcyan' : 'darkblue'}"> {{expertise.status | translate}}</span>
           </ng-template>
@@ -67,14 +76,23 @@
                   [pTooltip]="`${'pages.project.science.approveButtonTooltip' | translate}`"
                   severity="success"
                   (click)="approveExpertise(expertise, $event)"/>
-                @if (expertise.status !== 'НОВИЙ' && expertise.status !== 'ПОГОДЖЕННЯ' && expertise.approve.consistency >= 0.5) {
+                @if (expertise.status !== 'НОВИЙ' && expertise.status !== 'ПОГОДЖЕННЯ') {
                   @if (expertise.type === 'CLD') {
-                    <p-button
-                      label="CLD"
-                      [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
-                      severity="warn"
-                      (click)="updateExpertise(expertise, $event, 'CLD')"/>
-                  } @else {
+                    @if (expertise.approve.weigth) {
+                      <p-button
+                        label="CLD"
+                        [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
+                        severity="warn"
+                        (click)="updateExpertise(expertise, $event, 'CLD')"/>
+                    }
+                    @if (expertise.generalExperts && expertise.generalExperts.email === this.user.email) {
+                      <p-button
+                        label="CLD Критерії"
+                        [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"
+                        severity="danger"
+                        (click)="updateExpertiseWeight(expertise, $event, 'CLD')"/>
+                    }
+                  } @else if (expertise.approve.consistency >= 0.5) {
                     <p-button
                       label="KO"
                       [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"

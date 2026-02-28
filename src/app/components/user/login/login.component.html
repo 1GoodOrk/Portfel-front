@@ -3,16 +3,23 @@
     <p-progress-spinner ariaLabel="loading" />
   </div>
 }
-<div class="selector-lang">
+<!-- <div class="selector-lang">
   <p-select
   [options]="languages"
   (onChange)="changeLanguage()"
   [(ngModel)]="selectedLanguage"
   placeholder="Select a Language"
   class="w-full md:w-56" />
-</div>
+</div> -->
 <main class="login">
-  <p-card [header]="'pages.user.login.header' | translate" [style]="{'min-width': '300px'}">
+  <p-card [header]="'pages.user.login.header' | translate" [style]="{'min-width': '390px'}">
+    <ng-template #header>
+      <div class="logo-container">
+        <img class="logo" src="/Chdtu.JPG" alt="">
+        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
+        <img class="logo" src="/Gerb.jpg" alt="">
+      </div>
+    </ng-template>
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
       <div class="flex flex-col gap-1">
         <input
@@ -79,7 +86,7 @@
             [label]="'pages.user.login.buttonSubmit' | translate"
             [pTooltip]="'pages.user.login.submitTolltip'  | translate"
             tooltipPosition="bottom"
-            severity="success"
+            severity="primary"
             type="submit" />
         } @else {
           <p-button
@@ -97,19 +104,19 @@
             }
           </p-message>
         }
-        <div class="buttons">
+        <div class="buttons space-between">
           <p-button
             label="Реєстрація власника"
             [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
             tooltipPosition="bottom"
-            severity="secondary"
+            severity="primary"
             type="button"
             (click)="navigate('registration-owner')" />
           <p-button
             label="Реєстрація експерта"
             [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
             tooltipPosition="bottom"
-            severity="secondary"
+            severity="primary"
             type="button"
             (click)="navigate('registration-expert')" />
         </div>

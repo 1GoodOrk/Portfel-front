@@ -1,0 +1,390 @@
+<app-header></app-header>
+<section class="additional-cld">
+  <p-button
+    [label]="'pages.project.science.backButtonFullLabel' | translate"
+    [pTooltip]="'pages.project.science.backButtonFullTooltip' | translate"
+    severity="secondary"
+    (click)="back()" />
+  <div class="container form-container">
+    <div class="form-container column">
+      <h2>
+        <span class="bold">Вага значущої категорії (Wz) 0-100: </span>
+        <span class="bold" [style]="{ 'color': weight.lean + weight.digital + weight.classic > 100 ?
+          'firebrick' : 'darkblue'}">{{weight.lean + weight.digital + weight.classic}}%</span>
+      </h2>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Wlean</label>
+        <p-inputnumber
+          inputId="Wlean"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення ваги не перевищувало 100%"
+          tooltipPosition="right"
+          name="Wlean"
+          [(ngModel)]="weight.lean"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Wdigital</label>
+        <p-inputnumber
+          inputId="Wd"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення ваги не перевищувало 100%"
+          tooltipPosition="right"
+          name="Wdigital"
+          [(ngModel)]="weight.digital"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Wclassic</label>
+        <p-inputnumber
+          inputId="Wc"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення ваги не перевищувало 100%"
+          tooltipPosition="right"
+          name="Wclassic"
+          [(ngModel)]="weight.classic"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+    </div>
+  </div>
+
+  <div class="container form-container">
+    <div class="form-container column">
+      <h2>
+        <span class="bold">Класичні вагові коефіцієнти 0-100: </span>
+        <span class="bold" [style]="{ 'color': wcoef.quality + wcoef.money + wcoef.time > 100 ?
+          'firebrick' : 'darkblue'}">{{wcoef.quality + wcoef.money + wcoef.time}}%</span>
+      </h2>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Якість</label>
+        <p-inputnumber
+          inputId="Якість"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Якість"
+          [(ngModel)]="wcoef.quality"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Гроші</label>
+        <p-inputnumber
+          inputId="Гроші"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Гроші"
+          [(ngModel)]="wcoef.money"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Час</label>
+        <p-inputnumber
+          inputId="Час"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Час"
+          [(ngModel)]="wcoef.time"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+    </div>
+  </div>
+
+  <div class="container form-container">
+    <div class="form-container column">
+      <h2>
+        <span class="bold">Вагові коефіцієнти LEAN 0-100: </span>
+        <span class="bold" [style]="{ 'color': wlean.defect + wlean.waiting + wlean.overproduct + wlean.motion + wlean.proccessing + wlean.transporting + wlean.talents > 100 ?
+          'firebrick' : 'darkblue'}">{{wlean.defect + wlean.waiting + wlean.overproduct + wlean.motion + wlean.proccessing + wlean.transporting + wlean.talents}}%</span>
+      </h2>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Дефекти</label>
+        <p-inputnumber
+          inputId="Дефекти"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Дефекти"
+          [(ngModel)]="wlean.defect"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Очікування</label>
+        <p-inputnumber
+          inputId="Очікування"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Очікування"
+          [(ngModel)]="wlean.waiting"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Надвиробництво</label>
+        <p-inputnumber
+          inputId="Надвиробництво"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Надвиробництво"
+          [(ngModel)]="wlean.overproduct"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Зайві переміщення</label>
+        <p-inputnumber
+          inputId="Зайві переміщення"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Зайві переміщення"
+          [(ngModel)]="wlean.motion"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Зайва обробка</label>
+        <p-inputnumber
+          inputId="Зайва обробка"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Зайва обробка"
+          [(ngModel)]="wlean.proccessing"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Зайве транспортування</label>
+        <p-inputnumber
+          inputId="Зайве транспортування"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Зайве транспортування"
+          [(ngModel)]="wlean.transporting"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="name" class="bold">Нереалізований потенціал працівників</label>
+        <p-inputnumber
+          inputId="Нереалізований потенціал працівників"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Нереалізований потенціал працівників"
+          [(ngModel)]="wlean.talents"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+    </div>
+  </div>
+  <div class="container form-container">
+    <div class="form-container column">
+      <div class="flex flex-col gap-1">
+        <h2>
+          <span class="bold">Ваговий коефіцієнт DIGITAL 0-100: </span>
+          <span class="bold" [style]="{ 'color': dig > 100 ? 'firebrick' : 'darkblue'}">{{dig}}%</span>
+        </h2>
+        <p-inputnumber
+          inputId="Вагові коефіцієнти DIGITAL"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          pTooltip="Введіть значення, щоб загальне значення не перевищувало 100%"
+          tooltipPosition="right"
+          name="Вагові коефіцієнти DIGITAL"
+          [(ngModel)]="dig"
+          [ngModelOptions]="{ standalone: true }"
+          required
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          [minFractionDigits]="0" >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+      </div>
+    </div>
+  </div>
+  <div class="flex pt-6 justify-end">
+    <p-button
+      [label]="'pages.project.science.updateExpertiseButtonLabel' | translate"
+      [pTooltip]="'pages.project.science.updateExpertiseButtonTooltip' | translate"
+      severity="primary"
+      (click)="updateExpertise()" />
+  </div>
+
+</section>
+
+<app-footer></app-footer>

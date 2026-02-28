@@ -6,7 +6,7 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideTranslateService } from "@ngx-translate/core";
-
+import ColorPreset from './color-preset'
 import Aura from '@primeuix/themes/aura';
 
 import { routes } from './app.routes';
@@ -25,10 +25,10 @@ export const appConfig: ApplicationConfig = {
     }),
     providePrimeNG({
       theme: {
-        preset: Aura,
-        options: {
-          darkModeSelector: '.my-app-dark'
-        }
+        preset: ColorPreset,
+        // options: {
+        //   darkModeSelector: '.my-app-dark'
+        // }
       }
     })
   ]

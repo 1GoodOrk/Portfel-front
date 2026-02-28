@@ -10,36 +10,36 @@
   </div>
 
   <div>
-    <p-stepper [value]="1" class="basis-[50rem]">
+    <!-- <p-stepper [value]="1" class="basis-[50rem]">
       <p-step-list>
         <p-step [value]="1">{{'pages.project.science.risks' | translate}}</p-step>
         <p-step [value]="2">{{'pages.project.science.result' | translate}}</p-step>
       </p-step-list>
       <p-step-panels>
         <p-step-panel [value]="1">
-          <ng-template #content let-activateCallback="activateCallback">
+          <ng-template #content let-activateCallback="activateCallback"> -->
             <div class="flex flex-col h-48">
               <app-cog-card></app-cog-card>
             </div>
-            <div class="flex pt-6 justify-end">
+            <!-- <div class="flex pt-6 justify-end">
               <p-button
                 [label]="`${'pages.project.science.nextButton' | translate}`"
                 [pTooltip]="'pages.project.science.nextButtonTooltip' | translate"
                 tooltipPosition="top"
                 severity="primary"
                 (click)="activateCallback(2)"/>
-            </div>
-          </ng-template>
-        </p-step-panel>
+            </div> -->
+          <!-- </ng-template>
+        </p-step-panel> -->
 
-        <p-step-panel [value]="2">
-          <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col h-48">
-              <div>
+        <!-- <p-step-panel [value]="2">
+          <ng-template #content let-activateCallback="activateCallback"> -->
+            <!-- <div class="flex flex-col h-48">
+              <div> -->
                 <!-- <app-expertises-analyze></app-expertises-analyze> -->
-              </div>
-            </div>
-            <div class="flex pt-6 justify-between">
+              <!-- </div>
+            </div> -->
+            <!-- <div class="flex pt-6 justify-between">
               <p-button
                 [label]="`${'pages.project.science.backButton' | translate}`"
                 [pTooltip]="'pages.project.science.backButtonTooltip' | translate"
@@ -50,7 +50,7 @@
           </ng-template>
         </p-step-panel>
       </p-step-panels>
-    </p-stepper>
+    </p-stepper> -->
   </div>
 </main>
 <app-footer></app-footer>

@@ -297,27 +297,31 @@ export class AppCommunicationService {
       })
     return inputs
   }
-  public getInfoPageKOValueKeys(valueKeysSetName: string): any {
-    // return this.infoPageProjectValueKeys[valueKeysSetName]
-    // { "propName": "burden", "mainProp": "risksLean", "label": "pages.project.science.burdenLabel" }
-  }
 
   public getDynamicCLDInputsForm(data: any, userEmail: string, inputs: any): any {
     data
       .forEach((field: any) => {
         const currentApprove = field.approve.find((app: any) => app.email === userEmail)
         inputs.push({
+          type: 'rating',
+          displayCondition: true,
+          name: field.label,
+          label: `Вплив поля '${field.label}'`,
+          pTooltip: `Задати дані для впливу поля ${field.label}`,
+          value: currentApprove.quality,
+        })
+        inputs.push({
           type: 'number',
           displayCondition: true,
           name: field.label,
-          label: `Вплив поля ${field.label}`,
-          pTooltip: `Задати дані для впливу поля ${field.label}`,
+          label: `Ймовірність ризику '${field.label}'`,
+          pTooltip: `Задати дані для ймовірність виникнення поля ${field.label}`,
           errors: {
             required: ''
           },
-          value: currentApprove.quality,
+          value: currentApprove.value,
           min: 0,
-          max: 100000,
+          max: 100,
           step: 1,
         })
         inputs.push({
@@ -331,9 +335,71 @@ export class AppCommunicationService {
           },
           value: currentApprove.value,
           min: 0,
-          max: 100000,
+          max: 100,
           step: 1,
         })
+        inputs.push({
+          "type": "selector",
+          "displayCondition": true,
+          "name": "staff",
+          "label": 'Моделюючий коефіцієнт цифровізації',
+          "pTooltip": `Задати дані для моделюючого коефіцієнту цифровізації ризику '${field.label}'`,
+          "value": "",
+          "refName": "staff",
+          "items": [
+            { "label": "Нульовий", "value": "0.01" },
+            { "label": "Локальний", "value": "0.19" },
+            { "label": "Системний", "value": "0.3" },
+            { "label": "Інфраструктурний", "value": "0.5" }
+          ]
+        })
+        inputs.push({
+          "type": "radio-options",
+          "displayCondition": true,
+          "name": "staff",
+          "label": 'Моделюючий коефіцієнт lean',
+          "pTooltip": `Задати дані для моделюючого коефіцієнту lean ризику '${field.label}'`,
+          "value": [],
+          "refName": "staff",
+          "items": [
+            { "label": "Дефекти", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
+            { "label": "Очікування", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
+            { "label": "Надвиробництво", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
+            { "label": "Зайві переміщення", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
+            { "label": "Зайва обробка", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
+            { "label": "Зайве транспортування", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
+            { "label": "Нереалізований потенціал працівників", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] }
+          ]
+        })
+        inputs.push({
+          "type": "radio-options",
+          "displayCondition": true,
+          "name": "staff",
+          "label": 'Моделюючий коефіцієнт classic',
+          "pTooltip": `Задати дані для моделюючого коефіцієнту classic ризику '${field.label}'`,
+          "value": [],
+          "refName": "staff",
+          "items": [
+            { "label": "Вплив на якість", "value": 0, options: [0, 0.5, 1] },
+            { "label": "Вплив на гроші", "value": 0, options: [0, 0.5, 1] },
+            { "label": "Вплив на час", "value": 0, options: [0, 0.5, 1] }
+          ]
+        })
+        inputs.push({
+          type: 'number',
+          displayCondition: true,
+          name: field.label,
+          label: `Керованість ризику '${field.label}'`,
+          pTooltip: `Задати дані для керованість ризику ${field.label}`,
+          errors: {
+            required: ''
+          },
+          value: currentApprove.value,
+          min: 0,
+          max: 100,
+          step: 1,
+        })
+        inputs.push({ type: 'line', displayCondition: true })
       })
     return inputs
   }

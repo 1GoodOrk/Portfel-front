@@ -55,10 +55,12 @@ export class CardComponent {
   }
   public user: any = {}
   public experts: any = []
+  public generalExperts: any = []
   public expertises: any = []
   public newInputName: any = []
   public newGroupName: any = ''
   public selectedEmail: any = []
+  public selectedGeneralExperts: any = ''
   public types: any = ['CLD', 'КО']
   public selectedType: any = ''
   public results: any = []
@@ -84,17 +86,16 @@ export class CardComponent {
   public getAllExpertise() {
     this.httpService.getAllExpertise(this.currentProject._id)
       .subscribe((data: any) => {
-        this.expertises = data
-        // data.forEach((expertise: any, index: number) => {
-        //   this.resultCalculation(expertise, index)
-        // })
-        this.expertises = this.expertises.map((expertise: any) => {
+        this.expertises = data.map((expertise: any) => {
           expertise.expertName = expertise.email.map((item: any) => item.name).join(', ')
           return expertise
         })
         if (this.user.type === 'EXPERT') {
           this.expertises = this.expertises.filter((expertise: any) => expertise.email.find((item: any) => item.email === this.user.email))
         }
+        this.expertises.map((expertise: any) => {
+          return expertise
+        });
       })
   }
 
@@ -106,48 +107,29 @@ export class CardComponent {
       status: 'НОВИЙ',
       approve: {}
     }
+    if (this.selectedType === 'CLD') {
+      data.generalExperts = { name: this.selectedGeneralExperts.organization, email: this.selectedGeneralExperts.email }
+    }
     data.email = data.email.map((item: any) => ({ name: item.organization, email: item.email }))
-    this.inputs.risksLean.forEach((el: any) => {
-      data.risksLean[el.name] = el.value
-    })
-    this.inputs.risksDigital.forEach((el: any) => {
-      data.risksDigital[el.name] = el.value
-    })
-    this.inputs.risksClassic.forEach((el: any) => {
-      data.risksClassic[el.name] = {}
-      el.inputs.forEach((input: any) => {
-        data.risksClassic[el.name][input.name] = input.value
-      })
-    })
+    // this.inputs.risksLean.forEach((el: any) => {
+    //   data.risksLean[el.name] = el.value
+    // })
+    // this.inputs.risksDigital.forEach((el: any) => {
+    //   data.risksDigital[el.name] = el.value
+    // })
+    // this.inputs.risksClassic.forEach((el: any) => {
+    //   data.risksClassic[el.name] = {}
+    //   el.inputs.forEach((input: any) => {
+    //     data.risksClassic[el.name][input.name] = input.value
+    //   })
+    // })
     this.httpService.addExpertise(data, this.currentProject._id)
       .subscribe((data: any) => {
         this.selectedEmail = []
         this.selectedType = ''
+        this.selectedGeneralExperts = {}
         this.getAllExpertise()
     })
-  }
-
-  private resultCalculation(current: any, index: number): void {
-    this.results.push({
-      risksLean: { label: 'pages.project.science.risksLeanLabel', value: 0 },
-      risksDigital: { label: 'pages.project.science.risksDigitalLabel', value: 0 },
-      risksClassic: { label: 'pages.project.science.risksClassicLabel', value: 0 },
-    })
-    Object.keys(current.risksLean).forEach((key: string) => {
-      this.results[index].risksLean.value += current.risksLean[key]
-    })
-    this.results[index].risksLean.value = (this.results[index].risksLean.value / Object.keys(current.risksLean).length).toFixed(2)
-    Object.keys(current.risksDigital).forEach((key: string) => {
-      this.results[index].risksDigital.value += current.risksDigital[key]
-    })
-    this.results[index].risksDigital.value = (this.results[index].risksDigital.value / Object.keys(current.risksDigital).length).toFixed(2)
-    Object.keys(current.risksClassic).forEach((keyGroup: string) => {
-      this.results[index].risksClassic.value += Object.keys(current.risksClassic[keyGroup])
-        .reduce((prev: number, next: any) => current.risksClassic[keyGroup][next] ?
-          prev * current.risksClassic[keyGroup][next] :
-          prev, 1) ** (1 / Object.keys(current.risksClassic[keyGroup]).length)
-    })
-    // this.results[index].risksClassic.value = this.results[index].risksClassic.value.toFixed(2)
   }
 
   public removeExpertise(id: string, event: any) {
@@ -170,6 +152,12 @@ export class CardComponent {
     event.stopPropagation()
     this.appCommunicationService.saveCurrentExpertise(data)
     this.navigate(`${type === 'KO' ? 'analyze-ko' : 'analyze-cld'}/${data._id}`)
+  }
+
+  public updateExpertiseWeight(data: any, event: any, type: string) {
+    event.stopPropagation()
+    this.appCommunicationService.saveCurrentExpertise(data)
+    this.navigate(`analyze-cld-additional/${data._id}`)
   }
 
   public showInfoDialogExpertise(index: number): void {

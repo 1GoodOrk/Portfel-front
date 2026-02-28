@@ -14,11 +14,11 @@ export const routes: Routes = [
   {path: 'terms', loadComponent: () => import('./components/main/terms/terms.component').then(mod => mod.TermsComponent)},
 
   {path: 'cog-model', loadComponent: () => import('./components/projects/main/main.component').then(mod => mod.MainComponent)},
-  // {path: 'expertise/:id', loadComponent: () => import('./components/projects/experts/experts.component').then(mod => mod.ExpertsComponent)},
   {path: 'approve/:id', loadComponent: () => import('./components/projects/approve/approve.component').then(mod => mod.ApproveComponent)},
   {path: 'expert/:id', loadComponent: () => import('./components/projects/info-expertise-dialog/info-expertise-dialog.component').then(mod => mod.InfoDialogExpertiseComponent)},
   {path: 'analyze-ko/:id', loadComponent: () => import('./components/projects/analyze/ko/ko.component').then(mod => mod.KOComponent)},
   {path: 'analyze-cld/:id', loadComponent: () => import('./components/projects/analyze/cld/cld.component').then(mod => mod.CLDComponent)},
+  {path: 'analyze-cld-additional/:id', loadComponent: () => import('./components/projects/analyze/cld/additional/additional.component').then(mod => mod.AdditionalComponent)},
 
   {path: '**', redirectTo: '/login' },
 ];

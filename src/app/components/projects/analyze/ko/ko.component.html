@@ -3,7 +3,6 @@
   <p-button
     [label]="'pages.project.science.backButtonFullLabel' | translate"
     [pTooltip]="'pages.project.science.backButtonFullTooltip' | translate"
-    [disabled]="!form.valid"
     severity="secondary"
     (click)="back()" />
   <div class="container form-container">
@@ -18,8 +17,6 @@
             <p-step-panel [value]="1">
               <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                  <!-- <h1>{{'pages.project.science.risksLeanLabel' | translate}}</h1>
-                  <p-divider /> -->
                   @if (riskData.tableParams) {
                     <div class="table-container">
                       <p-table [value]="riskData.tableParams.td" [scrollable]="true" scrollHeight="400px" scrollWidth="400px"  [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
@@ -33,24 +30,7 @@
                         <ng-template #body let-tds>
                             <tr>
                               @for (td of tds; track `td-id-${td}${$index}`) {
-                                @if ($index === 0) {
-                                  <td [id]="`td-id-${td}`">{{ td  | translate }}</td>
-                                } @else if ($index !== 0 && tds[0] === riskData.tableParams.th[$index]) {
-                                  <td [id]="`td-id-${td}`">-</td>
-                                } @else if ($index !== 0) {
-                                  <td [style]="{ 'max-width': '50px'}" [id]="`td-id-${td}`">
-                                    <p-inputnumber
-                                      [inputId]="`td-id-${tds[0]}-${$index}-input`"
-                                      [ngModel]="td"
-                                      class="different"
-                                      [inputStyle]="{ width: '50px', border: '0', 'box-shadow': 'none' }"
-                                      (ngModelChange)="onTableChange($event, tds[0], $index)"
-                                      [ngModelOptions]="{ standalone: true }"
-                                      [step]="1"
-                                      [minFractionDigits]="0" >
-                                    </p-inputnumber>
-                                  </td>
-                                }
+                                <td [id]="`td-id-${td}`">{{ td  | translate }}</td>
                               }
                             </tr>
                         </ng-template>
@@ -106,7 +86,7 @@
             <p-step-panel [value]="2">
               <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                  <h1>{{'pages.project.science.risksLeanLabel' | translate}}</h1>
+                  <h1>Фактори ризику</h1>
                   <p-divider />
                   <div class="form-container column">
                     @for (input of inputs; track input) {

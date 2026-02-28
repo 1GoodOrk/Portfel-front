@@ -3,16 +3,23 @@
     <p-progress-spinner ariaLabel="loading" />
   </div>
 }
-<div class="selector-lang">
+<!-- <div class="selector-lang">
   <p-select
   [options]="languages"
   (onChange)="changeLanguage()"
   [(ngModel)]="selectedLanguage"
   placeholder="Select a Language"
   class="w-full md:w-56" />
-</div>
+</div> -->
 <main class="registrastion">
-  <p-card [header]="'pages.user.registration.header' | translate" [style]="{'min-width': '300px'}">
+  <p-card [header]="'pages.user.registration.header' | translate" [style]="{'min-width': '390px'}">
+    <ng-template #header>
+      <div class="logo-container">
+        <img class="logo" src="/Chdtu.JPG" alt="">
+        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
+        <img class="logo" src="/Gerb.jpg" alt="">
+      </div>
+    </ng-template>
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
       <div class="flex flex-col gap-1">
         <input

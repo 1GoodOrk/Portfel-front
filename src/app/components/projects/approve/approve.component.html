@@ -51,7 +51,6 @@
             @for (field of this.fieldsToApprove; track field) {
               <div class="flex space-between w-full">
                 <div class="flex align-center">
-                  <p><span class="bold">{{field.label | translate}}</span></p>
                   <p-button
                     icon="pi pi-times"
                     [rounded]="true"
@@ -59,6 +58,7 @@
                     (click)="removeField($index)"
                     pTooltip=""
                     severity="danger" />
+                  <p><span class="bold">{{field.label | translate}}</span></p>
                 </div>
                 <p-inputnumber
                   [inputId]="field.label + $index"

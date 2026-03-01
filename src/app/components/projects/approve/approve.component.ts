@@ -215,7 +215,7 @@ export class ApproveComponent {
       this.current.approve.fields.forEach((field: any) => {
         this.current.approve.consistency += (field.approve.map((el: any) => el.grade).reduce((p: number, n: number) => p + n) - ((this.current.email.length * (this.current.approve.fields.length + 1)) / 2)) ** 2
       });
-      this.current.approve.consistency = (this.current.approve.consistency / (this.current.email.length ** 2 * (this.current.approve.fields.length ** 2 - this.current.approve.fields.length))).toFixed(2)
+      this.current.approve.consistency = ((12 * ((this.current.approve.consistency - (this.current.email.length * (this.current.approve.fields.length + 1) / 2)) ** 2)) / (this.current.approve.fields.length ** 2 * (this.current.approve.fields.length ** 2 - this.current.approve.fields.length))).toFixed(2)
     }
     this.httpService.updateExpertise(this.current)
       .subscribe(() => {

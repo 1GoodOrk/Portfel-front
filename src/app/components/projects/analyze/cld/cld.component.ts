@@ -79,7 +79,7 @@ export class CLDComponent {
 
     const findRisksDataIndex = this.currentExpertise.risksData ? this.currentExpertise.risksData.findIndex((riskData: any) => riskData.email === this.currentSessionMail) : -1
     this.tableParams = {
-      th: ['/', 'Rclassicj', 'Rleanj', 'Rdigj', 'Rmodj', 'Cntrlg'],
+      th: ['/', 'Rclassicj', 'Rleanj', 'Rdigj', 'Rmodj', 'Керованість'],
       td: findRisksDataIndex > -1 ? this.currentExpertise.risksData[findRisksDataIndex].tableParams.td : []
     }
     if (findRisksDataIndex !== -1) {
@@ -193,8 +193,8 @@ export class CLDComponent {
         Rdigj.toFixed(4),
         Rmodj.toFixed(4),
         this.currentExpertise.approve.fields[updateFieldIndex].approve[approveIndex].data ?
-        this.currentExpertise.approve.fields[updateFieldIndex].approve
-          .reduce((prev: number, next: any) => next.data ? prev * next.data[`Керованість ризику '${this.currentExpertise.approve.fields[updateFieldIndex].label}'`] : prev, 1) ** (1 / this.currentExpertise.approve.fields[updateFieldIndex].approve.length) : 0
+        (this.currentExpertise.approve.fields[updateFieldIndex].approve
+          .reduce((prev: number, next: any) => next.data ? prev * next.data[`Керованість ризику '${this.currentExpertise.approve.fields[updateFieldIndex].label}'`] : prev, 1) ** (1 / this.currentExpertise.approve.fields[updateFieldIndex].approve.length)).toFixed(4) : 0
       ])
     }
 

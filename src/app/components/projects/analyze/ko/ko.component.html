@@ -45,6 +45,26 @@
                       <p><span class="bold">{{'pages.project.science.mostPositiveConnectionAmount' | translate}}: </span>{{riskData.analyzeTable.mostPositiveConnectionAmount.name | translate}} -> {{riskData.analyzeTable.mostPositiveConnectionAmount.value}}</p>
                       <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskData.analyzeTable.mostInfluenceAmount.name | translate}} -> {{riskData.analyzeTable.mostInfluenceAmount.value}}</p>
                       <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskData.analyzeTable.lessInfluenceAmount.name | translate}} -> {{riskData.analyzeTable.lessInfluenceAmount.value}}</p>
+                      @if (riskData.additionalTableParams) {
+                        <div class="table-container">
+                          <p-table [value]="riskData.additionalTableParams.td" [scrollable]="true" scrollHeight="400px" scrollWidth="400px"  [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+                            <ng-template #header>
+                                <tr>
+                                  @for (th of riskData.additionalTableParams.th; track `th-id-${th}`) {
+                                    <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+                                  }
+                                </tr>
+                            </ng-template>
+                            <ng-template #body let-tds>
+                                <tr>
+                                  @for (td of tds; track `td-id-${td}${$index}`) {
+                                    <td [id]="`td-id-${td}`">{{ td  | translate }}</td>
+                                  }
+                                </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                      }
                     </div>
                   }
                   @if (riskData.graph && riskData.graph.data ) {

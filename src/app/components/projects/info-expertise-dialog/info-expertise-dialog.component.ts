@@ -39,26 +39,18 @@ export class InfoDialogExpertiseComponent {
     private appCommunicationService: AppCommunicationService,
   ) {
     this.current = this.appCommunicationService.getCurrentExpertise()
-    console.log(this.current)
     this.updateView()
-    // this.resultCalculation()
   }
 
   public updateView() {
-    // this.infoPageProjectValueKeys = [
-    //   ...this.appCommunicationService.getInfoPageProjectValueKeys('risksLean'),
-    //   ...this.appCommunicationService.getInfoPageProjectValueKeys('risksDigital'),
-    //   ...this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current)
-    // ]
     this.current.risksData
-    // Array.from(this.appCommunicationService.getDynamicValueKeys('risksClassic', this.current))
-    //   .filter((el: any) => el.type && el.type !== 'divider')
       .forEach((el: any, index: number) => {
 
         this.risksData.push({
           expert: this.current.email.find((mail: any) => mail.email === el.email).name,
           tableParams: el.tableParams,
           analyzeTable: el.analyzeTable,
+          additionalTableParams: el.additionalTableParams,
           recommendationDescription: el.recommendationDescription,
           fields: this.current.approve.fields.map((field: any) => ({ label: field.label, value: field.approve.find((appr: any) => appr.email === el.email).value })),
           graph: {}
@@ -66,24 +58,6 @@ export class InfoDialogExpertiseComponent {
         console.log(this.risksData)
         this.createCharts(index)
       })
-  }
-
-  private resultCalculation(): void {
-    // Object.keys(this.current.risksLean).forEach((key: string) => {
-    //   this.results.risksLean.value += this.current.risksLean[key]
-    // })
-    // this.results.risksLean.value = (this.results.risksLean.value / Object.keys(this.current.risksLean).length).toFixed(2)
-    // Object.keys(this.current.risksDigital).forEach((key: string) => {
-    //   this.results.risksDigital.value += this.current.risksDigital[key]
-    // })
-    // this.results.risksDigital.value = (this.results.risksDigital.value / Object.keys(this.current.risksDigital).length).toFixed(2)
-    // Object.keys(this.current.risksClassic).forEach((keyGroup: string) => {
-    //   this.results.risksClassic.value += Object.keys(this.current.risksClassic[keyGroup])
-    //     .reduce((prev: number, next: any) => this.current.risksClassic[keyGroup][next] ?
-    //       prev * this.current.risksClassic[keyGroup][next] :
-    //       prev, 1) ** (1 / Object.keys(this.current.risksClassic[keyGroup]).length)
-    // })
-    // this.results.risksClassic.value = this.results.risksClassic.value.toFixed(2)
   }
 
   public navigate(path: string) {

@@ -82,12 +82,21 @@ export class KOComponent implements AfterContentInit {
         tableParams: Object.assign(this.currentExpertise.risksData[currentDataIndex].tableParams),
         analyzeTable: Object.assign(this.currentExpertise.risksData[currentDataIndex].analyzeTable),
       }
+      if (this.currentExpertise.risksData[currentDataIndex].additionalTableParams) {
+        this.riskData.additionalTableParams = Object.assign(this.currentExpertise.risksData[currentDataIndex].additionalTableParams)
+      }
     } else {
       this.riskData = {
         tableParams: {
           th: ['/', ...Array.from(this.inputs).map((input: any) => input.label)],
           td: Array.from(this.inputs).map((input: any) => {
             return [input.label, ... Array.from(this.inputs).map((data: any, index: number) => 0)]
+          })
+        },
+        additionalTableParams: {
+          th: ['/', 'Djin', 'Djout', 'Djinout'],
+          td: Array.from(this.inputs).map((input: any) => {
+            return [input.label, 0, 0, 0]
           })
         },
         analyzeTable: {
@@ -101,6 +110,7 @@ export class KOComponent implements AfterContentInit {
         graph: {}
       }
     }
+    this.tableDataAdditional()
     this.analyzeTableData()
     this.refreshModel()
   }
@@ -127,11 +137,13 @@ export class KOComponent implements AfterContentInit {
       if (findRisksDataIndex !== -1) {
         this.currentExpertise.risksData[findRisksDataIndex].tableParams = this.riskData.tableParams
         this.currentExpertise.risksData[findRisksDataIndex].analyzeTable = this.riskData.analyzeTable
+        this.currentExpertise.risksData[findRisksDataIndex].additionalTableParams = this.riskData.additionalTableParams
         this.currentExpertise.risksData[findRisksDataIndex].recommendationDescription = this.recommendationDescription
       } else {
         this.currentExpertise.risksData.push({
           email: this.currentSessionMail,
           tableParams: this.riskData.tableParams,
+          additionalTableParams: this.riskData.additionalTableParams,
           analyzeTable: this.riskData.analyzeTable,
           recommendationDescription: this.recommendationDescription
         })
@@ -156,6 +168,7 @@ export class KOComponent implements AfterContentInit {
   private debounceTimeout: any
   ngAfterContentInit(): void {
     setTimeout(() => {
+      this.tableDataAdditional()
       this.analyzeTableData()
       this.refreshModel()
     }, 500)
@@ -210,11 +223,31 @@ export class KOComponent implements AfterContentInit {
     })
   }
 
+  public tableDataAdditional() {
+    this.riskData.additionalTableParams = {
+      th: ['/', 'Djin', 'Djout', 'Djinout'],
+      td: Array.from(this.inputs).map((input: any) => {
+        // @ts-expect-error
+        const Djin: any = Array
+          .from(this.riskData.tableParams.td)
+          .find((data: any) => data[0] === input.label)
+          .filter((data: any) => !isNaN(data))
+          .reduce((prev: any, next: any) => prev + next, 0)
+        const keyIndex = this.riskData.tableParams.th.findIndex((key: string) => key === input.label)
+        const Djout: any = Array
+          .from(this.riskData.tableParams.td)
+          .reduce((prev: any, next: any) => prev + next[keyIndex], 0)
+        return [input.label, Djin, Djout, Djin + Djout]
+      })
+    }
+  }
+
   onTableChange(newData: any, rowName: string, index: number) {
     clearTimeout(this.debounceTimeout)
     this.debounceTimeout = setTimeout(() => {
       const rowIndex: number = this.riskData.tableParams.td.findIndex((el: any) => el[0] === rowName)
       this.riskData.tableParams.td[rowIndex][index] = newData
+      this.tableDataAdditional()
       this.analyzeTableData()
       this.refreshModel()
     }, 500)

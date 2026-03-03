@@ -15,6 +15,7 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { HttpService } from '@port/services/http.service';
+import { AppCommunicationService } from '@port/services/app-communication.service';
 
 @Component({
   selector: 'app-profile',
@@ -48,8 +49,13 @@ export class ProfileComponent {
 
   constructor(
     private router: Router,
+    private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
-  ) { }
+  ) {
+    const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
+    this.user.organization = user.organization
+    this.user.email = user.email
+  }
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);

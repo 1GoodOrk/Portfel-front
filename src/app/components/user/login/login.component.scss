@@ -1,7 +1,8 @@
 .login {
   max-width: 1024px;
   margin: 0 auto;
-  min-height: calc(100vh - 19px);
+  // min-height: calc(100vh - 19px);
+  min-height: 100vh;
   display: flex;
   width: 100%;
   justify-content: space-around;
@@ -17,8 +18,8 @@
       height: 95px;
     }
     .logo-main {
-      width: 105px;
-      height: 105px;
+      width: 75px;
+      height: 75px;
     }
   }
   input {

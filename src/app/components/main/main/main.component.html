@@ -19,7 +19,7 @@
     }
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
-        <p-card
+        <!-- <p-card
           [pTooltip]="`${'pages.main.main.watchProjectTooltipFirstPart' | translate} ${project.name} ${'pages.main.main.watchProjectTooltipLastPart' | translate}`"
           tooltipPosition="top"
           [style]="{
@@ -28,7 +28,13 @@
             'overflow': 'hidden',
             'cursor': 'pointer'
           }"
-          (click)="showInfoProjectDialog(project._id)">
+          (click)="showInfoProjectDialog(project._id)"> -->
+        <p-card
+          [style]="{
+            'max-width': '300px',
+            'margin-top': '10px',
+            'overflow': 'hidden'
+          }">
           @if (project.img) {
             <ng-template #header>
               <img alt="Card" class="w-full" [src]="project.img" />
@@ -39,6 +45,7 @@
           <ng-template #content>
             <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}: </span>{{project.responsibleName}}</p>
             <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
+            <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}: </span>{{project.subinfo}}</p>
           </ng-template>
           <ng-template #footer>
             @if (user.type === 'USER') {

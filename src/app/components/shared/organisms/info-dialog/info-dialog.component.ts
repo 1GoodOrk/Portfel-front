@@ -65,7 +65,7 @@ export class InfoDialogComponent {
   constructor (
     private appCommunicationService: AppCommunicationService
   ) {
-    this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys('science')]
+    this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys('logistic')]
   }
 
   public visibleOnChange(): void {

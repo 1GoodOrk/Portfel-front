@@ -17,7 +17,7 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { DialogModule } from 'primeng/dialog';
 
-import { IProjectData, IProjectDataVehicle } from '@port/interfaces';
+import { IProjectData } from '@port/interfaces';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
 
@@ -83,7 +83,7 @@ export class CreationDialogComponent {
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
-    this.inputs = this.appCommunicationService.getInputsForm(['vehicle', 'road', 'science'])
+    this.inputs = this.appCommunicationService.getInputsForm(['logistic'])
   }
 
   public visibleOnChange(): void {
@@ -113,21 +113,22 @@ export class CreationDialogComponent {
       const data: any = {
         options: {}
       }
-      this.inputs.science.forEach((el: any) => {
+      this.inputs.logistic.forEach((el: any) => {
         if (el.name === 'type') {
           data[el.name] = el.items.find((item: any) => item.value === el.value).label
         } else {
           data[el.name] = el.value
         }
       })
+      data.phases = []
+      data.stackholders = []
       this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
         .subscribe((data: any) => {
           const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
           user.data.projectIds.push(data._id)
           this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-          this.getAllProjects()
           form.resetForm()
-          this.formData = Object.assign(this.appCommunicationService.clearProject)
+          this.getAllProjects()
           this.visibleOnChange()
       })
     }

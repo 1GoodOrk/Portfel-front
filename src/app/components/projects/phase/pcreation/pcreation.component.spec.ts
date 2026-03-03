@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KOComponent } from './ko.component';
+import { PcreationComponent } from './pcreation.component';
 
-describe('KOComponent', () => {
-  let component: KOComponent;
-  let fixture: ComponentFixture<KOComponent>;
+describe('PcreationComponent', () => {
+  let component: PcreationComponent;
+  let fixture: ComponentFixture<PcreationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [KOComponent]
+      imports: [PcreationComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(KOComponent);
+    fixture = TestBed.createComponent(PcreationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "1f110e6f-c745-6180-951e-57d0bf5b8a75",
+    "email": "111@111.com",
+    "password": "$argon2id$v=19$m=65536,t=3,p=4$dij9tXQU/5QsEzyNkuDq3w$Td4fUJ1kLDFKmM40u6AudAM48rd0P+nvz+09Cb5NSaU",
+    "type": "USER",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IiRhcmdvbjJpZCR2PTE5JG09NjU1MzYsdD0zLHA9NCRkaWo5dFhRVS81UXNFenlOa3VEcTN3JFRkNGZVSjFrTERGS21NNDB1NkF1ZEFNNDhyZDBQK252eiswOUNiNU5TYVUiLCJlbWFpbCI6IjExMUAxMTEuY29tIiwiZXhwIjoxNzc3NjMxNjc4LjQ0LCJpYXQiOjE3NzI0NDc2Nzh9.VcpAV3yDosncCvxPUE3qdv5wfpNDQffA80AutuxFmz8",
+    "organization": "SpecialWorld",
+    "portfolioIds": [],
+    "projectIds": [
+      "1f110e71-e78a-6970-b20a-a19b4264cfc8"
+    ]
+  }
+]

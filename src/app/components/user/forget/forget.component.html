@@ -14,10 +14,8 @@
 <main class="forget">
   <p-card [header]="'pages.user.forget.header' | translate" [style]="{'min-width': '390px'}">
     <ng-template #header>
-      <div class="logo-container">
-        <img class="logo" src="/Chdtu.JPG" alt="">
-        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
-        <img class="logo" src="/Gerb.jpg" alt="">
+      <div class="logo-container space-around">
+        <img class="logo-main" src="/logo.png" alt="">
       </div>
     </ng-template>
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">

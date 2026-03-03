@@ -14,10 +14,8 @@
 <main class="login">
   <p-card [header]="'pages.user.login.header' | translate" [style]="{'min-width': '390px'}">
     <ng-template #header>
-      <div class="logo-container">
-        <img class="logo" src="/Chdtu.JPG" alt="">
-        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
-        <img class="logo" src="/Gerb.jpg" alt="">
+      <div class="logo-container space-around">
+        <img class="logo-main" src="/logo.png" alt="">
       </div>
     </ng-template>
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
@@ -79,8 +77,8 @@
         tooltipPosition="right"
         [link]="true"
         (click)="navigate('forget')"
-        [style]="{ 'padding-left': '0', 'color': '#4a4afb' }"/>
-      <div>
+        [style]="{ 'padding-left': '0' }"/>
+      <div class="space-between">
         @if (form.valid) {
           <p-button
             [label]="'pages.user.login.buttonSubmit' | translate"
@@ -97,6 +95,13 @@
             severity="secondary"
             type="submit" />
         }
+        <p-button
+          label="Реєстрація"
+          [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
+          tooltipPosition="bottom"
+          severity="primary"
+          type="button"
+          (click)="navigate('registration-owner')" />
         @if (error) {
           <p-message severity="error" size="small" variant="simple">
             @if (password.hasError('required')) {
@@ -104,22 +109,6 @@
             }
           </p-message>
         }
-        <div class="buttons space-between">
-          <p-button
-            label="Реєстрація власника"
-            [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
-            tooltipPosition="bottom"
-            severity="primary"
-            type="button"
-            (click)="navigate('registration-owner')" />
-          <p-button
-            label="Реєстрація експерта"
-            [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
-            tooltipPosition="bottom"
-            severity="primary"
-            type="button"
-            (click)="navigate('registration-expert')" />
-        </div>
       </div>
     </form>
   </p-card>

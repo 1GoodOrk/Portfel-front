@@ -56,42 +56,12 @@ export class MainComponent {
   public currentProject: IProjectData = {
     _id: '',
     name: '',
-    subinfo: '',
-    type: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    managerName: '',
-    managerSurname: '',
-    managerLastname: '',
-    responsibleOrganization: '',
-    budget: 0,
-    budgetSource: '',
-    processDuration: 0,
-    profit: 0,
-    traffic: 0,
-    forecastProjectTaskAmount: 0,
-    road: '',
-    distance: 0,
-    mainRoad: false,
-    inTown: false,
-    town: '',
-    addressStart: '',
-    addressEnd: '',
     des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-    dateCreation: '',
-    dateInitialization: '',
-    permissionDuration: 0,
-    score: 0,
+    subinfo: '',
     priority: 0,
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
+    responsibleName: '',
+    phases: '',
+    stackholders: ''
   }
   public visible: any = {
     creation: false,
@@ -148,7 +118,7 @@ export class MainComponent {
       this.currentProject[key] = this.projects[index][key]
     })
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    this.navigate('cog-model')
+    this.navigate('phase-risks')
   }
 
   public navigate(path: string) {
@@ -163,8 +133,6 @@ export class MainComponent {
         // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
-      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
-      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
@@ -182,9 +150,6 @@ export class MainComponent {
         // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
-
-      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
-      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }

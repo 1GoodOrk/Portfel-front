@@ -39,7 +39,7 @@ body {
 }
 
 body {
-  background-image: url('./asserts/main.jpeg');
+  background-image: url('../public/main.jpg');
   backdrop-filter: blur(5px);
   background-size: cover;
 }
@@ -103,6 +103,9 @@ p-button {
 }
 .space-evenly {
   justify-content: space-evenly !important;
+}
+.space-around {
+  justify-content: space-around !important;
 }
 .center {
   justify-content: center !important;

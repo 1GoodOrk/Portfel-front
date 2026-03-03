@@ -1,0 +1,37 @@
+<section class="phase">
+  <div>
+    <p-button
+      label="Додати новий етап"
+      pTooltip="Натисніть, щоб перейти на сторінку створення нового етапу"
+      severity="primary"
+      (click)="createPhase()" />
+  </div>
+  <div legend="phases" class="container">
+    @for (phase of currentProject.phase; track phase) {
+      <p-card
+        pTooltip="Натисніть, щоб перейти на сторінку етапу"
+        tooltipPosition="top"
+        [style]="{
+          'max-width': '300px',
+          'margin-top': '10px',
+          'overflow': 'hidden',
+          'cursor': 'pointer'
+        }"
+        (click)="showCurrentPhase($event, $index)">
+        <ng-template #title> <span class="bold">Етап: </span>
+          {{phase.name}}
+          <p-button
+            icon="pi pi-times"
+            [rounded]="true"
+            [text]="true"
+            (click)="removePhase($event, $index)"
+            pTooltip="Натисніть, щоб видалити стейкхолдер"
+            severity="danger" />
+        </ng-template>
+        <ng-template #subtitle><span class="bold">Тип:</span> {{phase.type}} </ng-template>
+      </p-card>
+    } @empty {
+      <h2 class="bold"> Етапів не знайдено... </h2>
+    }
+  </div>
+</section>

@@ -1,0 +1,293 @@
+<app-header></app-header>
+<section class="pcreation">
+  <h1>Новий етап</h1>
+  <div legend="stackholder creation" class="container">
+    <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+      <div class="form-container row">
+        <div class="form-container column">
+          @for (input of inputs.phasesLogistic; track input) {
+            @if (input.displayCondition && input.type !== 'line') {
+              <div class="flex flex-col gap-1">
+                @if (input.type !== 'checklist') {
+                  <label for="name" class="bold">{{input.label | translate}}
+                    @if (input.suffix) {
+                      {{input.suffix | translate}}
+                    }
+                  </label>
+                }
+                @if (input.type === 'text') {
+                  <input
+                    pInputText
+                    type="text"
+                    [id]="input.name"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    required />
+                } @else if (input.type === 'textarea') {
+                  <textarea
+                    pTextarea
+                    type="text"
+                    [id]="input.name"
+                    class="mt-5"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    required>
+                  </textarea>
+                } @else if (input.type === 'number') {
+                  <p-inputnumber
+                    [inputId]="input.name"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    required
+                    [min]="input.min || 1"
+                    [max]="input.max || 10"
+                    [step]="input.step || 1"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                } @else if (input.type === 'datepicker') {
+                  <p-datepicker
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    required />
+                } @else if (input.type === 'checklist') {
+                  <p-checkbox
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [binary]="true"
+                    [indeterminate]="true"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="input.value" />
+                  <label for="intown" class="bold">{{input.label | translate}}?</label>
+                } @else if (input.type === 'selector') {
+                  <p-select
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    class="w-full md:w-56" />
+                } @else if (input.type === 'multiselector') {
+                  <p-multiselect
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    tooltipPosition="right"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    optionLabel="label"
+                    [showClear]="true"
+                    class="w-full md:w-56" />
+                }
+              </div>
+            } @else if (input.displayCondition) {
+              <p-divider />
+            }
+          }
+        </div>
+        <div>
+          <p><span class="bold">Виберіть час оцінки</span></p>
+          <p-datepicker
+            inputId="dateTimeField"
+            name="dateTimeField"
+            placeholder="Час"
+            [(ngModel)]="newTime"
+            [showTime]="true"
+            hourFormat="24"
+            dateFormat="dd.mm.yy"
+            [ngModelOptions]="{ standalone: true }" />
+          <p-button
+            label="Додати час оцінки"
+            pTooltip="Натисніть, щоб додати новий час оцінки"
+            [outlined]="true"
+            severity="primary"
+            (click)="addDateTimeField()" />
+        </div>
+        @for (groups of inputs.phasesLogisticTime; track groups; let groupIndex = $index) {
+          <p-divider />
+          <div class="flex w-full space-between">
+            <p><span class="bold">{{groups.label}}:</span> {{groups.date}} </p>
+            <p-button
+              label="Видалити оцінку"
+              pTooltip="Натисніть, щоб видалити оцінку"
+              severity="primary"
+              (click)="deleteDateTimeField($index)" />
+          </div>
+          <p-accordion [value]="['0']">
+            @for (group of groups.items; track group; let stackholderIndex = $index) {
+              <p-accordion-panel [value]="$index">
+                <p-accordion-header>{{ group.label }}</p-accordion-header>
+                <p-accordion-content>
+                  <div class="accordion-container column">
+                    <h3><span class="bold">VUCABANI</span></h3>
+                    @for (input of group.inputsVUCABANI; track input) {
+                      <div class="flex w-full column">
+                        <label for="name" class="bold">{{input.label | translate}}</label>
+                        <p-inputnumber
+                          [inputId]="input.name + group.label + stackholderIndex"
+                          [showButtons]="true"
+                          buttonLayout="horizontal"
+                          [pTooltip]="input.pTooltip | translate"
+                          tooltipPosition="right"
+                          [name]="input.name + group.label + stackholderIndex"
+                          [(ngModel)]="input.value"
+                          [ngModelOptions]="{ standalone: true }"
+                          required
+                          [min]="input.min || 1"
+                          [max]="input.max || 10"
+                          [step]="input.step || 1"
+                          [minFractionDigits]="0" >
+                            <ng-template #incrementbuttonicon>
+                                <span class="pi pi-plus"></span>
+                            </ng-template>
+                            <ng-template #decrementbuttonicon>
+                                <span class="pi pi-minus"></span>
+                            </ng-template>
+                        </p-inputnumber>
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <p><span class="bold">Введіть новий ризик</span></p>
+                    <input
+                      pInputText
+                      type="text"
+                      id="createFieldRisk"
+                      placeholder="ризик"
+                      pTooltip="Введіть новий ризик"
+                      tooltipPosition="right"
+                      name="createFieldRisk"
+                      [(ngModel)]="newRisk"
+                      [ngModelOptions]="{ standalone: true }" />
+                    <p-button
+                      label="Додати ризик"
+                      pTooltip="Натисніть, щоб додати новий ризик"
+                      [outlined]="true"
+                      severity="primary"
+                      (click)="addNewRisk(groupIndex, stackholderIndex)" />
+                  </div>
+                  <div class="accordion-container column">
+                    <h3><span class="bold">Ризики</span></h3>
+                    @for (input of group.inputsRisks; track input) {
+                      <div class="flex w-full column">
+                        <label for="name" class="bold">{{input.label | translate}}</label>
+                        <p-inputnumber
+                          [inputId]="input.name"
+                          [showButtons]="true"
+                          buttonLayout="horizontal"
+                          [pTooltip]="input.pTooltip | translate"
+                          tooltipPosition="right"
+                          [name]="input.name || 'name'"
+                          [(ngModel)]="input.value"
+                          [ngModelOptions]="{ standalone: true }"
+                          required
+                          [min]="input.min || 1"
+                          [max]="input.max || 10"
+                          [step]="input.step || 1"
+                          [minFractionDigits]="0" >
+                            <ng-template #incrementbuttonicon>
+                                <span class="pi pi-plus"></span>
+                            </ng-template>
+                            <ng-template #decrementbuttonicon>
+                                <span class="pi pi-minus"></span>
+                            </ng-template>
+                        </p-inputnumber>
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <p><span class="bold">Введіть нове очікування стейкхолдера</span></p>
+                    <input
+                      pInputText
+                      type="text"
+                      id="createFieldWaiting"
+                      placeholder="очікування"
+                      pTooltip="Введіть нове очікування стейкхолдера"
+                      tooltipPosition="right"
+                      name="createFieldWaiting"
+                      [(ngModel)]="newWaiting"
+                      [ngModelOptions]="{ standalone: true }" />
+                    <p-button
+                      label="Додати очікування"
+                      pTooltip="Натисніть, щоб додати нове очікування"
+                      [outlined]="true"
+                      severity="primary"
+                      (click)="addNewWaiting(groupIndex, stackholderIndex)" />
+                  </div>
+                  <div class="accordion-container column">
+                    <h3><span class="bold">Очікування</span></h3>
+                    @for (input of group.inputsWaiting; track input) {
+                      <div class="flex w-full column">
+                        <label for="name" class="bold">{{input.label | translate}}</label>
+                        <p-inputnumber
+                          [inputId]="input.name"
+                          [showButtons]="true"
+                          buttonLayout="horizontal"
+                          [pTooltip]="input.pTooltip | translate"
+                          tooltipPosition="right"
+                          [name]="input.name || 'name'"
+                          [(ngModel)]="input.value"
+                          [ngModelOptions]="{ standalone: true }"
+                          required
+                          [min]="input.min || 1"
+                          [max]="input.max || 10"
+                          [step]="input.step || 1"
+                          [minFractionDigits]="0" >
+                            <ng-template #incrementbuttonicon>
+                                <span class="pi pi-plus"></span>
+                            </ng-template>
+                            <ng-template #decrementbuttonicon>
+                                <span class="pi pi-minus"></span>
+                            </ng-template>
+                        </p-inputnumber>
+                      </div>
+                    }
+                  </div>
+                </p-accordion-content>
+              </p-accordion-panel>
+            }
+          </p-accordion>
+        }
+
+        <div>
+          <p-button
+            [label]="'pages.portfolio.dialog.saveButton' | translate"
+            [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
+            severity="primary"
+            (click)="updateProject(form)" />
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<app-footer></app-footer>

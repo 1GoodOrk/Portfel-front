@@ -12,42 +12,12 @@ export class AppCommunicationService {
   public clearProject: IProjectData = {
     _id: '',
     name: '',
-    subinfo: '',
-    type: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    managerName: '',
-    managerSurname: '',
-    managerLastname: '',
-    responsibleOrganization: '',
-    budget: 0,
-    budgetSource: '',
-    processDuration: 0,
-    profit: 0,
-    traffic: 0,
-    forecastProjectTaskAmount: 0,
-    road: '',
-    distance: 0,
-    mainRoad: false,
-    inTown: false,
-    town: '',
-    addressStart: '',
-    addressEnd: '',
     des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-    dateCreation: '',
-    dateInitialization: '',
-    permissionDuration: 0,
-    score: 0,
+    subinfo: '',
     priority: 0,
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
+    responsibleName: '',
+    phases: '',
+    stackholders: ''
   }
   public clearStackholder: any = {
     type: '',
@@ -79,131 +49,6 @@ export class AppCommunicationService {
   }
   public lang: string = 'ua'
 
-
-  public testProjArray: any = [
-    {
-      _id: '1',
-      name: '1',
-      subinfo: '1',
-      type: '1',
-      responsibleName: '1',
-      responsibleSurname: '1',
-      responsibleLastname: '1',
-      managerName: '1',
-      managerSurname: '1',
-      managerLastname: '1',
-      responsibleOrganization: '1',
-      volumeOfWork: 0,
-      forecastProjectTaskAmount: 0,
-      term: 0,
-      actionPlan: 'string',
-      sphereOfAction: 'string',
-      budget: 0,
-      budgetSource: '',
-      mainLosses: 0,
-      actualCost: 0,
-      additionalLosses: 0,
-      passengerTraffic: 0,
-      ticketPrice: 0,
-      governmentSubsidies: 0,
-      vehicle: 'string',
-      infrastructure: 'string',
-      staff: 'string',
-      technology: 'string',
-      options: {
-        eco: 0,
-        war: 23,
-        log: 35,
-        soc: 24,
-        struc: 0
-      },
-      performanceIndex: 100,
-      indexOfAssetsEmployed: 100,
-      projectValuation: 324,
-      riskScore: 34,
-    }, {
-      _id: '2',
-      name: '2',
-      subinfo: '1',
-      type: '1',
-      responsibleName: '1',
-      responsibleSurname: '1',
-      responsibleLastname: '1',
-      managerName: '1',
-      managerSurname: '1',
-      managerLastname: '1',
-      responsibleOrganization: '1',
-      volumeOfWork: 0,
-      forecastProjectTaskAmount: 0,
-      term: 0,
-      actionPlan: 'string',
-      sphereOfAction: 'string',
-      budget: 0,
-      budgetSource: '',
-      mainLosses: 0,
-      actualCost: 0,
-      additionalLosses: 0,
-      passengerTraffic: 0,
-      ticketPrice: 0,
-      governmentSubsidies: 0,
-      vehicle: 'string',
-      infrastructure: 'string',
-      staff: 'string',
-      technology: 'string',
-      options: {
-        eco: 0,
-        war: 23,
-        log: 35,
-        soc: 24,
-        struc: 0
-      },
-      performanceIndex: 100,
-      indexOfAssetsEmployed: 100,
-      projectValuation: 23455,
-      riskScore: 22,
-    }, {
-      _id: '3',
-      name: '3',
-      subinfo: '1',
-      type: '1',
-      responsibleName: '1',
-      responsibleSurname: '1',
-      responsibleLastname: '1',
-      managerName: '1',
-      managerSurname: '1',
-      managerLastname: '1',
-      responsibleOrganization: '1',
-      volumeOfWork: 0,
-      forecastProjectTaskAmount: 0,
-      term: 0,
-      actionPlan: 'string',
-      sphereOfAction: 'string',
-      budget: 0,
-      budgetSource: '',
-      mainLosses: 0,
-      actualCost: 0,
-      additionalLosses: 0,
-      passengerTraffic: 0,
-      ticketPrice: 0,
-      governmentSubsidies: 0,
-      vehicle: 'string',
-      infrastructure: 'string',
-      staff: 'string',
-      technology: 'string',
-      options: {
-        eco: 0,
-        war: 23,
-        log: 35,
-        soc: 24,
-        struc: 0
-      },
-      performanceIndex: 100,
-      indexOfAssetsEmployed: 100,
-      projectValuation: 43255,
-      riskScore: 86,
-    }
-  ]
-
   public sessionStorageSave(id: string, data: string): void {
     sessionStorage.setItem('id', data)
   }
@@ -217,42 +62,12 @@ export class AppCommunicationService {
     this.clearProject = {
       _id: '',
       name: '',
-      subinfo: '',
-      type: '',
-      responsibleName: '',
-      responsibleSurname: '',
-      responsibleLastname: '',
-      managerName: '',
-      managerSurname: '',
-      managerLastname: '',
-      responsibleOrganization: '',
-      budget: 0,
-      budgetSource: '',
-      processDuration: 0,
-      profit: 0,
-      traffic: 0,
-      forecastProjectTaskAmount: 0,
-      road: '',
-      distance: 0,
-      mainRoad: false,
-      inTown: false,
-      town: '',
-      addressStart: '',
-      addressEnd: '',
       des: '',
-      img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      dateCreation: '',
-      dateInitialization: '',
-      permissionDuration: 0,
-      score: 0,
+      subinfo: '',
       priority: 0,
-      options: {
-        eco: 0,
-        war: 0,
-        log: 0,
-        soc: 0,
-        struc: 0
-      }
+      responsibleName: '',
+      phases: '',
+      stackholders: ''
     }
   }
 
@@ -458,6 +273,9 @@ export class AppCommunicationService {
     return infoDynamicApproveKeys
   }
 
+  public getInputsFormDefault(): any {
+    return Array.from(this.inputsForm.phasesLogisticDefault)
+  }
 
   public saveStackholder(data: any): any {
     this.stackholders.push(data)
@@ -478,6 +296,16 @@ export class AppCommunicationService {
 
   public getCurrentProject(): any {
     return this.currentProject
+  }
+
+  public currentPhase: any = {}
+
+  public saveCurrentPhase(data: any): any {
+    this.currentPhase = data
+  }
+
+  public getCurrentPhase(): any {
+    return this.currentPhase
   }
 
   public currentExpertise: any = {}

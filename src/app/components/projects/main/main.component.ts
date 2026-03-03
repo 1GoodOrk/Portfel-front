@@ -7,11 +7,12 @@ import { TranslatePipe } from "@ngx-translate/core";
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
-import { CardComponent } from '../card/card.component';
 
 import { TooltipModule } from 'primeng/tooltip';
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
+import { StackholderComponent } from '../stackholder/stackholder.component';
+import { PhaseComponent } from '../phase/phase.component';
 
 @Component({
   selector: 'app-main',
@@ -22,9 +23,10 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
-    CardComponent,
     TooltipModule,
-    InfoDialogComponent
+    InfoDialogComponent,
+    PhaseComponent,
+    StackholderComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

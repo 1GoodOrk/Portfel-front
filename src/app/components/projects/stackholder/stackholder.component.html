@@ -1,0 +1,80 @@
+<section class="stackholder">
+  <div legend="stackholder creation" class="container">
+    <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+      <div class="form-container row">
+        <div class="form-container column">
+          @for (input of inputs.stackholdersLogistic; track input) {
+            @if (input.displayCondition && input.type !== 'line') {
+              <div class="flex flex-col gap-1">
+                @if (input.type !== 'checklist') {
+                  <label for="name" class="bold">{{input.label | translate}}
+                    @if (input.suffix) {
+                      {{input.suffix | translate}}
+                    }
+                  </label>
+                }
+                @if (input.type === 'text') {
+                  <input
+                    pInputText
+                    type="text"
+                    [id]="input.name"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }" />
+                } @else if (input.type === 'selector') {
+                  <p-select
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    class="w-full md:w-56" />
+                }
+              </div>
+            } @else if (input.displayCondition) {
+              <p-divider />
+            }
+          }
+        </div>
+        <div>
+          <p-button
+            [label]="'pages.portfolio.dialog.saveButton' | translate"
+            [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
+            severity="primary"
+            (click)="updateProject(form)" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div legend="Stackholders" class="container scroll">
+    @for (stackholder of currentProject.stackholders; track stackholder) {
+      <p-card
+        [style]="{
+          'max-width': '300px',
+          'margin': '10px',
+          'overflow': 'hidden',
+          'cursor': 'pointer'
+        }">
+        <ng-template #title> <span class="bold">Стейкхолдер: </span>
+          {{stackholder.name}}
+          <p-button
+            icon="pi pi-times"
+            [rounded]="true"
+            [text]="true"
+            (click)="removeStackholder($index)"
+            pTooltip="Натисніть, щоб видалити стейкхолдер"
+            severity="danger" />
+        </ng-template>
+        <ng-template #subtitle><span class="bold">Тип:</span> {{stackholder.type}} </ng-template>
+      </p-card>
+    } @empty {
+      <h2 class="bold"> Cтейкхолдерів не знайдено... </h2>
+    }
+  </div>
+</section>

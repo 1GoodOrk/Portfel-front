@@ -1,13 +1,15 @@
-.approve {
+.pinfo {
   max-width: 1024px;
   margin: 0 auto;
-  min-height: calc(100vh - 112px);
-  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  p-select {
+    margin: 5px 0;
+  }
   p {
     overflow: hidden;
-    white-space: nowrap;
+    white-space: wrap;
     text-overflow: ellipsis;
   }
   .container {

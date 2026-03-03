@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApproveComponent } from './approve.component';
+import { PhaseComponent } from './phase.component';
 
-describe('ApproveComponent', () => {
-  let component: ApproveComponent;
-  let fixture: ComponentFixture<ApproveComponent>;
+describe('PhaseComponent', () => {
+  let component: PhaseComponent;
+  let fixture: ComponentFixture<PhaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApproveComponent]
+      imports: [PhaseComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ApproveComponent);
+    fixture = TestBed.createComponent(PhaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

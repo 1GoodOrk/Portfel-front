@@ -10,7 +10,7 @@
   <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
       <div class="form-container column">
-        @for (input of inputs.science; track input) {
+        @for (input of inputs.logistic; track input) {
           @if (input.displayCondition && input.type !== 'line') {
             <div class="flex flex-col gap-1">
               @if (input.type !== 'checklist') {
@@ -125,7 +125,7 @@
           [label]="'pages.portfolio.dialog.saveButton' | translate"
           [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
           [outlined]="true"
-          severity="success"
+          severity="primary"
           (click)="formData._id ? updateProject(formData._id, form): createProject(form)" />
         <p-button
           label="Cancel"

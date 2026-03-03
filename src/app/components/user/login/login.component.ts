@@ -83,7 +83,7 @@ export class LoginComponent {
       this.showSpinner = true
       this.httpService.login(this.user)
         .subscribe((data: IUserData) => {
-          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
           this.showSpinner = false
           form.resetForm()
           this.navigate('main')

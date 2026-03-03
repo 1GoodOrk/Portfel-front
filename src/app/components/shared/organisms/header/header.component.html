@@ -1,14 +1,13 @@
 <header>
   <p-menubar [model]="items" [style]="{
-    'background-color': '#1d4ed8',
-    'border-color': '#1d4ed8',
+    'background-color': '#b91c1c',
+    'border-color': '#b91c1c',
+    'border-radius': 0,
     'color': 'white'
   }">
     <ng-template #start>
       <div (click)="navigate('main')">
-        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
-        <!-- <img src="/" alt="">
-        <p-avatar image="../../../../../../public/Logo-CLD.jpg" shape="circle" /> -->
+        <img class="logo-main" src="/logo.png" alt="">
       </div>
     </ng-template>
     <ng-template #item let-item let-root="root">

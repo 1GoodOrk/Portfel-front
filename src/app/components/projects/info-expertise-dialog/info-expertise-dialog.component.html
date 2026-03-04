@@ -39,7 +39,9 @@
           </ng-template>
         </p-table>
       </div>
-      <p> <span class="bold">Рекомендація експерта:</span> {{riskData.recommendationDescription}}</p>
+      @if (riskData.recommendationDescription) {
+        <p> <span class="bold">Рекомендація експерта:</span> {{riskData.recommendationDescription}}</p>
+      }
     }
   } @else {
     <p> <span class="bold">Фінальна оцінка КО:</span> {{current.approve.grade}}</p>

@@ -30,7 +30,22 @@
                         <ng-template #body let-tds>
                             <tr>
                               @for (td of tds; track `td-id-${td}${$index}`) {
-                                <td [id]="`td-id-${td}`">{{ td  | translate }}</td>
+                                @if ($index === 0) {
+                                  <td [id]="`td-id-${td}`">{{ td }}</td>
+                                } @else {
+                                  <td [style]="{ 'max-width': '30px'}" [id]="`td-id-${td}`">
+                                    <p-inputnumber
+                                      [inputId]="`td-id-${tds[0]}-${$index}-input`"
+                                      [ngModel]="td"
+                                      class="different"
+                                      [inputStyle]="{ width: '30px', border: '0', 'box-shadow': 'none' }"
+                                      (ngModelChange)="onTableChange($event, tds[0], $index)"
+                                      [ngModelOptions]="{ standalone: true }"
+                                      [step]="1"
+                                      [minFractionDigits]="0" >
+                                    </p-inputnumber>
+                                  </td>
+                                }
                               }
                             </tr>
                         </ng-template>

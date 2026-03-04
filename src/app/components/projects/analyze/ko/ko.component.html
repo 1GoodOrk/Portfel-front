@@ -45,6 +45,12 @@
                       <p><span class="bold">{{'pages.project.science.mostPositiveConnectionAmount' | translate}}: </span>{{riskData.analyzeTable.mostPositiveConnectionAmount.name | translate}} -> {{riskData.analyzeTable.mostPositiveConnectionAmount.value}}</p>
                       <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskData.analyzeTable.mostInfluenceAmount.name | translate}} -> {{riskData.analyzeTable.mostInfluenceAmount.value}}</p>
                       <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskData.analyzeTable.lessInfluenceAmount.name | translate}} -> {{riskData.analyzeTable.lessInfluenceAmount.value}}</p>
+                      <p><span class="bold">DjGeoMin: </span>{{riskData.analyzeTable.DjGeoMin}}</p>
+                      <p><span class="bold">DjGeoMout: </span>{{riskData.analyzeTable.DjGeoMout}}</p>
+                      <p><span class="bold">DjGeoMinout: </span>{{riskData.analyzeTable.DjGeoMinout}}</p>
+                      <p><span class="bold">Щільність НКК: </span>{{riskData.analyzeTable.density}}</p>
+                      <p><span class="bold">Складність НКК: </span>{{riskData.analyzeTable.complexity}}</p>
+                      <p><span class="bold">Індекс ієрархічності НКК: </span>{{riskData.analyzeTable.hierarchy}}</p>
                       @if (riskData.additionalTableParams) {
                         <div class="table-container">
                           <p-table [value]="riskData.additionalTableParams.td" [scrollable]="true" scrollHeight="400px" scrollWidth="400px"  [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">

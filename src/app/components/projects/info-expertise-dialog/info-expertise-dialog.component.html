@@ -10,8 +10,13 @@
     <span class="bold" [style]="{ 'color': current.approve.consistency > 0.5 ? 'darkcyan' : 'firebrick' }"> {{current.approve.consistency > 0.5 ? 'Достатньо' : 'Недостатньо'}} ({{current.approve.consistency}})</span>
   </p>
   @if (current.type === 'CLD') {
-    <p-divider />
     @for (riskData of risksData; track riskData; let i = $index) {
+      <p-divider />
+      @if (riskData.expert === 'Середнє значення за всіма експертами') {
+        <h3> <span class="bold">{{riskData.expert}}</span></h3>
+      } @else {
+        <h3> <span class="bold">Дані експертизи від експерта:</span> {{riskData.expert}}</h3>
+      }
       <div class="table-container">
         <p-table [value]="riskData.tableParams.td" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
           <ng-template #header>
@@ -40,7 +45,11 @@
     <p> <span class="bold">Фінальна оцінка КО:</span> {{current.approve.grade}}</p>
     @for (riskData of risksData; track riskData; let i = $index) {
       <p-divider />
-      <h3> <span class="bold">Дані експертизи від експерта:</span> {{riskData.expert}}</h3>
+      @if (riskData.expert === 'Середнє значення за всіма експертами') {
+        <h3> <span class="bold">{{riskData.expert}}</span></h3>
+      } @else {
+        <h3> <span class="bold">Дані експертизи від експерта:</span> {{riskData.expert}}</h3>
+      }
       <div>
         @for (field of riskData.fields; track field) {
           <p> <span class="bold">{{field.label | translate}}:</span> {{field.value}}</p>
@@ -76,6 +85,12 @@
         <p><span class="bold">{{'pages.project.science.mostPositiveConnectionAmount' | translate}}: </span>{{riskData.analyzeTable.mostPositiveConnectionAmount.name}} -> {{riskData.analyzeTable.mostPositiveConnectionAmount.value}}</p>
         <p><span class="bold">{{'pages.project.science.mostInfluenceAmount' | translate}}: </span>{{riskData.analyzeTable.mostInfluenceAmount.name}} -> {{riskData.analyzeTable.mostInfluenceAmount.value}}</p>
         <p><span class="bold">{{'pages.project.science.lessInfluenceAmount' | translate}}: </span>{{riskData.analyzeTable.lessInfluenceAmount.name}} -> {{riskData.analyzeTable.lessInfluenceAmount.value}}</p>
+        <p><span class="bold">DjGeoMin: </span>{{riskData.analyzeTable.DjGeoMin}}</p>
+        <p><span class="bold">DjGeoMout: </span>{{riskData.analyzeTable.DjGeoMout}}</p>
+        <p><span class="bold">DjGeoMinout: </span>{{riskData.analyzeTable.DjGeoMinout}}</p>
+        <p><span class="bold">Щільність НКК: </span>{{riskData.analyzeTable.density}}</p>
+        <p><span class="bold">Складність НКК: </span>{{riskData.analyzeTable.complexity}}</p>
+        <p><span class="bold">Індекс ієрархічності НКК: </span>{{riskData.analyzeTable.hierarchy}}</p>
         @if (riskData.additionalTableParams) {
           <div class="table-container">
             <p-table [value]="riskData.additionalTableParams.td" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
@@ -112,7 +127,9 @@
         </div>
       </div>
       <div [id]="`model-container-KO-${$index}`" [class]="`container model-container-KO-${$index}`"></div>
-      <p> <span class="bold">Рекомендація експерта:</span> {{riskData.recommendationDescription}}</p>
+      @if (riskData.recommendationDescription) {
+        <p> <span class="bold">Рекомендація експерта:</span> {{riskData.recommendationDescription}}</p>
+      }
     }
   }
 </section>

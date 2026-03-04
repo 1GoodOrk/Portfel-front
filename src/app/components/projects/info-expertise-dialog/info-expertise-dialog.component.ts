@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import { Router } from '@angular/router';
 import * as d3 from 'd3';
@@ -28,7 +28,8 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
     FooterComponent
   ],
   templateUrl: './info-expertise-dialog.component.html',
-  styleUrl: './info-expertise-dialog.component.scss'
+  styleUrl: './info-expertise-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoDialogExpertiseComponent {
   public current: any = {}
@@ -36,6 +37,7 @@ export class InfoDialogExpertiseComponent {
 
   constructor (
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private appCommunicationService: AppCommunicationService,
   ) {
     this.current = this.appCommunicationService.getCurrentExpertise()
@@ -43,6 +45,7 @@ export class InfoDialogExpertiseComponent {
   }
 
   public updateView() {
+    this.calculationOfMainTable()
     this.current.risksData
       .forEach((el: any, index: number) => {
 
@@ -55,9 +58,112 @@ export class InfoDialogExpertiseComponent {
           fields: this.current.approve.fields.map((field: any) => ({ label: field.label, value: field.approve.find((appr: any) => appr.email === el.email).value })),
           graph: {}
         })
-        console.log(this.risksData)
-        this.createCharts(index)
       })
+    if (this.risksData[0].additionalTableParams) {
+      for (let i = 0; i < this.risksData.length; i++) {
+        this.createCharts(i)
+      }
+    }
+  }
+
+  private calculationOfMainTable() {
+    if (this.current.risksData[0].additionalTableParams) {
+      this.risksData.push({
+        expert: 'Середнє значення за всіма експертами',
+        tableParams: {
+          th: [...this.current.risksData[0].tableParams.th],
+          td: (this.current.risksData[0].tableParams.td).map((td: (number | string)[], tdIndex: number) => {
+            return td
+              .map((el: number | string, index: number) => {
+                const sum = +this.current.risksData.reduce((prev: number, next: any) => typeof next.tableParams.td[tdIndex][index] === 'number' && next.tableParams.td[tdIndex][index] !== 0 ? prev === 0 ? 1 * next.tableParams.td[tdIndex][index] : prev * next.tableParams.td[tdIndex][index] : prev, 0)
+                return index === 0 ? el : sum > 0 ?
+                  +(sum ** (1 / this.current.risksData.length)).toFixed(4) :
+                  -1 * +((-1 * sum) ** (1 / this.current.risksData.length)).toFixed(4)
+              })
+          })
+        },
+        analyzeTable : {
+          mostConnectionAmount: { name: '', value: 0 },
+          lessConnectionAmount: { name: '', value: 0 },
+          mostNegativeConnectionAmount: { name: '', value: 0 },
+          mostPositiveConnectionAmount: { name: '', value: 0 },
+          mostInfluenceAmount: { name: '', value: 0 },
+          lessInfluenceAmount: { name: '', value: 0 },
+          DjGeoMin: 0,
+          DjGeoMout: 0,
+          DjGeoMinout: 0,
+          density: 0,
+          complexity: 0,
+          hierarchy: 0
+        },
+        additionalTableParams: {
+          th: ['/', 'Djin', 'Djout', 'Djinout'],
+          td: (this.current.risksData[0].additionalTableParams.td).map((td: (number | string)[], tdIndex: number) => {
+            return td
+              .map((el: number | string, index: number) => {
+                const sum = +this.current.risksData.reduce((prev: number, next: any) => typeof next.additionalTableParams.td[tdIndex][index] === 'number' && next.additionalTableParams.td[tdIndex][index] !== 0 ? prev === 0 ? 1 * next.additionalTableParams.td[tdIndex][index] : prev * next.additionalTableParams.td[tdIndex][index] : prev, 0)
+                return index === 0 ? el : sum > 0 ?
+                  +(sum ** (1 / this.current.risksData.length)).toFixed(4) :
+                  -1 * +((-1 * sum) ** (1 / this.current.risksData.length)).toFixed(4)
+              })
+          })
+        },
+        recommendationDescription: ''
+      })
+      this.risksData[0].tableParams.td.forEach((el: any) => {
+        const current: any = {
+          connectionAmount: 0,
+          mostPositiveConnectionAmount: 0,
+          mostNegativeConnectionAmount: 0,
+          influenceAmount: 0
+        }
+        el
+          .filter((subEl: any) => !isNaN(subEl) && subEl)
+          .forEach((el: any) => {
+            current.connectionAmount++
+            if (el > 0) {
+              current.mostPositiveConnectionAmount++
+            } else {
+              current.mostNegativeConnectionAmount++
+            }
+            current.influenceAmount += el
+          })
+        if (this.risksData[0].analyzeTable.mostConnectionAmount.value < current.connectionAmount) {
+          this.risksData[0].analyzeTable.mostConnectionAmount = { name: el[0], value: current.connectionAmount }
+        }
+        if (this.risksData[0].analyzeTable.lessConnectionAmount.value > current.connectionAmount) {
+          this.risksData[0].analyzeTable.lessConnectionAmount = { name: el[0], value: current.connectionAmount }
+        }
+        if (this.risksData[0].analyzeTable.mostNegativeConnectionAmount.value < current.mostNegativeConnectionAmount) {
+          this.risksData[0].analyzeTable.mostNegativeConnectionAmount = { name: el[0], value: current.mostNegativeConnectionAmount }
+        }
+        if (this.risksData[0].analyzeTable.mostPositiveConnectionAmount.value < current.mostPositiveConnectionAmount) {
+          this.risksData[0].analyzeTable.mostPositiveConnectionAmount = { name: el[0], value: current.mostPositiveConnectionAmount }
+        }
+        if (this.risksData[0].analyzeTable.mostInfluenceAmount.value < current.influenceAmount) {
+          this.risksData[0].analyzeTable.mostInfluenceAmount = { name: el[0], value: current.influenceAmount }
+        }
+        if (this.risksData[0].analyzeTable.lessInfluenceAmount.value > current.influenceAmount) {
+          this.risksData[0].analyzeTable.lessInfluenceAmount = { name: el[0], value: current.influenceAmount }
+        }
+      })
+      this.risksData[0].analyzeTable.DjGeoMin = (this.current.risksData.reduce((prev: number, next: any) => !next.analyzeTable.DjGeoMin ? prev : +(prev * +next.analyzeTable.DjGeoMin).toFixed(4), 1) ** (1 / this.current.risksData.length)).toFixed(4)
+      this.risksData[0].analyzeTable.DjGeoMout = (this.current.risksData.reduce((prev: number, next: any) => !next.analyzeTable.DjGeoMout ? prev : +(prev * +next.analyzeTable.DjGeoMout).toFixed(4), 1) ** (1 / this.current.risksData.length)).toFixed(4)
+      this.risksData[0].analyzeTable.DjGeoMinout = +this.risksData[0].analyzeTable.DjGeoMin + +this.risksData[0].analyzeTable.DjGeoMout
+      this.risksData[0].analyzeTable.density = (this.current.risksData.reduce((prev: number, next: any) => !next.analyzeTable.density ? prev : +(prev * +next.analyzeTable.density).toFixed(4), 1) ** (1 / this.current.risksData.length)).toFixed(4)
+      this.risksData[0].analyzeTable.complexity = (this.current.risksData.reduce((prev: number, next: any) => !next.analyzeTable.complexity ? prev : +(prev * +next.analyzeTable.complexity).toFixed(4), 1) ** (1 / this.current.risksData.length)).toFixed(4)
+      this.risksData[0].analyzeTable.hierarchy = (this.current.risksData.reduce((prev: number, next: any) => !next.analyzeTable.hierarchy ? prev : +(prev * +next.analyzeTable.hierarchy).toFixed(4), 1) ** (1 / this.current.risksData.length)).toFixed(4)
+    } else {
+      this.risksData.push({
+        expert: 'Середнє значення за всіма експертами',
+        tableParams: {
+          th: ['/', 'Rclassicj', 'Rleanj', 'Rdigj', 'Rmodj', 'Керованість'],
+          td: (this.current.risksData[0].tableParams.td).map((td: (number | string)[], tdIndex: number) => {
+            return td.map((el: number | string, index: number) => index === 0 ? el : (this.current.risksData.reduce((prev: number, next: any) => +(prev * ( +next.tableParams.td[tdIndex][index])).toFixed(4), 1) ** (1 / this.current.risksData.length)).toFixed(4))
+          })
+        },
+      })
+    }
   }
 
   public navigate(path: string) {
@@ -99,7 +205,7 @@ export class InfoDialogExpertiseComponent {
         elem.append(chart)
       }, 500)
     }
-
+    // this.cdr.detectChanges()
     // d3.select('.model-container').append(() => chartSwatches);
   }
 

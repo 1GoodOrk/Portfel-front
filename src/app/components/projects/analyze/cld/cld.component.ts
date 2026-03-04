@@ -193,8 +193,7 @@ export class CLDComponent {
         Rdigj.toFixed(4),
         Rmodj.toFixed(4),
         this.currentExpertise.approve.fields[updateFieldIndex].approve[approveIndex].data ?
-        (this.currentExpertise.approve.fields[updateFieldIndex].approve
-          .reduce((prev: number, next: any) => next.data ? prev * next.data[`Керованість ризику '${this.currentExpertise.approve.fields[updateFieldIndex].label}'`] : prev, 1) ** (1 / this.currentExpertise.approve.fields[updateFieldIndex].approve.length)).toFixed(4) : 0
+        this.currentExpertise.approve.fields[updateFieldIndex].approve[approveIndex].data[`Керованість ризику '${this.currentExpertise.approve.fields[updateFieldIndex].label}'`].toFixed(2) : 0
       ])
     }
 

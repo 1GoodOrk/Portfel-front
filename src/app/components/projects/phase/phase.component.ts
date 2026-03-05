@@ -35,18 +35,25 @@ export class PhaseComponent {
 
   public removePhase($event: any, index: number) {
     $event.stopPropagation()
-    this.currentProject.phase.splice(index, 1)
+    this.currentProject.phases.splice(index, 1)
     this.updateProject()
   }
 
   public createPhase() {
+    this.appCommunicationService.clearCurrentPhase()
+    this.navigate('phase-creation')
+  }
+
+  public updatePhase($event: any, index: number) {
+    $event.stopPropagation()
+    this.appCommunicationService.saveCurrentPhase(this.currentProject.phases[index])
     this.navigate('phase-creation')
   }
 
   public showCurrentPhase($event: any, index: number) {
     $event.stopPropagation()
-    this.appCommunicationService.saveCurrentPhase(this.currentProject.phase[index])
-    this.navigate(`phase-info/${this.currentProject.phase[index]._id}`)
+    this.appCommunicationService.saveCurrentPhase(this.currentProject.phases[index])
+    this.navigate(`phase-info/${this.currentProject.phases[index]._id}`)
   }
 
   public updateProject() {

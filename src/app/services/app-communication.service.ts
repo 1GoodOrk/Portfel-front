@@ -273,8 +273,25 @@ export class AppCommunicationService {
     return infoDynamicApproveKeys
   }
 
-  public getInputsFormDefault(): any {
-    return Array.from(this.inputsForm.phasesLogisticDefault)
+  public getInputsFormDefault(name: string): any {
+    const result: any = []
+    Array
+      .from(this.inputsForm.phasesLogisticDefault)
+      .forEach((input: any) => {
+        result.push({
+          "type": "number",
+          "displayCondition": true,
+          "name": `${input.name}-${name}`,
+          "label": input.label,
+          "placeholder": input.placeholder,
+          "pTooltip": input.pTooltip,
+          "value": 0,
+          "min": 1,
+          "max": 10,
+          "step": 1
+        })
+      })
+    return result
   }
 
   public saveStackholder(data: any): any {
@@ -299,6 +316,10 @@ export class AppCommunicationService {
   }
 
   public currentPhase: any = {}
+
+  public clearCurrentPhase(): any {
+    this.currentPhase = {}
+  }
 
   public saveCurrentPhase(data: any): any {
     this.currentPhase = data

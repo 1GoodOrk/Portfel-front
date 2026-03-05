@@ -30,6 +30,14 @@
             placeholder="Select a Language"
             class="w-full md:w-56" />
         </div> -->
+        <a
+          pRipple
+          pTooltip="Натисніть, щоб розлогитися"
+          tooltipPosition="right"
+          (click)="navigate('login')"
+          class="flex items-center p-menubar-item-link">
+          <span [style]="{'color': 'white'}">Вийти</span>
+        </a>
         <div class="flex items-center gap-2">
           <p-avatar
             image="https://toppng.com/uploads/preview/roger-berry-avatar-placeholder-11562991561rbrfzlng6h.png"

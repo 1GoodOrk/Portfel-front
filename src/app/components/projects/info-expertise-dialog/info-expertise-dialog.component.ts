@@ -41,7 +41,9 @@ export class InfoDialogExpertiseComponent {
     private appCommunicationService: AppCommunicationService,
   ) {
     this.current = this.appCommunicationService.getCurrentExpertise()
-    this.updateView()
+    if (this.current.risksData) {
+      this.updateView()
+    }
   }
 
   public updateView() {

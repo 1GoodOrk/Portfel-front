@@ -96,6 +96,22 @@ export class AdditionalComponent {
     this.currentProject = this.appCommunicationService.getCurrentProject()
     this.currentExpertise = this.appCommunicationService.getCurrentExpertise()
     this.currentSessionMail = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.email
+    if (this.currentExpertise.approve && this.currentExpertise.approve.weigth) {
+      this.weight.lean = this.currentExpertise.approve.weigth.mainWeight.lean
+      this.weight.digital = this.currentExpertise.approve.weigth.mainWeight.digital
+      this.weight.classic = this.currentExpertise.approve.weigth.mainWeight.classic
+      this.dig = this.currentExpertise.approve.weigth.wdig
+      this.wcoef.quality = this.currentExpertise.approve.weigth.wcoef.quality
+      this.wcoef.money = this.currentExpertise.approve.weigth.wcoef.money
+      this.wcoef.time = this.currentExpertise.approve.weigth.wcoef.time
+      this.wlean.defect = this.currentExpertise.approve.weigth.wlean.defect
+      this.wlean.waiting = this.currentExpertise.approve.weigth.wlean.waiting
+      this.wlean.overproduct = this.currentExpertise.approve.weigth.wlean.overproduct
+      this.wlean.motion = this.currentExpertise.approve.weigth.wlean.motion
+      this.wlean.proccessing = this.currentExpertise.approve.weigth.wlean.proccessing
+      this.wlean.transporting = this.currentExpertise.approve.weigth.wlean.transporting
+      this.wlean.talents = this.currentExpertise.approve.weigth.wlean.talents
+    }
   }
 
   public navigate(path: string) {

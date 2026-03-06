@@ -33,12 +33,12 @@
                                 @if ($index === 0) {
                                   <td [id]="`td-id-${td}`">{{ td }}</td>
                                 } @else {
-                                  <td [style]="{ 'max-width': '30px'}" [id]="`td-id-${td}`">
+                                  <td [style]="{ 'max-width': '50px'}" [id]="`td-id-${td}`">
                                     <p-inputnumber
                                       [inputId]="`td-id-${tds[0]}-${$index}-input`"
                                       [ngModel]="td"
                                       class="different"
-                                      [inputStyle]="{ width: '30px', border: '0', 'box-shadow': 'none' }"
+                                      [inputStyle]="{ width: '50px', border: '0', 'box-shadow': 'none' }"
                                       (ngModelChange)="onTableChange($event, tds[0], $index)"
                                       [ngModelOptions]="{ standalone: true }"
                                       [step]="1"

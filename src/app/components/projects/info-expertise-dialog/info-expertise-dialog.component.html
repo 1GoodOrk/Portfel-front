@@ -9,7 +9,7 @@
     <span class="bold">Узгодженість</span>:
     <span class="bold" [style]="{ 'color': current.approve.consistency > 0.5 ? 'darkcyan' : 'firebrick' }"> {{current.approve.consistency > 0.5 ? 'Достатньо' : 'Недостатньо'}} ({{current.approve.consistency}})</span>
   </p>
-  @if (current.type === 'CLD') {
+  @if (current.type === 'CLD' && this.current.risksData) {
     @for (riskData of risksData; track riskData; let i = $index) {
       <p-divider />
       @if (riskData.expert === 'Середнє значення за всіма експертами') {
@@ -43,7 +43,7 @@
         <p> <span class="bold">Рекомендація експерта:</span> {{riskData.recommendationDescription}}</p>
       }
     }
-  } @else {
+  } @else if (current.type === 'КО' && this.current.risksData) {
     <p> <span class="bold">Фінальна оцінка КО:</span> {{current.approve.grade}}</p>
     @for (riskData of risksData; track riskData; let i = $index) {
       <p-divider />

@@ -77,7 +77,7 @@
                   severity="success"
                   (click)="approveExpertise(expertise, $event)"/>
                 @if (expertise.status !== 'НОВИЙ' && expertise.status !== 'ПОГОДЖЕННЯ') {
-                  @if (expertise.type === 'CLD') {
+                  @if (expertise.type === 'CLD' && expertise.approve.consistency >= 0.5) {
                     @if (expertise.approve.weigth) {
                       <p-button
                         label="CLD"
@@ -85,7 +85,7 @@
                         severity="warn"
                         (click)="updateExpertise(expertise, $event, 'CLD')"/>
                     }
-                    @if (expertise.generalExperts && expertise.generalExperts.email === this.user.email) {
+                    @if (expertise.generalExperts && expertise.generalExperts.email === this.user.email && expertise.approve.consistency >= 0.5) {
                       <p-button
                         label="CLD Критерії"
                         [pTooltip]="`${'pages.project.science.updateButtonTooltip' | translate}`"

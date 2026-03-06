@@ -223,11 +223,11 @@ export class KOComponent implements AfterContentInit {
     })
     this.riskData.analyzeTable.DjGeoMin = (this.riskData.additionalTableParams.td.reduce((prev: number, next: any) => isNaN(next[1]) || next[1] === 0 ? prev : prev * Math.abs(next[1]), 1) ** (1 / (this.riskData.additionalTableParams.td.length - 1))).toFixed(4)
     this.riskData.analyzeTable.DjGeoMout = (this.riskData.additionalTableParams.td.reduce((prev: number, next: any) => isNaN(next[2]) || next[2] === 0 ? prev : prev * Math.abs(next[2]), 1) ** (1 / (this.riskData.additionalTableParams.td.length - 1))).toFixed(4)
-    this.riskData.analyzeTable.DjGeoMinout = +this.riskData.analyzeTable.DjGeoMin + +this.riskData.analyzeTable.DjGeoMout
+    this.riskData.analyzeTable.DjGeoMinout = +(+this.riskData.analyzeTable.DjGeoMin + +this.riskData.analyzeTable.DjGeoMout).toFixed(4)
     let connectionAmount = 0
     this.riskData.additionalTableParams.td.forEach((td: any) => td.forEach((el: any) =>  !isNaN(el) && el !== 0 && connectionAmount++));
     this.riskData.analyzeTable.density = (connectionAmount / ((this.riskData.additionalTableParams.td[0].length - 1) * (this.riskData.additionalTableParams.td[0].length - 2))).toFixed(4)
-    this.riskData.analyzeTable.complexity = this.riskData.additionalTableParams.td.reduce((prev: number, td: any) => td[1] !== 0 ? prev + 1 : prev, 0) / this.riskData.additionalTableParams.td.reduce((prev: number, td: any) => td[2] !== 0 ? prev + 1 : prev, 0)
+    this.riskData.analyzeTable.complexity = +(this.riskData.additionalTableParams.td.reduce((prev: number, td: any) => td[1] !== 0 ? prev + 1 : prev, 0) / this.riskData.additionalTableParams.td.reduce((prev: number, td: any) => td[2] !== 0 ? prev + 1 : prev, 0)).toFixed(4)
     this.riskData.analyzeTable.hierarchy = ((12 / (this.riskData.additionalTableParams.td.length ** 3 - this.riskData.additionalTableParams.td.length)) * (this.riskData.additionalTableParams.td.reduce((prev: number, next: number[]) => prev + (next[2] - +this.riskData.analyzeTable.DjGeoMout) ** 2, 1))).toFixed(4)
   }
 

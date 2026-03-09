@@ -51,7 +51,7 @@ export class LoginComponent {
 
   public showSpinner: boolean = false
   public languages: Array<string> = ['en', 'ua'];
-  public selectedLanguage: string = 'en';
+  public selectedLanguage: string = 'ua';
   private langJson: any = {
     en: translationsEN,
     ru: translationsRU,
@@ -63,7 +63,9 @@ export class LoginComponent {
     private translate: TranslateService,
     private httpService: HttpService,
     private appCommunicationService: AppCommunicationService
-  ) { }
+  ) {
+    this.httpService.testLocalData()
+  }
 
   public changeLanguage (): void {
     this.translate.setTranslation(this.selectedLanguage, this.langJson[this.selectedLanguage])
@@ -79,13 +81,22 @@ export class LoginComponent {
   public onSubmit(form: any): void {
     if (form.valid) {
       this.showSpinner = true
-      this.httpService.login(this.user)
-        .subscribe((data: IUserData) => {
+
+      this.httpService
+        .loginLocal(this.user)
+        .then((data: IUserData) => {
           this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
           this.showSpinner = false
           form.resetForm()
           this.navigate('main')
         })
+      // this.httpService.login(this.user)
+      //   .subscribe((data: IUserData) => {
+      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
+      //     this.showSpinner = false
+      //     form.resetForm()
+      //     this.navigate('main')
+      //   })
     }
   }
 }

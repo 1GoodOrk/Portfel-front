@@ -66,11 +66,7 @@ export class MainComponent {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -118,16 +114,24 @@ export class MainComponent {
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
   ) {
+    this.httpService.testLocalData()
     this.getAllProjects()
   }
 
   public getAllProjects(): void {
-    this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe((data: any) => {
+    this.httpService
+      .getAllProjectsLocal(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .then((data: any) => {
         this.projects = data
         this.projectsList = Array.from(this.projects)
         this.getAllPortfolios()
       })
+    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe((data: any) => {
+    //     this.projects = data
+    //     this.projectsList = Array.from(this.projects)
+    //     this.getAllPortfolios()
+    //   })
   }
 
   public visibleOnChange(key: string): void {
@@ -137,8 +141,9 @@ export class MainComponent {
   }
 
   public getAllPortfolios(): void {
-    this.httpService.getAllPortfolios(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe((data: any) => {
+    this.httpService
+      .getAllPortfolioLocal(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .then((data: any) => {
         this.portfolios = data.map((port: IPortfolioDataRO) => {
           Object.keys(port.projectIds).forEach((tier: string) => {
             const array: Array<IProjectData> = []
@@ -157,6 +162,27 @@ export class MainComponent {
         })
         this.portfoliosList = Array.from(this.portfolios)
       })
+
+    // this.httpService.getAllPortfolios(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe((data: any) => {
+    //     this.portfolios = data.map((port: IPortfolioDataRO) => {
+    //       Object.keys(port.projectIds).forEach((tier: string) => {
+    //         const array: Array<IProjectData> = []
+    //         // TODO: type error
+    //         // @ts-expect-error
+    //         port.projectIds[tier].forEach((el: any) => {
+    //           // TODO: type error
+    //           // @ts-expect-error
+    //           array.push(this.projects.find((proj: IProjectData) => proj._id === el))
+    //         })
+    //         // TODO: type error
+    //         // @ts-expect-error
+    //         port.projectIds[tier] = Array.from(array)
+    //       })
+    //       return port
+    //     })
+    //     this.portfoliosList = Array.from(this.portfolios)
+    //   })
   }
 
   public findProjects(): void {
@@ -208,8 +234,6 @@ export class MainComponent {
         // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
-      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
-      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
@@ -238,16 +262,35 @@ export class MainComponent {
 
   public removeProjects(id: string, event: any) {
     event.stopPropagation()
-    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe(() => {
+    this.httpService
+      .removeProjectLocal(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .then((data: any) => {
         const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
         const index = user.data.projectIds.indexOf(id);
-        if (index > -1 && user && user.projectIds) {
-          user.projectIds.splice(index, 1);
+        if (index > -1) {
+          if (!user.projectIds) {
+            user.projectIds.splice(index, 1);
+          } else {
+            user.projectIds = []
+          }
         }
         this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
         this.getAllProjects()
       })
+    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe(() => {
+    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+    //     const index = user.data.projectIds.indexOf(id);
+    //     if (index > -1) {
+    //       if (!user.projectIds) {
+    //         user.projectIds.splice(index, 1);
+    //       } else {
+    //         user.projectIds = []
+    //       }
+    //     }
+    //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+    //     this.getAllProjects()
+    //   })
   }
 
   public updatePortfolio (data: any, event: any) {
@@ -264,15 +307,26 @@ export class MainComponent {
 
   public removePortfolio (id: string, event: any) {
     event.stopPropagation()
-    this.httpService.removePortfolio(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe(() => {
+    this.httpService
+      .removePortfolioLocal(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .then((data: any) => {
         const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
         const index = user.data.portfolioIds.indexOf(id);
-        if (index > -1 && user && user.portfolioIds) {
-          user.portfolioIds.splice(index, 1);
+        if (index > -1) {
+          user.projectIds.splice(index, 1);
         }
         this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
         this.getAllPortfolios()
       })
+    // this.httpService.removePortfolio(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe(() => {
+    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+    //     const index = user.data.portfolioIds.indexOf(id);
+    //     if (index > -1) {
+    //       user.projectIds.splice(index, 1);
+    //     }
+    //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+    //     this.getAllPortfolios()
+    //   })
   }
 }

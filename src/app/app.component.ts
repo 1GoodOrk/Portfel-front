@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from "@ngx-translate/core";
 
 import translationsEN from "../asserts/i18n/en.json";
+import translationsUA from "../asserts/i18n/ua.json";
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,9 @@ export class AppComponent {
 
   constructor(private translate: TranslateService) {
     this.translate.addLangs(['ru', 'ua', 'en']);
-    this.translate.setTranslation('en', translationsEN);
+    this.translate.setTranslation('ua', translationsUA);
     // TODO: check deprecated and remove
     // this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.translate.use('ua');
   }
 }

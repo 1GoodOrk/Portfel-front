@@ -51,11 +51,7 @@ export class CreationDialogComponent {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -71,7 +67,7 @@ export class CreationDialogComponent {
     addressStart: '',
     addressEnd: '',
     des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/5/57/%D0%9F%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82_%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B8_%D0%91%D0%B0%D0%B6%D0%B0%D0%BD%D0%B0.JPG',
     dateCreation: '',
     dateInitialization: '',
     permissionDuration: 0,
@@ -88,29 +84,25 @@ export class CreationDialogComponent {
   @Output() changeVisibleEvent = new EventEmitter<string>();
   @Output() submitionEvent = new EventEmitter<string>();
 
-  public items = [
-    // { label: 'Bridge', value: 'bridge' },
-    // { label: 'Fixing', value: 'fix' },
-    // { label: 'Build', value: 'build' },
-    // { label: 'Overpass', value: 'overpass' },
-    // { label: 'Tunnel', value: 'tunnel' },
-    // { label: 'Detour', value: 'detour' },
-    // { label: 'Cong', value: 'cong' },
-    // { label: 'Digitalization', value: 'digitalization' },
-    { label: 'Міст', value: 'bridge' },
-    { label: 'Ремонт', value: 'fix' },
-    { label: 'Будівництво', value: 'build' },
-    { label: 'Естакада', value: 'overpass' },
-    { label: 'Тунель', value: 'tunnel' },
-    { label: 'Об’їзд', value: 'detour' },
-    { label: 'З’їзд', value: 'cong' },
-    { label: 'Цифровізація', value: 'digitalization' },
+  public itemsBuild = [
+    'Магістральні улиці загального значення',
+    'Магістральні вулиці районного значення',
+    'Дорога регіонального значення',
+    'Дорога міжмуніципального значення',
+    'Дорога федерального значення',
+    'Дорога местного значения',
+    'Частные автомобильные дороги',
+    'Спеціалізовані вулиці/зони',
+    'Проїзд'
   ]
+  public items = ['Міст', 'Ремонт', 'Будівництво', 'Естакада', 'Тунель', `Об'їзд`, `З'їзд`, 'Диджиталізація']
 
   constructor(
     private appCommunicationService: AppCommunicationService,
     private httpService: HttpService
-  ) {}
+  ) {
+
+  }
 
   public visibleOnChange(): void {
     this.changeVisibleEvent.emit('creation');
@@ -122,32 +114,68 @@ export class CreationDialogComponent {
 
   public updateProject(id: string, form: any) {
     if (form.valid) {
-      form.resetForm()
-      this.httpService.updateProject(id, this.formData)
-        .subscribe((data: any) => {
-          if (data) {
-            this.getAllProjects()
-          }
+      this.httpService
+        .updateProjectLocal(id, this.formData)
+        .then((data: any) => {
+          this.getAllProjects()
         })
+      // this.httpService.updateProject(id, this.formData)
+      //   .subscribe((data: any) => {
+      //     if (data) {
+      //       this.getAllProjects()
+      //     }
+      //   })
+      form.resetForm()
       this.formData = Object.assign(this.appCommunicationService.clearProject)
       this.visibleOnChange()
     }
   }
 
   public createProject(form: any) {
-    console.log(this.formData.options)
     if (form.valid) {
-      this.formData.score = 0.33 * (this.formData.profit - this.formData.budget) + 0.33 * this.formData.permissionDuration + 0.33 * this.formData.forecastProjectTaskAmount
-      this.httpService.createProject(this.formData, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-        .subscribe((data: any) => {
+      this.formData.score = 0.33 * (this.formData.budget) + 0.33 * this.formData.permissionDuration + 0.33 * this.formData.forecastProjectTaskAmount
+      this.httpService
+        .createProjectLocal(this.formData, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+        .then((data: any) => {
           const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
           user.data.projectIds.push(data._id)
           this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
           this.getAllProjects()
         })
-      this.formData = Object.assign(this.appCommunicationService.clearProject)
+      // this.httpService.createProject(this.formData, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      //   .subscribe((data: any) => {
+      //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+      //     user.data.projectIds.push(data._id)
+      //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+      //     this.getAllProjects()
+      //   })
       form.resetForm()
+      this.formData = Object.assign(this.appCommunicationService.clearProject)
       this.visibleOnChange()
     }
   }
 }
+
+// Проспект Миколи Бажана
+// Осокорки, Позняки, Харківський
+// Александр Петрович Бедромир
+// Анна Петровна Гончар
+// Build&Prod
+// Государство
+// Киев
+// Южный мост
+// ст. м. «Бориспільська»
+// Це велика магістраль у Дарницькому районі Києва (Осокорки, Позняки, Харківський), що з'єднує Південний міст і Харківську площу. Вздовж нього розташовані шість станцій метро зеленої гілки: «Славутич», «Осокорки», «Позняки», «Харківська», «Вирлиця» та «Бориспільська».
+
+// вул. Євгена Харченка
+// От вул. Саксаганського до станції метро «Олімпійська»
+// Бедромир Александр Петрович
+// Гончар Анна Петровна
+// Build&Prod
+// Новый Взгляд
+// Государство
+// Киев
+// ПМП
+// Березняковськая
+// Дорога местного значения
+// Улица Евгения Харченко — улица в Дарницком районе города Киева, исторически сложившаяся местность Бортничи. Пролегает от перекрёстка улиц Светлая и Лесная до перекрёстка улиц Переяславская, Ивана Богуна и Автотранспортная.

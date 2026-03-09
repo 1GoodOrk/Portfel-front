@@ -28,13 +28,10 @@
           }"
           (click)="showInfoPortfolio(portfolio)">
           <ng-template #header>
-            <!-- <img src="https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg" alt="portfolio_art"> -->
-
-            <img alt="Card" class="w-full" src="https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg" />
+            <img alt="Card" class="w-full" [src]="portfolio.img" />
           </ng-template>
           <ng-template #title> {{portfolio.name}} </ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.main.main.subinfoLabel' | translate}}:</span> {{portfolio.subinfo}} </ng-template>
-          <p> <span class="bold">{{'pages.main.main.profitLabel' | translate}}:</span> {{portfolio.budget}}  {{'pages.portfolio.dialog.budgetSuffix' | translate}}</p>
           <p> <span class="bold">{{'pages.main.main.projectsAmountLabel' | translate}}:</span> {{portfolio.projects}}</p>
           <p> <span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{portfolio.des}}</p>
           <ng-template #footer>
@@ -117,7 +114,7 @@
           </ng-template>
         </p-card>
       } @empty {
-        <h2 class="bold"> {{'pages.main.main.noProjectsExist' | translate}} </h2>
+        <h2 class="bold"> Проєктів не знайдено... </h2>
       }
     </div>
   </section>

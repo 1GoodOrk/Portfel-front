@@ -153,11 +153,7 @@ export class CreateComponent {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -203,16 +199,21 @@ export class CreateComponent {
   }
 
   public getAllProjects(): void {
-  this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-    .subscribe((data: any) => {
-      this.projects = data.filter((el: IProjectData) => !el.portfolioId)
-      this.projectsUnselected = Array.from(this.projects)
-    })
+    this.httpService
+      .getAllProjectsLocal(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .then((data: any) => {
+        this.projects = data
+        this.projectsUnselected = Array.from(this.projects)
+      })
+    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe((data: any) => {
+    //     this.projects = data
+    //     this.projectsUnselected = Array.from(this.projects)
+    //   })
 }
 
   public watchPortfolio(): void {
     this.appCommunicationService.currentPortfolio = Object.assign(this.data)
-    this.appCommunicationService.currentPortfolio.projects = this.appCommunicationService.currentPortfolio.projectIds.tierI.length + this.appCommunicationService.currentPortfolio.projectIds.tierII.length + this.appCommunicationService.currentPortfolio.projectIds.tierIII.length
     this.navigate('confirmation')
   }
 
@@ -246,18 +247,15 @@ export class CreateComponent {
     return this.selectedSorting === type
   }
 
-  public updateProjects(id: string): void {
-    this.httpService.updateProject(id, {});
-  }
-
   public tiersFiltering(): void {
     this.data = this.sortingService.tierFormatting(this.projectsSelected, this.data)
   }
 
   public removeProjects(id: string, event: any) {
     event.stopPropagation()
-    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe(() => {
+    this.httpService
+      .removeProjectLocal(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .then((data: any) => {
         const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
         const index = user.data.projectIds.indexOf(id);
         if (index > -1) { // only splice array when item is found
@@ -265,6 +263,15 @@ export class CreateComponent {
         }
         this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
       })
+    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe(() => {
+    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+    //     const index = user.data.projectIds.indexOf(id);
+    //     if (index > -1) { // only splice array when item is found
+    //       user.projectIds.splice(index, 1); // 2nd parameter means remove one item only
+    //     }
+    //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+    //   })
   }
 
   public showInfoProjectDialog(id?: string, event?: any): void {
@@ -276,8 +283,6 @@ export class CreateComponent {
         // @ts-expect-error
         this.currentProject[key] = this.projects[index][key]
       })
-      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
-      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }

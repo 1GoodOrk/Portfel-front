@@ -120,44 +120,6 @@
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="responsibleSurname" class="bold">{{'pages.portfolio.dialog.responsibleSurnameLabel' | translate}}</label>
-          <input
-            pInputText
-            type="text"
-            id="responsibleSurname"
-            [placeholder]="'pages.portfolio.dialog.responsibleSurnamePlaceholder' | translate"
-            [pTooltip]="'pages.portfolio.dialog.responsibleSurnameTolltip' | translate"
-            tooltipPosition="right"
-            name="responsibleSurname"
-            [(ngModel)]="formData.responsibleSurname"
-            [ngModelOptions]="{ standalone: true }"
-            #responsibleSurname="ngModel"
-            [invalid]="responsibleSurname.invalid && (responsibleSurname.touched || form.submitted)"
-            required />
-          @if (responsibleSurname.invalid && (responsibleSurname.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleSurnameRequired' | translate}}</p-message>
-          }
-        </div>
-        <div class="flex flex-col gap-1">
-          <label for="responsibleLastname" class="bold">{{'pages.portfolio.dialog.responsibleLastnameLabel' | translate}}</label>
-          <input
-            pInputText
-            type="text"
-            id="responsibleLastname"
-            [placeholder]="'pages.portfolio.dialog.responsibleLastnamePlaceholder' | translate"
-            [pTooltip]="'pages.portfolio.dialog.responsibleLastnameTolltip' | translate"
-            tooltipPosition="right"
-            name="responsibleLastname"
-            [(ngModel)]="formData.responsibleLastname"
-            [ngModelOptions]="{ standalone: true }"
-            #responsibleLastname="ngModel"
-            [invalid]="responsibleLastname.invalid && (responsibleLastname.touched || form.submitted)"
-            required />
-          @if (responsibleLastname.invalid && (responsibleLastname.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleLastnameRequired' | translate}}</p-message>
-          }
-        </div>
-        <div class="flex flex-col gap-1">
           <label for="managerName" class="bold">{{'pages.portfolio.dialog.managerNameLabel' | translate}}</label>
           <input
             pInputText
@@ -177,51 +139,13 @@
           }
         </div>
         <div class="flex flex-col gap-1">
-          <label for="managerSurname" class="bold">{{'pages.portfolio.dialog.managerSurnameLabel' | translate}}</label>
-          <input
-            pInputText
-            type="text"
-            id="managerSurname"
-            [placeholder]="'pages.portfolio.dialog.managerSurnamePlaceholder' | translate"
-            [pTooltip]="'pages.portfolio.dialog.managerSurnameTolltip' | translate"
-            tooltipPosition="right"
-            name="managerSurname"
-            [(ngModel)]="formData.managerSurname"
-            [ngModelOptions]="{ standalone: true }"
-            #managerSurname="ngModel"
-            [invalid]="managerSurname.invalid && (managerSurname.touched || form.submitted)"
-            required />
-          @if (managerSurname.invalid && (managerSurname.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.managerSurnameRequired' | translate}}</p-message>
-          }
-        </div>
-        <div class="flex flex-col gap-1">
-          <label for="managerLastname" class="bold">{{'pages.portfolio.dialog.managerLastnameLabel' | translate}}</label>
-          <input
-            pInputText
-            type="text"
-            id="managerLastname"
-            [placeholder]="'pages.portfolio.dialog.managerLastnamePlaceholder' | translate"
-            [pTooltip]="'pages.portfolio.dialog.managerLastnameTolltip' | translate"
-            tooltipPosition="right"
-            name="managerLastname"
-            [(ngModel)]="formData.managerLastname"
-            [ngModelOptions]="{ standalone: true }"
-            #managerLastname="ngModel"
-            [invalid]="managerLastname.invalid && (managerLastname.touched || form.submitted)"
-            required />
-          @if (managerLastname.invalid && (managerLastname.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.managerLastnameRequired' | translate}}</p-message>
-          }
-        </div>
-        <div class="flex flex-col gap-1">
           <label for="responsibleOrganization" class="bold">{{'pages.portfolio.dialog.responsibleOrganizationLabel' | translate}}</label>
           <input
             pInputText
             type="text"
             id="responsibleOrganization"
-            [placeholder]="'pages.portfolio.dialog.responsibleOrganizationPlaceholder' | translate"
-            [pTooltip]="'pages.portfolio.dialog.responsibleOrganizationTolltip' | translate"
+            [placeholder]="'pages.portfolio.dialog.namePlaceholder' | translate"
+            [pTooltip]="'pages.portfolio.dialog.nameTolltip' | translate"
             tooltipPosition="right"
             name="responsibleOrganization"
             [(ngModel)]="formData.responsibleOrganization"
@@ -233,31 +157,20 @@
             <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.dialog.responsibleOrganizationRequired' | translate}}</p-message>
           }
         </div>
-        <p-divider />
         <div class="flex flex-col gap-1">
-          <label for="profit" class="bold">{{'pages.portfolio.dialog.profitLabel' | translate}}</label>
-          <p-inputnumber
-            inputId="profit"
-            [pTooltip]="'pages.portfolio.dialog.profitTolltip' | translate"
+          <label for="img" class="bold">Посилання зображення</label>
+          <input
+            pInputText
+            type="text"
+            id="img"
+            placeholder="Посилання"
+            pTooltip="Вставте сюди посилання на зображення"
             tooltipPosition="right"
-            name="profit"
-            [(ngModel)]="formData.profit"
-            [ngModelOptions]="{ standalone: true }"
-            #profit="ngModel"
-            [invalid]="profit.invalid && (profit.touched || form.submitted)"
-            [suffix]="'pages.portfolio.dialog.budgetSuffix' | translate"
-            required
-            [minFractionDigits]="2" />
-          @if (profit.invalid && (profit.touched || form.submitted)) {
-            <p-message
-              severity="error"
-              size="small"
-              variant="simple"
-            >
-              {{'pages.portfolio.dialog.profitRequired' | translate}}
-            </p-message>
-          }
+            name="img"
+            [(ngModel)]="formData.img"
+            [ngModelOptions]="{ standalone: true }" />
         </div>
+        <p-divider />
         <div class="flex flex-col gap-1">
           <label for="budget" class="bold">{{'pages.portfolio.dialog.budgetLabel' | translate}}</label>
           <p-inputnumber
@@ -388,7 +301,7 @@
             [invalid]="roadCode.invalid && (roadCode.touched || form.submitted)"
             required />
           @if (roadCode.invalid && (roadCode.touched || form.submitted)) {
-            <p-message severity="error" size="small" variant="simple">{{'pages.portfolio.creation.roadCodeRequired' | translate}}</p-message>
+            <p-message severity="error" size="small" variant="simple">Поле код обов'язково</p-message>
           }
         </div>
         <div class="flex flex-col gap-1">
@@ -416,17 +329,22 @@
           }
         </div>
         <p-divider />
-        <div class="form-group w-300">
-          <p-checkbox
+        <div class="flex flex-col gap-1">
+          <label for="mainRoad" class="bold">Тип міської реалізації</label>
+          <p-select
             inputId="mainRoad"
-            [pTooltip]="'pages.portfolio.dialog.mainRoadTolltip' | translate"
-            tooltipPosition="right"
-            name="mainRoad"
-            [binary]="true"
-            [indeterminate]="true"
+            [options]="itemsBuild"
+            [(ngModel)]="formData.mainRoad"
             [ngModelOptions]="{ standalone: true }"
-            [(ngModel)]="formData.mainRoad" />
-          <label for="intown" class="bold">{{'pages.portfolio.dialog.mainRoadLabel' | translate}}?</label>
+            #mainRoad="ngModel"
+            required
+            placeholder="Тип міської реалізації"
+            pTooltip="Виберіть тип міської реалізації"
+            tooltipPosition="right"
+            class="w-full md:w-56" />
+          @if (mainRoad.invalid && (mainRoad.touched || form.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Поле типу міської реалізації обов'язково</p-message>
+          }
         </div>
         <div class="form-group w-300">
           <p-checkbox
@@ -803,7 +721,7 @@
           [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
           [text]="true"
           severity="danger"
-          (click)="form.resetForm(); visibleOnChange()" />
+          (click)="visibleOnChange()" />
       </div>
     </div>
   </form>

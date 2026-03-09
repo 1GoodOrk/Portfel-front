@@ -15,6 +15,7 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { HttpService } from '@port/services/http.service';
+import { AppCommunicationService } from '@port/services/app-communication.service';
 
 @Component({
   selector: 'app-profile',
@@ -48,8 +49,11 @@ export class ProfileComponent {
 
   constructor(
     private router: Router,
-    private httpService: HttpService
-  ) { }
+    private httpService: HttpService,
+    private appCommunicationService: AppCommunicationService
+  ) {
+    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
+  }
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
@@ -58,10 +62,14 @@ export class ProfileComponent {
   public onSubmit(form: any): void {
     if (form.valid) {
       this.showSpinner = true
-      this.httpService.updateUser(localStorage.getItem('userID'), this.user)
-        .subscribe(() => {
+      this.httpService.updateUserLocal(this.user)
+        .then(() => {
           this.showSpinner = false
         })
+      // this.httpService.updateUser(localStorage.getItem('userID'), this.user)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //   })
     }
   }
 }

@@ -53,11 +53,7 @@ export class AppCommunicationService {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -87,7 +83,7 @@ export class AppCommunicationService {
       struc: 0
     }
   }
-  public lang: string = 'en'
+  public lang: string = 'ua'
 
   public sessionStorageSave(id: string, data: string): void {
     sessionStorage.setItem('id', data)
@@ -128,11 +124,7 @@ export class AppCommunicationService {
       subinfo: '',
       type: '',
       responsibleName: '',
-      responsibleSurname: '',
-      responsibleLastname: '',
       managerName: '',
-      managerSurname: '',
-      managerLastname: '',
       responsibleOrganization: '',
       budget: 0,
       budgetSource: '',

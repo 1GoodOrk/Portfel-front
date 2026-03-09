@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { TranslatePipe } from "@ngx-translate/core";
 
 import { DialogModule } from 'primeng/dialog';
@@ -10,7 +9,7 @@ import { IProjectData } from '@port/interfaces';
 @Component({
   selector: 'app-info-dialog',
   standalone: true,
-  imports: [DialogModule, DividerModule, TranslatePipe, DatePipe],
+  imports: [DialogModule, DividerModule, TranslatePipe],
   templateUrl: './info-dialog.component.html',
   styleUrl: './info-dialog.component.scss'
 })
@@ -24,11 +23,7 @@ export class InfoDialogComponent {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',

@@ -45,7 +45,7 @@ export class ForgetComponent {
 
   public showSpinner: boolean = false
   public languages: Array<string> = ['en', 'ua'];
-  public selectedLanguage: string = 'en';
+  public selectedLanguage: string = 'ua';
   private langJson: any = {
     en: translationsEN,
     ru: translationsRU,
@@ -71,12 +71,18 @@ export class ForgetComponent {
     if (form.valid) {
       this.showInfoSend = true
       this.showSpinner = true
-      this.httpService.forget(this.user)
-        .subscribe(() => {
+      this.httpService.forgetLocal()
+        .then(() => {
           this.showSpinner = false
           this.showInfoSend = true
           form.resetForm()
         })
+      // this.httpService.forget(this.user)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     this.showInfoSend = true
+      //     form.resetForm()
+      //   })
     }
   }
 }

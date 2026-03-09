@@ -44,7 +44,7 @@ export class ContactsComponent {
   public onSubmit (form: any) {
     if (form.valid) {
       this.httpService.sendMessage(this.formData)
-        .subscribe(() => {})
+        // .subscribe(() => {})
       this.formData = {
         email: '',
         theme: '',

@@ -53,7 +53,7 @@ export class RegistrationComponent {
 
   public showSpinner: boolean = false
   public languages: Array<string> = ['en', 'ua'];
-  public selectedLanguage: string = 'en';
+  public selectedLanguage: string = 'ua';
   private langJson: any = {
     en: translationsEN,
     ru: translationsRU,
@@ -79,17 +79,28 @@ export class RegistrationComponent {
   public async onSubmit(form: any): Promise<void> {
     if (form.valid) {
       this.showSpinner = true
-      this.httpService.registration({
+      this.httpService.registrationLocal({
         email: this.user.email,
         password: this.user.password,
         organization: this.user.organization
       })
-        .subscribe((data: IUserData) => {
+        .then((data: IUserData) => {
           this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
           this.showSpinner = false
           form.resetForm()
           this.navigate('main')
         })
+      // this.httpService.registration({
+      //   email: this.user.email,
+      //   password: this.user.password,
+      //   organization: this.user.organization
+      // })
+      //   .subscribe((data: IUserData) => {
+      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
+      //     this.showSpinner = false
+      //     form.resetForm()
+      //     this.navigate('main')
+      //   })
     }
   }
 }

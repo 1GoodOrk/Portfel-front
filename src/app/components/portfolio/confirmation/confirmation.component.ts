@@ -66,11 +66,7 @@ export class ConfirmationComponent {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -86,7 +82,7 @@ export class ConfirmationComponent {
     addressStart: '',
     addressEnd: '',
     des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    img: '',
     dateCreation: '',
     dateInitialization: '',
     permissionDuration: 0,
@@ -107,7 +103,7 @@ export class ConfirmationComponent {
     private appCommunicationService: AppCommunicationService
   ) {
     this.data = this.appCommunicationService.currentPortfolio
-    this.data.img = 'https://static.vecteezy.com/system/resources/previews/017/065/272/non_2x/portfolio-text-button-portfolio-sign-icon-label-sticker-web-buttons-vector.jpg'
+    console.log(this.data)
   }
 
   public navigate(path: string) {
@@ -127,8 +123,6 @@ export class ConfirmationComponent {
         // @ts-expect-error
         this.currentProject[key] = this.data.projectIds[tier][index][key]
       })
-      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
-      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
@@ -150,8 +144,18 @@ export class ConfirmationComponent {
       this.data.projectIds[key] = this.data.projectIds[key].map((el: any) => el._id)
     })
     if (this.data._id) {
-      this.httpService.updatePortfolio(this.data._id, this.data)
-        .subscribe(() => {
+      // this.httpService.updatePortfolio(this.data._id, this.data)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+      //     user.data.projectIds.push(this.data._id)
+      //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+      //     this.appCommunicationService.emptyCurrent()
+      //     this.navigate('main')
+      //   })
+      this.httpService
+        .updatePortfolioLocal(this.data._id, this.data)
+        .then((data: any) => {
           this.showSpinner = false
           const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
           user.data.projectIds.push(this.data._id)
@@ -160,11 +164,17 @@ export class ConfirmationComponent {
           this.navigate('main')
         })
     } else {
-      this.httpService.createPortfolio(this.data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-        .subscribe(() => {
+      this.httpService
+        .createPortfolioLocal(this.data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+        .then((data: any) => {
           this.showSpinner = false
           this.navigate('main')
         })
+      // this.httpService.createPortfolio(this.data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     this.navigate('main')
+      //   })
     }
   }
 }

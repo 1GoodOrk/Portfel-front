@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule),
     provideAnimationsAsync(),
     provideTranslateService({
-      defaultLanguage: 'en'
+      defaultLanguage: 'ua'
     }),
     providePrimeNG({
       theme: {

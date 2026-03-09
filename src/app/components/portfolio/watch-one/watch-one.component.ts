@@ -64,11 +64,7 @@ export class WatchOneComponent implements OnDestroy {
     subinfo: '',
     type: '',
     responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
     managerName: '',
-    managerSurname: '',
-    managerLastname: '',
     responsibleOrganization: '',
     budget: 0,
     budgetSource: '',
@@ -125,8 +121,6 @@ export class WatchOneComponent implements OnDestroy {
         // @ts-expect-error
         this.currentProject[key] = this.data.projectIds[tier][index][key]
       })
-      this.currentProject.dateCreation = new Date(this.currentProject.dateCreation)
-      this.currentProject.dateInitialization = new Date(this.currentProject.dateInitialization)
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }

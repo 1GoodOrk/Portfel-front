@@ -12,7 +12,14 @@
   class="w-full md:w-56" />
 </div> -->
 <main class="login">
-  <p-card [header]="'pages.user.login.header' | translate" [style]="{'min-width': '390px'}">
+  <p-card
+    [header]="'pages.user.login.header' | translate"
+    [style]="{
+      'min-width': '390px',
+      'border-top': '25px solid #b91c1c',
+      'border-bottom': '25px solid #b91c1c',
+      'border-radius': '10px'
+    }">
     <ng-template #header>
       <div class="logo-container space-around">
         <img class="logo-main" src="/logo.png" alt="">

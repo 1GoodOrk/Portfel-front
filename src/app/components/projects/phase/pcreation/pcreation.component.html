@@ -2,14 +2,14 @@
 <section class="pcreation">
   <p-button
     label="Повернутись"
-    pTooltip="Повернення до вибору етапів проекту"
+    pTooltip="Повернення до вибору етапів життєвого циклу проєкту"
     tooltipPosition="top"
     severity="primary"
     (click)="back()"/>
   @if (currentPhase && currentPhase.name) {
-    <h1>Оновлення етапу {{currentPhase.name}}</h1>
+    <h1>Оновлення етапу '{{currentPhase.name}}' життєвого циклу проєкту</h1>
   } @else {
-    <h1>Новий етап</h1>
+    <h1>Новий етап життєвого циклу проєкту</h1>
   }
   <div legend="stackholder creation" class="container">
     <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
@@ -146,7 +146,7 @@
         <p-divider />
         @for (groups of inputs.phasesLogisticTime; track groups; let groupIndex = $index) {
           <div class="flex w-full space-between">
-            <p><span class="bold">{{groups.label}}:</span> {{groups.date}} </p>
+            <p><span class="bold">{{groups.label}} - </span> {{groups.date | dateCheck}} </p>
             <p-button
               label="Видалити оцінку"
               pTooltip="Натисніть, щоб видалити оцінку"
@@ -259,27 +259,27 @@
                     </div>
                   }
                   <div>
-                    <p><span class="bold">Введіть нове очікування стейкхолдера</span></p>
+                    <p><span class="bold">Введіть нова ціль стейкхолдера</span></p>
                     <input
                       pInputText
                       type="text"
                       id="createFieldWaiting"
-                      placeholder="Очікування"
-                      pTooltip="Введіть нове очікування стейкхолдера"
+                      placeholder="Ціль"
+                      pTooltip="Введіть нова ціль стейкхолдера"
                       tooltipPosition="right"
                       name="createFieldWaiting"
                       [(ngModel)]="newWaiting"
                       [ngModelOptions]="{ standalone: true }" />
                     <p-button
-                      label="Додати очікування"
-                      pTooltip="Натисніть, щоб додати нове очікування"
+                      label="Додати ціль"
+                      pTooltip="Натисніть, щоб додати нова ціль"
                       [outlined]="true"
                       severity="primary"
                       (click)="addNewWaiting(groupIndex, stackholderIndex)" />
                   </div>
                   @if (group.inputsWaiting.length) {
                     <div class="accordion-container column">
-                      <h3><span class="bold">Очікування</span></h3>
+                      <h3><span class="bold">Ціль</span></h3>
                       @for (input of group.inputsWaiting; track input; let inputIndex = $index) {
                         <div class="flex w-full column">
                           <div class="flex items-center">
@@ -289,7 +289,7 @@
                               [rounded]="true"
                               [text]="true"
                               (click)="removeNewWaiting(groupIndex, stackholderIndex, inputIndex)"
-                              pTooltip="Натисніть, щоб видалити очікування стейкхолдера"
+                              pTooltip="Натисніть, щоб видалити ціль стейкхолдера"
                               severity="danger" />
                           </div>
                           <p-inputnumber

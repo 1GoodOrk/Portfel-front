@@ -105,18 +105,18 @@
         "type": "text",
         "displayCondition": true,
         "name": "name",
-        "label": "pages.portfolio.dialog.nameLabel",
-        "placeholder": "Назва етапу",
-        "pTooltip": "pages.portfolio.dialog.nameTolltip",
+        "label": "Назва етапу життєвого циклу проекту",
+        "placeholder": "Назва",
+        "pTooltip": "Введіть назву етапу життєвого циклу проекту",
         "value": ""
       },
       {
         "type": "text",
         "displayCondition": true,
         "name": "type",
-        "label": "pages.portfolio.dialog.typeLabel",
+        "label": "Тип етапу",
         "placeholder": "Тип етапу",
-        "pTooltip": "pages.portfolio.dialog.typeTolltip",
+        "pTooltip": "Введіть тип етапу",
         "value": ""
       },
       {
@@ -138,25 +138,11 @@
         "value": ""
       },
       {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "type",
-        "label": "pages.portfolio.dialog.typeLabel",
-        "pTooltip": "pages.portfolio.dialog.typeTolltip",
-        "value": "",
-        "items": [
-          { "label": "Ремонт", "value": "fix" },
-          { "label": "Будівництво", "value": "build" },
-          { "label": "Зміна", "value": "change" },
-          { "label": "Цифровізація", "value": "digitalization" }
-        ]
-      },
-      {
         "type": "number",
         "displayCondition": true,
         "name": "forecastProjectTaskAmount",
-        "label": "pages.portfolio.dialog.forecastProjectTaskAmountLabel",
-        "pTooltip": "pages.portfolio.dialog.forecastProjectTaskAmountTolltip",
+        "label": "Прогнозована сума завдання етапу",
+        "pTooltip": "Введіть прогнозована сума завдання етапу",
         "errors": {
           "required": "pages.portfolio.dialog.forecastProjectTaskAmountRequired"
         },
@@ -170,8 +156,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "term",
-        "label": "pages.portfolio.dialog.termLabel",
-        "pTooltip": "pages.portfolio.dialog.termTolltip",
+        "label": "Прогнозований термін етапу (р.дн.)",
+        "pTooltip": "Введіть прогнозований термін етапу",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -227,7 +213,7 @@
         "displayCondition": true,
         "name": "vehicle",
         "label": "pages.portfolio.dialog.vehicleLabel",
-        "pTooltip": "pages.portfolio.dialog.vehicleTolltip",
+        "pTooltip": "Виберіть задіяні транспортні засоби етапу",
         "value": "",
         "items": [
           { "label": "ULCC танкер", "value": "ULCC" },
@@ -253,7 +239,7 @@
         "displayCondition": true,
         "name": "infrastructure",
         "label": "pages.portfolio.dialog.infrastructureLabel",
-        "pTooltip": "pages.portfolio.dialog.infrastructureTolltip",
+        "pTooltip": "Виберіть задіяну інфраструктуру етапу",
         "value": "",
         "items": [
           { "label": "Станція перевірки", "value": "check" },
@@ -268,8 +254,8 @@
         "type": "multiselector",
         "displayCondition": true,
         "name": "staff",
-        "label": "pages.portfolio.dialog.staffLabel",
-        "pTooltip": "pages.portfolio.dialog.staffTolltip",
+        "label": "Персонал",
+        "pTooltip": "Виберіть задіяний персонал етапу",
         "value": "",
         "refName": "staff",
         "items": [
@@ -287,7 +273,7 @@
         "displayCondition": true,
         "name": "technology",
         "label": "pages.portfolio.dialog.technologyLabel",
-        "pTooltip": "pages.portfolio.dialog.technologyTolltip",
+        "pTooltip": "Виберіть задіяні технології етапу",
         "value": "",
         "refName": "technology",
         "items": [

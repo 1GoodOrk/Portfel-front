@@ -1,7 +1,13 @@
 <app-header></app-header>
 <main class="profile">
   <section class="form">
-    <p-card [header]="'pages.user.profile.first-header' | translate" [style]="{'min-width': '300px'}">
+    <p-card [header]="'pages.user.profile.first-header' | translate"
+    [style]="{
+      'min-width': '400px',
+      'border-top': '25px solid #b91c1c',
+      'border-bottom': '25px solid #b91c1c',
+      'border-radius': '10px'
+    }">
       <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4 w-full sm:w-56">
         <div class="flex flex-col gap-1">
           <input

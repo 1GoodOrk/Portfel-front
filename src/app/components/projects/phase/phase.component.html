@@ -1,72 +1,86 @@
 <section class="phase">
   <div>
     <p-button
-      label="Додати новий етап"
-      pTooltip="Натисніть, щоб перейти на сторінку створення нового етапу"
+      label="Додати новий етап життєвого циклу проєкту"
+      pTooltip="Натисніть, щоб перейти на сторінку створення нового етапу життєвого циклу проєкту"
       severity="primary"
       (click)="createPhase()" />
+    <p-button
+      label="Загальний висновок"
+      pTooltip="Натисніть, щоб перейти на сторінку загального висновку"
+      severity="primary"
+      [disabled]="currentProject && currentProject.phases.length < 2"
+      (click)="analazyPhases()" />
   </div>
   <div legend="phases" class="container">
     @for (phase of currentProject.phases; track phase) {
-      <div class="flex arrow-container">
-        <p-card
-          [style]="{
-            'max-width': '300px',
-            'margin-top': '10px',
-            'overflow': 'hidden'
-          }">
-          <ng-template #title> <span class="bold">Етап: </span>
-            {{phase.name}}
-            <p-button
-              icon="pi pi-eye"
-              tooltipPosition="top"
-              pTooltip="Натисніть, щоб переглянути інформацію про етап"
-              severity="secondary"
-              (click)="showCurrentPhase($event, $index)"/>
-          </ng-template>
-          <ng-template #subtitle><span class="bold">Тип:</span> {{phase.type}} </ng-template>
-          <ng-template #content>
-            <p> <span class="bold">Відповідальна особа етапу:</span> {{phase.managerName}}</p>
-            <p> <span class="bold">Відповідальна організація:</span> {{phase.responsibleOrganization}}</p>
-            <p> <span class="bold">Бюджет:</span> {{phase.budget}} UAH</p>
-            <p> <span class="bold">Джерело бюджету:</span> {{phase.budgetSource}}</p>
-            <p> <span class="bold">Додаткова інформація:</span> {{phase.term}} рб.дн</p>
-            <p> <span class="bold">Запланована кількість завдань:</span> {{phase.forecastProjectTaskAmount}}</p>
-          </ng-template>
-          <ng-template #footer>
-            <div class="flex space-evenly">
+      <div class="flex arrow-container"
+        pDraggable
+        pDroppable
+        (onDrop)="drop($index)"
+        (onDragStart)="dragStart(phase, $index)"
+        (onDragEnd)="dragEnd()"
+      >
+        <div class="flex arrow-container">
+          <p-card
+            [style]="{
+              'max-width': '300px',
+              'margin-top': '10px',
+              'overflow': 'hidden'
+            }">
+            <ng-template #title> <span class="bold">Етап: </span>
+              {{phase.name}}
               <p-button
-                label="Видалити"
-                pTooltip="Натисніть для видалення етапу"
-                severity="primary"
-                (click)="removePhase($event, $index)"/>
-              <p-button
-                label="Оновити"
-                pTooltip="Натисніть, щоб оновити етап"
-                severity="warn"
-                (click)="updatePhase($event, $index)"/>
+                icon="pi pi-eye"
+                tooltipPosition="top"
+                pTooltip="Натисніть, щоб переглянути інформацію про етап"
+                severity="secondary"
+                (click)="showCurrentPhase($event, $index)"/>
+            </ng-template>
+            <ng-template #subtitle><span class="bold">Тип:</span> {{phase.type}} </ng-template>
+            <ng-template #content>
+              <p> <span class="bold">Відповідальна особа етапу:</span> {{phase.managerName}}</p>
+              <p> <span class="bold">Відповідальна організація:</span> {{phase.responsibleOrganization}}</p>
+              <p> <span class="bold">Бюджет:</span> {{phase.budget}} UAH</p>
+              <p> <span class="bold">Джерело бюджету:</span> {{phase.budgetSource}}</p>
+              <p> <span class="bold">Додаткова інформація:</span> {{phase.term}} рб.дн</p>
+              <p> <span class="bold">Запланована кількість завдань:</span> {{phase.forecastProjectTaskAmount}}</p>
+            </ng-template>
+            <ng-template #footer>
+              <div class="flex space-evenly">
+                <p-button
+                  label="Видалити"
+                  pTooltip="Натисніть для видалення етапу"
+                  severity="primary"
+                  (click)="removePhase($event, $index)"/>
+                <p-button
+                  label="Оновити"
+                  pTooltip="Натисніть, щоб оновити етап"
+                  severity="warn"
+                  (click)="updatePhase($event, $index)"/>
+              </div>
+            </ng-template>
+          </p-card>
+          @if ($index !== currentProject.phases.length - 1) {
+            <div id="arrowAnim">
+              <div class="arrowSliding">
+                <div class="arrow"></div>
+              </div>
+              <div class="arrowSliding delay3">
+                <div class="arrow"></div>
+              </div>
+              <div class="arrowSliding delay2">
+                <div class="arrow"></div>
+              </div>
+              <div class="arrowSliding delay1">
+                <div class="arrow"></div>
+              </div>
             </div>
-          </ng-template>
-        </p-card>
-        @if ($index !== currentProject.phases.length - 1) {
-          <div id="arrowAnim">
-            <div class="arrowSliding">
-              <div class="arrow"></div>
-            </div>
-            <div class="arrowSliding delay3">
-              <div class="arrow"></div>
-            </div>
-            <div class="arrowSliding delay2">
-              <div class="arrow"></div>
-            </div>
-            <div class="arrowSliding delay1">
-              <div class="arrow"></div>
-            </div>
-          </div>
-        }
+          }
+        </div>
       </div>
     } @empty {
-      <h2 class="bold"> Етапів не знайдено... </h2>
+      <h2 class="bold"> Етапів життєвого циклу проєкту не знайдено... </h2>
     }
   </div>
 </section>

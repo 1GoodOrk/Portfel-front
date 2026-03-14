@@ -16,6 +16,7 @@ export const routes: Routes = [
   {path: 'phase-risks', loadComponent: () => import('./components/projects/main/main.component').then(mod => mod.MainComponent)},
   {path: 'phase-creation', loadComponent: () => import('./components/projects/phase/pcreation/pcreation.component').then(mod => mod.PcreationComponent)},
   {path: 'phase-info/:id', loadComponent: () => import('./components/projects/phase/pinfo/pinfo.component').then(mod => mod.PinfoComponent)},
+  {path: 'phases-analyze', loadComponent: () => import('./components/projects/phase/panalyze/panalyze.component').then(mod => mod.PanalyzeComponent)},
 
   {path: '**', redirectTo: '/login' },
 ];

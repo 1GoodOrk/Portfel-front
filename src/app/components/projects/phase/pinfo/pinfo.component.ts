@@ -17,60 +17,45 @@ import { Divider } from "primeng/divider";
     HeaderComponent,
     FooterComponent,
     Divider
-],
+  ],
   templateUrl: './pinfo.component.html',
   styleUrl: './pinfo.component.scss',
 })
 export class PinfoComponent {
   public currentPhase: any = {}
   public timeTables: any = []
-  // {
-  //   th: ['/', 'Tvuca', 'Tbani', 'Індекс протиставлення', 'Індекс проактивности'],
-  //   td: []
-  // }
 
   constructor(
     private appCommunicationService: AppCommunicationService,
     private router: Router
   ) {
     this.currentPhase = this.appCommunicationService.getCurrentPhase()
-    this.createAllPhaseInfoInOne()
-    this.createAllPhaseInfo()
     this.createTableVUCABANIPhase()
-  }
-  public createAllPhaseInfoInOne(): void {
-
-  }
-
-  public createAllPhaseInfo(): void {
-
   }
 
   public createTableVUCABANIPhase(): void {
-    // const tableVUCABANITd = []
-
     this.currentPhase.time.forEach((time: any) => {
       this.timeTables.push({
-        date: time.date,
-        stackholders: [...Array.from(time.items).map((item: any) => {
+        date: `${new Date(time.date).getTime() < new Date().setUTCHours(0,0,0,0) ? 'PAST' : new Date(time.date).getTime() > new Date().setUTCHours(0, 0, 0, 0) && new Date(time.date).getTime() < new Date().setUTCHours(23, 59, 59, 999) ? 'PRESENT' : 'FUTURE'}: ${time.date}`,
+        stackholders: [...Array.from(time.items).map((item: any, itemIndex: number) => {
           const riskTableTd: any = []
           for (let i = 0; i < item.inputsRisks.length; i += 2) {
-            riskTableTd.push([item.inputsRisks[i].label.split('Ймовірність виникнення')[1].split(' %')[0], item.inputsRisks[i].value / 100, item.inputsRisks[i + 1].value / 10, (item.inputsRisks[i].value / 100) * (item.inputsRisks[i + 1].value / 10) ])
+            riskTableTd.push([`Ризик '${item.inputsRisks[i].label.split('Ймовірність виникнення ')[1].split(' %')[0]}'`, item.inputsRisks[i].value, item.inputsRisks[i + 1].value / 10, (item.inputsRisks[i].value / 100) * (item.inputsRisks[i + 1].value / 10) ])
           }
           return {
             label: item.label,
             riskTableParams: {
-              th: ['/', 'Рij(Tі)',	'Vij(Tі)',	'Rij'],
+              th: ['Ризик', 'Ймовірність виникнення ризику (0 - 100)%',	'Вплив',	'Оцінка ризику'],
               td: [...riskTableTd]
             },
             waitingTableParams: {
-              th: ['/', 'Рij(Tі)'],
-              td: [...item.inputsWaiting.map((item: any) => [item.label, item.value])]
+              th: ['Ціль', 'Ймовірність досягнення цілі % (0 - 100)'],
+              td: [...item.inputsWaiting.map((item: any) => [`Ціль '${item.label.split('Ймовірність виникнення ')[1].split(' %')[0]}'`, (item.value * +time.items[itemIndex].analyzeVUCABANI.indexProactivity).toFixed(2)])]
             }
           }
         })],
         tableParams: {
-          th: ['/', 'Tvuca', 'Tbani', 'Індекс протиставлення', 'Індекс проактивности'],
+          th: ['Етап життєвого циклу', 'Індекс VUCA', 'Індекс BANI', 'Індекс переходу', 'Індекс проактивности'],
           td: [...Array.from(time.items).map((item: any) => [item.label, item.analyzeVUCABANI.Tbani, item.analyzeVUCABANI.Tvuca, item.analyzeVUCABANI.indexAg, item.analyzeVUCABANI.indexProactivity])]
         }
       })
@@ -90,12 +75,19 @@ export class PinfoComponent {
         });
       }
     });
-    console.log(this.timeTables, tableParamsTd)
+    tableParamsTd = tableParamsTd.map((td: number[]) => {
+      return td.map((el: number | string, index: number) => {
+        if (index > 0) {
+          el = (+el / tableParamsTd.length).toFixed(4)
+        }
+        return el
+      })
+    })
     this.timeTables.unshift({
       date: 'Загальне значення етапу',
       stackholders: [],
       tableParams: {
-        th: ['/', 'Tvuca', 'Tbani', 'Індекс протиставлення', 'Індекс проактивности'],
+        th: ['Етап життєвого циклу', 'Tvuca', 'Tbani', 'Індекс переходу', 'Індекс проактивности'],
         td: tableParamsTd
       }
     })

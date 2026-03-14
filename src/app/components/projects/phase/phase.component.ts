@@ -6,6 +6,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
+import { DragDropModule } from 'primeng/dragdrop';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
@@ -18,12 +19,14 @@ import { HttpService } from '@port/services/http.service';
     CardModule,
     FieldsetModule,
     TooltipModule,
+    DragDropModule
   ],
   templateUrl: './phase.component.html',
   styleUrl: './phase.component.scss',
 })
 export class PhaseComponent {
   public currentProject: any = {}
+  public draggedElem: any | undefined | null;
 
   constructor(
     private appCommunicationService: AppCommunicationService,
@@ -42,6 +45,10 @@ export class PhaseComponent {
   public createPhase() {
     this.appCommunicationService.clearCurrentPhase()
     this.navigate('phase-creation')
+  }
+
+  public analazyPhases() {
+    this.navigate('phases-analyze')
   }
 
   public updatePhase($event: any, index: number) {
@@ -65,5 +72,25 @@ export class PhaseComponent {
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
+  }
+
+  public dragStart(data: any, index: any) {
+    this.draggedElem = data;
+  }
+
+  public drop(index: number) {
+    if (this.draggedElem) {
+      let draggedIndex = this.currentProject.phases.findIndex((el: any) => el._id === this.draggedElem._id);
+      if (draggedIndex !== index) {
+        this.currentProject.phases.splice(draggedIndex, 1);
+        this.currentProject.phases.splice(index, 0, this.draggedElem);
+      }
+      this.updateProject()
+      this.draggedElem = null;
+    }
+  }
+
+  public dragEnd() {
+    this.draggedElem = null;
   }
 }

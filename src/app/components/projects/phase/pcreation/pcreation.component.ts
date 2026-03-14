@@ -25,6 +25,8 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
+import { DateCheckPipe } from 'src/app/pipes/date-check.pipe';
+
 @Component({
   selector: 'app-pcreation',
   standalone: true,
@@ -48,6 +50,7 @@ import { HttpService } from '@port/services/http.service';
     DatePickerModule,
     AccordionModule,
     TranslatePipe,
+    DateCheckPipe
   ],
   templateUrl: './pcreation.component.html',
   styleUrl: './pcreation.component.scss',
@@ -235,8 +238,10 @@ export class PcreationComponent implements OnDestroy {
   }
 
   public deleteDateTimeField(index: number) {
-    const phaseIndex = this.currentProject.phases.findIndex((phase: any) => phase._id === this.currentPhase._id)
-    this.currentProject.phases[phaseIndex].time.splice(index, 1)
+    if (this.currentPhase._id) {
+      const phaseIndex = this.currentProject.phases.findIndex((phase: any) => phase._id === this.currentPhase._id)
+      this.currentProject.phases[phaseIndex].time.splice(index, 1)
+    }
     this.inputs.phasesLogisticTime.splice(index, 1)
   }
 

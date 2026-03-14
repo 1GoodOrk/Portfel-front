@@ -1,0 +1,45 @@
+<app-header></app-header>
+<section class="panalyze">
+  <p-button
+    label="Повернутись"
+    pTooltip="Повернення до вибору етапів проекту"
+    tooltipPosition="top"
+    severity="primary"
+    (click)="back()"/>
+    @for (data of chartsData; track data) {
+      <div class="card">
+        <h2>{{data.label}}</h2>
+        <p-chart type="line" [data]="data.data" [options]="data.options" class="h-[30rem]" />
+      </div>
+    }
+
+    <div legend="stackholder creation" class="container column">
+      @for (timeTable of allTimeTables; track timeTable) {
+        <p-divider />
+        <h2>{{timeTable.label}}</h2>
+        <div class="table-container">
+          <p-table [value]="timeTable.tableParams.td" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+            <ng-template #header>
+                <tr>
+                  @for (th of timeTable.tableParams.th; track `th-id-${th}`) {
+                    <th [id]="`th-id-${th}`">{{ th }}</th>
+                  }
+                </tr>
+            </ng-template>
+            <ng-template #body let-tds>
+                <tr>
+                  @for (td of tds; track `td-id-${td}${$index}`) {
+                    @if ($index !== 0 && tds[0] === timeTable.tableParams.th[$index]) {
+                      <td [id]="`td-id-${td}`">-</td>
+                    } @else {
+                      <td [id]="`td-id-${td}`">{{ td }}</td>
+                    }
+                  }
+                </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      }
+    </div>
+</section>
+<app-footer></app-footer>

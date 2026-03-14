@@ -47,7 +47,7 @@
     </div>
     @for (stackholder of time.stackholders; track stackholder) {
       <div>
-        <h3>{{stackholder.label}}</h3>
+        <h3>Стейкхолдер: {{stackholder.label}}</h3>
           @if (stackholder.riskTableParams) {
             <div class="table-container">
               <p-table [value]="stackholder.riskTableParams.td" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">

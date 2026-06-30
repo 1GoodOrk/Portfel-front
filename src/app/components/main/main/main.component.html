@@ -19,16 +19,6 @@
     }
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
-        <!-- <p-card
-          [pTooltip]="`${'pages.main.main.watchProjectTooltipFirstPart' | translate} ${project.name} ${'pages.main.main.watchProjectTooltipLastPart' | translate}`"
-          tooltipPosition="top"
-          [style]="{
-            'max-width': '300px',
-            'margin-top': '10px',
-            'overflow': 'hidden',
-            'cursor': 'pointer'
-          }"
-          (click)="showInfoProjectDialog(project._id)"> -->
         <p-card
           [style]="{
             'max-width': '300px',
@@ -65,10 +55,17 @@
             }
             <div class="flex space-evenly">
               <p-button
-                [label]="`${'pages.main.main.processingButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.processingButtonTooltip' | translate} ${project.name}`"
+                [label]="`${'pages.main.main.analyzeButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.analyzeButtonTooltip' | translate} ${project.name}`"
                 severity="primary"
-                (click)="selectForCogModel(project._id, $event)"/>
+                (click)="selectForCogAnalyzeModel(project._id, $event)"/>
+            </div>
+            <div class="flex space-evenly">
+              <p-button
+                [label]="`${'pages.main.main.balanceButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.balanceButtonTooltip' | translate} ${project.name}`"
+                severity="primary"
+                (click)="selectForCogBalanceModel(project._id, $event)"/>
             </div>
           </ng-template>
         </p-card>
@@ -82,4 +79,6 @@
 
 <app-info-dialog [visible]="visible.info" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 
-<app-creation-dialog [formData]="currentProject" [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
+@if (visible.creation) {
+  <app-creation-dialog [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
+}

@@ -1,0 +1,126 @@
+<app-header></app-header>
+<main class="analyze">
+  <div class="flex space-evenly">
+    <p-button
+      icon="pi pi-eye"
+      [label]="`${'pages.project.science.watchProject' | translate}`"
+      tooltipPosition="top"
+      severity="secondary"
+      (click)="showInfoProjectDialog($event)"/>
+  </div>
+
+  <p-stepper [value]="1" class="basis-200" [linear]="true">
+    <p-step-list>
+      <p-step [value]="1">Header I</p-step>
+      <p-step [value]="2">Header II</p-step>
+      <p-step [value]="3">Header II</p-step>
+    </p-step-list>
+    <p-step-panels>
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <app-stackholder (updateView)="updateView()"></app-stackholder>
+          </div>
+          <div class="flex pt-5 justify-end">
+            <button type="button" pButton (click)="activateCallback(2); createCharts()">Next <i class="pi pi-arrow-right"></i></button>
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            @if (currentProject.stackholderData?.analyzeTable) {
+              <div class="container-analyze flex column">
+                <h3> <span class="bold">{{currentProject.stackholderData?.analyzeTable?.title}}</span></h3>
+              </div>
+              <div class="table-container">
+                <p-table [value]="currentProject.stackholderData?.analyzeTable.tableParams.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+                  <ng-template #header>
+                      <tr>
+                        @for (th of currentProject.stackholderData?.analyzeTable.tableParams.th; track `th-id-${th}`) {
+                          <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+                        }
+                      </tr>
+                  </ng-template>
+                  <ng-template #body let-tds let-rowIndex="rowIndex">
+                    <tr>
+                      @for (td of tds; track `td-id-${td}${$index}`) {
+                        <td [id]="`td-id-${td}`">{{td}}</td>
+                      }
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            }
+            <div class="container-analyze flex column">
+              <h3>Тип зв'язку</h3>
+              <div class="flex line">
+                <div class="square light"></div>
+                <p> Слабка взаємодія (епізодичний контакт, формальна комунікація) </p>
+              </div>
+              <div class="flex line">
+                <div class="square green"></div>
+                <p> Середня взаємодія (спільні заходи, регулярний обмін інформацією) </p>
+              </div>
+              <div class="flex line">
+                <div class="square blue"></div>
+                <p> Висока взаємодія (тривале партнерство, угоди, спільне управління) </p>
+              </div>
+            </div>
+            <div id="model-container-KO" class="container model-container-KO"></div>
+          </div>
+          <div class="flex pt-5 justify-between">
+            <button type="button" pButton severity="secondary" (click)="activateCallback(1)"><i class="pi pi-arrow-left"></i> Back</button>
+            <button type="button" pButton (click)="activateCallback(3)">Next <i class="pi pi-arrow-right"></i></button>
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="3">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            @if (currentProject.stackholderData?.releaseTable) {
+              <div class="container-analyze flex column">
+                <h3> <span class="bold">{{currentProject.stackholderData?.releaseTable?.title}}</span></h3>
+              </div>
+
+              <p-table [value]="currentProject.stackholderData?.releaseTable.tableParams.td" rowGroupMode="rowspan" groupRowsBy="representative" sortField="representative" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
+                <ng-template #header>
+                <tr>
+                  @for (th of currentProject.stackholderData?.releaseTable.tableParams.th; track `th-id-${th}`) {
+                    <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+                  }
+                </tr>
+                </ng-template>
+                <ng-template #body let-tds let-rowgroup="rowgroup" let-rowspan="rowspan">
+                  <tr>
+                    @if (rowgroup) {
+                      <td [attr.rowspan]="rowspan">
+                        <div class="flex items-center gap-2">
+                          <span>{{ tds.representative }}</span>
+                        </div>
+                      </td>
+                    }
+                    <td [id]="`td-id-${tds.name}`">{{tds.name}}</td>
+                    @if (rowgroup) {
+                      <td [attr.rowspan]="rowspan">
+                        <div class="flex items-center gap-2">
+                          <span>{{ tds.interpretation }}</span>
+                        </div>
+                      </td>
+                    }
+                  </tr>
+                </ng-template>
+              </p-table>
+            }
+          </div>
+          <div class="flex pt-5 justify-start">
+            <button type="button" pButton severity="secondary" (click)="activateCallback(2); createCharts()"><i class="pi pi-arrow-left"></i> Back</button>
+          </div>
+        </ng-template>
+      </p-step-panel>
+    </p-step-panels>
+  </p-stepper>
+
+</main>
+<app-footer></app-footer>
+<app-info-dialog [visible]="visible.project" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>

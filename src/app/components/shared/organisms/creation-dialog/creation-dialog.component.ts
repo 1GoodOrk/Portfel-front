@@ -49,7 +49,8 @@ export class CreationDialogComponent {
   @Input() visible: boolean = false;
   // TODO: generated type for input decorator
   // @Input() formData: T = {
-  @Input() formData: any = {
+  public current: any
+  public formData: any = {
     _id: '',
     name: '',
     subinfo: '',
@@ -84,6 +85,18 @@ export class CreationDialogComponent {
     private httpService: HttpService
   ) {
     this.inputs = this.appCommunicationService.getInputsForm(['logistic'])
+    this.current = this.appCommunicationService.getCurrentProject()
+    if (this.current._id) {
+      this.inputs.logistic = this.inputs.logistic.map((input: any) => {
+        input.value = this.current[input.name]
+        return input
+      })
+    } else {
+      this.inputs.logistic = this.inputs.logistic.map((input: any) => {
+        input.value = typeof input.value === 'string' ? '' : 0
+        return input
+      })
+    }
   }
 
   public visibleOnChange(): void {
@@ -120,17 +133,26 @@ export class CreationDialogComponent {
           data[el.name] = el.value
         }
       })
-      data.phases = []
+      data.analyze = {}
+      data.balance = {}
+      data.stackholderData = {}
       data.stackholders = []
-      this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-        .subscribe((data: any) => {
-          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-          user.data.projectIds.push(data._id)
-          this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-          form.resetForm()
-          this.getAllProjects()
-          this.visibleOnChange()
-      })
+      if (this.current._id) {
+        this.httpService.updateProject(this.current._id, data)
+          .subscribe((data: any) => {
+            this.getAllProjects()
+            this.visibleOnChange()
+        })
+      } else {
+        this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+          .subscribe((data: any) => {
+            const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+            user.data.projectIds.push(data._id)
+            this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+            this.getAllProjects()
+            this.visibleOnChange()
+        })
+      }
     }
   }
 }

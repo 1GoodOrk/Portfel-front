@@ -1,0 +1,21 @@
+<app-header></app-header>
+<main class="balance">
+  <div class="flex space-evenly">
+    <p-button
+      icon="pi pi-eye"
+      [label]="`${'pages.project.science.watchProject' | translate}`"
+      tooltipPosition="top"
+      severity="secondary"
+      (click)="showInfoProjectDialog($event)"/>
+  </div>
+
+  <div class="flex flex-col h-48">
+    <app-stackholder></app-stackholder>
+  </div>
+
+  <!-- <div class="flex flex-col h-48">
+    <app-phase></app-phase>
+  </div> -->
+</main>
+<app-footer></app-footer>
+<app-info-dialog [visible]="visible.project" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>

@@ -1,14 +1,13 @@
-.stackholder {
-  // max-width: 1024px;
+.analyze {
+  max-width: 1024px;
   margin: 0 auto;
+  min-height: calc(100vh - 92px);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
-  // border-radius: 5px;
-  p-select {
-    margin: 5px 0;
-  }
+  border-radius: 5px;
   p {
     overflow: hidden;
-    white-space: wrap;
+    white-space: nowrap;
     text-overflow: ellipsis;
   }
   .container {
@@ -20,20 +19,14 @@
     margin: 10px 0;
     padding: 10px 10px 20px;
   }
-  .scroll {
-    height: 145px;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      width: 0;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #14532d;
-      border-radius: 20px;
-      border: 3px solid #14532d;
-    }
+
+  .container-analyze {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    margin: 10px 0;
+    padding: 10px 10px 20px;
   }
 
   .table-container {
@@ -52,5 +45,16 @@
     height: 15px;
     margin-right: 20px;
   }
-
+  .light {
+    background-color: rgb(255, 127, 14);
+  }
+  .blue {
+    background-color: rgb(31, 119, 180);
+  }
+  .red {
+    background-color: #ef4444;
+  }
+  .green {
+    background-color: #14532d;
+  }
 }

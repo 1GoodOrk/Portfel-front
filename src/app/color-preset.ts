@@ -4,29 +4,29 @@ import Aura from '@primeuix/themes/aura';
 export default definePreset(Aura, {
   semantic: {
     primary: {
-      50: '{red.50}',
-      100: '{red.100}',
-      200: '{red.200}',
-      300: '{red.300}',
-      400: '{red.400}',
-      500: '{red.500}',
-      600: '{red.600}',
-      700: '{red.700}',
-      800: '{red.800}',
-      900: '{red.900}',
-      950: '{red.950}'
+      50: '{green.50}',
+      100: '{green.100}',
+      200: '{green.200}',
+      300: '{green.300}',
+      400: '{green.400}',
+      500: '{green.500}',
+      600: '{green.600}',
+      700: '{green.700}',
+      800: '{green.800}',
+      900: '{green.900}',
+      950: '{green.950}'
     },
     colorScheme: {
       light: {
         primary: {
-          color: '{red.700}',
+          color: '{green.900}',
           inverseColor: '#ffffff',
-          hoverColor: '{red.900}',
-          activeColor: '{red.800}'
+          hoverColor: '{green.700}',
+          activeColor: '{green.800}'
         },
         highlight: {
-          background: '{red.950}',
-          focusBackground: '{red.700}',
+          background: '{green.50}',
+          focusBackground: '{green.50}',
           color: '#ffffff',
           focusColor: '#ffffff'
         }

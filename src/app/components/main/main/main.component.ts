@@ -24,19 +24,12 @@ import { IProjectData } from '@port/interfaces';
   standalone: true,
   imports: [
     FormsModule,
-    // InputTextModule,
-    // InputNumberModule,
-    // TextareaModule,
-    // CheckboxModule,
     ButtonModule,
     CardModule,
     FieldsetModule,
-    // DialogModule,
     TooltipModule,
     DividerModule,
     MessageModule,
-    // SelectModule,
-    // DatePickerModule,
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
@@ -48,7 +41,6 @@ import { IProjectData } from '@port/interfaces';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  // public projectsList: Array<IProjectData> = []
   public projectsList: any = []
   public user: any = {}
   public projects: Array<IProjectData> = []
@@ -109,7 +101,7 @@ export class MainComponent {
     }, 100)
   }
 
-  public selectForCogModel(id: any, event: any) {
+  public selectForCogAnalyzeModel(id: any, event: any) {
     event.stopPropagation()
     const index = this.projects.findIndex((el: any) => el._id === id)
     Object.keys(this.projects[index]).forEach((key: string) => {
@@ -118,8 +110,21 @@ export class MainComponent {
       this.currentProject[key] = this.projects[index][key]
     })
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    this.navigate('phase-risks')
+    this.navigate('analyze')
   }
+
+  public selectForCogBalanceModel(id: any, event: any) {
+    event.stopPropagation()
+    const index = this.projects.findIndex((el: any) => el._id === id)
+    Object.keys(this.projects[index]).forEach((key: string) => {
+      // TODO: type error
+      // @ts-expect-error
+      this.currentProject[key] = this.projects[index][key]
+    })
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    this.navigate('balance')
+  }
+
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
@@ -153,6 +158,7 @@ export class MainComponent {
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
+    this.appCommunicationService.saveCurrentProject(this.currentProject)
     this.visible.creation = true
   }
 

@@ -77,4 +77,46 @@
       <h2 class="bold"> Cтейкхолдерів не знайдено... </h2>
     }
   </div>
+  @if (stackholderData.tableParams.td.length) {
+    <div>
+      <h3>Встановіть тип зв'язку</h3>
+      <p>0 – зв’язок відсутній або несуттєвий</p>
+      <p>1 – слабка взаємодія (епізодичний контакт, формальна комунікація)</p>
+      <p>2 – середня взаємодія (спільні заходи, регулярний обмін інформацією)</p>
+      <p>3 – висока взаємодія (тривале партнерство, угоди, спільне управління)</p>
+    </div>
+    <div class="table-container">
+      <p-table [value]="stackholderData.tableParams.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+        <ng-template #header>
+            <tr>
+              @for (th of stackholderData.tableParams.th; track `th-id-${th}`) {
+                <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+              }
+            </tr>
+        </ng-template>
+        <ng-template #body let-tds let-rowIndex="rowIndex">
+          <tr>
+            @for (td of tds; track `td-id-${td}${$index}`) {
+              @if ($index !== 0 && tds[0] === stackholderData.tableParams.th[$index]) {
+                <td [id]="`td-id-${td}`">-</td>
+              } @else if ($index === 0) {
+                <td [id]="`td-id-${td}`">{{td}}</td>
+              } @else {
+                <td [id]="`td-id-${td}`">
+                  <p-inputnumber [ngModel]='stackholderData.tableParams.td[rowIndex][$index]' (ngModelChange)="changeTable($event, rowIndex, $index)" [min]="0" [max]="3" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal" [inputStyle]="{ width: '3rem' }">
+                    <ng-template #incrementbuttonicon>
+                      <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                      <span class="pi pi-minus"></span>
+                    </ng-template>
+                  </p-inputnumber>
+                </td>
+              }
+            }
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  }
 </section>

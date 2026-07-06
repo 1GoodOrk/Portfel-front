@@ -1,0 +1,117 @@
+<section class="stackholder-balance">
+  <div legend="stackholder creation" class="container">
+    <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+      <div class="form-container row">
+        <div class="form-container column">
+          @for (input of inputs.stackholdersBalance; track input) {
+            @if (input.displayCondition && input.type !== 'line') {
+              <div class="flex flex-col gap-1">
+                @if (input.type !== 'checklist') {
+                  <label for="name" class="bold">{{input.label | translate}}
+                    @if (input.suffix) {
+                      {{input.suffix | translate}}
+                    }
+                  </label>
+                }
+                @if (input.type === 'info') {
+                  @for (inputInfo of input.items; track `input-info-id-${inputInfo}`; let i = $index) {
+                    @if (i === 0) {
+                      <h3>{{ inputInfo }}</h3>
+                    } @else {
+                      <p>{{ inputInfo }}</p>
+                    }
+                  }
+                  <p-divider />
+                } @else if (input.type === 'text') {
+                  <input
+                    pInputText
+                    type="text"
+                    [id]="input.name"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }" />
+                } @else if (input.type === 'number') {
+                  <p-inputnumber
+                    [inputId]="input.name"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    required
+                    [min]="input.min || 1"
+                    [max]="input.max || 10"
+                    [step]="input.step || 1"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                } @else if (input.type === 'selector') {
+                  <p-select
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    class="w-full md:w-56" />
+                }
+              </div>
+            } @else if (input.displayCondition) {
+              <p-divider />
+            }
+          }
+        </div>
+        <div>
+          <p-button
+            [label]="'pages.portfolio.dialog.saveButton' | translate"
+            [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
+            severity="primary"
+            (click)="updateProject(form)" />
+        </div>
+      </div>
+    </form>
+  </div>
+  @if (currentProject.balance && currentProject.balance.stackholders) {
+    <div legend="Stackholders" class="container scroll">
+      @for (stackholder of currentProject.balance.stackholders; track stackholder) {
+        <p-card
+          [style]="{
+            'max-width': '300px',
+            'max-height': '700px',
+            'margin': '10px',
+            'overflow': 'hidden',
+            'cursor': 'pointer'
+          }">
+          <ng-template #title>
+            <span class="bold">Тип: </span> {{stackholder.type}} ({{stackholder.name}})
+            <p-button
+              icon="pi pi-times"
+              [rounded]="true"
+              [text]="true"
+              (click)="removeStackholder($index)"
+              pTooltip="Натисніть, щоб видалити стейкхолдер"
+              severity="danger" />
+          </ng-template>
+          <ng-template #subtitle><span class="bold">Тип:</span> {{stackholder.type}} </ng-template>
+        </p-card>
+      } @empty {
+        <h2 class="bold"> Cтейкхолдерів не знайдено... </h2>
+      }
+    </div>
+    <div class="container flex items-center justify-center overflow-x-auto">
+      <p-organization-chart [value]="data" />
+    </div>
+  }
+</section>

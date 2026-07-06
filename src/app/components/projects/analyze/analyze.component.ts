@@ -17,7 +17,7 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { StackholderComponent } from '../stackholder/stackholder.component';
+import { StackholderComponent } from './stackholder/stackholder.component';
 
 @Component({
   selector: 'app-analyze',
@@ -106,19 +106,15 @@ export class AnalyzeComponent {
     this.currentProject.stackholderData.analyzeTable = {
       title: 'Метрики',
       tableParams: {
-        th: ['Стейкхолдер', 'Центральність ступеня (СD)', 'Ступінь зваженості', 'Центральність між ними (CB)', 'Центральність власних векторів (xi)'],
+        th: ['Стейкхолдер', 'Показник взаємодії (degree)', 'Ступінь зваженості', 'Показник посередництва (betweenness)', 'Показник впливу (eigenvector)'],
         td: Array.from(this.currentProject.stackholderData.tableParams.td)
           .map((td: any, tdIndex: number) => {
-            // const CD = td.reduce((prev: any, next: any) => !isNaN(next) &&  next > 0 ? prev + 1 : prev, 0)
-            // const amount = td.reduce((prev: any, next: any) => !isNaN(next) ? prev + next : prev, 0)
-            // const CB = td.reduce((prev: any, next: any) => !isNaN(next) ? prev + next : prev, 0)
-            // const XI = td.reduce((prev: any, next: any) => !isNaN(next) ? prev + next : prev, 0)
             return [
               td[0],
-              td.reduce((prev: any, next: any) => !isNaN(next) &&  next > 0 ? prev + 1 : prev, 0),
+              `${+((td.reduce((prev: any, next: any) => !isNaN(next) && next > 0 ? prev + 1 : prev, 0)) / (td.length - 1)).toFixed(4) * 100} %`,
               td.reduce((prev: any, next: any) => !isNaN(next) ? prev + next : prev, 0),
-              0,
-              0
+              `${+((td.reduce((prev: any, next: any) => !isNaN(next) ? prev + next : prev, 0)) / ((td.length - 2) * (td.length - 3))).toFixed(4) * 100} %`,
+              `${+((td.reduce((prev: any, next: any) => !isNaN(next) && next > 0 ? prev + 1 : prev, 0)) / ((td.length - 1))).toFixed(4) * 100} %`,
             ]
           })
       }
@@ -126,43 +122,46 @@ export class AnalyzeComponent {
     this.currentProject.stackholderData.releaseTable = {
       title: 'Аналіз',
       tableParams: {
-        th: ['Метрика', 'Топ стейкхолдерів', 'Інтерпретація ролі'],
+        th: ['Метрика', 'Значення', 'Топ стейкхолдерів', 'Інтерпретація ролі'],
         td: [
           ...Array.from(this.currentProject.stackholderData.analyzeTable.tableParams.td)
             .sort((a: any, b: any) => {
-              if (a[1] > b[1]) return 1
-              if (a[1] < b[1]) return -1
+              if (a[1] > b[1]) return -1
+              if (a[1] < b[1]) return 1
               return 0
             })
             .map((td: any, tdIndex: number) => {
               return {
-                  representative: 'Degree (кількість зв’язків)',
+                  representative: 'Показник взаємодії (degree)',
+                  value: td[1],
                   name: td[0],
                   interpretation: 'Ядро мережі, найвищий рівень координації та обміну інформацією між секторами'
                 }
             }),
           ...Array.from(this.currentProject.stackholderData.analyzeTable.tableParams.td)
             .sort((a: any, b: any) => {
-              if (a[3] > b[3]) return 1
-              if (a[3] < b[3]) return -1
+              if (a[3] > b[3]) return -1
+              if (a[3] < b[3]) return 1
               return 0
             })
             .map((td: any, tdIndex: number) => {
               return {
-                  representative: 'Betweenness (посередництво)',
+                  representative: 'Показник посередництва (betweenness)',
+                  value: td[3],
                   name: td[0],
                   interpretation: 'Координатори потоків між регуляторами, операторами і громадами; “системні диспетчери” взаємодії'
                 }
             }),
           ...Array.from(this.currentProject.stackholderData.analyzeTable.tableParams.td)
             .sort((a: any, b: any) => {
-              if (a[4] > b[4]) return 1
-              if (a[4] < b[4]) return -1
+              if (a[4] > b[4]) return -1
+              if (a[4] < b[4]) return 1
               return 0
             })
             .map((td: any, tdIndex: number) => {
               return {
-                  representative: 'Eigenvector (вплив)',
+                  representative: 'Показник впливу (eigenvector)',
+                  value: td[4],
                   name: td[0],
                   interpretation: 'Впливові гравці, пов’язані з іншими потужними вузлами; визначають стабільність і стійкість екосистеми'
                 }
@@ -170,7 +169,6 @@ export class AnalyzeComponent {
         ]
       }
     }
-    console.log(this.currentProject.stackholderData.releaseTable)
   }
 
   public showInfoProjectDialog(event?: any): void {

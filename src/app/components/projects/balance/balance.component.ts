@@ -11,7 +11,10 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 import { TooltipModule } from 'primeng/tooltip';
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { StackholderComponent } from '../stackholder/stackholder.component';
+import { StackholderBalanceComponent } from './stackholder/stackholder.component';
+import { SolutionComponent } from './solution/solution.component';
+import { ConflictComponent } from './conflict/conflict.component';
+import { ResultComponent } from './result/result.component';
 // import { PhaseComponent } from '../phase/phase.component';
 @Component({
   selector: 'app-balance',
@@ -24,8 +27,10 @@ import { StackholderComponent } from '../stackholder/stackholder.component';
     FooterComponent,
     TooltipModule,
     InfoDialogComponent,
-    // PhaseComponent,
-    StackholderComponent
+    StackholderBalanceComponent,
+    SolutionComponent,
+    ConflictComponent,
+    ResultComponent
   ],
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.scss',

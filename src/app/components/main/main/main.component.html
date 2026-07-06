@@ -55,15 +55,15 @@
             }
             <div class="flex space-evenly">
               <p-button
-                [label]="`${'pages.main.main.analyzeButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.analyzeButtonTooltip' | translate} ${project.name}`"
+                label="Метод комплексного аналізу"
+                pTooltip="Натисніть, щоб перейти на сторінку методу комплексного аналізу стейкхолдерів"
                 severity="primary"
                 (click)="selectForCogAnalyzeModel(project._id, $event)"/>
             </div>
             <div class="flex space-evenly">
               <p-button
-                [label]="`${'pages.main.main.balanceButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.balanceButtonTooltip' | translate} ${project.name}`"
+                label="Метод балансування інтересів"
+                pTooltip="Натисніть, щоб перейти на сторінку методу балансування інтересів стейкхолдерів"
                 severity="primary"
                 (click)="selectForCogBalanceModel(project._id, $event)"/>
             </div>

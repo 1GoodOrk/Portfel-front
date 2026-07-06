@@ -11,9 +11,9 @@
 
   <p-stepper [value]="1" class="basis-200" [linear]="true">
     <p-step-list>
-      <p-step [value]="1">Header I</p-step>
-      <p-step [value]="2">Header II</p-step>
-      <p-step [value]="3">Header II</p-step>
+      <p-step [value]="1">Стейкхолдери</p-step>
+      <p-step [value]="2">Аналіз</p-step>
+      <p-step [value]="3">Висновок</p-step>
     </p-step-list>
     <p-step-panels>
       <p-step-panel [value]="1">
@@ -22,7 +22,7 @@
             <app-stackholder (updateView)="updateView()"></app-stackholder>
           </div>
           <div class="flex pt-5 justify-end">
-            <button type="button" pButton (click)="activateCallback(2); createCharts()">Next <i class="pi pi-arrow-right"></i></button>
+            <button type="button" pButton (click)="activateCallback(2); createCharts()">Далі <i class="pi pi-arrow-right"></i></button>
           </div>
         </ng-template>
       </p-step-panel>
@@ -53,7 +53,7 @@
               </div>
             }
             <div class="container-analyze flex column">
-              <h3>Тип зв'язку</h3>
+              <h3>Тип взаємодії</h3>
               <div class="flex line">
                 <div class="square light"></div>
                 <p> Слабка взаємодія (епізодичний контакт, формальна комунікація) </p>
@@ -64,14 +64,14 @@
               </div>
               <div class="flex line">
                 <div class="square blue"></div>
-                <p> Висока взаємодія (тривале партнерство, угоди, спільне управління) </p>
+                <p> Сильна взаємодія (тривале партнерство, угоди, спільне управління) </p>
               </div>
             </div>
             <div id="model-container-KO" class="container model-container-KO"></div>
           </div>
           <div class="flex pt-5 justify-between">
-            <button type="button" pButton severity="secondary" (click)="activateCallback(1)"><i class="pi pi-arrow-left"></i> Back</button>
-            <button type="button" pButton (click)="activateCallback(3)">Next <i class="pi pi-arrow-right"></i></button>
+            <button type="button" pButton severity="secondary" (click)="activateCallback(1)"><i class="pi pi-arrow-left"></i> Назад</button>
+            <button type="button" pButton (click)="activateCallback(3)">Далі <i class="pi pi-arrow-right"></i></button>
           </div>
         </ng-template>
       </p-step-panel>
@@ -100,6 +100,7 @@
                         </div>
                       </td>
                     }
+                    <td [id]="`td-id-${tds.name}-${tds.value}`">{{tds.value}}</td>
                     <td [id]="`td-id-${tds.name}`">{{tds.name}}</td>
                     @if (rowgroup) {
                       <td [attr.rowspan]="rowspan">
@@ -114,7 +115,7 @@
             }
           </div>
           <div class="flex pt-5 justify-start">
-            <button type="button" pButton severity="secondary" (click)="activateCallback(2); createCharts()"><i class="pi pi-arrow-left"></i> Back</button>
+            <button type="button" pButton severity="secondary" (click)="activateCallback(2); createCharts()"><i class="pi pi-arrow-left"></i> Назад</button>
           </div>
         </ng-template>
       </p-step-panel>

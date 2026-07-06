@@ -134,7 +134,10 @@ export class CreationDialogComponent {
         }
       })
       data.analyze = {}
-      data.balance = {}
+      data.balance = {
+        stackholders: [],
+        conflicts: []
+      }
       data.stackholderData = {}
       data.stackholders = []
       if (this.current._id) {

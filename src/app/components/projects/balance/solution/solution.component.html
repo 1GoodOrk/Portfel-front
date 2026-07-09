@@ -26,12 +26,55 @@
                     [(ngModel)]="input.value"
                     required>
                   </textarea>
+                } @else if (input.type === 'text') {
+                  <input
+                    pInputText
+                    type="text"
+                    [id]="input.name"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }" />
+                } @else if (input.type === 'number') {
+                  <p-inputnumber
+                    [inputId]="input.name"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    required
+                    [min]="input.min || 1"
+                    [max]="input.max || 10"
+                    [step]="input.step || 1"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
                 } @else if (input.type === 'selector') {
                   <p-select
                     [inputId]="input.name"
                     [name]="input.name || 'name'"
                     [options]="input.items"
-                    multi
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    class="w-full md:w-56" />
+                } @else if (input.type === 'selectorspec') {
+                  <p-select
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
                     [ngModel]="input.value"
                     (ngModelChange)="catchIndex($event)"
                     [ngModelOptions]="{ standalone: true }"
@@ -65,17 +108,42 @@
             'max-height': '700px',
             'margin': '10px',
             'overflow': 'hidden',
-            'cursor': 'pointer'
+            'cursor': 'pointer',
+            'border': solution.status === 'Запропоновано' ? '3px yellow solid' :
+              solution.status === 'Потребує перегляду' ? '3px darkred solid' :
+              solution.status === 'У процесі' ? '3px darkmagenta solid' : '3px darkslategray solid'
           }">
           <ng-template #title>
-            <span class="bold">Рішення: </span> {{solution}}
-            <p-button
-              icon="pi pi-times"
-              [rounded]="true"
-              [text]="true"
-              (click)="removeSolution($index)"
-              pTooltip="Натисніть, щоб видалити конфлікт"
-              severity="danger" />
+            <div class="flex items-center">
+              <p><span class="bold">Рішення: </span> {{solution.code}} ({{solution.status}})</p>
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                [text]="true"
+                (click)="removeSolution($index)"
+                pTooltip="Натисніть, щоб видалити конфлікт"
+                severity="danger" />
+            </div>
+          </ng-template>
+          <ng-template #subtitle><span class="bold">Сторони:</span> {{solution.type}} </ng-template>
+          <ng-template #content>
+            <p> <span class="bold">Суть рішення: </span>{{solution.answer}}</p>
+            <p> <span class="bold">Очікуваний результат: </span>{{solution.effect}}</p>
+            <p> <span class="bold">Відповідальний: </span>{{solution.manager}}</p>
+            <p> <span class="bold">Прогресс: </span>{{solution.progress}} %</p>
+          </ng-template>
+          <ng-template #footer>
+            <div class="flex space-evenly">
+              <p-button
+                label="Оновити"
+                tooltipPosition="top"
+                severity="warn"
+                (click)="showDialogSolution($index)"/>
+              <p-button
+                label="Видалити"
+                severity="danger"
+                (click)="removeSolution($index)"/>
+            </div>
           </ng-template>
         </p-card>
       } @empty {
@@ -84,3 +152,102 @@
     </div>
   }
 </section>
+<p-dialog [(visible)]="visible" [modal]="true" header="Оновити рішення" [style]="{ width: '48rem' }">
+  <div class="flex flex-col gap-4">
+    <form #formDialog="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
+      <div class="form-container row">
+        <div class="form-container column">
+          @for (input of inputs.solution; track input) {
+            @if (input.displayCondition && input.type !== 'line') {
+              <div class="flex flex-col gap-1">
+                @if (input.type !== 'checklist') {
+                  <label for="name" class="bold">{{input.label | translate}}
+                    @if (input.suffix) {
+                      {{input.suffix | translate}}
+                    }
+                  </label>
+                }
+                @if (input.type === 'textarea') {
+                  <textarea
+                    pTextarea
+                    type="text"
+                    [id]="input.name"
+                    class="mt-5"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    required>
+                  </textarea>
+                } @else if (input.type === 'text') {
+                  <input
+                    pInputText
+                    type="text"
+                    [id]="input.name"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }" />
+                } @else if (input.type === 'number') {
+                  <p-inputnumber
+                    [inputId]="input.name"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    [name]="input.name || 'name'"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    required
+                    [min]="input.min || 1"
+                    [max]="input.max || 10"
+                    [step]="input.step || 1"
+                    [minFractionDigits]="0" >
+                      <ng-template #incrementbuttonicon>
+                          <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                          <span class="pi pi-minus"></span>
+                      </ng-template>
+                  </p-inputnumber>
+                } @else if (input.type === 'selector') {
+                  <p-select
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
+                    [(ngModel)]="input.value"
+                    [ngModelOptions]="{ standalone: true }"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    class="w-full md:w-56" />
+                } @else if (input.type === 'selectorspec') {
+                  <p-select
+                    [inputId]="input.name"
+                    [name]="input.name || 'name'"
+                    [options]="input.items"
+                    [ngModel]="input.value"
+                    (ngModelChange)="catchIndex($event)"
+                    [ngModelOptions]="{ standalone: true }"
+                    [placeholder]="input.placeholder | translate"
+                    [pTooltip]="input.pTooltip | translate"
+                    tooltipPosition="right"
+                    class="w-full md:w-56" />
+                }
+              </div>
+            } @else if (input.displayCondition) {
+              <p-divider />
+            }
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template #footer>
+    <button type="button" pButton severity="secondary" variant="outlined" (click)="visible = false">Назад</button>
+    <button type="button" pButton (click)="updateSolution()">Оновити</button>
+  </ng-template>
+</p-dialog>

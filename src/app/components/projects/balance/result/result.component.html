@@ -1,5 +1,5 @@
 <section class="result">
-  <div class="container">
+  <div class="main-container">
     @for (conflict of currentProject.balance.conflicts; track conflict) {
       <h3>Область: {{conflict.name}}</h3>
       <h4>Стороны: </h4>
@@ -11,9 +11,36 @@
         </p>
       }
       <h4>Рішення: </h4>
-      @for (solution of conflict.solutions; track solution) {
-        <p>{{solution}}</p>
-      }
+      <div legend="Solutions" class="container scroll">
+        @for (solution of conflict.solutions; track solution) {
+          <p-card
+            [style]="{
+              'max-width': '300px',
+              'max-height': '700px',
+              'margin': '10px',
+              'overflow': 'hidden',
+              'cursor': 'pointer',
+              'border': solution.status === 'Запропоновано' ? '3px yellow solid' :
+                solution.status === 'Потребує перегляду' ? '3px darkred solid' :
+                solution.status === 'У процесі' ? '3px darkmagenta solid' : '3px darkslategray solid'
+            }">
+            <ng-template #title>
+              <div class="flex items-center">
+                <p><span class="bold">Рішення: </span> {{solution.code}} ({{solution.status}})</p>
+              </div>
+            </ng-template>
+            <ng-template #subtitle><span class="bold">Сторони:</span> {{solution.type}} </ng-template>
+            <ng-template #content>
+              <p> <span class="bold">Суть рішення: </span>{{solution.answer}}</p>
+              <p> <span class="bold">Очікуваний результат: </span>{{solution.effect}}</p>
+              <p> <span class="bold">Відповідальний: </span>{{solution.manager}}</p>
+              <p> <span class="bold">Прогресс: </span>{{solution.progress}} %</p>
+            </ng-template>
+          </p-card>
+        } @empty {
+          <h2 class="bold"> Рішень не знайдено... </h2>
+        }
+      </div>
     }
   </div>
 </section>

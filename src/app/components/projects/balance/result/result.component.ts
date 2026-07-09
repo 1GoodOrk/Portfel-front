@@ -21,11 +21,30 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
-// import { NgClass } from "../../../../../../node_modules/@angular/common/types/_common_module-chunk";
 
 @Component({
   selector: 'app-result',
-  imports: [],
+  imports: [
+    FormsModule,
+    InputTextModule,
+    InputNumberModule,
+    TextareaModule,
+    CheckboxModule,
+    ButtonModule,
+    CardModule,
+    FieldsetModule,
+    DialogModule,
+    TooltipModule,
+    DividerModule,
+    MessageModule,
+    SelectModule,
+    TableModule,
+    TooltipModule,
+    MultiSelectModule,
+    DatePickerModule,
+    ScrollerModule,
+    TranslatePipe,
+  ],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })

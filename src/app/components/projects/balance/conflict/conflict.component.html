@@ -112,6 +112,9 @@
               }
             }
           </ng-template>
+          <ng-template #content>
+            <p> <span class="bold">Опис: </span>{{conflict.des}}</p>
+          </ng-template>
         </p-card>
       } @empty {
         <h2 class="bold"> Конфліктів не знайдено... </h2>

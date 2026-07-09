@@ -22,6 +22,13 @@
                     }
                   }
                   <p-divider />
+                } @else if (input.type === 'infospec') {
+                  <p-divider />
+                  <h3 [style]="{ 'color': inputs.stackholdersBalance[27].value + inputs.stackholdersBalance[25].value + inputs.stackholdersBalance[23].value + inputs.stackholdersBalance[21].value > 100 ? '#ef4444' : 'black' }">Сума впливу індексів не може перевищувати 100 %</h3>
+                  <p>Вплив індекса довіри:  {{inputs.stackholdersBalance[21].value}}</p>
+                  <p>Вплив індекса задоволеності: {{inputs.stackholdersBalance[23].value}}</p>
+                  <p>Вплив індекса виконання домовленостей: {{inputs.stackholdersBalance[25].value}}</p>
+                  <p>Вплив індекса консенсусу: {{inputs.stackholdersBalance[27].value}}</p>
                 } @else if (input.type === 'text') {
                   <input
                     pInputText
@@ -89,7 +96,7 @@
         <p-card
           [style]="{
             'max-width': '300px',
-            'max-height': '700px',
+            'max-height': '800px',
             'margin': '10px',
             'overflow': 'hidden',
             'cursor': 'pointer'
@@ -105,13 +112,21 @@
               severity="danger" />
           </ng-template>
           <ng-template #subtitle><span class="bold">Тип:</span> {{stackholder.type}} </ng-template>
+          <ng-template #content>
+            <p> <span class="bold">Інтегральний Індекс Взаємодії (SEI): </span>{{stackholder.SEI}} % ({{stackholder.SEI > 80 ? 'високий рівень взаємодії' : stackholder.SEI > 60 ? 'стабільний стан' : stackholder.SEI > 40 ? 'підвищений ризик конфліктів' : 'критичний стан'}})</p>
+          </ng-template>
         </p-card>
       } @empty {
         <h2 class="bold"> Cтейкхолдерів не знайдено... </h2>
       }
     </div>
-    <div class="container flex items-center justify-center overflow-x-auto">
+    <!-- <div
+      echarts
+      [options]="chartOption"
+      (chartInit)="onChartInit($event)"
+      class="chart"></div> -->
+    <!-- <div class="container flex items-center justify-center overflow-x-auto">
       <p-organization-chart [value]="data" />
-    </div>
+    </div> -->
   }
 </section>

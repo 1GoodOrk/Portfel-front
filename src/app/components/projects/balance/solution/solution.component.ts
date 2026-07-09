@@ -53,6 +53,8 @@ export class SolutionComponent {
   public inputs: any = {}
   public timeOut: any
   public conflictIndex: any
+  public visible: any = false
+  public currentIndex: any = -1
   @Output() updateView = new EventEmitter();
 
   constructor(
@@ -77,17 +79,47 @@ export class SolutionComponent {
   public updateProject(form: any) {
     if (form.valid) {
       this.conflictIndex = this.currentProject.balance.conflicts.findIndex((conflict: any) => conflict.conflictSides === this.inputs.solution[0].value)
-      this.currentProject.balance.conflicts[this.conflictIndex].solutions.push(this.inputs.solution[1].value)
+      this.currentProject.balance.conflicts[this.conflictIndex].solutions.push({})
+      this.inputs.solution.forEach((input: any) => {
+        if (input.name) {
+          this.currentProject.balance.conflicts[this.conflictIndex].solutions[this.currentProject.balance.conflicts[this.conflictIndex].solutions.length - 1][input.name] = input.value
+        }
+      })
       form.resetForm()
       this.updateProjectRequest()
     }
+  }
+
+  public showDialogSolution(index: number) {
+    this.visible = true
+    this.currentIndex = index
+    this.inputs.solution = this.inputs.solution.map((input: any) => {
+      input.value = this.currentProject.balance.conflicts[this.conflictIndex].solutions[this.currentIndex][input.name]
+      return input
+    })
+  }
+
+  public updateSolution() {
+    if (this.currentIndex > -1) {
+      this.inputs.solution.forEach((input: any) => {
+        if (input.name) {
+          this.currentProject.balance.conflicts[this.conflictIndex].solutions[this.currentIndex][input.name] = input.value
+        }
+      })
+      this.updateProjectRequest()
+      this.currentIndex = -1
+    }
+    this.visible = false
   }
 
   private updateProjectRequest () {
     this.httpService.updateProject(this.currentProject._id, this.currentProject)
       .subscribe(() => {
         this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-        this.inputs.solution[1].value = ''
+        this.inputs.conflicts = this.inputs.conflicts.map((input: any) => {
+          input.value = ''
+          return input
+        })
       })
   }
 }

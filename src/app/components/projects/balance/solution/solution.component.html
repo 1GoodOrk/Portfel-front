@@ -23,8 +23,7 @@
                     [pTooltip]="input.pTooltip | translate"
                     tooltipPosition="right"
                     [name]="input.name || 'name'"
-                    [(ngModel)]="input.value"
-                    required>
+                    [(ngModel)]="input.value">
                   </textarea>
                 } @else if (input.type === 'text') {
                   <input

@@ -52,7 +52,7 @@ export class SolutionComponent {
   public currentProject: any = {}
   public inputs: any = {}
   public timeOut: any
-  public conflictIndex: any
+  public conflictIndex: any = -1
   public visible: any = false
   public currentIndex: any = -1
   @Output() updateView = new EventEmitter();
@@ -64,9 +64,14 @@ export class SolutionComponent {
     this.inputs = this.appCommunicationService.getInputsForm(['solution'])
     this.currentProject = this.appCommunicationService.getCurrentProject()
     this.inputs.solution[0].items = Array.from(this.currentProject.balance.conflicts).map((conflict: any) => conflict.conflictSides)
+    this.conflictIndex = this.currentProject.balance.conflicts.findIndex((conflict: any) => conflict.conflictSides === this.inputs.solution[0].value)
   }
 
   public catchIndex(event: any) {
+    this.inputs.solution = this.inputs.solution.map((input: any) => {
+      input.value = ''
+      return input
+    })
     this.inputs.solution[0].value = event
     this.conflictIndex = this.currentProject.balance.conflicts.findIndex((conflict: any) => conflict.conflictSides === this.inputs.solution[0].value)
   }
@@ -116,7 +121,7 @@ export class SolutionComponent {
     this.httpService.updateProject(this.currentProject._id, this.currentProject)
       .subscribe(() => {
         this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-        this.inputs.conflicts = this.inputs.conflicts.map((input: any) => {
+        this.inputs.solution = this.inputs.solution.map((input: any) => {
           input.value = ''
           return input
         })

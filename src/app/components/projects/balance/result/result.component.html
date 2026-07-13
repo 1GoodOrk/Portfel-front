@@ -1,13 +1,14 @@
 <section class="result">
   <div class="main-container">
     @for (conflict of currentProject.balance.conflicts; track conflict) {
+      <h2>Конфлікт № {{$index + 1}}</h2>
       <h3>Область: {{conflict.name}}</h3>
-      <h4>Стороны: </h4>
+      <h4>Сторони: </h4>
       @for (conflictSide of conflict.conflictSides; track conflictSide) {
-        <p>{{conflictSide}}
-          @if ($index !== conflict.conflictSides.length - 1) {
+        <p>- {{conflictSide}}
+          <!-- @if ($index !== conflict.conflictSides.length - 1) {
             vs
-          }
+          } -->
         </p>
       }
       <h4>Рішення: </h4>

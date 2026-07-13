@@ -18,6 +18,7 @@ echarts.use([
   CanvasRenderer
 ]);
 
+import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TextareaModule } from 'primeng/textarea';
@@ -63,6 +64,7 @@ import exp from '@port/asserts/data/fake-data/experimantal-tree.json'
     DatePickerModule,
     ScrollerModule,
     OrganizationChartModule,
+    AccordionModule,
     TranslatePipe,
     NgxEchartsDirective
   ],

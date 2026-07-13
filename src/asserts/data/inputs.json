@@ -100,8 +100,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "influence",
-        "label": "Вплив (1 - 10)",
-        "pTooltip": "Введіть вплив конфлікта",
+        "label": "Вплив конфлікта на перебіг проекту (1 - 10)",
+        "pTooltip": "Введіть вплив конфлікта на проект",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -115,8 +115,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "probability",
-        "label": "Ймовірність виникнення конфлікту (1 - 10)",
-        "pTooltip": "Введіть ймовірність виникнення конфлікту",
+        "label": "Ймовірність повторного виникнення конфлікту (1 - 10)",
+        "pTooltip": "Введіть ймовірність повторного виникнення конфлікту",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -205,8 +205,8 @@
         "type": "selector",
         "displayCondition": true,
         "name": "status",
-        "label": "Статус",
-        "pTooltip": "Виберіть статус",
+        "label": "Статус рішення",
+        "pTooltip": "Виберіть статус рішення",
         "value": "",
         "items": [
           { "label": "Запропоновано", "value": "Запропоновано" },

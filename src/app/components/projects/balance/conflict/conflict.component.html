@@ -95,14 +95,16 @@
             'cursor': 'pointer'
           }">
           <ng-template #title>
-            <span class="bold">Область: </span> {{conflict.type}} ({{conflict.name}})
-            <p-button
-              icon="pi pi-times"
-              [rounded]="true"
-              [text]="true"
-              (click)="removeConflict($index)"
-              pTooltip="Натисніть, щоб видалити конфлікт"
-              severity="danger" />
+            <div class="flex">
+              <span class="bold">Область: </span> {{conflict.type}} ({{conflict.name}})
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                [text]="true"
+                (click)="removeConflict($index)"
+                pTooltip="Натисніть, щоб видалити конфлікт"
+                severity="danger" />
+            </div>
           </ng-template>
           <ng-template #subtitle><span class="bold">Сторони:</span>
             @for (conflictSide of conflict.conflictSides; track conflictSide) {

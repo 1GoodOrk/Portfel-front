@@ -97,6 +97,13 @@
             severity="secondary"
             type="submit" />
         }
+        <p-button
+          label="Реєстрація"
+          [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
+          tooltipPosition="bottom"
+          severity="primary"
+          type="button"
+          (click)="navigate('registration')" />
         @if (error) {
           <p-message severity="error" size="small" variant="simple">
             @if (password.hasError('required')) {
@@ -104,22 +111,6 @@
             }
           </p-message>
         }
-        <div class="buttons space-between">
-          <p-button
-            label="Реєстрація власника"
-            [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
-            tooltipPosition="bottom"
-            severity="primary"
-            type="button"
-            (click)="navigate('registration-owner')" />
-          <p-button
-            label="Реєстрація експерта"
-            [pTooltip]="'pages.user.login.registrationTolltip'  | translate"
-            tooltipPosition="bottom"
-            severity="primary"
-            type="button"
-            (click)="navigate('registration-expert')" />
-        </div>
       </div>
     </form>
   </p-card>

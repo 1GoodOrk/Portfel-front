@@ -1,21 +1,116 @@
 <app-header></app-header>
 <main class="projects">
-  <div class="flex space-evenly">
+  <!-- <div class="flex space-evenly">
     <p-button
       icon="pi pi-eye"
       [label]="`${'pages.project.science.watchProject' | translate}`"
       tooltipPosition="top"
       severity="secondary"
       (click)="showInfoProjectDialog($event)"/>
-  </div>
+  </div> -->
 
-  <div class="flex flex-col h-48">
-    <app-stackholder></app-stackholder>
+    <!-- <div legend="stackholder creation" class="container"> -->
+      <p-button
+        label="Створити ризик"
+        pTooltip="Натисніть, щоб створити новий ризик"
+        tooltipPosition="top"
+        severity="primary"
+        (click)="openDialogAddUpdateRow()"/>
+    <!-- </div> -->
+  <div class="container-analyze flex column">
+    <h3> <span class="bold">Ризики</span></h3>
   </div>
-
-  <div class="flex flex-col h-48">
-    <app-phase></app-phase>
-  </div>
+  @if (currentProject.risksTableParams) {
+    <div class="table-container">
+      <p-table [value]="currentProject.risksTableParams?.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+        <ng-template #header>
+            <tr>
+              @for (th of currentProject.risksTableParams?.th; track `th-id-${th}`) {
+                <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+              }
+            </tr>
+        </ng-template>
+        <ng-template #body let-tds let-rowIndex="rowIndex">
+          <tr>
+            @for (td of tds; track `td-id-${td}${$index}`) {
+              @if ($index === 4 || $index === 5) {
+                <td
+                  [id]="`td-id-${td}`"
+                  class="bold"
+                  [style]="{ color: td === 'Загроза' || (+td.split(' %')[0] > 50) ? 'darkred' : td === 'Стабілізовано' || (+td.split(' %')[0] > 5) ? 'darkyellow' : 'darkgreen'  }">
+                    {{td}}
+                </td>
+              } @else {
+                <td [id]="`td-id-${td}`">{{td}}</td>
+              }
+            }
+            <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
+              <div class="actions">
+                <button
+                  pButton
+                  iconOnly
+                  rounded
+                  raised
+                  variant="text"
+                  pTooltip="Натисніть, щоб переглянути цей ризик"
+                  tooltipPosition="top"
+                  severity="secondary"
+                  [style]="{
+                    'width': '30px',
+                    'height': '30px',
+                    'margin': '5px 5px',
+                  }"
+                  (click)="openDialogInfo(rowIndex)"
+                  aria-label="Notification">
+                    <svg data-p-icon="eye"></svg>
+                </button>
+                <button
+                  pButton
+                  iconOnly
+                  rounded
+                  raised
+                  variant="text"
+                  pTooltip="Натисніть, щоб оновити цей ризик"
+                  tooltipPosition="top"
+                  severity="warn"
+                  [style]="{
+                    'width': '30px',
+                    'height': '30px',
+                    'margin': '5px 5px',
+                  }"
+                  (click)="openDialogAddUpdateRow(rowIndex)"
+                  aria-label="Notification">
+                    <svg data-p-icon="pencil"></svg>
+                </button>
+                <button
+                  pButton
+                  iconOnly
+                  rounded
+                  raised
+                  variant="text"
+                  pTooltip="Натисніть, щоб видалити цей ризик"
+                  tooltipPosition="left"
+                  severity="danger"
+                  [style]="{
+                    'width': '30px',
+                    'height': '30px',
+                    'margin': '5px 5px',
+                  }"
+                  (click)="remove(rowIndex)"
+                  aria-label="Cancel">
+                    <svg data-p-icon="times"></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  }
 </main>
 <app-footer></app-footer>
-<app-info-dialog [visible]="visible.project" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+<app-creation-dialog
+  [visible]="visible.creation"
+  (changeVisibleEvent)="visibleOnChange($event)"
+  (submitionUpdateEvent)="updateRisk($event)"
+  (submitionCreateEvent)="createRisk($event)"></app-creation-dialog>

@@ -1,16 +1,13 @@
 <p-dialog
-  [header]="formData._id ?
-   `${'pages.portfolio.dialog.updateDialogHeaderFirstPart' | translate} ${formData.name} ${'pages.portfolio.dialog.updateDialogHeaderLastPart' | translate}` :
-   `${'pages.portfolio.dialog.createDialogHeader' | translate}`"
-  header="Edit Profile"
+  [header]="header"
   [modal]="true"
   [(visible)]="visible"
   (visibleChange)="visibleOnChange()"
-  [style]="{ width: '40rem' }">
+  [style]="{ width: '40rem', 'max-height': '700px' }">
   <form #form="ngForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="form-container row">
       <div class="form-container column">
-        @for (input of inputs.logistic; track input) {
+        @for (input of inputs[currentMode]; track input) {
           @if (input.displayCondition && input.type !== 'line') {
             <div class="flex flex-col gap-1">
               @if (input.type !== 'checklist') {
@@ -98,7 +95,8 @@
                   [placeholder]="input.placeholder | translate"
                   [pTooltip]="input.pTooltip | translate"
                   tooltipPosition="right"
-                  class="w-full md:w-56" />
+                  class="w-full md:w-56"
+                  required />
               } @else if (input.type === 'multiselector') {
                 <p-multiselect
                   [inputId]="input.name"
@@ -112,7 +110,8 @@
                   tooltipPosition="right"
                   optionLabel="label"
                   [showClear]="true"
-                  class="w-full md:w-56" />
+                  class="w-full md:w-56"
+                  required />
               }
             </div>
           } @else if (input.displayCondition) {
@@ -126,14 +125,15 @@
           [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
           [outlined]="true"
           severity="primary"
-          (click)="formData._id ? updateProject(formData._id, form): createProject(form)" />
+          [disabled]="form.touched && form.invalid"
+          (click)="this.data && this.data._id ? update(form): create(form)" />
         <p-button
           label="Cancel"
           [label]="'pages.portfolio.dialog.cancelButton' | translate"
           [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
           [text]="true"
           severity="danger"
-          (click)="form.resetForm(); visibleOnChange()" />
+          (click)="cancel(form)" />
       </div>
     </div>
   </form>

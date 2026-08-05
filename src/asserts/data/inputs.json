@@ -1,4 +1,641 @@
 {
+    "risk": [
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "Назва ризику",
+        "placeholder": "Назва",
+        "pTooltip": "Назва ризику (код, повне ім'я, умовне позначення)",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "name"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "cause",
+        "label": "Причини виникнення",
+        "placeholder": "Причини виникнення",
+        "pTooltip": "Опишіть причини виникнення ризику",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "cause"
+      },
+        {
+        "type": "text",
+        "displayCondition": true,
+        "name": "consequences",
+        "label": "Ймовірні наслідки",
+        "placeholder": "Наслідки",
+        "pTooltip": "Опишіть кризу, яка виникне внаслідок цього ризику",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "consequences"
+      },
+      {
+        "type": "textarea",
+        "displayCondition": true,
+        "name": "des",
+        "label": "Опис ризику",
+        "placeholder": "Опис ризику",
+        "pTooltip": "Детальний опис ризику",
+        "errors": {
+          "required": "pages.portfolio.dialog.descriptionRequired"
+        },
+        "value": "",
+        "refName": "des"
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "influence",
+        "label": "Вплив ризику на перебіг проекту (1 - 10)",
+        "pTooltip": "Введіть вплив ризику на проект",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "influence",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "probability",
+        "label": "Ймовірність виникнення ризику (1 - 10)",
+        "pTooltip": "Введіть ймовірність виникнення ризику",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      },
+      {
+        "type": "info",
+        "displayCondition": true,
+        "items": [
+          "Вплив за критеріями (0 - 100)"
+        ]
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iTime",
+        "label": "Індекс часу",
+        "pTooltip": "Введіть індекс часу",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iQuality",
+        "label": "Індекс якості",
+        "pTooltip": "Введіть індекс якості",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iResources",
+        "label": "Індекс ресурсів",
+        "pTooltip": "Введіть індекс ресурсів",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iAdaptability",
+        "label": "Індекс адаптивності",
+        "pTooltip": "Введіть індекс адаптивності",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iUnique",
+        "label": "Індекс унікальності",
+        "pTooltip": "Введіть індекс унікальності",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iTechnical",
+        "label": "Технічний індекс",
+        "pTooltip": "Введіть технічний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iSocial",
+        "label": "Соціальний індекс",
+        "pTooltip": "Введіть cоціальний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iLegal",
+        "label": "Юридичний індекс",
+        "pTooltip": "Введіть юридичний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iFinance",
+        "label": "Фінансовий індекс",
+        "pTooltip": "Введіть фінансовий індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iStructur",
+        "label": "Структурний індекс",
+        "pTooltip": "Введіть Структурний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iExternal",
+        "label": "Зовнішній фактор",
+        "pTooltip": "Введіть зовнішній фактор",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iHuman",
+        "label": "Людський фактор",
+        "pTooltip": "Введіть людський фактор",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "solution": [
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "Назва cитуації",
+        "placeholder": "Назва",
+        "pTooltip": "Назва cитуації (код, повне ім'я, умовне позначення)",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "name"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "cause",
+        "label": "Причини виникнення",
+        "placeholder": "Причини виникнення",
+        "pTooltip": "Опишіть причини виникнення cитуації",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "cause"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "consequences",
+        "label": "Ймовірні наслідки",
+        "placeholder": "Наслідки",
+        "pTooltip": "Опишіть вплив, який виникне внаслідок ціеї cитуації",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "consequences"
+      },
+      {
+        "type": "textarea",
+        "displayCondition": true,
+        "name": "des",
+        "label": "Опис cитуації",
+        "placeholder": "Опис cитуації",
+        "pTooltip": "Детальний опис cитуації",
+        "errors": {
+          "required": "pages.portfolio.dialog.descriptionRequired"
+        },
+        "value": "",
+        "refName": "des"
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "influence",
+        "label": "Вплив cитуації на перебіг проекту (1 - 10)",
+        "pTooltip": "Введіть вплив cитуації на проект",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "influence",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "probability",
+        "label": "Ймовірність виникнення cитуації (1 - 10)",
+        "pTooltip": "Введіть ймовірність виникнення cитуації",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "selector",
+        "displayCondition": true,
+        "name": "typeState",
+        "label": "Поточний стан транспортної операції",
+        "pTooltip": "Виберіть поточний стан транспортної операції",
+        "value": "",
+        "items": [
+          { "label": "Задоволений", "value": "Задоволений" },
+          { "label": "Вимагає перегляду", "value": "Вимагає перегляду" }
+        ]
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "place",
+        "label": "Місце перебування транспортного засобу",
+        "placeholder": "Місце",
+        "pTooltip": "Опишіть місце перебування транспортного засобу",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "place"
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "timeReaction",
+        "label": "Допустимий час реагування",
+        "pTooltip": "Допустимий час реагування на ситуацію",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "suffix": "d",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "control",
+        "label": "Контроль (0 - 100)",
+        "pTooltip": "Відсоток вирішення ситуації",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "multiselector",
+        "displayCondition": true,
+        "name": "restrictions",
+        "label": "Обмеження",
+        "pTooltip": "Виберіть обмеження, що супроводжують ситуацію",
+        "placeholder": "Обмеження",
+        "value": "",
+        "items": [
+          { "label": "Доступні ресурси", "value": "Доступні ресурси" },
+          { "label": "Технічні можливості", "value": "Технічні можливості" },
+          { "label": "Вимоги безпеки", "value": "Вимоги безпеки" },
+          { "label": "Нормативні обмеження", "value": "Нормативні обмеження" },
+          { "label": "Договірні обмеження", "value": "Договірні обмеження" },
+          { "label": "Організаційні обмеження", "value": "Організаційні обмеження" }
+        ]
+      },
+      {
+        "type": "selector",
+        "displayCondition": true,
+        "name": "finalState",
+        "label": "Статус закінчення ситуації",
+        "pTooltip": "Виберіть поточний статус закінчення ситуації",
+        "value": "Ситуація не вирішена",
+        "items": [
+          { "label": "Ситуація не вирішена", "value": "Ситуація не вирішена" },
+          { "label": "Ситуація вирішено позитивно", "value": "Ситуація вирішено позитивно" },
+          { "label": "Ситуація вирішена, але не змінює статусу ризику", "value": "Ситуація вирішена, але не змінює статусу ризику" },
+          { "label": "Ситуація вирішено негативно", "value": "Ситуація вирішено негативно" }
+        ]
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      },
+      {
+        "type": "info",
+        "displayCondition": true,
+        "items": [
+          "Вплив за критеріями (0 - 100)"
+        ]
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iTime",
+        "label": "Індекс часу",
+        "pTooltip": "Введіть індекс часу",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iQuality",
+        "label": "Індекс якості",
+        "pTooltip": "Введіть індекс якості",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iResources",
+        "label": "Індекс ресурсів",
+        "pTooltip": "Введіть індекс ресурсів",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iAdaptability",
+        "label": "Індекс адаптивності",
+        "pTooltip": "Введіть індекс адаптивності",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iUnique",
+        "label": "Індекс унікальності",
+        "pTooltip": "Введіть індекс унікальності",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iTechnical",
+        "label": "Технічний індекс",
+        "pTooltip": "Введіть технічний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iSocial",
+        "label": "Соціальний індекс",
+        "pTooltip": "Введіть cоціальний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iLegal",
+        "label": "Юридичний індекс",
+        "pTooltip": "Введіть юридичний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iFinance",
+        "label": "Фінансовий індекс",
+        "pTooltip": "Введіть фінансовий індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iStructur",
+        "label": "Структурний індекс",
+        "pTooltip": "Введіть Структурний індекс",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iExternal",
+        "label": "Зовнішній фактор",
+        "pTooltip": "Введіть зовнішній фактор",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iHuman",
+        "label": "Людський фактор",
+        "pTooltip": "Введіть людський фактор",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      }
+    ],
     "logistic": [
       {
         "type": "text",
@@ -66,1979 +703,6 @@
         },
         "value": "",
         "refName": "responsibleName"
-      }
-    ],
-    "stackholdersLogistic": [
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "name",
-        "label": "Ім'я стейкхолдера або назва організації",
-        "placeholder": "Ім'я",
-        "pTooltip": "Введіть ім'я стейкхолдера або назва організації",
-        "value": ""
-      },
-      {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "type",
-        "label": "Тип стейкхолдера",
-        "pTooltip": "Виберіть тип стейкхолдера",
-        "value": "",
-        "items": [
-          { "label": "Замовник проєкту", "value": "Замовник проєкту" },
-          { "label": "Власник проєкту", "value": "Власник проєкту" },
-          { "label": "Керівник проєкту", "value": "Керівник проєкту" },
-          { "label": "Команда проєкту", "value": "Команда проєкту" },
-          { "label": "Інвестори", "value": "Інвестори" },
-          { "label": "Конкуренти", "value": "Конкуренти" },
-          { "label": "Органи влади", "value": "Органи влади" },
-          { "label": "Транспортні регулятори", "value": "Транспортні регулятори" },
-          { "label": "Громадські організації", "value": "Громадські організації" },
-          { "label": "Перевізники", "value": "Перевізники" },
-          { "label": "Інші групи", "value": "Інші групи" }
-        ]
-      }
-    ],
-    "phasesLogistic": [
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "name",
-        "label": "Назва етапу життєвого циклу проекту",
-        "placeholder": "Назва",
-        "pTooltip": "Введіть назву етапу життєвого циклу проекту",
-        "value": ""
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "type",
-        "label": "Тип етапу",
-        "placeholder": "Тип етапу",
-        "pTooltip": "Введіть тип етапу",
-        "value": ""
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerName",
-        "label": "pages.portfolio.dialog.managerNameLabel",
-        "placeholder": "pages.portfolio.dialog.managerNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerNameTolltip",
-        "value": ""
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleOrganization",
-        "label": "pages.portfolio.dialog.responsibleOrganizationLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleOrganizationPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleOrganizationTolltip",
-        "value": ""
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "forecastProjectTaskAmount",
-        "label": "Прогнозована сума завдання етапу",
-        "pTooltip": "Введіть прогнозована сума завдання етапу",
-        "errors": {
-          "required": "pages.portfolio.dialog.forecastProjectTaskAmountRequired"
-        },
-        "value": "",
-        "refName": "forecastProjectTaskAmount",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "term",
-        "label": "Прогнозований термін етапу (р.дн.)",
-        "pTooltip": "Введіть прогнозований термін етапу",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "budget",
-        "label": "pages.portfolio.dialog.budgetLabel",
-        "pTooltip": "pages.portfolio.dialog.budgetTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.budgetRequired"
-        },
-        "value": "",
-        "refName": "budget",
-        "min": 1,
-        "max": 1000000000,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "budgetSource",
-        "label": "pages.portfolio.dialog.budgetSourceLabel",
-        "placeholder": "pages.portfolio.dialog.budgetSourcePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.budgetSourceTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.budgetSourceRequired"
-        },
-        "value": "",
-        "refName": "budgetSource"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "governmentSubsidies",
-        "label": "pages.portfolio.dialog.governmentSubsidiesLabel",
-        "placeholder": "pages.portfolio.dialog.governmentSubsidiesPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.governmentSubsidiesTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.governmentSubsidiesRequired"
-        },
-        "value": "",
-        "refName": "governmentSubsidies"
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "vehicle",
-        "label": "pages.portfolio.dialog.vehicleLabel",
-        "pTooltip": "Виберіть задіяні транспортні засоби етапу",
-        "value": "",
-        "items": [
-          { "label": "ULCC танкер", "value": "ULCC" },
-          { "label": "VLCC танкер", "value": "VLCC" },
-          { "label": "Suezmax танкер", "value": "Suezmax" },
-          { "label": "Aframax танкер", "value": "Aframax" },
-          { "label": "LR2/LR1 танкер", "value": "LR2LR1" },
-          { "label": "MR танкер", "value": "MR" },
-          { "label": "Handysize танкер", "value": "Handysize" },
-          { "label": "N1 (малотоннажний вантажний транспорт)", "value": "N1" },
-          { "label": "N2 (середньотоннажний вантажний транспорт)", "value": "N2" },
-          { "label": "N3 (важконнажний вантажний транспорт)", "value": "N3" },
-
-          { "label": "Важкий вп (вантажний поїзд)", "value": "vvp" },
-          { "label": "Підвищена вага вп (вантажний поїзд)", "value": "pvvp" },
-          { "label": "Довгоскладовий вп (вантажний поїзд)", "value": "lvp" },
-          { "label": "Підвищена довжина вп (вантажний поїзд)", "value": "plvp" },
-          { "label": "Сполучений вп (вантажний поїзд)", "value": "svp" }
-        ]
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "infrastructure",
-        "label": "pages.portfolio.dialog.infrastructureLabel",
-        "pTooltip": "Виберіть задіяну інфраструктуру етапу",
-        "value": "",
-        "items": [
-          { "label": "Станція перевірки", "value": "check" },
-          { "label": "Доки", "value": "docs" },
-          { "label": "Станція навантаження", "value": "load" },
-          { "label": "Залізничне завантаження", "value": "trainLoad" },
-          { "label": "Залізничне переїзд", "value": "trainRoad" },
-          { "label": "Ремонтна станція", "value": "fix" }
-        ]
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "staff",
-        "label": "Персонал",
-        "pTooltip": "Виберіть задіяний персонал етапу",
-        "value": "",
-        "refName": "staff",
-        "items": [
-          { "label": "Водій", "value": "driver" },
-          { "label": "Диcпетчер", "value": "dispatcher" },
-          { "label": "Машиніст", "value": "mashine" },
-          { "label": "Навантажувач", "value": "load" },
-          { "label": "Менеджер постачання", "value": "supply" },
-          { "label": "Менеджер контролю", "value": "control" },
-          { "label": "Технічний перcонал", "value": "techPersonal" }
-        ]
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "technology",
-        "label": "pages.portfolio.dialog.technologyLabel",
-        "pTooltip": "Виберіть задіяні технології етапу",
-        "value": "",
-        "refName": "technology",
-        "items": [
-          { "label": "Трекери", "value": "trecker" },
-          { "label": "Навігація", "value": "navigation" },
-          { "label": "Електронний таблоїд", "value": "electronicTabloid" },
-          { "label": "GPS", "value": "gps" },
-          { "label": "CRM", "value": "crm" }
-        ]
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      }
-    ],
-    "phasesLogisticTime": [],
-    "phasesLogisticDefault": [
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Instability",
-        "label": "Нестабільність (1-10)",
-        "placeholder": "Нестабільність",
-        "pTooltip": "Нестабільність, що впливає на і-ого стейкхолдера проєкту в деякий момент часу",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Uncertainty",
-        "label": "Невизначеність (1-10)",
-        "placeholder": "Невизначеність",
-        "pTooltip": "Невизначеність, що впливає на і-ого стейкхолдера в деякий момент часу",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Complexity",
-        "label": "Складність (1-10)",
-        "placeholder": "Складність",
-        "pTooltip": "Складність, що впливає на і-ого стейкхолдера в деякий момент часу",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Ambiguity",
-        "label": "Неоднозначність (1-10)",
-        "placeholder": "Неоднозначність",
-        "pTooltip": "Неоднозначність, що впливає на і-ого стейкхолдера в деякий момент часу",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Fragility",
-        "label": "Крихкість (1-10)",
-        "placeholder": "Крихкість",
-        "pTooltip": "Крихкість, що впливає на і-ого стейкхолдера в деякий момент часу ",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Anxiety",
-        "label": "Тривожність (1-10)",
-        "placeholder": "Тривожність",
-        "pTooltip": "Тривожність, що впливає на і-ого стейкхолдера в деякий момент часу",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Nonlinearity",
-        "label": "Нелінійність (1-10)",
-        "placeholder": "Нелінійність",
-        "pTooltip": "Нелінійність, що впливає на і-ого стейкхолдера в деякий момент часу ",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "Incomprehensibility",
-        "label": "Незрозумілість (1-10)",
-        "placeholder": "Незрозумілість",
-        "pTooltip": "Незрозумілість, що впливає на і-ого стейкхолдера в деякий момент часу ",
-        "value": 0,
-        "min": 1,
-        "max": 10,
-        "step": 1
-      }
-    ],
-
-    "vehicle": [
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "name",
-        "label": "pages.portfolio.dialog.nameLabel",
-        "placeholder": "pages.portfolio.dialog.namePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.nameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "name"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "subinfo",
-        "label": "pages.portfolio.dialog.subinfoLabel",
-        "placeholder": "pages.portfolio.dialog.subinfoPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.subinfoTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.subinfoRequired"
-        },
-        "value": "",
-        "refName": "subinfo"
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "priority",
-        "label": "pages.portfolio.dialog.priorityLabel",
-        "pTooltip": "pages.portfolio.dialog.priorityTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.priorityRequired"
-        },
-        "value": "",
-        "refName": "priority",
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "type",
-        "label": "pages.portfolio.dialog.typeLabel",
-        "pTooltip": "pages.portfolio.dialog.typeTolltip",
-        "value": "",
-        "refName": "type",
-        "items": [
-          { "label": "Ремонт", "value": "fix" },
-          { "label": "Будівництво", "value": "build" },
-          { "label": "Зміна", "value": "change" },
-          { "label": "Цифровізація", "value": "digitalization" }
-        ]
-      },
-      {
-        "type": "textarea",
-        "displayCondition": true,
-        "name": "des",
-        "label": "pages.portfolio.dialog.descriptionLabel",
-        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.descriptionRequired"
-        },
-        "value": "",
-        "refName": "des"
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleName",
-        "label": "pages.portfolio.dialog.responsibleNameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleNameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleNameRequired"
-        },
-        "value": "",
-        "refName": "responsibleName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleSurname",
-        "label": "pages.portfolio.dialog.responsibleSurnameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleSurnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleSurnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleSurnameRequired"
-        },
-        "value": "",
-        "refName": "responsibleSurname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleLastname",
-        "label": "pages.portfolio.dialog.responsibleLastnameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleLastnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleLastnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleLastnameRequired"
-        },
-        "value": "",
-        "refName": "responsibleLastname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerName",
-        "label": "pages.portfolio.dialog.managerNameLabel",
-        "placeholder": "pages.portfolio.dialog.managerNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerNameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.managerNameRequired"
-        },
-        "value": "",
-        "refName": "managerName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerSurname",
-        "label": "pages.portfolio.dialog.managerSurnameLabel",
-        "placeholder": "pages.portfolio.dialog.managerSurnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerSurnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.managerSurnameRequired"
-        },
-        "value": "",
-        "refName": "managerSurname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "managerLastname",
-        "label": "pages.portfolio.dialog.managerLastnameLabel",
-        "placeholder": "pages.portfolio.dialog.managerLastnamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.managerLastnameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.managerLastnameRequired"
-        },
-        "value": "",
-        "refName": "managerLastname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleOrganization",
-        "label": "pages.portfolio.dialog.responsibleOrganizationLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleOrganizationPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleOrganizationTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleOrganizationRequired"
-        },
-        "value": "",
-        "refName": "responsibleOrganization"
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "volumeOfWork",
-        "label": "pages.portfolio.dialog.volumeOfWorkLabel",
-        "pTooltip": "pages.portfolio.dialog.volumeOfWorkTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.volumeOfWorkRequired"
-        },
-        "value": "",
-        "refName": "volumeOfWork",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "forecastProjectTaskAmount",
-        "label": "pages.portfolio.dialog.forecastProjectTaskAmountLabel",
-        "pTooltip": "pages.portfolio.dialog.forecastProjectTaskAmountTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.forecastProjectTaskAmountRequired"
-        },
-        "value": "",
-        "refName": "forecastProjectTaskAmount",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "term",
-        "label": "pages.portfolio.dialog.termLabel",
-        "pTooltip": "pages.portfolio.dialog.termTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 1,
-        "max": 5000,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "actionPlan",
-        "label": "pages.portfolio.dialog.actionPlanLabel",
-        "placeholder": "pages.portfolio.dialog.actionPlanPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.actionPlanTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.actionPlanRequired"
-        },
-        "value": "",
-        "refName": "actionPlan"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "sphereOfAction",
-        "label": "pages.portfolio.dialog.sphereOfActionLabel",
-        "placeholder": "pages.portfolio.dialog.sphereOfActionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.sphereOfActionTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.sphereOfActionRequired"
-        },
-        "value": "",
-        "refName": "sphereOfAction"
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "vehicle",
-        "label": "pages.portfolio.dialog.vehicleLabel",
-        "pTooltip": "pages.portfolio.dialog.vehicleTolltip",
-        "value": "",
-        "refName": "vehicle",
-        "items": [
-          { "label": "Мікроавтобуc", "value": "minibus" },
-          { "label": "Міcький автобуc", "value": "cityBus" },
-          { "label": "Автобуc загального призначення", "value": "generalPurposeBus" },
-          { "label": "Міжміcький автобуc", "value": "intercityBus" },
-          { "label": "Автобуc далекого напрямку", "value": "longDistanceBus" },
-          { "label": "Спеціалізований автобуc", "value": "specializedBus" },
-          { "label": "Тричленовий автобуc", "value": "threeSeatBus" },
-          { "label": "Двояруcний автобуc", "value": "doubleDeckerBus" },
-          { "label": "Тролейбуcи", "value": "trolleybus" },
-          { "label": "Трамвай", "value": "tram" }
-        ]
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "infrastructure",
-        "label": "pages.portfolio.dialog.infrastructureLabel",
-        "pTooltip": "pages.portfolio.dialog.infrastructureTolltip",
-        "value": "",
-        "refName": "infrastructure",
-        "items": [
-          { "label": "Зупинка", "value": "stop" },
-          { "label": "Станція", "value": "statin" },
-          { "label": "Бензоколонка", "value": "fuel" },
-          { "label": "Інформаційна cиcтема", "value": "infoSystem" }
-        ]
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "staff",
-        "label": "pages.portfolio.dialog.staffLabel",
-        "pTooltip": "pages.portfolio.dialog.staffTolltip",
-        "value": "",
-        "refName": "staff",
-        "items": [
-          { "label": "Водій", "value": "driver" },
-          { "label": "Диcпетчер", "value": "dispatcher" },
-          { "label": "Кондуктор", "value": "conductor" },
-          { "label": "Технічний перcонал", "value": "techPersonal" }
-        ]
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "technology",
-        "label": "pages.portfolio.dialog.technologyLabel",
-        "pTooltip": "pages.portfolio.dialog.technologyTolltip",
-        "value": "",
-        "refName": "technology",
-        "items": [
-          { "label": "Сиcтема квитків", "value": "billet" },
-          { "label": "Навігація", "value": "navigation" },
-          { "label": "Електронний таблоїд", "value": "electronicTabloid" },
-          { "label": "GPS", "value": "gps" },
-          { "label": "CRM", "value": "crm" }
-        ]
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "budget",
-        "label": "pages.portfolio.dialog.budgetLabel",
-        "pTooltip": "pages.portfolio.dialog.budgetTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.budgetRequired"
-        },
-        "value": "",
-        "refName": "budget",
-        "min": 1,
-        "max": 1000000000,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "budgetSource",
-        "label": "pages.portfolio.dialog.budgetSourceLabel",
-        "placeholder": "pages.portfolio.dialog.budgetSourcePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.budgetSourceTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.budgetSourceRequired"
-        },
-        "value": "",
-        "refName": "budgetSource"
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "mainLosses",
-        "label": "pages.portfolio.dialog.mainLossesLabel",
-        "pTooltip": "pages.portfolio.dialog.mainLossesTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.mainLossesRequired"
-        },
-        "value": "",
-        "refName": "mainLosses",
-        "min": 1,
-        "max": 1000000000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "actualCost",
-        "label": "pages.portfolio.dialog.actualCostLabel",
-        "pTooltip": "pages.portfolio.dialog.actualCostTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.actualCostRequired"
-        },
-        "value": "",
-        "refName": "actualCost",
-        "min": 1,
-        "max": 1000000000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "additionalLosses",
-        "label": "pages.portfolio.dialog.additionalLossesLabel",
-        "pTooltip": "pages.portfolio.dialog.additionalLossesTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.additionalLossesRequired"
-        },
-        "value": "",
-        "refName": "additionalLosses",
-        "min": 1,
-        "max": 1000000000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "passengerTraffic",
-        "label": "pages.portfolio.dialog.passengerTrafficLabel",
-        "pTooltip": "pages.portfolio.dialog.passengerTrafficTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.passengerTrafficRequired"
-        },
-        "value": "",
-        "refName": "passengerTraffic",
-        "min": 1,
-        "max": 10000,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "ticketPrice",
-        "label": "pages.portfolio.dialog.ticketPriceLabel",
-        "pTooltip": "pages.portfolio.dialog.ticketPriceTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.ticketPriceRequired"
-        },
-        "value": "",
-        "refName": "ticketPrice",
-        "min": 1,
-        "max": 100000,
-        "step": 1
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "governmentSubsidies",
-        "label": "pages.portfolio.dialog.governmentSubsidiesLabel",
-        "placeholder": "pages.portfolio.dialog.governmentSubsidiesPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.governmentSubsidiesTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.governmentSubsidiesRequired"
-        },
-        "value": "",
-        "refName": "governmentSubsidies"
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "eco",
-        "label": "pages.portfolio.dialog.optionsEconomicLabel",
-        "pTooltip": "pages.portfolio.dialog.optionsEconomicTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.optionsEconomicRequired"
-        },
-        "value": "",
-        "refName": "eco",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "war",
-        "label": "pages.portfolio.dialog.optionsWarLabel",
-        "pTooltip": "pages.portfolio.dialog.optionsWarTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.optionsWarRequired"
-        },
-        "value": "",
-        "refName": "war",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "log",
-        "label": "pages.portfolio.dialog.optionsLogisticLabel",
-        "pTooltip": "pages.portfolio.dialog.optionsLogisticTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.optionsLogisticRequired"
-        },
-        "value": "",
-        "refName": "log",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "soc",
-        "label": "pages.portfolio.dialog.optionsSocialLabel",
-        "pTooltip": "pages.portfolio.dialog.optionsSocialTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.optionsSocialRequired"
-        },
-        "value": "",
-        "refName": "soc",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "struc",
-        "label": "pages.portfolio.dialog.optionsStructureLabel",
-        "pTooltip": "pages.portfolio.dialog.optionsStructureTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.optionsStructureRequired"
-        },
-        "value": "",
-        "refName": "struc",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      }
-    ],
-    "science": [
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "name",
-        "label": "pages.portfolio.dialog.nameLabel",
-        "placeholder": "pages.portfolio.dialog.namePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.nameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "name"
-      },
-      {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "type",
-        "label": "pages.portfolio.dialog.typeLabel",
-        "pTooltip": "pages.portfolio.dialog.typeTolltip",
-        "value": "",
-        "refName": "type",
-        "items": [
-          { "label": "Перевірка", "value": "Examination" },
-          { "label": "Реорганізація", "value": "Reorganization" },
-          { "label": "Цифровізація", "value": "Digitalization" },
-          { "label": "Сиcтематизація", "value": "Systematization" },
-          { "label": "Модернізація", "value": "Modernization" },
-          { "label": "Науковий", "value": "Science" },
-          { "label": "ІТ-проект", "value": "IT-Proj" },
-          { "label": "Спеціалізований", "value": "Special" }
-        ]
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "projectGoal",
-        "label": "pages.portfolio.dialog.projectGoalLabel",
-        "placeholder": "pages.portfolio.dialog.projectGoalPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.projectGoalTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.projectGoalRequired"
-        },
-        "value": "",
-        "refName": "projectGoal"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "projectProduct",
-        "label": "pages.portfolio.dialog.projectProductLabel",
-        "placeholder": "pages.portfolio.dialog.projectProductPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.projectProductTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.projectProductRequired"
-        },
-        "value": "",
-        "refName": "projectProduct"
-      },
-      {
-        "type": "textarea",
-        "displayCondition": true,
-        "name": "des",
-        "label": "pages.portfolio.dialog.descriptionLabel",
-        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.descriptionRequired"
-        },
-        "value": "",
-        "refName": "des"
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "priority",
-        "label": "pages.portfolio.dialog.priorityLabel",
-        "pTooltip": "pages.portfolio.dialog.priorityTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.priorityRequired"
-        },
-        "value": "",
-        "refName": "priority",
-        "min": 1,
-        "max": 10,
-        "step": 1
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleName",
-        "label": "pages.portfolio.dialog.responsibleNameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleNameTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.responsibleNameRequired"
-        },
-        "value": "",
-        "refName": "responsibleName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "customer",
-        "label": "pages.portfolio.dialog.customerLabel",
-        "placeholder": "pages.portfolio.dialog.customerPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.customerTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.customerRequired"
-        },
-        "value": "",
-        "refName": "customer"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "numberOfOrderDocument",
-        "label": "pages.portfolio.dialog.numberOfOrderDocumentLabel",
-        "placeholder": "pages.portfolio.dialog.numberOfOrderDocumentPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.numberOfOrderDocumentTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.numberOfOrderDocumentRequired"
-        },
-        "value": "",
-        "refName": "numberOfOrderDocument"
-      },
-      {
-        "type": "datepicker",
-        "displayCondition": true,
-        "name": "data",
-        "label": "pages.portfolio.dialog.dataProjectLabel",
-        "placeholder": "pages.portfolio.dialog.dataProjectPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.dataProjectTolltip",
-        "errors": {
-          "required": "pages.portfolio.dialog.dataProjectRequired"
-        },
-        "value": "",
-        "refName": "dataProject"
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "staff",
-        "label": "pages.portfolio.dialog.staffLabel",
-        "pTooltip": "pages.portfolio.dialog.staffTolltip",
-        "value": "",
-        "refName": "staff",
-        "items": [
-          { "label": "Юриcт", "value": "lawyer" },
-          { "label": "Менеджер", "value": "management" },
-          { "label": "Інженер", "value": "engeneer" },
-          { "label": "Бухгалтер", "value": "Accountant" },
-          { "label": "Декан", "value": "dean" },
-          { "label": "Заступник декана", "value": "advocateDean" },
-          { "label": "Ректор", "value": "rector" },
-          { "label": "Проректор", "value": "viceRector" },
-          { "label": "Завідувач кафедри", "value": "headOfDepartment" },
-          { "label": "Викладач", "value": "faculty" },
-          { "label": "Архіваріус", "value": "archive" },
-          { "label": "Розробник", "value": "developer" },
-          { "label": "Тестувальник", "value": "Test" },
-          { "label": "Девопс", "value": "devops" }
-        ]
-      }
-    ],
-    "road": [],
-    "stackholders": [
-      {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "type",
-        "label": "pages.project.stackholder.typeStackholderLabel",
-        "pTooltip": "pages.project.stackholder.typeStackholderTolltip",
-        "value": "",
-        "refName": "type",
-        "items": [
-          { "label": "Замовник проєкту", "value": "customer" },
-          { "label": "Влаcник проєкту", "value": "owner" },
-          { "label": "Керівник проєкту", "value": "team-lid" },
-          { "label": "Команда проєкту", "value": "team" },
-          { "label": "Інвеcтори", "value": "investors" },
-          { "label": "Конкуренти", "value": "competitors" },
-          { "label": "Органи влади", "value": "government" },
-          { "label": "Транcпортні регулятори", "value": "transportRegulators" },
-          { "label": "Громадcькі організації", "value": "civilOrganizations" },
-          { "label": "Наcелення", "value": "population" },
-          { "label": "Перевізники", "value": "carriers" },
-          { "label": "Інші групи", "value": "others" }
-        ]
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleOrganization",
-        "label": "pages.project.stackholder.responsibleOrganizationLabel",
-        "placeholder": "pages.project.stackholder.responsibleOrganizationPlaceholder",
-        "pTooltip": "pages.project.stackholder.responsibleOrganizationTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.responsibleOrganizationRequired"
-        },
-        "value": "",
-        "refName": "responsibleOrganization"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleName",
-        "label": "pages.project.stackholder.responsibleNameLabel",
-        "placeholder": "pages.project.stackholder.responsibleNamePlaceholder",
-        "pTooltip": "pages.project.stackholder.responsibleNameTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.responsibleNameRequired"
-        },
-        "value": "",
-        "refName": "responsibleName"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleSurname",
-        "label": "pages.project.stackholder.responsibleSurnameLabel",
-        "placeholder": "pages.project.stackholder.responsibleSurnamePlaceholder",
-        "pTooltip": "pages.project.stackholder.responsibleSurnameTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.responsibleSurnameRequired"
-        },
-        "value": "",
-        "refName": "responsibleSurname"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "responsibleLastname",
-        "label": "pages.project.stackholder.responsibleLastnameLabel",
-        "placeholder": "pages.project.stackholder.responsibleLastnamePlaceholder",
-        "pTooltip": "pages.project.stackholder.responsibleLastnameTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.responsibleLastnameRequired"
-        },
-        "value": "",
-        "refName": "responsibleLastname"
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "power",
-        "label": "pages.project.stackholder.powerLabel",
-        "pTooltip": "pages.project.stackholder.powerTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.powerRequired"
-        },
-        "value": 0,
-        "refName": "power",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "influence",
-        "label": "pages.project.stackholder.influenceLabel",
-        "pTooltip": "pages.project.stackholder.influenceTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.influenceRequired"
-        },
-        "value": 0,
-        "refName": "influence",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "transport",
-        "label": "pages.project.stackholder.transportFactorLabel",
-        "pTooltip": "pages.project.stackholder.transportFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.transportFactorRequired"
-        },
-        "value": 0,
-        "refName": "transport",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "social",
-        "label": "pages.project.stackholder.socialFactorLabel",
-        "pTooltip": "pages.project.stackholder.socialFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.socialFactorRequired"
-        },
-        "value": 0,
-        "refName": "social",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "economic",
-        "label": "pages.project.stackholder.economicFactorLabel",
-        "pTooltip": "pages.project.stackholder.economicFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.economicFactorRequired"
-        },
-        "value": 0,
-        "refName": "economic",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "ecologic",
-        "label": "pages.project.stackholder.ecologicFactorLabel",
-        "pTooltip": "pages.project.stackholder.ecologicFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.ecologicFactorRequired"
-        },
-        "value": 0,
-        "refName": "ecologic",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "comfort",
-        "label": "pages.project.stackholder.comfortFactorLabel",
-        "pTooltip": "pages.project.stackholder.comfortFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.comfortFactorRequired"
-        },
-        "value": 0,
-        "refName": "comfort",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "technologic",
-        "label": "pages.project.stackholder.technologicFactorLabel",
-        "pTooltip": "pages.project.stackholder.technologicFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.technologicFactorRequired"
-        },
-        "value": 0,
-        "refName": "technologic",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "informative",
-        "label": "pages.project.stackholder.informativeFactorLabel",
-        "pTooltip": "pages.project.stackholder.informativeFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.informativeFactorRequired"
-        },
-        "value": 0,
-        "refName": "informative",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "security",
-        "label": "pages.project.stackholder.securityFactorLabel",
-        "pTooltip": "pages.project.stackholder.securityFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.securityFactorRequired"
-        },
-        "value": 0,
-        "refName": "security",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "managment",
-        "label": "pages.project.stackholder.managmentFactorLabel",
-        "pTooltip": "pages.project.stackholder.managmentFactorTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.managmentFactorRequired"
-        },
-        "value": 0,
-        "refName": "managment",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "eco",
-        "label": "pages.project.stackholder.optionsEconomicLabel",
-        "pTooltip": "pages.project.stackholder.optionsEconomicTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsEconomicRequired"
-        },
-        "value": 0,
-        "refName": "eco",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "ecoPos",
-        "label": "pages.project.stackholder.optionsEconomicPosibilityLabel",
-        "pTooltip": "pages.project.stackholder.optionsEconomicPosibilityTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsEconomicPosibilityRequired"
-        },
-        "value": 0,
-        "refName": "ecoPos",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "war",
-        "label": "pages.project.stackholder.optionsWarLabel",
-        "pTooltip": "pages.project.stackholder.optionsWarTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsWarRequired"
-        },
-        "value": 0,
-        "refName": "war",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "warPos",
-        "label": "pages.project.stackholder.optionsWarPosibilityLabel",
-        "pTooltip": "pages.project.stackholder.optionsWarPosibilityTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsWarRequired"
-        },
-        "value": 0,
-        "refName": "warPos",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "log",
-        "label": "pages.project.stackholder.optionsLogisticLabel",
-        "pTooltip": "pages.project.stackholder.optionsLogisticTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsLogisticRequired"
-        },
-        "value": 0,
-        "refName": "log",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "logPos",
-        "label": "pages.project.stackholder.optionsLogisticPosibilityLabel",
-        "pTooltip": "pages.project.stackholder.optionsLogisticPosibilityTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsLogisticPosibilityRequired"
-        },
-        "value": 0,
-        "refName": "logPos",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "soc",
-        "label": "pages.project.stackholder.optionsSocialLabel",
-        "pTooltip": "pages.project.stackholder.optionsSocialTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsSocialRequired"
-        },
-        "value": 0,
-        "refName": "soc",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "socPos",
-        "label": "pages.project.stackholder.optionsSocialPosibilityLabel",
-        "pTooltip": "pages.project.stackholder.optionsSocialPosibilityTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsSocialPosibilityRequired"
-        },
-        "value": 0,
-        "refName": "socPos",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "struc",
-        "label": "pages.project.stackholder.optionsStructureLabel",
-        "pTooltip": "pages.project.stackholder.optionsStructureTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsStructureRequired"
-        },
-        "value": 0,
-        "refName": "struc",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "strucPos",
-        "label": "pages.project.stackholder.optionsStructurePosibilityLabel",
-        "pTooltip": "pages.project.stackholder.optionsStructurePosibilityTolltip",
-        "errors": {
-          "required": "pages.project.stackholder.optionsStructurePosibilityRequired"
-        },
-        "value": 0,
-        "refName": "strucPos",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      }
-    ],
-    "risksLean": [
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "burden",
-        "label": "pages.project.science.burdenLabel",
-        "pTooltip": "pages.project.science.burdenTolltip",
-        "errors": {
-          "required": "pages.project.science.burdenRequired"
-        },
-        "value": 0,
-        "refName": "burden",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "contentQuality",
-        "label": "pages.project.science.contentQualityLabel",
-        "pTooltip": "pages.project.science.contentQualityTolltip",
-        "errors": {
-          "required": "pages.project.science.contentQualityRequired"
-        },
-        "value": 0,
-        "refName": "contentQuality",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "staffQuality",
-        "label": "pages.project.science.staffQualityLabel",
-        "pTooltip": "pages.project.science.staffQualityTolltip",
-        "errors": {
-          "required": "pages.project.science.staffQualityRequired"
-        },
-        "value": 0,
-        "refName": "staffQuality",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "staffAmount",
-        "label": "pages.project.science.staffAmountLabel",
-        "pTooltip": "pages.project.science.staffAmountTolltip",
-        "errors": {
-          "required": "pages.project.science.staffAmountRequired"
-        },
-        "value": 0,
-        "refName": "staffAmount",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "managementQuality",
-        "label": "pages.project.science.managementQualityLabel",
-        "pTooltip": "pages.project.science.managementQualityTolltip",
-        "errors": {
-          "required": "pages.project.science.managementQualityRequired"
-        },
-        "value": 0,
-        "refName": "managementQuality",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "dataRedundancy",
-        "label": "pages.project.science.dataRedundancyLabel",
-        "pTooltip": "pages.project.science.dataRedundancyTolltip",
-        "errors": {
-          "required": "pages.project.science.dataRedundancyRequired"
-        },
-        "value": 0,
-        "refName": "dataRedundancy",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "inaccuracies",
-        "label": "pages.project.science.inaccuraciesLabel",
-        "pTooltip": "pages.project.science.inaccuraciesTolltip",
-        "errors": {
-          "required": "pages.project.science.inaccuraciesRequired"
-        },
-        "value": 0,
-        "refName": "inaccuracies",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "systematicErrors",
-        "label": "pages.project.science.systematicErrorsLabel",
-        "pTooltip": "pages.project.science.systematicErrorsTolltip",
-        "errors": {
-          "required": "pages.project.science.systematicErrorsRequired"
-        },
-        "value": 0,
-        "refName": "systematicErrors",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "infrastructure",
-        "label": "pages.project.science.infrastructureLabel",
-        "pTooltip": "pages.project.science.infrastructureTolltip",
-        "errors": {
-          "required": "pages.project.science.infrastructureRequired"
-        },
-        "value": 0,
-        "refName": "infrastructure",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "logistic",
-        "label": "pages.project.science.logisticLabel",
-        "pTooltip": "pages.project.science.logisticTolltip",
-        "errors": {
-          "required": "pages.project.science.logisticRequired"
-        },
-        "value": 0,
-        "refName": "logistic",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      }
-    ],
-    "risksDigital": [
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "cyberSecurity",
-        "label": "pages.project.science.cyberSecurityLabel",
-        "pTooltip": "pages.project.science.cyberSecurityTolltip",
-        "errors": {
-          "required": "pages.project.science.cyberSecurityRequired"
-        },
-        "value": 0,
-        "refName": "cyberSecurity",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "hardware",
-        "label": "pages.project.science.hardwareLabel",
-        "pTooltip": "pages.project.science.hardwareTolltip",
-        "errors": {
-          "required": "pages.project.science.hardwareRequired"
-        },
-        "value": 0,
-        "refName": "hardware",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "software",
-        "label": "pages.project.science.softwareLabel",
-        "pTooltip": "pages.project.science.softwareTolltip",
-        "errors": {
-          "required": "pages.project.science.softwareRequired"
-        },
-        "value": 0,
-        "refName": "software",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "infrastructure",
-        "label": "pages.project.science.infrastructureLabel",
-        "pTooltip": "pages.project.science.infrastructureTolltip",
-        "errors": {
-          "required": "pages.project.science.infrastructureRequired"
-        },
-        "value": 0,
-        "refName": "infrastructure",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "levelCompetence",
-        "label": "pages.project.science.levelCompetenceLabel",
-        "pTooltip": "pages.project.science.levelCompetenceTolltip",
-        "errors": {
-          "required": "pages.project.science.levelCompetenceRequired"
-        },
-        "value": 0,
-        "refName": "levelCompetence",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "adaptive",
-        "label": "pages.project.science.adaptiveLabel",
-        "pTooltip": "pages.project.science.adaptiveTolltip",
-        "errors": {
-          "required": "pages.project.science.adaptiveRequired"
-        },
-        "value": 0,
-        "refName": "adaptive",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      }
-    ],
-    "risksClassic": [
-      {
-        "name": "pages.project.science.NPPCompetenceLabel",
-        "inputs": [
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "levelOfCompetenceOfTheNPP",
-            "label": "pages.project.science.levelOfCompetenceOfTheNPPLabel",
-            "pTooltip": "pages.project.science.levelOfCompetenceOfTheNPPTolltip",
-            "errors": {
-              "required": "pages.project.science.levelOfCompetenceOfTheNPPRequired"
-            },
-            "value": 0,
-            "refName": "levelOfCompetenceOfTheNPP",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "ensuringTheNumberOfNPP",
-            "label": "pages.project.science.ensuringTheNumberOfNPPLabel",
-            "pTooltip": "pages.project.science.ensuringTheNumberOfNPPTolltip",
-            "errors": {
-              "required": "pages.project.science.ensuringTheNumberOfNPPRequired"
-            },
-            "value": 0,
-            "refName": "ensuringTheNumberOfNPP",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "staffTurnover",
-            "label": "pages.project.science.staffTurnoverLabel",
-            "pTooltip": "pages.project.science.staffTurnoverTolltip",
-            "errors": {
-              "required": "pages.project.science.staffTurnoverRequired"
-            },
-            "value": 0,
-            "refName": "staffTurnover",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "humanFactorNPPCompetence",
-            "label": "pages.project.science.humanFactorNPPCompetenceLabel",
-            "pTooltip": "pages.project.science.humanFactorNPPCompetenceTolltip",
-            "errors": {
-              "required": "pages.project.science.humanFactorNPPCompetenceRequired"
-            },
-            "value": 0,
-            "refName": "humanFactorNPPCompetence",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          }
-        ]
-      },
-      {
-        "name": "pages.project.science.studentsLabel",
-        "inputs": [
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "underrecruitment",
-            "label": "pages.project.science.underrecruitmentLabel",
-            "pTooltip": "pages.project.science.underrecruitmentTolltip",
-            "errors": {
-              "required": "pages.project.science.underrecruitmentRequired"
-            },
-            "value": 0,
-            "refName": "underrecruitment",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "successRate",
-            "label": "pages.project.science.successRateLabel",
-            "pTooltip": "pages.project.science.successRateTolltip",
-            "errors": {
-              "required": "pages.project.science.successRateRequired"
-            },
-            "value": 0,
-            "refName": "successRate",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "attrition",
-            "label": "pages.project.science.attritionLabel",
-            "pTooltip": "pages.project.science.attritionTolltip",
-            "errors": {
-              "required": "pages.project.science.attritionRequired"
-            },
-            "value": 0,
-            "refName": "attrition",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "imbalance",
-            "label": "pages.project.science.imbalanceLabel",
-            "pTooltip": "pages.project.science.imbalanceTolltip",
-            "errors": {
-              "required": "pages.project.science.imbalanceRequired"
-            },
-            "value": 0,
-            "refName": "imbalance",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "humanFactorStudents",
-            "label": "pages.project.science.humanFactorStudentsLabel",
-            "pTooltip": "pages.project.science.humanFactorStudentsTolltip",
-            "errors": {
-              "required": "pages.project.science.humanFactorStudentsRequired"
-            },
-            "value": 0,
-            "refName": "humanFactorStudents",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          }
-        ]
-      },
-      {
-        "name": "pages.project.science.structureLabel",
-        "inputs": [
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "externalFactors",
-            "label": "pages.project.science.externalFactorsLabel",
-            "pTooltip": "pages.project.science.externalFactorsTolltip",
-            "errors": {
-              "required": "pages.project.science.externalFactorsRequired"
-            },
-            "value": 0,
-            "refName": "externalFactors",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "agreement",
-            "label": "pages.project.science.agreementLabel",
-            "pTooltip": "pages.project.science.agreementTolltip",
-            "errors": {
-              "required": "pages.project.science.agreementRequired"
-            },
-            "value": 0,
-            "refName": "agreement",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "delay",
-            "label": "pages.project.science.delayLabel",
-            "pTooltip": "pages.project.science.delayTolltip",
-            "errors": {
-              "required": "pages.project.science.delayRequired"
-            },
-            "value": 0,
-            "refName": "delay",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "humanFactorStructure",
-            "label": "pages.project.science.humanFactorStructureLabel",
-            "pTooltip": "pages.project.science.humanFactorStructureTolltip",
-            "errors": {
-              "required": "pages.project.science.humanFactorStructureRequired"
-            },
-            "value": 0,
-            "refName": "humanFactorStructure",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          }
-        ]
-      },
-      {
-        "name": "pages.project.science.unevenLoadsLabel",
-        "inputs": [
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "systemLoad",
-            "label": "pages.project.science.systemLoadLabel",
-            "pTooltip": "pages.project.science.systemLoadTolltip",
-            "errors": {
-              "required": "pages.project.science.systemLoadRequired"
-            },
-            "value": 0,
-            "refName": "systemLoad",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "departmentLoad",
-            "label": "pages.project.science.departmentLoadLabel",
-            "pTooltip": "pages.project.science.departmentLoadTolltip",
-            "errors": {
-              "required": "pages.project.science.departmentLoadRequired"
-            },
-            "value": 0,
-            "refName": "departmentLoad",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "staffLoad",
-            "label": "pages.project.science.staffLoadLabel",
-            "pTooltip": "pages.project.science.staffLoadTolltip",
-            "errors": {
-              "required": "pages.project.science.staffLoadRequired"
-            },
-            "value": 0,
-            "refName": "staffLoad",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "humanFactorUnevenLoads",
-            "label": "pages.project.science.humanFactorUnevenLoadsLabel",
-            "pTooltip": "pages.project.science.humanFactorUnevenLoadsTolltip",
-            "errors": {
-              "required": "pages.project.science.humanFactorUnevenLoadsRequired"
-            },
-            "value": 0,
-            "refName": "humanFactorUnevenLoads",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          }
-        ]
-      },
-      {
-        "name": "pages.project.science.forceMajeureLabel",
-        "inputs": [
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "epidemic",
-            "label": "pages.project.science.epidemicLabel",
-            "pTooltip": "pages.project.science.epidemicTolltip",
-            "errors": {
-              "required": "pages.project.science.epidemicRequired"
-            },
-            "value": 0,
-            "refName": "epidemic",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "wartime",
-            "label": "pages.project.science.wartimeLabel",
-            "pTooltip": "pages.project.science.wartimeTolltip",
-            "errors": {
-              "required": "pages.project.science.wartimeRequired"
-            },
-            "value": 0,
-            "refName": "wartime",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          },
-          {
-            "type": "number",
-            "displayCondition": true,
-            "name": "naturalDisaster",
-            "label": "pages.project.science.naturalDisasterLabel",
-            "pTooltip": "pages.project.science.naturalDisasterTolltip",
-            "errors": {
-              "required": "pages.project.science.naturalDisasterRequired"
-            },
-            "value": 0,
-            "refName": "naturalDisaster",
-            "min": 0,
-            "max": 100000,
-            "step": 1
-          }
-        ]
       }
     ]
   }

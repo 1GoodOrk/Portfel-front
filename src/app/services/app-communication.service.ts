@@ -3,6 +3,7 @@ import { IProjectData } from '@port/interfaces';
 
 import inputs from '@port/asserts/data/inputs.json'
 import rows from '@port/asserts/data/rows.json'
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -315,27 +316,39 @@ export class AppCommunicationService {
     return this.currentProject
   }
 
-  public currentPhase: any = {}
+  public currentSolution: any = {}
 
-  public clearCurrentPhase(): any {
-    this.currentPhase = {}
+  public clearCurrentSolution(): any {
+    this.currentSolution = {}
   }
 
-  public saveCurrentPhase(data: any): any {
-    this.currentPhase = data
+  public saveCurrentSolution(data: any): any {
+    this.currentSolution = data
   }
 
-  public getCurrentPhase(): any {
-    return this.currentPhase
+  public getCurrentSolution(): any {
+    return this.currentSolution
   }
 
-  public currentExpertise: any = {}
+  public currentRisk: any = null
 
-  public saveCurrentExpertise(data: any): any {
-    this.currentExpertise = data
+  public saveCurrentRisk(data: any): any {
+    this.currentRisk = data
   }
 
-  public getCurrentExpertise(): any {
-    return this.currentExpertise
+  public getCurrentRisk(): any {
+    return this.currentRisk
+  }
+
+  public infoSub = new Subject<any>();
+
+  public sendInfoData(data: any): void {
+    this.infoSub.next(data);
+  }
+
+  public infoCreate = new Subject<any>();
+
+  public sendCreateData(data: any): void {
+    this.infoCreate.next(data);
   }
 }

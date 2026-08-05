@@ -1,0 +1,197 @@
+<app-header></app-header>
+<main class="risk">
+  <p-button
+    label="Назад"
+    pTooltip="Натисніть, щоб повернутися до ризиків"
+    tooltipPosition="top"
+    severity="secondary"
+    (click)="navigate('risks')"/>
+  <section>
+    @for (valueKey of infoPageProjectValueKeys; track valueKey) {
+      @if (!valueKey.type) {
+        @if (data[valueKey.propName] && data[valueKey.propName][0] && data[valueKey.propName][0].label) {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span>
+            @for (item of data[valueKey.propName]; track item) {
+              @if ($index === data[valueKey.propName].length - 1) {
+                {{item.label}}
+              } @else {
+                {{item.label + ', '}}
+              }
+            }
+          </p>
+        } @else {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName]}}
+            @if (!valueKey.type) {
+              {{valueKey.suffix | translate}}
+            }
+          </p>
+        }
+      } @else if (valueKey.type === 'status') {
+        <p>
+          <span class="bold">{{valueKey.label | translate}}: </span>
+          <span class="bold" [style]="{ color: data[valueKey.propName] === 'Загроза' ? 'darkred' : data[valueKey.propName] === 'Стабілізовано' ? 'darkyellow' : 'darkgreen'  }">{{data[valueKey.propName]}}</span>
+        </p>
+      } @else if (valueKey.type === 'control') {
+        <div class="control-container">
+          <div class="control" [style]="{ 'background-color': data[valueKey.propName] > 50 ? 'darkred' : data[valueKey.propName] > 5 ? 'darkblue' : 'darkgreen' }">
+            <span class="bold" [style]="{ 'font-size': '1.5rem' }">Актуальність ризику</span>
+            <span class="bold">{{data[valueKey.propName]}} %</span>
+          </div>
+        </div>
+      } @else if (valueKey.type === 'divider') {
+        <p-divider />
+      } @else if (valueKey.type === 'date') {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName] | date: 'dd/MM/yyyy'}}</p>
+      } @else if (valueKey.type === 'multyInOne') {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span>
+          @for (item of valueKey.items; track item) {
+            {{data[item.propName] + ' '}}
+          }
+        </p>
+      } @else if (valueKey.type === 'options') {
+        <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
+        @for (item of valueKey.items; track item) {
+          <p> {{item.label | translate}}: {{data.options[item.propName]}} %</p>
+        }
+      } @else if (valueKey.type === 'permission') {
+        @if (data[valueKey.propPermission]) {
+          @if (valueKey.items && valueKey.items[0] && valueKey.items[0].type === 'deepInside') {
+            @for (item of valueKey.items; track item) {
+              <p> <span class="bold">{{item.label | translate}}:</span> {{data[item.propNames[0]][item.propNames[1]]}} </p>
+            }
+          } @else {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName]}}
+              @if (!valueKey.type) {
+                {{valueKey.suffix | translate}}
+              }
+            </p>
+          }
+        }
+      } @else if (valueKey.type === 'accordion') {
+        <p-accordion >
+          <p-accordion-panel value="0">
+              <p-accordion-header><span class="bold">{{valueKey.label | translate}}</span></p-accordion-header>
+              <p-accordion-content>
+                @for (item of valueKey.items; track item) {
+                  <p> <span class="bold">{{item.label | translate}}:</span> {{data[item.propName]}}</p>
+                }
+              </p-accordion-content>
+          </p-accordion-panel>
+        </p-accordion>
+      }
+    }
+  </section>
+  <section>
+    <p-button
+      label="Створити ситуацію"
+      pTooltip="Натисніть, щоб створити нову ситуацію"
+      tooltipPosition="top"
+      severity="primary"
+      [disabled]="data.status === 'Вирішено'"
+      (click)="openDialogAddUpdateRow()"/>
+    <div class="container-analyze flex column">
+      <h3> <span class="bold">Ситуації</span></h3>
+    </div>
+    @if (data.solutionTableParams) {
+      <div class="table-container">
+        <p-table [value]="data.solutionTableParams?.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+          <ng-template #header>
+              <tr>
+                @for (th of data.solutionTableParams?.th; track `th-id-${th}`) {
+                  <th [id]="`th-id-${th}`">{{ th | translate }}</th>
+                }
+              </tr>
+          </ng-template>
+          <ng-template #body let-tds let-rowIndex="rowIndex">
+            <tr>
+              @for (td of tds; track `td-id-${td}${$index}`) {
+                @if ($index === 4) {
+                  <td
+                    [id]="`td-id-${td}`"
+                    class="bold"
+                    [style]="{
+                      color: td === 'Ситуація не вирішена' ? 'darkblue' :
+                        td === 'Ситуація вирішено позитивно' ? 'darkgreen' :
+                        td === 'Ситуація вирішена, але не змінює статусу ризику' ? 'darkyellow' : 'darkred'
+                    }">
+                      {{td}}
+                  </td>
+                } @else {
+                  <td [id]="`td-id-${td}`">{{td}}</td>
+                }
+              }
+              <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
+                <div class="actions">
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб переглянути цю ситуацію"
+                    tooltipPosition="top"
+                    severity="secondary"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogInfo(rowIndex)"
+                    aria-label="Notification">
+                      <svg data-p-icon="eye"></svg>
+                  </button>
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб оновити цю ситуацію"
+                    tooltipPosition="top"
+                    severity="warn"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogAddUpdateRow(rowIndex)"
+                    aria-label="Notification">
+                      <svg data-p-icon="pencil"></svg>
+                  </button>
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб видалити цю ситуацію"
+                    tooltipPosition="left"
+                    severity="danger"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="remove(rowIndex)"
+                    aria-label="Cancel">
+                      <svg data-p-icon="times"></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+  </section>
+  <section>
+    <p-chart type="line" [data]="chartData" [options]="options" />
+  </section>
+</main>
+<app-footer></app-footer>
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+<app-creation-dialog
+  [visible]="visible.creation"
+  (changeVisibleEvent)="visibleOnChange($event)"
+  (submitionUpdateEvent)="updateRisk($event)"
+  (submitionCreateEvent)="createRisk($event)"></app-creation-dialog>

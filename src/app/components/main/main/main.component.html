@@ -2,7 +2,7 @@
 <main class="main">
   <section>
     <h1>{{'pages.main.main.headerProjects' | translate}}</h1>
-    @if (user.type === 'USER') {
+    <!-- @if (user.type === 'USER') { -->
       <div class="flex space-between">
         <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
         <input
@@ -16,7 +16,7 @@
           (ngModelChange)="findProjects()"
           />
       </div>
-    }
+    <!-- } -->
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
         <!-- <p-card
@@ -48,7 +48,7 @@
             <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}: </span>{{project.subinfo}}</p>
           </ng-template>
           <ng-template #footer>
-            @if (user.type === 'USER') {
+            <!-- @if (user.type === 'USER') { -->
               <div class="flex space-evenly">
                 <p-button
                   [label]="`${'pages.main.main.updateButton' | translate}`"
@@ -62,11 +62,11 @@
                   severity="danger"
                   (click)="removeProjects(project._id, $event)"/>
               </div>
-            }
+            <!-- } -->
             <div class="flex space-evenly">
               <p-button
-                [label]="`${'pages.main.main.processingButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.processingButtonTooltip' | translate} ${project.name}`"
+                label="Ризики"
+                pTooltip="Натисніть, щоб перейти на сторінку формування та аналізу ризиків"
                 severity="primary"
                 (click)="selectForCogModel(project._id, $event)"/>
             </div>
@@ -80,6 +80,10 @@
 </main>
 <app-footer></app-footer>
 
-<app-info-dialog [visible]="visible.info" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 
-<app-creation-dialog [formData]="currentProject" [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
+<app-creation-dialog
+  [visible]="visible.creation"
+  (changeVisibleEvent)="visibleOnChange($event)"
+  (submitionUpdateEvent)="updateProject($event)"
+  (submitionCreateEvent)="createProject($event)"></app-creation-dialog>

@@ -60,19 +60,19 @@ export class HttpService {
 
 
   getAllProjects(token: string) {
-    return this.http.get(`${this.link}/projects-logistic?token=${token}`);
+    return this.http.get(`${this.link}/projects-auto?token=${token}`);
   }
   getProject(id: string) {
-    return this.http.get(`${this.link}/projects-logistic/${id}`);
+    return this.http.get(`${this.link}/projects-auto/${id}`);
   }
   updateProject(id: string, data: any) {
-    return this.http.put(`${this.link}/projects-logistic/${id}`, { data });
+    return this.http.put(`${this.link}/projects-auto/${id}`, { data });
   }
   createProject(data: any, token: string) {
-    return this.http.post(`${this.link}/projects-logistic?token=${token}`, { data });
+    return this.http.post(`${this.link}/projects-auto?token=${token}`, { data });
   }
   removeProject(id: string, token: string) {
-    return this.http.delete(`${this.link}/projects-logistic/${id}?token=${token}`);
+    return this.http.delete(`${this.link}/projects-auto/${id}?token=${token}`);
   }
 
 }

@@ -128,6 +128,7 @@ export class RiskComponent {
       this.data.solutions = []
     }
     this.data.solutions.push(data)
+    console.log(this.data)
     this.currentProject.risks[this.currentProject.risks.findIndex((risk: any) => risk._id === this.data._id)] = this.data
     this.visible.creation = false
     this.recreateTable()
@@ -167,6 +168,9 @@ export class RiskComponent {
   }
 
   private changeCharts(): void {
+    if (!this.data.solutions) {
+      return
+    }
     const solutions = this.data.solutions.filter((solution: any) => solution.finalState !== 'Ситуація не вирішена')
     const labels = [this.data.dateCreation, ...solutions.map((solution: any) => solution.dateFinish)]
     let digitalRiskIndex = this.data.digitalRiskIndex

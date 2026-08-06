@@ -48,7 +48,6 @@
     { "propName": "timeReaction", "label": "Допустимий час реагування" },
     { "type": "multiselector", "propName": "restrictions", "label": "Обмеження" },
     { "type": "divider" },
-    { "type": "status", "propName": "status", "label": "Статус" },
     { "type": "finalState", "propName": "finalState", "label": "Статус закінчення ситуації" },
     { "type": "divider" },
     { "propName": "iTime", "label": "Індекс часу" },

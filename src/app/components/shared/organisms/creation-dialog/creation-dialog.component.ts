@@ -81,14 +81,12 @@ export class CreationDialogComponent implements OnDestroy {
       } else {
         this.data = this.appCommunicationService.getCurrentProject()
       }
-      if (this.data) {
-        this.inputs[this.currentMode] = this.inputs[this.currentMode].map((input: any) => {
-          if (input.name) {
-            input.value = this.data[input.name]
-          }
-          return input
-        })
-      }
+      this.inputs[this.currentMode] = this.inputs[this.currentMode].map((input: any) => {
+        if (input.name) {
+          input.value = this.data ? this.data[input.name] : ''
+        }
+        return input
+      })
     })
   }
 

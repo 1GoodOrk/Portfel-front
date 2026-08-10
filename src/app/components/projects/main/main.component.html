@@ -37,7 +37,7 @@
                 <td
                   [id]="`td-id-${td}`"
                   class="bold"
-                  [style]="{ color: td === 'Загроза' || (+td.split(' %')[0] > 50) ? 'darkred' : td === 'Стабілізовано' || (+td.split(' %')[0] > 5) ? 'darkyellow' : 'darkgreen'  }">
+                  [style]="{ color: td === 'Критична' || (+td.split(' %')[0] > 75) ? 'darkred' : td === 'Висока' || (+td.split(' %')[0] > 50) ? 'darkyellow' : td === 'Помірна' || (+td.split(' %')[0] > 25) ? 'darkyellow' : 'darkgreen'  }">
                     {{td}}
                 </td>
               } @else {

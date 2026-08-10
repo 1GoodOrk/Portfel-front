@@ -17,7 +17,9 @@
                   }
                 </label>
               }
-              @if (input.type === 'text') {
+              @if (input.type === 'info') {
+                <h3 class="bold">{{ input.items[0] }}</h3>
+              } @else if (input.type === 'text') {
                 <input
                   pInputText
                   type="text"

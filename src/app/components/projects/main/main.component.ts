@@ -94,23 +94,28 @@ export class MainComponent {
     multipleMax = multipleMax ** (1 / 12)
     data.indexJudExpert = +(max - 12 / 11).toFixed(2)
     data.indexJudExpertRatio = +(data.indexJudExpert / 12).toFixed(2)
-    data.digitalRiskIndex = +(multipleMax * (data.influence * data.probability / 100) * data.indexJudExpertRatio).toFixed(2)
+    data.digitalRiskIndex = +(multipleMax * data.influence / data.probability).toFixed(2)
     if (!data.dateCreation) {
       data.dateCreation = new Date().toISOString().split('T').join(' - ').split('Z')[0]
     }
     data.currentdigitalRiskIndex = data.digitalRiskIndex
     if (data.solutions) {
       data.solutions.forEach((solution: any) => {
-        if (solution.finalState === 'Ситуація вирішено позитивно') {
+        if (solution.finalState === 'Сценарій вирішен позитивно') {
           data.currentdigitalRiskIndex = data.currentdigitalRiskIndex - solution.digitalRiskIndex
-        } else if (solution.finalState === 'Ситуація вирішено негативно') {
+        } else if (solution.finalState === 'Сценарій вирішен негативно') {
           data.currentdigitalRiskIndex = data.currentdigitalRiskIndex + solution.digitalRiskIndex
         }
       })
     }
+    if (data.currentdigitalRiskIndex < 0) {
+      data.currentdigitalRiskIndex = 0
+    }
     data.control = +(data.currentdigitalRiskIndex / data.digitalRiskIndex * 100).toFixed(2)
-    data.status = data.control > 50 ?
-      'Загроза' : data.control > 5 ? 'Стабілізовано' : 'Вирішено'
+    data.status = data.control > 75 ?
+      'Критична' :
+      data.control > 50 ? 'Висока' :
+      data.control > 25 ? 'Помірна' : 'Низька'
     return data
   }
 
@@ -134,11 +139,11 @@ export class MainComponent {
 
   public recreateTable(): void {
     this.currentProject.risksTableParams = {
-      th: ['Назва', 'Ймовірність виникнення', 'Індекс цифрового ризику', 'Поточний індекс цифрового ризику', 'Статус', 'Контроль', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Індекс цифрового ризику', 'Поточний індекс цифрового ризику', 'Статус загрози цифрового ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.risks.forEach((risk: any) => {
-      this.currentProject.risksTableParams.td.push([risk.name, `${risk.probability * 10} %`, risk.digitalRiskIndex, risk.currentdigitalRiskIndex, risk.status, `${risk.control} %`])
+      this.currentProject.risksTableParams.td.push([risk.name, `${risk.probability} %`, risk.digitalRiskIndex, risk.currentdigitalRiskIndex, risk.status, `${risk.control} %`])
     })
   }
 
@@ -158,6 +163,9 @@ export class MainComponent {
   }
 
   public remove(index: number): void {
+    console.log(index)
     this.currentProject.risks.splice(index, 1)
+    console.log(this.currentProject.risks)
+    this.updateProject()
   }
 }

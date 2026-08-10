@@ -56,7 +56,7 @@
         "type": "number",
         "displayCondition": true,
         "name": "influence",
-        "label": "Вплив ризику на перебіг проекту (1 - 10)",
+        "label": "Вплив ризику на перебіг проекту (1 - 100)",
         "pTooltip": "Введіть вплив ризику на проект",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
@@ -64,14 +64,14 @@
         "value": "",
         "refName": "influence",
         "min": 1,
-        "max": 10,
+        "max": 100,
         "step": 1
       },
       {
         "type": "number",
         "displayCondition": true,
         "name": "probability",
-        "label": "Ймовірність виникнення ризику (1 - 10)",
+        "label": "Ймовірність виникнення ризику (1 - 100)",
         "pTooltip": "Введіть ймовірність виникнення ризику",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
@@ -79,7 +79,7 @@
         "value": "",
         "refName": "term",
         "min": 1,
-        "max": 10,
+        "max": 100,
         "step": 1
       },
       {
@@ -97,8 +97,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iTime",
-        "label": "Індекс часу",
-        "pTooltip": "Введіть індекс часу",
+        "label": "Критерій стійкість і доступність цифрових систем та послуг (0 - 100)",
+        "pTooltip": "Введіть критерій cтійкістіс і доступністіс цифрових систем та послуг",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -112,8 +112,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iQuality",
-        "label": "Індекс якості",
-        "pTooltip": "Введіть індекс якості",
+        "label": "Критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
+        "pTooltip": "Введіть критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -127,8 +127,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iResources",
-        "label": "Індекс ресурсів",
-        "pTooltip": "Введіть індекс ресурсів",
+        "label": "Критерій цифрової компетентності та дії персоналу (0 - 100)",
+        "pTooltip": "Введіть критерій цифрової компетентності та дії персоналу (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -142,8 +142,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iAdaptability",
-        "label": "Індекс адаптивності",
-        "pTooltip": "Введіть індекс адаптивності",
+        "label": "Критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
+        "pTooltip": "Введіть критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -157,8 +157,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iUnique",
-        "label": "Індекс унікальності",
-        "pTooltip": "Введіть індекс унікальності",
+        "label": "Критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
+        "pTooltip": "Введіть критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -172,8 +172,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iTechnical",
-        "label": "Технічний індекс",
-        "pTooltip": "Введіть технічний індекс",
+        "label": "Критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
+        "pTooltip": "Введіть критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -187,8 +187,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iSocial",
-        "label": "Соціальний індекс",
-        "pTooltip": "Введіть cоціальний індекс",
+        "label": "Критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
+        "pTooltip": "Введіть критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -202,8 +202,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iLegal",
-        "label": "Юридичний індекс",
-        "pTooltip": "Введіть юридичний індекс",
+        "label": "Критерій зрілості та дієвості управлінських процедур (0 - 100)",
+        "pTooltip": "Введіть критерій зрілості та дієвості управлінських процедур (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -217,8 +217,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iFinance",
-        "label": "Фінансовий індекс",
-        "pTooltip": "Введіть фінансовий індекс",
+        "label": "Критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
+        "pTooltip": "Введіть критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -232,8 +232,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iStructur",
-        "label": "Структурний індекс",
-        "pTooltip": "Введіть Структурний індекс",
+        "label": "Критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
+        "pTooltip": "Введіть критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -247,8 +247,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iExternal",
-        "label": "Зовнішній фактор",
-        "pTooltip": "Введіть зовнішній фактор",
+        "label": "Критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
+        "pTooltip": "Введіть критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -262,8 +262,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iHuman",
-        "label": "Людський фактор",
-        "pTooltip": "Введіть людський фактор",
+        "label": "Критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
+        "pTooltip": "Введіть критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -331,7 +331,7 @@
         "type": "number",
         "displayCondition": true,
         "name": "influence",
-        "label": "Вплив cитуації на перебіг проекту (1 - 10)",
+        "label": "Вплив cитуації на перебіг проекту (1 - 100)",
         "pTooltip": "Введіть вплив cитуації на проект",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
@@ -339,14 +339,14 @@
         "value": "",
         "refName": "influence",
         "min": 1,
-        "max": 10,
+        "max": 100,
         "step": 1
       },
       {
         "type": "number",
         "displayCondition": true,
         "name": "probability",
-        "label": "Ймовірність виникнення cитуації (1 - 10)",
+        "label": "Ймовірність виникнення cитуації (1 - 100)",
         "pTooltip": "Введіть ймовірність виникнення cитуації",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
@@ -354,7 +354,7 @@
         "value": "",
         "refName": "term",
         "min": 1,
-        "max": 10,
+        "max": 100,
         "step": 1
       },
       {
@@ -387,7 +387,7 @@
         "displayCondition": true,
         "name": "timeReaction",
         "label": "Допустимий час реагування",
-        "pTooltip": "Допустимий час реагування на ситуацію",
+        "pTooltip": "Допустимий час реагування на сценарій",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -402,8 +402,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "control",
-        "label": "Контроль (0 - 100)",
-        "pTooltip": "Відсоток вирішення ситуації",
+        "label": "Виконання (0 - 100)",
+        "pTooltip": "Відсоток вирішення сценарій",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -418,7 +418,7 @@
         "displayCondition": true,
         "name": "restrictions",
         "label": "Обмеження",
-        "pTooltip": "Виберіть обмеження, що супроводжують ситуацію",
+        "pTooltip": "Виберіть обмеження, що супроводжують сценарій",
         "placeholder": "Обмеження",
         "value": "",
         "items": [
@@ -434,14 +434,14 @@
         "type": "selector",
         "displayCondition": true,
         "name": "finalState",
-        "label": "Статус закінчення ситуації",
-        "pTooltip": "Виберіть поточний статус закінчення ситуації",
-        "value": "Ситуація не вирішена",
+        "label": "Статус закінчення сценарію",
+        "pTooltip": "Виберіть поточний статус закінчення сценарію",
+        "value": "Сценарій не вирішен",
         "items": [
-          { "label": "Ситуація не вирішена", "value": "Ситуація не вирішена" },
-          { "label": "Ситуація вирішено позитивно", "value": "Ситуація вирішено позитивно" },
-          { "label": "Ситуація вирішена, але не змінює статусу ризику", "value": "Ситуація вирішена, але не змінює статусу ризику" },
-          { "label": "Ситуація вирішено негативно", "value": "Ситуація вирішено негативно" }
+          { "label": "Сценарій не вирішен", "value": "Сценарій не вирішен" },
+          { "label": "Сценарій вирішен позитивно", "value": "Сценарій вирішен позитивно" },
+          { "label": "Сценарій вирішен, але не змінює статусу ризику", "value": "Сценарій вирішен, але не змінює статусу ризику" },
+          { "label": "Сценарій вирішен негативно", "value": "Сценарій вирішен негативно" }
         ]
       },
       {
@@ -459,8 +459,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iTime",
-        "label": "Індекс часу",
-        "pTooltip": "Введіть індекс часу",
+        "label": "Критерій стійкість і доступність цифрових систем та послуг (0 - 100)",
+        "pTooltip": "Введіть критерій cтійкістіс і доступністіс цифрових систем та послуг",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -474,8 +474,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iQuality",
-        "label": "Індекс якості",
-        "pTooltip": "Введіть індекс якості",
+        "label": "Критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
+        "pTooltip": "Введіть критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -489,8 +489,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iResources",
-        "label": "Індекс ресурсів",
-        "pTooltip": "Введіть індекс ресурсів",
+        "label": "Критерій цифрової компетентності та дії персоналу (0 - 100)",
+        "pTooltip": "Введіть критерій цифрової компетентності та дії персоналу (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -504,8 +504,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iAdaptability",
-        "label": "Індекс адаптивності",
-        "pTooltip": "Введіть індекс адаптивності",
+        "label": "Критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
+        "pTooltip": "Введіть критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -519,8 +519,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iUnique",
-        "label": "Індекс унікальності",
-        "pTooltip": "Введіть індекс унікальності",
+        "label": "Критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
+        "pTooltip": "Введіть критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -534,8 +534,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iTechnical",
-        "label": "Технічний індекс",
-        "pTooltip": "Введіть технічний індекс",
+        "label": "Критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
+        "pTooltip": "Введіть критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -549,8 +549,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iSocial",
-        "label": "Соціальний індекс",
-        "pTooltip": "Введіть cоціальний індекс",
+        "label": "Критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
+        "pTooltip": "Введіть критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -564,8 +564,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iLegal",
-        "label": "Юридичний індекс",
-        "pTooltip": "Введіть юридичний індекс",
+        "label": "Критерій зрілості та дієвості управлінських процедур (0 - 100)",
+        "pTooltip": "Введіть критерій зрілості та дієвості управлінських процедур (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -579,8 +579,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iFinance",
-        "label": "Фінансовий індекс",
-        "pTooltip": "Введіть фінансовий індекс",
+        "label": "Критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
+        "pTooltip": "Введіть критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -594,8 +594,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iStructur",
-        "label": "Структурний індекс",
-        "pTooltip": "Введіть Структурний індекс",
+        "label": "Критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
+        "pTooltip": "Введіть критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -609,8 +609,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iExternal",
-        "label": "Зовнішній фактор",
-        "pTooltip": "Введіть зовнішній фактор",
+        "label": "Критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
+        "pTooltip": "Введіть критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -624,8 +624,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iHuman",
-        "label": "Людський фактор",
-        "pTooltip": "Введіть людський фактор",
+        "label": "Критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
+        "pTooltip": "Введіть критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },

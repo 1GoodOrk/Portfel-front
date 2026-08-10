@@ -29,11 +29,11 @@
       } @else if (valueKey.type === 'status') {
         <p>
           <span class="bold">{{valueKey.label | translate}}: </span>
-          <span class="bold" [style]="{ color: data[valueKey.propName] === 'Загроза' ? 'darkred' : data[valueKey.propName] === 'Стабілізовано' ? 'darkyellow' : 'darkgreen'  }">{{data[valueKey.propName]}}</span>
+          <span class="bold" [style]="{ color: data[valueKey.propName] === 'Критична' ? 'darkred' : data[valueKey.propName] === 'Висока' ? 'darkyellow' :data[valueKey.propName] === 'Помірна' ? 'darkyellow' : 'darkgreen'  }">{{data[valueKey.propName]}}</span>
         </p>
       } @else if (valueKey.type === 'control') {
         <div class="control-container">
-          <div class="control" [style]="{ 'background-color': data[valueKey.propName] > 50 ? 'darkred' : data[valueKey.propName] > 5 ? 'darkblue' : 'darkgreen' }">
+          <div class="control" [style]="{ 'background-color': data[valueKey.propName] > 75 ? 'darkred' : data[valueKey.propName] > 50 ? 'darkyellow' : data[valueKey.propName] > 25 ? 'darkblue' : 'darkgreen' }">
             <span class="bold" [style]="{ 'font-size': '1.5rem' }">Актуальність ризику</span>
             <span class="bold">{{data[valueKey.propName]}} %</span>
           </div>
@@ -83,14 +83,13 @@
   </section>
   <section>
     <p-button
-      label="Створити ситуацію"
-      pTooltip="Натисніть, щоб створити нову ситуацію"
+      label="Створити сценарій"
+      pTooltip="Натисніть, щоб створити новий сценарій"
       tooltipPosition="top"
       severity="primary"
-      [disabled]="data.status === 'Вирішено'"
       (click)="openDialogAddUpdateRow()"/>
     <div class="container-analyze flex column">
-      <h3> <span class="bold">Ситуації</span></h3>
+      <h3> <span class="bold">Сценарій</span></h3>
     </div>
     @if (data.solutionTableParams) {
       <div class="table-container">
@@ -110,9 +109,9 @@
                     [id]="`td-id-${td}`"
                     class="bold"
                     [style]="{
-                      color: td === 'Ситуація не вирішена' ? 'darkblue' :
-                        td === 'Ситуація вирішено позитивно' ? 'darkgreen' :
-                        td === 'Ситуація вирішена, але не змінює статусу ризику' ? 'darkyellow' : 'darkred'
+                      color: td === 'Сценарій не вирішен' ? 'darkblue' :
+                        td === 'Сценарій вирішен позитивно' ? 'darkgreen' :
+                        td === 'Сценарій вирішен, але не змінює статусу ризику' ? 'darkyellow' : 'darkred'
                     }">
                       {{td}}
                   </td>
@@ -128,7 +127,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб переглянути цю ситуацію"
+                    pTooltip="Натисніть, щоб переглянути цей сценарій"
                     tooltipPosition="top"
                     severity="secondary"
                     [style]="{
@@ -146,7 +145,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб оновити цю ситуацію"
+                    pTooltip="Натисніть, щоб оновити цей сценарій"
                     tooltipPosition="top"
                     severity="warn"
                     [style]="{
@@ -164,7 +163,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб видалити цю ситуацію"
+                    pTooltip="Натисніть, щоб видалити цей сценарій"
                     tooltipPosition="left"
                     severity="danger"
                     [style]="{

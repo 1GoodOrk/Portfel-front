@@ -123,16 +123,15 @@
       </div>
       <div>
         <p-button
-          [label]="'pages.portfolio.dialog.saveButton' | translate"
-          [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
+          label="Зберегти"
+          pTooltip="Натисніть, щоб зберегти інформацію та закрити модальне вікно"
           [outlined]="true"
           severity="primary"
           [disabled]="form.touched && form.invalid"
-          (click)="this.data && this.data._id ? update(form): create(form)" />
+          (click)="data && data._id ? update(form): create(form)" />
         <p-button
-          label="Cancel"
-          [label]="'pages.portfolio.dialog.cancelButton' | translate"
-          [pTooltip]="'pages.portfolio.dialog.cancelButtonTooltip' | translate"
+          label="Скасування"
+          pTooltip="Натисніть, щоб закрити модальне вікно без збереження інформації"
           [text]="true"
           severity="danger"
           (click)="cancel(form)" />

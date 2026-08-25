@@ -2,33 +2,21 @@
 <main class="main">
   <section>
     <h1>{{'pages.main.main.headerProjects' | translate}}</h1>
-    <!-- @if (user.type === 'USER') { -->
-      <div class="flex space-between">
-        <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
-        <input
-          type="text"
-          pInputText
-          [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
-          [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
-          tooltipPosition="top"
-          name="name"
-          [(ngModel)]="search.project"
-          (ngModelChange)="findProjects()"
-          />
-      </div>
-    <!-- } -->
+    <div class="flex space-between">
+      <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
+      <input
+        type="text"
+        pInputText
+        [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
+        [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
+        tooltipPosition="top"
+        name="name"
+        [(ngModel)]="search.project"
+        (ngModelChange)="findProjects()"
+      />
+    </div>
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
-        <!-- <p-card
-          [pTooltip]="`${'pages.main.main.watchProjectTooltipFirstPart' | translate} ${project.name} ${'pages.main.main.watchProjectTooltipLastPart' | translate}`"
-          tooltipPosition="top"
-          [style]="{
-            'max-width': '300px',
-            'margin-top': '10px',
-            'overflow': 'hidden',
-            'cursor': 'pointer'
-          }"
-          (click)="showInfoProjectDialog(project._id)"> -->
         <p-card
           [style]="{
             'max-width': '300px',
@@ -40,33 +28,50 @@
               <img alt="Card" class="w-full" [src]="project.img" />
             </ng-template>
           }
-          <ng-template #title> <span class="bold">{{'pages.main.main.nameLabel' | translate}}: </span>{{project.name}} </ng-template>
+          <ng-template #title> <span class="bold">{{'pages.main.main.nameLabel' | translate}}: </span>{{project.name}}
+            <button
+              pButton
+              iconOnly
+              rounded
+              raised
+              variant="text"
+              pTooltip="Натисніть, щоб переглянути це підприємство"
+              tooltipPosition="top"
+              severity="secondary"
+              [style]="{
+                'width': '30px',
+                'height': '30px',
+                'margin': '5px 5px',
+              }"
+              (click)="showInfoProjectDialog(project._id)"
+              aria-label="Notification">
+                <svg data-p-icon="eye"></svg>
+            </button>
+          </ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{project.des}} </ng-template>
           <ng-template #content>
-            <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}: </span>{{project.responsibleName}}</p>
+            <p> <span class="bold">Власник: </span>{{project.responsibleName}}</p>
             <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
-            <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}: </span>{{project.subinfo}}</p>
+            <p> <span class="bold">Додаткова інформація про підприємство: </span>{{project.subinfo}}</p>
           </ng-template>
           <ng-template #footer>
-            <!-- @if (user.type === 'USER') { -->
-              <div class="flex space-evenly">
-                <p-button
-                  [label]="`${'pages.main.main.updateButton' | translate}`"
-                  [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
-                  tooltipPosition="top"
-                  severity="warn"
-                  (click)="showDialogProjects(true, project._id, $event)"/>
-                <p-button
-                  [label]="`${'pages.main.main.removeButton' | translate}`"
-                  [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
-                  severity="danger"
-                  (click)="removeProjects(project._id, $event)"/>
-              </div>
-            <!-- } -->
             <div class="flex space-evenly">
               <p-button
-                label="Ризики"
-                pTooltip="Натисніть, щоб перейти на сторінку формування та аналізу ризиків"
+                [label]="`${'pages.main.main.updateButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
+                tooltipPosition="top"
+                severity="warn"
+                (click)="showDialogProjects(true, project._id, $event)"/>
+              <p-button
+                [label]="`${'pages.main.main.removeButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
+                severity="danger"
+                (click)="removeProjects(project._id, $event)"/>
+            </div>
+            <div class="flex space-evenly">
+              <p-button
+                label="Постачання "
+                pTooltip="Натисніть, щоб перейти на сторінку формування та аналізу постачання"
                 severity="primary"
                 (click)="selectForCogModel(project._id, $event)"/>
             </div>

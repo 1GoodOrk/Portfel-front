@@ -87,6 +87,7 @@ export class CreationDialogComponent implements OnDestroy {
         }
         return input
       })
+      console.log(this.data)
     })
   }
 
@@ -116,7 +117,6 @@ export class CreationDialogComponent implements OnDestroy {
   }
 
   public create(form: any): void {
-    console.log(this.inputs)
     if (form.valid) {
       this.data = {}
       this.data._id = v6()

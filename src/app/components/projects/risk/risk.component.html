@@ -29,12 +29,12 @@
       } @else if (valueKey.type === 'status') {
         <p>
           <span class="bold">{{valueKey.label | translate}}: </span>
-          <span class="bold" [style]="{ color: data[valueKey.propName] === 'Критична' ? 'darkred' : data[valueKey.propName] === 'Висока' ? 'darkyellow' :data[valueKey.propName] === 'Помірна' ? 'darkyellow' : 'darkgreen'  }">{{data[valueKey.propName]}}</span>
+          <span class="bold" [style]="{ color: data[valueKey.propName] === 'Критичний' ? 'darkred' : data[valueKey.propName] === 'Високий' ? 'darkorange' :data[valueKey.propName] === 'Помірний' ? 'darkyellow' : 'darkgreen'  }">{{data[valueKey.propName]}}</span>
         </p>
-      } @else if (valueKey.type === 'control') {
+      } @else if (valueKey.type === 'value') {
         <div class="control-container">
-          <div class="control" [style]="{ 'background-color': data[valueKey.propName] > 75 ? 'darkred' : data[valueKey.propName] > 50 ? 'darkyellow' : data[valueKey.propName] > 25 ? 'darkblue' : 'darkgreen' }">
-            <span class="bold" [style]="{ 'font-size': '1.5rem' }">Актуальність ризику</span>
+          <div class="control" [style]="{ 'background-color': data[valueKey.propName] > 75 ? 'darkred' : data[valueKey.propName] > 50 ? 'darkorange' : data[valueKey.propName] > 25 ? 'darkblue' : 'darkgreen' }">
+            <span class="bold" [style]="{ 'font-size': '1.5rem' }">Оцінка ризику (1 – 100)</span>
             <span class="bold">{{data[valueKey.propName]}} %</span>
           </div>
         </div>
@@ -83,13 +83,13 @@
   </section>
   <section>
     <p-button
-      label="Створити сценарій"
-      pTooltip="Натисніть, щоб створити новий сценарій"
+      label="Створити рішення"
+      pTooltip="Натисніть, щоб створити новий рішення"
       tooltipPosition="top"
       severity="primary"
       (click)="openDialogAddUpdateRow()"/>
     <div class="container-analyze flex column">
-      <h3> <span class="bold">Сценарій</span></h3>
+      <h3> <span class="bold">Рішення</span></h3>
     </div>
     @if (data.solutionTableParams) {
       <div class="table-container">
@@ -104,20 +104,20 @@
           <ng-template #body let-tds let-rowIndex="rowIndex">
             <tr>
               @for (td of tds; track `td-id-${td}${$index}`) {
-                @if ($index === 4) {
+                <!-- @if ($index === 4) {
                   <td
                     [id]="`td-id-${td}`"
                     class="bold"
                     [style]="{
-                      color: td === 'Сценарій не вирішен' ? 'darkblue' :
+                      color: td === 'Рішення не вирішен' ? 'darkblue' :
                         td === 'Сценарій вирішен позитивно' ? 'darkgreen' :
                         td === 'Сценарій вирішен, але не змінює статусу ризику' ? 'darkyellow' : 'darkred'
                     }">
                       {{td}}
                   </td>
-                } @else {
+                } @else { -->
                   <td [id]="`td-id-${td}`">{{td}}</td>
-                }
+                <!-- } -->
               }
               <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
                 <div class="actions">
@@ -127,7 +127,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб переглянути цей сценарій"
+                    pTooltip="Натисніть, щоб переглянути це рішення"
                     tooltipPosition="top"
                     severity="secondary"
                     [style]="{
@@ -145,7 +145,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб оновити цей сценарій"
+                    pTooltip="Натисніть, щоб оновити це рішення"
                     tooltipPosition="top"
                     severity="warn"
                     [style]="{
@@ -163,7 +163,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб видалити цей сценарій"
+                    pTooltip="Натисніть, щоб видалити це рішення"
                     tooltipPosition="left"
                     severity="danger"
                     [style]="{

@@ -22,7 +22,7 @@ export class InfoDialogComponent implements OnDestroy {
 
   public currentMode: string = 'logistic'
   public data: any = null
-  public header: string = 'Переглянути проект'
+  public header: string = 'Переглянути підприємство'
   public subscription: any
   public infoPageProjectValueKeys: any = []
 

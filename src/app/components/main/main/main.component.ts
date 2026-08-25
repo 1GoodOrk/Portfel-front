@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Eye } from '@primeicons/angular';
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -41,7 +42,8 @@ import { IProjectData } from '@port/interfaces';
     HeaderComponent,
     FooterComponent,
     InfoDialogComponent,
-    CreationDialogComponent
+    CreationDialogComponent,
+    Eye
   ],
   providers: [],
   templateUrl: './main.component.html',
@@ -94,6 +96,10 @@ export class MainComponent {
   }
 
   public updateProject(data: any): void {
+    if (!data.options) {
+      data.options = {}
+    }
+    data = this.indexCalc(data)
     this.httpService.updateProject(this.currentProject._id, data)
       .subscribe((data: any) => {
         if (data) {
@@ -103,8 +109,27 @@ export class MainComponent {
       })
   }
 
+  private indexCalc(data: any) {
+    let multipleMax = 1
+    const arr = ['iHuman', 'iOrgAdapt', 'iFinance', 'iAltLog', 'iStrucrt', 'iDig', 'iImport', 'iGeo', 'iConsLv']
+    arr.forEach((el: any) => {
+      if (data[el]) {
+        multipleMax = multipleMax * data[el]
+        data.options[el] = data[el]
+      }
+    })
+    data.options.indexFactor = +(multipleMax ** (1 / 9)).toFixed(2)
+    data.options.continuity = 100
+    data.options.perseverance = 100
+    if (!data.dateCreation) {
+      data.dateCreation = (new Date()).toISOString()
+    }
+    return data
+  }
+
   public createProject(data: any): void {
-    console.log(data)
+    data.options = {}
+    data = this.indexCalc(data)
     this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
       .subscribe((data: any) => {
         if (data) {
@@ -163,7 +188,7 @@ export class MainComponent {
     }
     this.appCommunicationService.saveCurrentProject(this.currentProject)
     this.visible.info = true
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'logistic', header: 'Переглянути проект' })
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'logistic', header: 'Переглянути підприємство' })
   }
 
   public showDialogProjects(mode?: boolean, id?: string, event?: any) {
@@ -182,7 +207,7 @@ export class MainComponent {
     }
     this.appCommunicationService.saveCurrentProject(this.currentProject)
     this.visible.creation = true
-    this.appCommunicationService.sendCreateData({ inputRowsName: 'logistic', header: id ? 'Оновити проект' : 'Створити проект' })
+    this.appCommunicationService.sendCreateData({ inputRowsName: 'logistic', header: id ? 'Оновити підприємство' : 'Створити підприємство' })
   }
 
   public removeProjects(id: string, event: any) {

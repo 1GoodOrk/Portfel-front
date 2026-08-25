@@ -1,3 +1,10 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  z-index: 5;
+  overflow: hidden;
+}
 .projects {
   max-width: 1024px;
   margin: 0 auto;
@@ -29,5 +36,30 @@
     justify-content: space-evenly;
     margin: 10px 0;
     padding: 10px 10px 20px;
+  }
+
+  .control-container {
+    display: flex;
+    justify-content: center;
+    .control {
+      width: max-content;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+      color: white;
+      border-radius: 20px;
+      padding: 0 20px;
+      background-color: darkred;
+      animation: blinker 3s linear infinite;
+      // animation: pulse 2s infinite;
+    }
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.5;
+    }
   }
 }

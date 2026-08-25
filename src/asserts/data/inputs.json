@@ -14,38 +14,12 @@
         "refName": "name"
       },
       {
-        "type": "text",
-        "displayCondition": true,
-        "name": "cause",
-        "label": "Причини виникнення",
-        "placeholder": "Причини виникнення",
-        "pTooltip": "Опишіть причини виникнення ризику",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "cause"
-      },
-        {
-        "type": "text",
-        "displayCondition": true,
-        "name": "consequences",
-        "label": "Ймовірні наслідки",
-        "placeholder": "Наслідки",
-        "pTooltip": "Опишіть кризу, яка виникне внаслідок цього ризику",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "consequences"
-      },
-      {
         "type": "textarea",
         "displayCondition": true,
         "name": "des",
-        "label": "Опис ризику",
-        "placeholder": "Опис ризику",
-        "pTooltip": "Детальний опис ризику",
+        "label": "Реакція на ризик",
+        "placeholder": "Реакція",
+        "pTooltip": "Можливі наслідки, вплив чи розкриття теми",
         "errors": {
           "required": "pages.portfolio.dialog.descriptionRequired"
         },
@@ -55,14 +29,14 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "influence",
+        "name": "inf",
         "label": "Вплив ризику на перебіг проекту (1 - 100)",
         "pTooltip": "Введіть вплив ризику на проект",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
         "value": "",
-        "refName": "influence",
+        "refName": "inf",
         "min": 1,
         "max": 100,
         "step": 1
@@ -70,218 +44,28 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "probability",
-        "label": "Ймовірність виникнення ризику (1 - 100)",
-        "pTooltip": "Введіть ймовірність виникнення ризику",
+        "name": "value",
+        "label": "Значення ризику (1 - 100)",
+        "pTooltip": "Введіть значення ризику",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
         "value": "",
-        "refName": "term",
+        "refName": "value",
         "min": 1,
         "max": 100,
-        "step": 1
-      },
-      {
-        "type": "line",
-        "displayCondition": true
-      },
-      {
-        "type": "info",
-        "displayCondition": true,
-        "items": [
-          "Вплив за критеріями (0 - 100)"
-        ]
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iTime",
-        "label": "Критерій стійкість і доступність цифрових систем та послуг (0 - 100)",
-        "pTooltip": "Введіть критерій cтійкістіс і доступністіс цифрових систем та послуг",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iQuality",
-        "label": "Критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
-        "pTooltip": "Введіть критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iResources",
-        "label": "Критерій цифрової компетентності та дії персоналу (0 - 100)",
-        "pTooltip": "Введіть критерій цифрової компетентності та дії персоналу (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iAdaptability",
-        "label": "Критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
-        "pTooltip": "Введіть критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iUnique",
-        "label": "Критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
-        "pTooltip": "Введіть критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iTechnical",
-        "label": "Критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
-        "pTooltip": "Введіть критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iSocial",
-        "label": "Критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
-        "pTooltip": "Введіть критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iLegal",
-        "label": "Критерій зрілості та дієвості управлінських процедур (0 - 100)",
-        "pTooltip": "Введіть критерій зрілості та дієвості управлінських процедур (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iFinance",
-        "label": "Критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
-        "pTooltip": "Введіть критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iStructur",
-        "label": "Критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
-        "pTooltip": "Введіть критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iExternal",
-        "label": "Критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
-        "pTooltip": "Введіть критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iHuman",
-        "label": "Критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
-        "pTooltip": "Введіть критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
+        "step": 0.5
       }
+
     ],
     "solution": [
       {
         "type": "text",
         "displayCondition": true,
         "name": "name",
-        "label": "Назва cитуації",
+        "label": "Назва рішення",
         "placeholder": "Назва",
-        "pTooltip": "Назва cитуації (код, повне ім'я, умовне позначення)",
+        "pTooltip": "Назва рішення (код, повне ім'я, умовне позначення)",
         "errors": {
           "required": "pages.portfolio.dialog.nameRequired"
         },
@@ -294,7 +78,7 @@
         "name": "cause",
         "label": "Причини виникнення",
         "placeholder": "Причини виникнення",
-        "pTooltip": "Опишіть причини виникнення cитуації",
+        "pTooltip": "Опишіть причини виникнення рішення",
         "errors": {
           "required": "pages.portfolio.dialog.nameRequired"
         },
@@ -307,7 +91,7 @@
         "name": "consequences",
         "label": "Ймовірні наслідки",
         "placeholder": "Наслідки",
-        "pTooltip": "Опишіть вплив, який виникне внаслідок ціеї cитуації",
+        "pTooltip": "Опишіть вплив, який виникне внаслідок цього рішення",
         "errors": {
           "required": "pages.portfolio.dialog.nameRequired"
         },
@@ -318,9 +102,9 @@
         "type": "textarea",
         "displayCondition": true,
         "name": "des",
-        "label": "Опис cитуації",
-        "placeholder": "Опис cитуації",
-        "pTooltip": "Детальний опис cитуації",
+        "label": "Опис рішення",
+        "placeholder": "Опис рішення",
+        "pTooltip": "Детальний опис рішення",
         "errors": {
           "required": "pages.portfolio.dialog.descriptionRequired"
         },
@@ -331,70 +115,14 @@
         "type": "number",
         "displayCondition": true,
         "name": "influence",
-        "label": "Вплив cитуації на перебіг проекту (1 - 100)",
-        "pTooltip": "Введіть вплив cитуації на проект",
+        "label": "Вплив рішення на ризик (-100 - 100)",
+        "pTooltip": "Введіть вплив рішення на ризик",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
         "value": "",
         "refName": "influence",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "probability",
-        "label": "Ймовірність виникнення cитуації (1 - 100)",
-        "pTooltip": "Введіть ймовірність виникнення cитуації",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "typeState",
-        "label": "Поточний стан транспортної операції",
-        "pTooltip": "Виберіть поточний стан транспортної операції",
-        "value": "",
-        "items": [
-          { "label": "Задоволений", "value": "Задоволений" },
-          { "label": "Вимагає перегляду", "value": "Вимагає перегляду" }
-        ]
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "place",
-        "label": "Місце перебування транспортного засобу",
-        "placeholder": "Місце",
-        "pTooltip": "Опишіть місце перебування транспортного засобу",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "place"
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "timeReaction",
-        "label": "Допустимий час реагування",
-        "pTooltip": "Допустимий час реагування на сценарій",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "suffix": "d",
-        "min": 0,
+        "min": -100,
         "max": 100,
         "step": 1
       },
@@ -403,7 +131,7 @@
         "displayCondition": true,
         "name": "control",
         "label": "Виконання (0 - 100)",
-        "pTooltip": "Відсоток вирішення сценарій",
+        "pTooltip": "Відсоток виконання рішення",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -418,7 +146,7 @@
         "displayCondition": true,
         "name": "restrictions",
         "label": "Обмеження",
-        "pTooltip": "Виберіть обмеження, що супроводжують сценарій",
+        "pTooltip": "Виберіть обмеження, що супроводжують рішення",
         "placeholder": "Обмеження",
         "value": "",
         "items": [
@@ -431,20 +159,6 @@
         ]
       },
       {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "finalState",
-        "label": "Статус закінчення сценарію",
-        "pTooltip": "Виберіть поточний статус закінчення сценарію",
-        "value": "Сценарій не вирішен",
-        "items": [
-          { "label": "Сценарій не вирішен", "value": "Сценарій не вирішен" },
-          { "label": "Сценарій вирішен позитивно", "value": "Сценарій вирішен позитивно" },
-          { "label": "Сценарій вирішен, але не змінює статусу ризику", "value": "Сценарій вирішен, але не змінює статусу ризику" },
-          { "label": "Сценарій вирішен негативно", "value": "Сценарій вирішен негативно" }
-        ]
-      },
-      {
         "type": "line",
         "displayCondition": true
       },
@@ -452,15 +166,15 @@
         "type": "info",
         "displayCondition": true,
         "items": [
-          "Вплив за критеріями (0 - 100)"
+          "Вплив на фактори ризико-стійкого постачання підприємств (0 - 100)"
         ]
       },
       {
         "type": "number",
         "displayCondition": true,
-        "name": "iTime",
-        "label": "Критерій стійкість і доступність цифрових систем та послуг (0 - 100)",
-        "pTooltip": "Введіть критерій cтійкістіс і доступністіс цифрових систем та послуг",
+        "name": "iConsLv",
+        "label": "Рівень концентрації постачальників (0 - 100)",
+        "pTooltip": "Введіть рівень концентрації постачальників",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -473,9 +187,9 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "iQuality",
-        "label": "Критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
-        "pTooltip": "Введіть критерій захищеністі інформаційних ресурсів від кібератак (0 - 100)",
+        "name": "iGeo",
+        "label": "Рівень географічної віддаленості джерел постачання (0 - 100)",
+        "pTooltip": "Введіть рівень географічної віддаленості джерел постачання",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -488,9 +202,9 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "iResources",
-        "label": "Критерій цифрової компетентності та дії персоналу (0 - 100)",
-        "pTooltip": "Введіть критерій цифрової компетентності та дії персоналу (0 - 100)",
+        "name": "iImport",
+        "label": "Рівень залежність від імпорту (0 - 100)",
+        "pTooltip": "Введіть рівень залежність від імпорту",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -503,9 +217,24 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "iAdaptability",
-        "label": "Критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
-        "pTooltip": "Введіть критерій організаційної готовності до впровадження цифрових змін (0 - 100)",
+        "name": "iDig",
+        "label": "Рівень цифровізації ланцюга постачання (0 - 100)",
+        "pTooltip": "Введіть рівень цифровізації ланцюга постачання",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+            {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iStrucrt",
+        "label": "Обсяг страхових запасів (0 - 100)",
+        "pTooltip": "Введіть обсяг страхових запасів",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -518,54 +247,9 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "iUnique",
-        "label": "Критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
-        "pTooltip": "Введіть критерій надійністі автоматизації транспортних та управлінських процесів (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iTechnical",
-        "label": "Критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
-        "pTooltip": "Введіть критерій узгодженісті взаємодії між учасниками та підрозділами (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iSocial",
-        "label": "Критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
-        "pTooltip": "Введіть критерій управлінської підтримці цифрового забезпечення проекту (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iLegal",
-        "label": "Критерій зрілості та дієвості управлінських процедур (0 - 100)",
-        "pTooltip": "Введіть критерій зрілості та дієвості управлінських процедур (0 - 100)",
+        "name": "iAltLog",
+        "label": "Наявність альтернативних логістичних маршрутів (0 - 100)",
+        "pTooltip": "Введіть наявність альтернативних логістичних маршрутів",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -579,8 +263,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iFinance",
-        "label": "Критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
-        "pTooltip": "Введіть критерій працездатності та технічного стану цифрових пристроїв (0 - 100)",
+        "label": "Фінансова гнучкість підприємства (0 - 100)",
+        "pTooltip": "Введіть фінансову гнучкість підприємства",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -593,24 +277,9 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "iStructur",
-        "label": "Критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
-        "pTooltip": "Введіть критерій фізичної захищеності обладнання від викрадення та зловмисних дій (0 - 100)",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "iExternal",
-        "label": "Критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
-        "pTooltip": "Введіть критерій відповідності інфраструктурних умов роботі цифрових систем (0 - 100)",
+        "name": "iOrgAdapt",
+        "label": "Організаційна адаптивність (0 - 100)",
+        "pTooltip": "Введіть організаційну адаптивність",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -624,8 +293,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "iHuman",
-        "label": "Критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
-        "pTooltip": "Введіть критерій функціональної безпеки результатів роботи цифрових засобів (0 - 100)",
+        "label": "Кваліфікація персоналу логістики (0 - 100)",
+        "pTooltip": "Введіть кваліфікацію персоналу логістики",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -641,9 +310,9 @@
         "type": "text",
         "displayCondition": true,
         "name": "name",
-        "label": "pages.portfolio.dialog.nameLabel",
-        "placeholder": "pages.portfolio.dialog.namePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.nameTolltip",
+        "label": "Назва підприємства",
+        "placeholder": "Назва",
+        "pTooltip": "Введіть назву підприємства, що розглядається",
         "errors": {
           "required": "pages.portfolio.dialog.nameRequired"
         },
@@ -654,9 +323,9 @@
         "type": "textarea",
         "displayCondition": true,
         "name": "des",
-        "label": "pages.portfolio.dialog.descriptionLabel",
-        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
+        "label": "Поточний опис стану підприємства",
+        "placeholder": "Опис",
+        "pTooltip": "Введіть поточний опис стану підприємства",
         "errors": {
           "required": "pages.portfolio.dialog.descriptionRequired"
         },
@@ -667,8 +336,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "priority",
-        "label": "pages.portfolio.dialog.priorityLabel",
-        "pTooltip": "pages.portfolio.dialog.priorityTolltip",
+        "label": "Пріоритет оцінки підприємства",
+        "pTooltip": "Пріоритет оцінки підприємства",
         "errors": {
           "required": "pages.portfolio.dialog.priorityRequired"
         },
@@ -682,9 +351,9 @@
         "type": "text",
         "displayCondition": true,
         "name": "subinfo",
-        "label": "pages.portfolio.dialog.subinfoLabel",
-        "placeholder": "pages.portfolio.dialog.subinfoPlaceholder",
-        "pTooltip": "pages.portfolio.dialog.subinfoTolltip",
+        "label": "Додаткова інформація про підприємство",
+        "placeholder": "Інформація",
+        "pTooltip": "Введіть додаткову інформацію про підприємство, його особливості",
         "errors": {
           "required": "pages.portfolio.dialog.subinfoRequired"
         },
@@ -695,14 +364,160 @@
         "type": "text",
         "displayCondition": true,
         "name": "responsibleName",
-        "label": "pages.portfolio.dialog.responsibleNameLabel",
-        "placeholder": "pages.portfolio.dialog.responsibleNamePlaceholder",
-        "pTooltip": "pages.portfolio.dialog.responsibleNameTolltip",
+        "label": "Власник підприємства",
+        "placeholder": "Власник",
+        "pTooltip": "Введіть власника підприємства",
         "errors": {
           "required": "pages.portfolio.dialog.responsibleNameRequired"
         },
         "value": "",
         "refName": "responsibleName"
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      },
+      {
+        "type": "info",
+        "displayCondition": true,
+        "items": [
+          "Оцінка факторів ризико-стійкого постачання підприємств (0 - 100)"
+        ]
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iConsLv",
+        "label": "Рівень концентрації постачальників (0 - 100)",
+        "pTooltip": "Введіть рівень концентрації постачальників",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iGeo",
+        "label": "Рівень географічної віддаленості джерел постачання (0 - 100)",
+        "pTooltip": "Введіть рівень географічної віддаленості джерел постачання",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iImport",
+        "label": "Рівень залежність від імпорту (0 - 100)",
+        "pTooltip": "Введіть рівень залежність від імпорту",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iDig",
+        "label": "Рівень цифровізації ланцюга постачання (0 - 100)",
+        "pTooltip": "Введіть рівень цифровізації ланцюга постачання",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+            {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iStrucrt",
+        "label": "Обсяг страхових запасів (0 - 100)",
+        "pTooltip": "Введіть обсяг страхових запасів",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iAltLog",
+        "label": "Наявність альтернативних логістичних маршрутів (0 - 100)",
+        "pTooltip": "Введіть наявність альтернативних логістичних маршрутів",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iFinance",
+        "label": "Фінансова гнучкість підприємства (0 - 100)",
+        "pTooltip": "Введіть фінансову гнучкість підприємства",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iOrgAdapt",
+        "label": "Організаційна адаптивність (0 - 100)",
+        "pTooltip": "Введіть організаційну адаптивність",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "iHuman",
+        "label": "Кваліфікація персоналу логістики (0 - 100)",
+        "pTooltip": "Введіть кваліфікацію персоналу логістики",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 0,
+        "max": 100,
+        "step": 1
       }
     ]
   }

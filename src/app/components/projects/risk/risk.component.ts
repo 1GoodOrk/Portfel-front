@@ -76,48 +76,54 @@ export class RiskComponent {
   }
 
   private indexCalculation(data: any, mode?: string): any {
-    let max = 0
     let multipleMax = 1
-    const arr = ['iHuman', 'iExternal', 'iStructur', 'iFinance', 'iLegal', 'iSocial', 'iTechnical', 'iUnique', 'iAdaptability', 'iResources', 'iQuality', 'iTime']
+    const arr = ['iHuman', 'iOrgAdapt', 'iFinance', 'iAltLog', 'iStrucrt', 'iDig', 'iImport', 'iGeo', 'iConsLv']
     arr.forEach((el: any) => {
-      if (data[el] > max) {
-        max = data[el]
-      }
       if (data[el]) {
         multipleMax = multipleMax * data[el]
       }
     })
-    multipleMax = multipleMax ** (1 / 12)
-    data.indexJudExpert = +(max - 12 / 11).toFixed(2)
-    data.indexJudExpertRatio = +(data.indexJudExpert / 12).toFixed(2)
-    data.digitalRiskIndex = +(multipleMax * data.influence / data.probability).toFixed(2)
-    if (data.finalState !== 'Сценарій не вирішен') {
-      data.disabled = true
-      data.dateFinish = new Date().toISOString().split('T').join(' - ').split('Z')[0]
-      data.control = 100
-      if (data.finalState === 'Сценарій вирішен позитивно') {
-        this.data.currentdigitalRiskIndex = this.data.currentdigitalRiskIndex > data.digitalRiskIndex ? +(this.data.currentdigitalRiskIndex - data.digitalRiskIndex).toFixed(2) : 0
-        if (this.data.currentdigitalRiskIndex === 0) {
-          this.data.control = 0
-          this.data.status = 'Низька'
-        } else {
-          this.data.control = +(this.data.currentdigitalRiskIndex / this.data.digitalRiskIndex * 100).toFixed(2)
-          this.data.status = this.data.control > 75 ? 'Критична' : this.data.control > 50 ? 'Висока' : this.data.control > 25 ? 'Помірна' : 'Низька'
-        }
-      } else if (data.finalState === 'Сценарій вирішен негативно') {
-        this.data.currentdigitalRiskIndex = +(this.data.currentdigitalRiskIndex + data.digitalRiskIndex).toFixed(2)
-        this.data.control = +(this.data.currentdigitalRiskIndex / this.data.digitalRiskIndex * 100).toFixed(2)
-          this.data.status = this.data.control > 75 ? 'Критична' : this.data.control > 50 ? 'Висока' : this.data.control > 25 ? 'Помірна' : 'Низька'
-      }
-      this.changeCharts()
+    data.indexFactor = +(multipleMax ** (1 / 9)).toFixed(2)
+    if (data.control === 100) {
+      data.dateFinish = (new Date()).toISOString()
     }
     return data
   }
 
+  private recalcIndexRisk() {
+    this.data.value = this.data.inf / 100 * this.data.prop
+    this.data.solutions.forEach((sol: any) => {
+      if (sol.control === 100) {
+        this.data.value = this.data.value - (sol.influence / 100) * sol.indexFactor
+      }
+    })
+
+    if (this.data.value < 0) {
+      this.data.value = 0
+    } else {
+      this.data.value = +this.data.value.toFixed(2)
+    }
+    if (this.data.value < 5) {
+      this.data.dateFinish = (new Date()).toISOString()
+    }
+    this.data.status = this.data.value > 75 ?
+      'Критичний' :
+      this.data.value > 50 ? 'Високий' :
+      this.data.value > 25 ? 'Помірний' : 'Низький'
+  }
+
+  public recalcIndexes(): void {
+    this.currentProject.options.continuity = +(this.currentProject.risks.filter((r: any) => r.value >= 5).reduce((a: number, b: any) => a + (100 - b.value), 0) ** (1 / this.currentProject.risks.filter((r: any) => r.value >= 5).length)).toFixed(2)
+    this.currentProject.options.perseverance = +(100 - (this.currentProject.risks.filter((r: any) => r.value >= 5).reduce((a: number, b: any) => a + b.value, 0) / this.currentProject.risks.filter((r: any) => r.value >= 5).length)).toFixed(2)
+    this.changeCharts()
+  }
+
   public updateRisk(data: any): void {
     data = this.indexCalculation(data)
+    this.recalcIndexRisk()
     this.currentProject.risks[this.currentProject.risks.findIndex((risk: any) => risk._id === this.data._id)] = this.data
     this.visible.creation = false
+    this.recalcIndexes()
     this.recreateTable()
     this.updateProject()
   }
@@ -128,8 +134,9 @@ export class RiskComponent {
       this.data.solutions = []
     }
     this.data.solutions.push(data)
-    console.log(this.data)
+    this.recalcIndexRisk()
     this.currentProject.risks[this.currentProject.risks.findIndex((risk: any) => risk._id === this.data._id)] = this.data
+    this.recalcIndexes()
     this.visible.creation = false
     this.recreateTable()
     this.updateProject()
@@ -137,12 +144,12 @@ export class RiskComponent {
 
   public recreateTable(): void {
     this.data.solutionTableParams = {
-      th: ['Назва', 'Вплив сценарію', 'Індекс впливу на ІЦР', 'Допустимий час реагування (кален.дн)', 'Статус (позитивно, негативно, без впливу, не вирішено)', 'Виконання  %', 'Взаємодія'],
+      th: ['Назва', 'Вплив рішення (-100 - 100)', 'Індекс впливу на ІЦР', 'Виконання  %', 'Взаємодія'],
       td: [],
       disabled: []
     }
     this.data.solutions.forEach((risk: any) => {
-      this.data.solutionTableParams.td.push([risk.name, `${risk.influence} %`, risk.digitalRiskIndex, `${risk.timeReaction}`, risk.finalState, `${risk.control} %`])
+      this.data.solutionTableParams.td.push([risk.name, `${risk.influence} %`, risk.indexFactor, `${risk.control} %`])
       this.data.solutionTableParams.disabled.push[risk.disabled]
     })
   }
@@ -158,55 +165,40 @@ export class RiskComponent {
     } else {
       this.appCommunicationService.saveCurrentSolution(this.data.solutions[index])
     }
-    this.appCommunicationService.sendCreateData({ inputRowsName: 'solution', header: !index && index !== 0 ? 'Створити сценарій' : 'Оновити сценарій' })
+    this.appCommunicationService.sendCreateData({ inputRowsName: 'solution', header: !index && index !== 0 ? 'Створити рішення' : 'Оновити рішення' })
   }
 
   public openDialogInfo(index: number): void {
     this.visible.info = true
     this.appCommunicationService.saveCurrentSolution(this.data.solutions[index])
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'solution', header: 'Інформація про сценарій' })
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'solution', header: 'Інформація про рішення' })
   }
 
   private changeCharts(): void {
     if (!this.data.solutions) {
       return
     }
-    const solutions = this.data.solutions.filter((solution: any) => solution.finalState !== 'Сценарій не вирішен')
+    console.log(this.data)
+    const solutions = this.data.solutions.filter((solution: any) => solution.control === 100)
     const labels = [this.data.dateCreation, ...solutions.map((solution: any) => solution.dateFinish)]
-    let digitalRiskIndex = this.data.digitalRiskIndex
-    const data = [this.data.digitalRiskIndex, ...solutions.map((solution: any) => {
-      if (solution.finalState === 'Сценарій вирішен позитивно') {
-        digitalRiskIndex = digitalRiskIndex - solution.digitalRiskIndex
-      } else if (solution.finalState === 'Сценарій вирішен негативно') {
-        digitalRiskIndex = digitalRiskIndex + solution.digitalRiskIndex
+    let value = this.data.inf / 100 * this.data.prop
+    // let digitalRiskIndex = this.data.digitalRiskIndex
+    const data = [value, ...solutions.map((solution: any) => {
+      console.log(solution.control)
+      if (solution.control === 100) {
+        value = this.data.value - (solution.influence / 100) * solution.indexFactor
       }
-      return digitalRiskIndex
-    })]
-    let secDigitalRiskIndex = this.data.digitalRiskIndex
-    const dataAk = [100, ...solutions.map((solution: any) => {
-      if (solution.finalState === 'Сценарій вирішен позитивно') {
-        secDigitalRiskIndex = secDigitalRiskIndex - solution.digitalRiskIndex
-      } else if (solution.finalState === 'Сценарій вирішен негативно') {
-        secDigitalRiskIndex = secDigitalRiskIndex + solution.digitalRiskIndex
-      }
-      return +(secDigitalRiskIndex / this.data.digitalRiskIndex * 100).toFixed(2)
+      return value
     })]
 
     this.chartData = {
       labels: labels,
       datasets: [
         {
-          label: 'Крива ІЦР',
+          label: 'Крива оцінки ризику',
           data: data,
           fill: false,
-          borderColor: 'darkred',
-          tension: 0.4
-        },
-        {
-          label: 'Крива актуальності',
-          data: dataAk,
-          fill: false,
-          borderColor: 'darkblue',
+          borderColor: 'darkcyan',
           tension: 0.4
         }
       ]
@@ -218,7 +210,7 @@ export class RiskComponent {
       plugins: {
         legend: {
           labels: {
-            color: 'darkred'
+            color: 'black'
           }
         }
       },

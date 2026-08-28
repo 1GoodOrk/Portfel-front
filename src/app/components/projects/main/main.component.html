@@ -63,17 +63,17 @@
       </div>
       @if (searchResult?.length) {
         <div>
-          <h2><span class="bold">Позначте потрібні теги та введіть їх дані.</span></h2>
+          <h2><span class="bold">Позначте потрібні новини та введіть їх дані.</span></h2>
           @for (res of searchResult; track `th-id-${res.label}`) {
             <h4 [id]="`th-id-${res.label}`">{{ res.label | translate }}</h4>
             <div class="flex space-between">
               <div class="flex column">
-                <label [for]="`th-id-${res.label}-influence`">Вплив тега (1 - 100)</label>
+                <label [for]="`th-id-${res.label}-influence`">Вплив новини (1 - 100)</label>
                 <p-inputnumber
                   [inputId]="`th-id-${res.label}-influence`"
                   [showButtons]="true"
                   buttonLayout="horizontal"
-                  pTooltip="Введіть вплив цього тегу"
+                  pTooltip="Введіть вплив цієї новини"
                   tooltipPosition="right"
                   [name]="`${res.label}-influence`"
                   [(ngModel)]="res.influence"
@@ -92,12 +92,12 @@
                 </p-inputnumber>
               </div>
               <div class="flex column">
-                <label [for]="`th-id-${res.label}-prop`">Значення тега (1 - 100)</label>
+                <label [for]="`th-id-${res.label}-prop`">Значення новини (1 - 100)</label>
                 <p-inputnumber
                   [inputId]="`th-id-${res.label}-prop`"
                   [showButtons]="true"
                   buttonLayout="horizontal"
-                  pTooltip="Введіть значення цього тега"
+                  pTooltip="Введіть значення цієї новини"
                   tooltipPosition="right"
                   [name]="`${res.label}-prop`"
                   [(ngModel)]="res.prop"
@@ -121,7 +121,7 @@
                 rounded
                 raised
                 variant="text"
-                pTooltip="Натисніть, щоб видалити цей тег"
+                pTooltip="Натисніть, щоб видалити цю новину"
                 tooltipPosition="left"
                 severity="danger"
                 [style]="{

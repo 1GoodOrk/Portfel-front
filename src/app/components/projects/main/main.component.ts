@@ -66,7 +66,7 @@ export class MainComponent {
 
   public searchQuery: string = '';
   public searchQueryInput: string = '';
-  public standardQueries: string[] = ['Останні новини', 'Економіка', 'Міжнародний бізнес', 'Інше']
+  public standardQueries: string[] = ['Останні новини', 'Економіка', 'Міжнародний бізнес', 'Останні новини логістики у світі','Інше']
   public searchResult: any[] = [];
 
   constructor(

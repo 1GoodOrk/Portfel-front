@@ -9,6 +9,7 @@ import projects from '@port/asserts/data/fake-data/project.json'
 })
 export class FakeRequestService {
   private users: any = users
+  private projects: any = projects
   // getFile() {
   //   return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
   // }
@@ -32,6 +33,7 @@ export class FakeRequestService {
         projectIds: [],
         portfolioIds: []
       })
+      return this.users[this.users.length - 1]
     } else {
       return { error: 'ALREADY_EXIST' }
     }
@@ -51,6 +53,29 @@ export class FakeRequestService {
       this.users[userIndex].projectIds = data.projectIds
       this.users[userIndex].portfolioIds = data.portfolioIds
     }
+  }
+
+  getProjects(): any {
+    return this.projects
+  }
+
+  deleteProjects(id: string): any {
+    const index = this.projects.findIndex((el: any) => el._id === id)
+    this.projects.splice(index, 1)
+  }
+
+  updateProject(id: string, data: any) {
+    const index = this.projects.findIndex((el: any) => el._id === id)
+    console.log(data)
+    Object.keys(data).forEach((key: string) => {
+      this.projects[index][key] = data[key]
+    })
+  }
+
+
+  createProject(data: any) {
+    data._id = v6()
+    this.projects.push(data)
   }
 
   // getExperts(): Observable<any> {

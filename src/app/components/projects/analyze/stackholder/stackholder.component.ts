@@ -21,6 +21,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
 
 @Component({
   selector: 'app-stackholder',
@@ -60,6 +61,7 @@ export class StackholderComponent {
 
   constructor(
     private appCommunicationService: AppCommunicationService,
+    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
     this.inputs = this.appCommunicationService.getInputsForm(['stackholdersLogistic'])
@@ -107,19 +109,27 @@ export class StackholderComponent {
         type: this.inputs.stackholdersLogistic[1].value
       })
       this.recreateTable()
-      this.httpService.updateProject(this.currentProject._id, this.currentProject)
-        .subscribe(() => {
-          this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-          this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
-            input.value = ''
-            return input
-          })
-        })
+      this.fakeRequestService.updateProject(this.currentProject._id, this.currentProject)
+      this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
+        input.value = ''
+        return input
+      })
+      // this.getAllProjects()
+      // this.httpService.updateProject(this.currentProject._id, this.currentProject)
+      //   .subscribe(() => {
+      //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      //     this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
+      //       input.value = ''
+      //       return input
+      //     })
+      //   })
     }
   }
 
   public recreateTable() {
     this.currentProject.stackholders.forEach((stackholder: any) => {
+      console.log(this.stackholderData)
       const indexStackholder = this.stackholderData.tableParams.th.indexOf(stackholder.name) - 1
       if (indexStackholder > -1) {
         this.stackholderData.tableParams.td[indexStackholder].push(0)

@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { IUserData } from '@port/interfaces';
+import { FakeRequestService } from '@port/services/fake-request.service';
 
 @Component({
   selector: 'app-login',
@@ -62,6 +63,7 @@ export class LoginComponent {
     private router: Router,
     private translate: TranslateService,
     private httpService: HttpService,
+    private fakeRequestService: FakeRequestService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.changeLanguage()
@@ -80,14 +82,18 @@ export class LoginComponent {
 
   public onSubmit(form: any): void {
     if (form.valid) {
-      this.showSpinner = true
-      this.httpService.login(this.user)
-        .subscribe((data: IUserData) => {
-          this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
-          this.showSpinner = false
-          form.resetForm()
-          this.navigate('main')
-        })
+      const data = this.fakeRequestService.login(this.user)
+      this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+      form.resetForm()
+      this.navigate('main')
+      // this.showSpinner = true
+      // this.httpService.login(this.user)
+      //   .subscribe((data: IUserData) => {
+      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+      //     this.showSpinner = false
+      //     form.resetForm()
+      //     this.navigate('main')
+      //   })
     }
   }
 }

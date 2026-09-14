@@ -18,25 +18,19 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
 import { IProjectData } from '@port/interfaces';
+import { FakeRequestService } from '@port/services/fake-request.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
     FormsModule,
-    // InputTextModule,
-    // InputNumberModule,
-    // TextareaModule,
-    // CheckboxModule,
     ButtonModule,
     CardModule,
     FieldsetModule,
-    // DialogModule,
     TooltipModule,
     DividerModule,
     MessageModule,
-    // SelectModule,
-    // DatePickerModule,
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
@@ -48,7 +42,6 @@ import { IProjectData } from '@port/interfaces';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  // public projectsList: Array<IProjectData> = []
   public projectsList: any = []
   public user: any = {}
   public projects: Array<IProjectData> = []
@@ -79,6 +72,7 @@ export class MainComponent {
   constructor (
     private router: Router,
     private appCommunicationService: AppCommunicationService,
+    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
     this.getAllProjects()
@@ -86,11 +80,13 @@ export class MainComponent {
   }
 
   public getAllProjects(): void {
-    this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe((data: any) => {
-        this.projects = data
-        this.projectsList = Array.from(this.projects)
-      })
+    this.projects = this.fakeRequestService.getProjects()
+    this.projectsList = Array.from(this.projects)
+    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe((data: any) => {
+    //     this.projects = data
+    //     this.projectsList = Array.from(this.projects)
+    //   })
   }
 
   public visibleOnChange(key: string): void {
@@ -109,7 +105,7 @@ export class MainComponent {
     }, 100)
   }
 
-  public selectForCogModel(id: any, event: any) {
+  public selectForCogAnalyzeModel(id: any, event: any) {
     event.stopPropagation()
     const index = this.projects.findIndex((el: any) => el._id === id)
     Object.keys(this.projects[index]).forEach((key: string) => {
@@ -118,8 +114,21 @@ export class MainComponent {
       this.currentProject[key] = this.projects[index][key]
     })
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    this.navigate('phase-risks')
+    this.navigate('analyze')
   }
+
+  public selectForCogBalanceModel(id: any, event: any) {
+    event.stopPropagation()
+    const index = this.projects.findIndex((el: any) => el._id === id)
+    Object.keys(this.projects[index]).forEach((key: string) => {
+      // TODO: type error
+      // @ts-expect-error
+      this.currentProject[key] = this.projects[index][key]
+    })
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    this.navigate('balance')
+  }
+
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
@@ -153,20 +162,23 @@ export class MainComponent {
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
+    this.appCommunicationService.saveCurrentProject(this.currentProject)
     this.visible.creation = true
   }
 
   public removeProjects(id: string, event: any) {
     event.stopPropagation()
-    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-      .subscribe(() => {
-        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-        const index = user.data.projectIds.indexOf(id);
-        if (index > -1 && user && user.projectIds) {
-          user.projectIds.splice(index, 1);
-        }
-        this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-        this.getAllProjects()
-      })
+    this.fakeRequestService.deleteProjects(id)
+    this.getAllProjects()
+    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    //   .subscribe(() => {
+    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+    //     const index = user.data.projectIds.indexOf(id);
+    //     if (index > -1 && user && user.projectIds) {
+    //       user.projectIds.splice(index, 1);
+    //     }
+    //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+    //     this.getAllProjects()
+    //   })
   }
 }

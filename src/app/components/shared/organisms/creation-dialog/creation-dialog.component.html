@@ -126,7 +126,7 @@
           [pTooltip]="'pages.portfolio.dialog.saveButtonTooltip' | translate"
           [outlined]="true"
           severity="primary"
-          (click)="formData._id ? updateProject(formData._id, form): createProject(form)" />
+          (click)="this.current._id ? updateProject(this.current._id, form): createProject(form)" />
         <p-button
           label="Cancel"
           [label]="'pages.portfolio.dialog.cancelButton' | translate"

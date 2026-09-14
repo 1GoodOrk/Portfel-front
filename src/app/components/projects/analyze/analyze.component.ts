@@ -59,6 +59,15 @@ export class AnalyzeComponent {
     this.currentProject = this.appCommunicationService.getCurrentProject()
     // this.current = this.appCommunicationService.getCurrentExpertise()
     if (this.currentProject.stackholderData) {
+      if (!this.currentProject.stackholderData.tableParams) {
+        this.currentProject.stackholderData.tableParams = { td: [], th: ['Стейкхолдер'] }
+      }
+      if (!this.currentProject.stackholderData.analyzeTable) {
+        this.currentProject.stackholderData.analyzeTable = {
+          tableParams: { td: [], th: [] }
+        }
+        this.currentProject.stackholderData.analyzeTable.tableParams.td = {td: [], th: []}
+      }
       this.updateView()
     }
   }
@@ -96,7 +105,7 @@ export class AnalyzeComponent {
   private calculationOfMainTable() {
     // calculation connections
     let amountOfConnections = 0
-    this.currentProject.stackholderData.tableParams.td.forEach((td: any) => {
+    this.currentProject.stackholderData?.tableParams?.td.forEach((td: any) => {
       td.forEach((el: any) => {
         if (!isNaN(el) && el > 0) {
           amountOfConnections++
@@ -107,7 +116,7 @@ export class AnalyzeComponent {
       title: 'Метрики',
       tableParams: {
         th: ['Стейкхолдер', 'Показник взаємодії (degree)', 'Ступінь зваженості', 'Показник посередництва (betweenness)', 'Показник впливу (eigenvector)'],
-        td: Array.from(this.currentProject.stackholderData.tableParams.td)
+        td: Array.from(this.currentProject.stackholderData?.tableParams?.td)
           .map((td: any, tdIndex: number) => {
             return [
               td[0],

@@ -20,15 +20,11 @@
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
         <p-card
-          [pTooltip]="`${'pages.main.main.watchProjectTooltipFirstPart' | translate} ${project.name} ${'pages.main.main.watchProjectTooltipLastPart' | translate}`"
-          tooltipPosition="top"
           [style]="{
             'max-width': '300px',
             'margin-top': '10px',
-            'overflow': 'hidden',
-            'cursor': 'pointer'
-          }"
-          (click)="showInfoProjectDialog(project._id)">
+            'overflow': 'hidden'
+          }">
           @if (project.img) {
             <ng-template #header>
               <img alt="Card" class="w-full" [src]="project.img" />
@@ -39,6 +35,7 @@
           <ng-template #content>
             <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}: </span>{{project.responsibleName}}</p>
             <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
+            <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}: </span>{{project.subinfo}}</p>
           </ng-template>
           <ng-template #footer>
             @if (user.type === 'USER') {
@@ -58,10 +55,17 @@
             }
             <div class="flex space-evenly">
               <p-button
-                [label]="`${'pages.main.main.processingButton' | translate}`"
-                [pTooltip]="`${'pages.main.main.processingButtonTooltip' | translate} ${project.name}`"
+                label="Метод комплексного аналізу стейкхолдерів"
+                pTooltip="Натисніть, щоб перейти на сторінку методу комплексного аналізу стейкхолдерів"
                 severity="primary"
-                (click)="selectForCogModel(project._id, $event)"/>
+                (click)="selectForCogAnalyzeModel(project._id, $event)"/>
+            </div>
+            <div class="flex space-evenly">
+              <p-button
+                label="Метод балансування інтересів стейкхолдерів"
+                pTooltip="Натисніть, щоб перейти на сторінку методу балансування інтересів стейкхолдерів"
+                severity="primary"
+                (click)="selectForCogBalanceModel(project._id, $event)"/>
             </div>
           </ng-template>
         </p-card>
@@ -75,4 +79,6 @@
 
 <app-info-dialog [visible]="visible.info" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 
-<app-creation-dialog [formData]="currentProject" [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
+@if (visible.creation) {
+  <app-creation-dialog [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
+}

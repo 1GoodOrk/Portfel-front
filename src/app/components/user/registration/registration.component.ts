@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { IUserData } from '@port/interfaces';
+import { FakeRequestService } from '@port/services/fake-request.service';
 
 @Component({
   selector: 'app-registration',
@@ -66,6 +67,7 @@ export class RegistrationComponent {
     private router: Router,
     private translate: TranslateService,
     private httpService: HttpService,
+    private fakeRequestService: FakeRequestService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.changeLanguage()
@@ -87,20 +89,29 @@ export class RegistrationComponent {
     } else {
       this.user.type = 'EXPERT'
     }
-    if (form.valid) {
-      this.showSpinner = true
-      this.httpService.registration({
-        email: this.user.email,
-        password: this.user.password,
-        organization: this.user.organization,
-        type: this.user.type
-      })
-        .subscribe((data: IUserData) => {
-          this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
-          form.resetForm()
-          this.showSpinner = false
-          this.navigate('main')
-        })
-    }
+    const data = this.fakeRequestService.registration({
+      email: this.user.email,
+      password: this.user.password,
+      organization: this.user.organization,
+      type: this.user.type
+    })
+    this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+    form.resetForm()
+    this.navigate('main')
+    // if (form.valid) {
+    //   this.showSpinner = true
+    //   this.httpService.registration({
+    //     email: this.user.email,
+    //     password: this.user.password,
+    //     organization: this.user.organization,
+    //     type: this.user.type
+    //   })
+    //     .subscribe((data: IUserData) => {
+    //       this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+    //       form.resetForm()
+    //       this.showSpinner = false
+    //       this.navigate('main')
+    //     })
+    // }
   }
 }

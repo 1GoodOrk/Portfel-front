@@ -1,4 +1,13 @@
 {
+    "logistic": [
+      { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" },
+      { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },
+      { "propName": "responsibleName", "label": "pages.portfolio.dialog.responsibleLabel" },
+      { "propName": "subinfo", "label": "pages.portfolio.dialog.subinfoLabel" }
+    ],
+    "phasesLogistic": [
+
+    ],
     "vehicle": [
       { "propName": "subinfo", "label": "pages.portfolio.dialog.subinfoLabel" },
       { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },

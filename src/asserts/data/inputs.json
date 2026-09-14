@@ -1,4 +1,911 @@
 {
+    "logistic": [
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "pages.portfolio.dialog.nameLabel",
+        "placeholder": "pages.portfolio.dialog.namePlaceholder",
+        "pTooltip": "pages.portfolio.dialog.nameTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "name"
+      },
+      {
+        "type": "textarea",
+        "displayCondition": true,
+        "name": "des",
+        "label": "pages.portfolio.dialog.descriptionLabel",
+        "placeholder": "pages.portfolio.dialog.descriptionPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.descriptionTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.descriptionRequired"
+        },
+        "value": "",
+        "refName": "des"
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "priority",
+        "label": "pages.portfolio.dialog.priorityLabel",
+        "pTooltip": "pages.portfolio.dialog.priorityTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.priorityRequired"
+        },
+        "value": "",
+        "refName": "priority",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "subinfo",
+        "label": "pages.portfolio.dialog.subinfoLabel",
+        "placeholder": "pages.portfolio.dialog.subinfoPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.subinfoTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.subinfoRequired"
+        },
+        "value": "",
+        "refName": "subinfo"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "responsibleName",
+        "label": "pages.portfolio.dialog.responsibleNameLabel",
+        "placeholder": "pages.portfolio.dialog.responsibleNamePlaceholder",
+        "pTooltip": "pages.portfolio.dialog.responsibleNameTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.responsibleNameRequired"
+        },
+        "value": "",
+        "refName": "responsibleName"
+      }
+    ],
+    "conflict": [
+      {
+        "type": "multiselect",
+        "displayCondition": true,
+        "name": "conflictSides",
+        "label": "Сторони конфлікта",
+        "pTooltip": "Виберіть сторони конфлікта",
+        "value": "",
+        "items": []
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "Область конфлікту",
+        "placeholder": "Ім'я",
+        "pTooltip": "Область конфлікту",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "des",
+        "label": "Опис конфлікту",
+        "placeholder": "Опис",
+        "pTooltip": "Опис конфлікту",
+        "value": ""
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "influence",
+        "label": "Вплив конфлікта на перебіг проекту (1 - 10)",
+        "pTooltip": "Введіть вплив конфлікта на проект",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "influence",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "probability",
+        "label": "Ймовірність повторного виникнення конфлікту (1 - 10)",
+        "pTooltip": "Введіть ймовірність повторного виникнення конфлікту",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    ],
+    "solution": [
+      {
+        "type": "selectorspec",
+        "displayCondition": true,
+        "name": "type",
+        "label": "Конфлікт",
+        "pTooltip": "Виберіть конфлікт",
+        "value": "",
+        "items": []
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "code",
+        "label": "Код рішення",
+        "placeholder": "Код",
+        "pTooltip": "Унікальний номер рішення",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "propose",
+        "label": "Суть рішення",
+        "placeholder": "Суть рішення",
+        "pTooltip": "Конкретна домовленість або управлінська дія",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "manager",
+        "label": "Відповідальний",
+        "placeholder": "Відповідальний",
+        "pTooltip": "Організація або посадова особа",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "effect",
+        "label": "Очікуваний результат",
+        "placeholder": "Очікуваний результат",
+        "pTooltip": "Який ефект має бути досягнутий",
+        "value": ""
+      },
+      {
+        "type": "textarea",
+        "displayCondition": true,
+        "name": "answer",
+        "label": "Опис рішення",
+        "placeholder": "Опис рішення",
+        "pTooltip": "Введіть опис рішення",
+        "errors": {
+          "required": "pages.portfolio.dialog.descriptionRequired"
+        },
+        "value": "",
+        "refName": "answer"
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "progress",
+        "label": "KPI контролю (1 - 100)",
+        "pTooltip": "Показник, за якими перевіряється виконання",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "progress",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "selector",
+        "displayCondition": true,
+        "name": "status",
+        "label": "Статус рішення",
+        "pTooltip": "Виберіть статус рішення",
+        "value": "",
+        "items": [
+          { "label": "Запропоновано", "value": "Запропоновано" },
+          { "label": "Виконано", "value": "Виконано" },
+          { "label": "У процесі", "value": "У процесі" },
+          { "label": "Потребує перегляду", "value": "Потребує перегляду" }
+        ]
+      }
+    ],
+    "stackholdersLogistic": [
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "Ім'я стейкхолдера або назва організації",
+        "placeholder": "Ім'я",
+        "pTooltip": "Введіть ім'я стейкхолдера або назва організації",
+        "value": ""
+      },
+      {
+        "type": "selector",
+        "displayCondition": true,
+        "name": "type",
+        "label": "Тип стейкхолдера",
+        "pTooltip": "Виберіть тип стейкхолдера",
+        "value": "",
+        "items": [
+          { "label": "Замовник проєкту", "value": "Замовник проєкту" },
+          { "label": "Власник проєкту", "value": "Власник проєкту" },
+          { "label": "Керівник проєкту", "value": "Керівник проєкту" },
+          { "label": "Команда проєкту", "value": "Команда проєкту" },
+          { "label": "Інвестори", "value": "Інвестори" },
+          { "label": "Конкуренти", "value": "Конкуренти" },
+          { "label": "Органи влади", "value": "Органи влади" },
+          { "label": "Транспортні регулятори", "value": "Транспортні регулятори" },
+          { "label": "Громадські організації", "value": "Громадські організації" },
+          { "label": "Перевізники", "value": "Перевізники" },
+          { "label": "Інші групи", "value": "Інші групи" }
+        ]
+      }
+    ],
+    "stackholdersBalance": [
+      {
+        "type": "selector",
+        "displayCondition": true,
+        "name": "type",
+        "label": "Група стейкхолдерів",
+        "pTooltip": "Виберіть групу стейкхолдерів",
+        "value": "",
+        "items": [
+          { "label": "Державні органи", "value": "Державні органи" },
+          { "label": "Бізнес-структури", "value": "Бізнес-структури" },
+          { "label": "Інвестори", "value": "Інвестори" },
+          { "label": "Місцеві громади", "value": "Місцеві громади" },
+          { "label": "Громадські організації", "value": "Громадські організації" },
+          { "label": "Інші групи", "value": "Інші групи" }
+        ]
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "Ім'я стейкхолдерів або назва організацій (Через ' , ')",
+        "placeholder": "Ім'я",
+        "pTooltip": "Введіть ім'я стейкхолдерів або назва організацій",
+        "value": ""
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      },
+      {
+        "type": "info",
+        "displayCondition": true,
+        "items": [
+          "Загальні інтереси груп стейкхолдерів",
+          "1 – означає низьку зацікавленість",
+          "2 — означає середню зацікавленість",
+          "3 — означає високу зацікавленість"
+        ]
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "econIn",
+        "label": "Економічні інтереси (1 - 3)",
+        "pTooltip": "Введіть економічні інтереси",
+        "errors": {
+          "required": "pages.portfolio.dialog.ecoRequired"
+        },
+        "value": "",
+        "refName": "econIn",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "socIn",
+        "label": "Соціальні інтереси (1 - 3)",
+        "pTooltip": "Введіть соціальні інтереси",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "socIn",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "ecoIn",
+        "label": "Екологічні інтереси (1 - 3)",
+        "pTooltip": "Введіть екологічні інтереси",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "ecoIn",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "instIn",
+        "label": "Інституційні інтереси (1 - 3)",
+        "pTooltip": "Введіть інституційні інтереси",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "instIn",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      },
+      {
+        "type": "info",
+        "displayCondition": true,
+        "items": [
+          "Інтереси груп стейкхолдерів",
+          "1 – означає низьку зацікавленість",
+          "2 — означає середню зацікавленість",
+          "3 — означає високу зацікавленість"
+        ]
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "econ",
+        "label": "Економічна ефективність (1 - 3)",
+        "pTooltip": "Введіть економічну ефективність",
+        "errors": {
+          "required": "pages.portfolio.dialog.ecoRequired"
+        },
+        "value": "",
+        "refName": "econ",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "infr",
+        "label": "Розвиток інфрастру-ктури (1 - 3)",
+        "pTooltip": "Введіть розвиток інфрастру-ктури",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "infr",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "eco",
+        "label": "Екологічна безпека (1 - 3)",
+        "pTooltip": "Введіть екологічну безпеку",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "eco",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "soc",
+        "label": "Соціальний ефект (1 - 3)",
+        "pTooltip": "Введіть соціальний ефект",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "soc",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "manag",
+        "label": "Прозорість управління (1 - 3)",
+        "pTooltip": "Введіть прозорість управління",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "manag",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "speed",
+        "label": "Швидкість реалізації (1 - 3)",
+        "pTooltip": "Введіть швидкість реалізації",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "speed",
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "influence",
+        "label": "Вплив (1 - 10)",
+        "pTooltip": "Введіть вплив стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "interest",
+        "label": "Зацікавленість (1 - 10)",
+        "pTooltip": "Введіть зацікавленість стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "infospec",
+        "displayCondition": true,
+        "items": [
+          "Інтереси груп стейкхолдерів",
+          "1 – означає низьку зацікавленість",
+          "2 — означає середню зацікавленість",
+          "3 — означає високу зацікавленість"
+        ]
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "ti",
+        "label": "Індекс довіри (1 - 100)",
+        "pTooltip": "Введіть індекс довіри стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "wti",
+        "label": "Вплив індекса довіри (1 - 100)",
+        "pTooltip": "Введіть вплив індекса довіри стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "ssi",
+        "label": "Індекс задоволеності (1 - 100)",
+        "pTooltip": "Введіть індекс задоволеності стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "wssi",
+        "label": "Вплив індекса задоволеності (1 - 100)",
+        "pTooltip": "Введіть вплив індекса задоволеності стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "ari",
+        "label": "Індекс виконання домовленостей (1 - 100)",
+        "pTooltip": "Введіть індекс виконання домовленостей стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "wari",
+        "label": "Вплив індекса виконання домовленостей (1 - 100)",
+        "pTooltip": "Введіть вплив індекса виконання домовленостей стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "ci",
+        "label": "Індекс консенсусу (1 - 100)",
+        "pTooltip": "Введіть індекс консенсусу стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "wci",
+        "label": "Вплив індекса консенсусу (1 - 100)",
+        "pTooltip": "Введіть вплив індекса консенсусу стейкхолдера",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "phasesLogistic": [
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "name",
+        "label": "Назва етапу життєвого циклу проекту",
+        "placeholder": "Назва",
+        "pTooltip": "Введіть назву етапу життєвого циклу проекту",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "type",
+        "label": "Тип етапу",
+        "placeholder": "Тип етапу",
+        "pTooltip": "Введіть тип етапу",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "managerName",
+        "label": "pages.portfolio.dialog.managerNameLabel",
+        "placeholder": "pages.portfolio.dialog.managerNamePlaceholder",
+        "pTooltip": "pages.portfolio.dialog.managerNameTolltip",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "responsibleOrganization",
+        "label": "pages.portfolio.dialog.responsibleOrganizationLabel",
+        "placeholder": "pages.portfolio.dialog.responsibleOrganizationPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.responsibleOrganizationTolltip",
+        "value": ""
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "forecastProjectTaskAmount",
+        "label": "Прогнозована сума завдання етапу",
+        "pTooltip": "Введіть прогнозована сума завдання етапу",
+        "errors": {
+          "required": "pages.portfolio.dialog.forecastProjectTaskAmountRequired"
+        },
+        "value": "",
+        "refName": "forecastProjectTaskAmount",
+        "min": 1,
+        "max": 5000,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "term",
+        "label": "Прогнозований термін етапу (р.дн.)",
+        "pTooltip": "Введіть прогнозований термін етапу",
+        "errors": {
+          "required": "pages.portfolio.dialog.termRequired"
+        },
+        "value": "",
+        "refName": "term",
+        "min": 1,
+        "max": 5000,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "budget",
+        "label": "pages.portfolio.dialog.budgetLabel",
+        "pTooltip": "pages.portfolio.dialog.budgetTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.budgetRequired"
+        },
+        "value": "",
+        "refName": "budget",
+        "min": 1,
+        "max": 1000000000,
+        "step": 1
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "budgetSource",
+        "label": "pages.portfolio.dialog.budgetSourceLabel",
+        "placeholder": "pages.portfolio.dialog.budgetSourcePlaceholder",
+        "pTooltip": "pages.portfolio.dialog.budgetSourceTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.budgetSourceRequired"
+        },
+        "value": "",
+        "refName": "budgetSource"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "governmentSubsidies",
+        "label": "pages.portfolio.dialog.governmentSubsidiesLabel",
+        "placeholder": "pages.portfolio.dialog.governmentSubsidiesPlaceholder",
+        "pTooltip": "pages.portfolio.dialog.governmentSubsidiesTolltip",
+        "errors": {
+          "required": "pages.portfolio.dialog.governmentSubsidiesRequired"
+        },
+        "value": "",
+        "refName": "governmentSubsidies"
+      },
+      {
+        "type": "multiselector",
+        "displayCondition": true,
+        "name": "vehicle",
+        "label": "pages.portfolio.dialog.vehicleLabel",
+        "pTooltip": "Виберіть задіяні транспортні засоби етапу",
+        "value": "",
+        "items": [
+          { "label": "ULCC танкер", "value": "ULCC" },
+          { "label": "VLCC танкер", "value": "VLCC" },
+          { "label": "Suezmax танкер", "value": "Suezmax" },
+          { "label": "Aframax танкер", "value": "Aframax" },
+          { "label": "LR2/LR1 танкер", "value": "LR2LR1" },
+          { "label": "MR танкер", "value": "MR" },
+          { "label": "Handysize танкер", "value": "Handysize" },
+          { "label": "N1 (малотоннажний вантажний транспорт)", "value": "N1" },
+          { "label": "N2 (середньотоннажний вантажний транспорт)", "value": "N2" },
+          { "label": "N3 (важконнажний вантажний транспорт)", "value": "N3" },
+
+          { "label": "Важкий вп (вантажний поїзд)", "value": "vvp" },
+          { "label": "Підвищена вага вп (вантажний поїзд)", "value": "pvvp" },
+          { "label": "Довгоскладовий вп (вантажний поїзд)", "value": "lvp" },
+          { "label": "Підвищена довжина вп (вантажний поїзд)", "value": "plvp" },
+          { "label": "Сполучений вп (вантажний поїзд)", "value": "svp" }
+        ]
+      },
+      {
+        "type": "multiselector",
+        "displayCondition": true,
+        "name": "infrastructure",
+        "label": "pages.portfolio.dialog.infrastructureLabel",
+        "pTooltip": "Виберіть задіяну інфраструктуру етапу",
+        "value": "",
+        "items": [
+          { "label": "Станція перевірки", "value": "check" },
+          { "label": "Доки", "value": "docs" },
+          { "label": "Станція навантаження", "value": "load" },
+          { "label": "Залізничне завантаження", "value": "trainLoad" },
+          { "label": "Залізничне переїзд", "value": "trainRoad" },
+          { "label": "Ремонтна станція", "value": "fix" }
+        ]
+      },
+      {
+        "type": "multiselector",
+        "displayCondition": true,
+        "name": "staff",
+        "label": "Персонал",
+        "pTooltip": "Виберіть задіяний персонал етапу",
+        "value": "",
+        "refName": "staff",
+        "items": [
+          { "label": "Водій", "value": "driver" },
+          { "label": "Диcпетчер", "value": "dispatcher" },
+          { "label": "Машиніст", "value": "mashine" },
+          { "label": "Навантажувач", "value": "load" },
+          { "label": "Менеджер постачання", "value": "supply" },
+          { "label": "Менеджер контролю", "value": "control" },
+          { "label": "Технічний перcонал", "value": "techPersonal" }
+        ]
+      },
+      {
+        "type": "multiselector",
+        "displayCondition": true,
+        "name": "technology",
+        "label": "pages.portfolio.dialog.technologyLabel",
+        "pTooltip": "Виберіть задіяні технології етапу",
+        "value": "",
+        "refName": "technology",
+        "items": [
+          { "label": "Трекери", "value": "trecker" },
+          { "label": "Навігація", "value": "navigation" },
+          { "label": "Електронний таблоїд", "value": "electronicTabloid" },
+          { "label": "GPS", "value": "gps" },
+          { "label": "CRM", "value": "crm" }
+        ]
+      },
+      {
+        "type": "line",
+        "displayCondition": true
+      }
+    ],
+    "phasesLogisticTime": [],
+    "phasesLogisticDefault": [
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Instability",
+        "label": "Нестабільність (1-10)",
+        "placeholder": "Нестабільність",
+        "pTooltip": "Нестабільність, що впливає на і-ого стейкхолдера проєкту в деякий момент часу",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Uncertainty",
+        "label": "Невизначеність (1-10)",
+        "placeholder": "Невизначеність",
+        "pTooltip": "Невизначеність, що впливає на і-ого стейкхолдера в деякий момент часу",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Complexity",
+        "label": "Складність (1-10)",
+        "placeholder": "Складність",
+        "pTooltip": "Складність, що впливає на і-ого стейкхолдера в деякий момент часу",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Ambiguity",
+        "label": "Неоднозначність (1-10)",
+        "placeholder": "Неоднозначність",
+        "pTooltip": "Неоднозначність, що впливає на і-ого стейкхолдера в деякий момент часу",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Fragility",
+        "label": "Крихкість (1-10)",
+        "placeholder": "Крихкість",
+        "pTooltip": "Крихкість, що впливає на і-ого стейкхолдера в деякий момент часу ",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Anxiety",
+        "label": "Тривожність (1-10)",
+        "placeholder": "Тривожність",
+        "pTooltip": "Тривожність, що впливає на і-ого стейкхолдера в деякий момент часу",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Nonlinearity",
+        "label": "Нелінійність (1-10)",
+        "placeholder": "Нелінійність",
+        "pTooltip": "Нелінійність, що впливає на і-ого стейкхолдера в деякий момент часу ",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      },
+      {
+        "type": "number",
+        "displayCondition": true,
+        "name": "Incomprehensibility",
+        "label": "Незрозумілість (1-10)",
+        "placeholder": "Незрозумілість",
+        "pTooltip": "Незрозумілість, що впливає на і-ого стейкхолдера в деякий момент часу ",
+        "value": 0,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    ],
+
     "vehicle": [
       {
         "type": "text",

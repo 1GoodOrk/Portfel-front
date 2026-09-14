@@ -1,14 +1,13 @@
 <header>
   <p-menubar [model]="items" [style]="{
-    'background-color': '#1d4ed8',
-    'border-color': '#1d4ed8',
+    'background-color': '#14532d',
+    'border-color': '#14532d',
+    'border-radius': 0,
     'color': 'white'
   }">
     <ng-template #start>
       <div (click)="navigate('main')">
-        <img class="logo-main" src="/Logo-CLD.jpg" alt="">
-        <!-- <img src="/" alt="">
-        <p-avatar image="../../../../../../public/Logo-CLD.jpg" shape="circle" /> -->
+        <img class="logo-main" src="/logo.png" alt="">
       </div>
     </ng-template>
     <ng-template #item let-item let-root="root">
@@ -31,6 +30,14 @@
             placeholder="Select a Language"
             class="w-full md:w-56" />
         </div> -->
+        <a
+          pRipple
+          pTooltip="Натисніть, щоб розлогитися"
+          tooltipPosition="right"
+          (click)="navigate('login')"
+          class="flex items-center p-menubar-item-link">
+          <span [style]="{'color': 'white'}">Вийти</span>
+        </a>
         <div class="flex items-center gap-2">
           <p-avatar
             image="https://toppng.com/uploads/preview/roger-berry-avatar-placeholder-11562991561rbrfzlng6h.png"

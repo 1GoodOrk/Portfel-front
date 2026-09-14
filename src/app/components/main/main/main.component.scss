@@ -2,6 +2,9 @@
   max-width: 1024px;
   margin: 0 auto;
   min-height: calc(100vh - 112px);
+  h1 {
+    color: white;
+  }
   p {
     overflow: hidden;
     white-space: wrap;

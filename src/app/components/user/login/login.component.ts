@@ -80,20 +80,24 @@ export class LoginComponent {
     this.router.navigate([`/${path}`]);
   }
 
+  public onSubmitFake(form: any): void {
+    const data = this.fakeRequestService.login(this.user)
+    this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+    form.resetForm()
+    this.navigate('main')
+  }
+
   public onSubmit(form: any): void {
     if (form.valid) {
-      const data = this.fakeRequestService.login(this.user)
-      this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
-      form.resetForm()
-      this.navigate('main')
-      // this.showSpinner = true
-      // this.httpService.login(this.user)
-      //   .subscribe((data: IUserData) => {
-      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
-      //     this.showSpinner = false
-      //     form.resetForm()
-      //     this.navigate('main')
-      //   })
+      // this.onSubmitFake(form)
+      this.showSpinner = true
+      this.httpService.login(this.user)
+        .subscribe((data: IUserData) => {
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+          this.showSpinner = false
+          form.resetForm()
+          this.navigate('main')
+        })
     }
   }
 }

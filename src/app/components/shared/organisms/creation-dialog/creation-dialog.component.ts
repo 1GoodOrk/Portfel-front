@@ -119,19 +119,22 @@ export class CreationDialogComponent {
           data[el.name] = el.value
         }
       })
-      this.fakeRequestService.updateProject(this.current._id, data)
-      this.getAllProjects()
+      // this.fakeRequestService.updateProject(this.current._id, data)
+      // this.getAllProjects()
 
-      form.resetForm()
-      this.formData = Object.assign(this.appCommunicationService.clearProject)
-      this.visibleOnChange()
-      // this.httpService.updateProject(id, this.formData)
-      //   .subscribe((data: any) => {
-      //     if (data) {
-      //       this.getAllProjects()
-      //     }
-      //   })
-      }
+      // form.resetForm()
+      // this.formData = Object.assign(this.appCommunicationService.clearProject)
+      // this.visibleOnChange()
+      this.httpService.updateProject(id, data)
+        .subscribe((data: any) => {
+          if (data) {
+            this.getAllProjects()
+            form.resetForm()
+            this.formData = Object.assign(this.appCommunicationService.clearProject)
+            this.visibleOnChange()
+          }
+        })
+    }
   }
 
   public createProject(form: any) {
@@ -147,36 +150,29 @@ export class CreationDialogComponent {
         }
       })
       data.analyze = {}
-      data.balance = {
-        stackholders: [],
-        conflicts: []
-      }
-      data.stackholderData = {}
-      data.stackholders = []
       if (this.current._id) {
-
-        this.fakeRequestService.updateProject(this.current._id, data)
-        this.getAllProjects()
-        this.visibleOnChange()
-        // this.httpService.updateProject(this.current._id, data)
-        //   .subscribe((data: any) => {
-        //     this.getAllProjects()
-        //     this.visibleOnChange()
-        // })
+        // this.fakeRequestService.updateProject(this.current._id, data)
+        // this.getAllProjects()
+        // this.visibleOnChange()
+        this.httpService.updateProject(this.current._id, data)
+          .subscribe((data: any) => {
+            this.getAllProjects()
+            this.visibleOnChange()
+        })
       } else {
-        this.fakeRequestService.createProject(data)
-        this.getAllProjects()
-        this.visibleOnChange()
-        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-        user.data.projectIds.push(data._id)
-        // this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-        //   .subscribe((data: any) => {
-        //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-        //     user.data.projectIds.push(data._id)
-        //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-        //     this.getAllProjects()
-        //     this.visibleOnChange()
-        // })
+        // this.fakeRequestService.createProject(data)
+        // this.getAllProjects()
+        // this.visibleOnChange()
+        // const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+        // user.data.projectIds.push(data._id)
+        this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+          .subscribe((data: any) => {
+            const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+            user.data.projectIds.push(data._id)
+            this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+            this.getAllProjects()
+            this.visibleOnChange()
+        })
       }
     }
   }

@@ -83,7 +83,6 @@ export class RegistrationComponent {
   }
 
   public async onSubmit(form: any): Promise<void> {
-    console.log(window.location.href)
     if (window.location.href.match('owner')) {
       this.user.type = 'USER'
     } else {

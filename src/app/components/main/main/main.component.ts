@@ -80,13 +80,13 @@ export class MainComponent {
   }
 
   public getAllProjects(): void {
-    this.projects = this.fakeRequestService.getProjects()
-    this.projectsList = Array.from(this.projects)
-    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-    //   .subscribe((data: any) => {
-    //     this.projects = data
-    //     this.projectsList = Array.from(this.projects)
-    //   })
+    // this.projects = this.fakeRequestService.getProjects()
+    // this.projectsList = Array.from(this.projects)
+    this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .subscribe((data: any) => {
+        this.projects = data
+        this.projectsList = Array.from(this.projects)
+      })
   }
 
   public visibleOnChange(key: string): void {
@@ -117,17 +117,17 @@ export class MainComponent {
     this.navigate('analyze')
   }
 
-  public selectForCogBalanceModel(id: any, event: any) {
-    event.stopPropagation()
-    const index = this.projects.findIndex((el: any) => el._id === id)
-    Object.keys(this.projects[index]).forEach((key: string) => {
-      // TODO: type error
-      // @ts-expect-error
-      this.currentProject[key] = this.projects[index][key]
-    })
-    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    this.navigate('balance')
-  }
+  // public selectForCogBalanceModel(id: any, event: any) {
+  //   event.stopPropagation()
+  //   const index = this.projects.findIndex((el: any) => el._id === id)
+  //   Object.keys(this.projects[index]).forEach((key: string) => {
+  //     // TODO: type error
+  //     // @ts-expect-error
+  //     this.currentProject[key] = this.projects[index][key]
+  //   })
+  //   this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+  //   this.navigate('balance')
+  // }
 
 
   public navigate(path: string) {
@@ -168,17 +168,17 @@ export class MainComponent {
 
   public removeProjects(id: string, event: any) {
     event.stopPropagation()
-    this.fakeRequestService.deleteProjects(id)
-    this.getAllProjects()
-    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-    //   .subscribe(() => {
-    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-    //     const index = user.data.projectIds.indexOf(id);
-    //     if (index > -1 && user && user.projectIds) {
-    //       user.projectIds.splice(index, 1);
-    //     }
-    //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-    //     this.getAllProjects()
-    //   })
+    // this.fakeRequestService.deleteProjects(id)
+    // this.getAllProjects()
+    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .subscribe(() => {
+        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+        const index = user.data.projectIds.indexOf(id);
+        if (index > -1 && user && user.projectIds) {
+          user.projectIds.splice(index, 1);
+        }
+        this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+        this.getAllProjects()
+      })
   }
 }

@@ -2,21 +2,19 @@
 <main class="main">
   <section>
     <h1>{{'pages.main.main.headerProjects' | translate}}</h1>
-    @if (user.type === 'USER') {
-      <div class="flex space-between">
-        <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
-        <input
-          type="text"
-          pInputText
-          [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
-          [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
-          tooltipPosition="top"
-          name="name"
-          [(ngModel)]="search.project"
-          (ngModelChange)="findProjects()"
-          />
-      </div>
-    }
+    <div class="flex space-between">
+      <p-button [label]="`${'pages.main.main.addNewProjectButton' | translate}`" (click)="showDialogProjects()" />
+      <input
+        type="text"
+        pInputText
+        [placeholder]="`${'pages.main.main.searchProjectPlaceholder' | translate}`"
+        [pTooltip]="`${'pages.main.main.searchProjectTolltip' | translate}`"
+        tooltipPosition="top"
+        name="name"
+        [(ngModel)]="search.project"
+        (ngModelChange)="findProjects()"
+        />
+    </div>
     <div legend="Projects" class="container">
       @for (project of projectsList; track project) {
         <p-card
@@ -38,34 +36,25 @@
             <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}: </span>{{project.subinfo}}</p>
           </ng-template>
           <ng-template #footer>
-            @if (user.type === 'USER') {
-              <div class="flex space-evenly">
-                <p-button
-                  [label]="`${'pages.main.main.updateButton' | translate}`"
-                  [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
-                  tooltipPosition="top"
-                  severity="warn"
-                  (click)="showDialogProjects(true, project._id, $event)"/>
-                <p-button
-                  [label]="`${'pages.main.main.removeButton' | translate}`"
-                  [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
-                  severity="danger"
-                  (click)="removeProjects(project._id, $event)"/>
-              </div>
-            }
             <div class="flex space-evenly">
               <p-button
-                label="Метод комплексного аналізу стейкхолдерів"
-                pTooltip="Натисніть, щоб перейти на сторінку методу комплексного аналізу стейкхолдерів"
-                severity="primary"
-                (click)="selectForCogAnalyzeModel(project._id, $event)"/>
+                [label]="`${'pages.main.main.updateButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
+                tooltipPosition="top"
+                severity="warn"
+                (click)="showDialogProjects(true, project._id, $event)"/>
+              <p-button
+                [label]="`${'pages.main.main.removeButton' | translate}`"
+                [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"
+                severity="danger"
+                (click)="removeProjects(project._id, $event)"/>
             </div>
             <div class="flex space-evenly">
               <p-button
-                label="Метод балансування інтересів стейкхолдерів"
-                pTooltip="Натисніть, щоб перейти на сторінку методу балансування інтересів стейкхолдерів"
+                label="Аналіз"
+                pTooltip="Натисніть, щоб перейти на сторінку аналізу"
                 severity="primary"
-                (click)="selectForCogBalanceModel(project._id, $event)"/>
+                (click)="selectForCogAnalyzeModel(project._id, $event)"/>
             </div>
           </ng-template>
         </p-card>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SolutionComponent } from './solution.component';
+import { ButterflyMethodComponent } from './butterfly-method.component';
 
-describe('SolutionComponent', () => {
-  let component: SolutionComponent;
-  let fixture: ComponentFixture<SolutionComponent>;
+describe('ButterflyMethodComponent', () => {
+  let component: ButterflyMethodComponent;
+  let fixture: ComponentFixture<ButterflyMethodComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SolutionComponent]
+      imports: [ButterflyMethodComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SolutionComponent);
+    fixture = TestBed.createComponent(ButterflyMethodComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

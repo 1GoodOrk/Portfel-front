@@ -14,11 +14,10 @@ export const routes: Routes = [
 
 
   {path: 'analyze', loadComponent: () => import('./components/projects/analyze/analyze.component').then(mod => mod.AnalyzeComponent)},
-  {path: 'balance', loadComponent: () => import('./components/projects/balance/balance.component').then(mod => mod.BalanceComponent)},
-  // {path: 'phase-risks', loadComponent: () => import('./components/projects/main/main.component').then(mod => mod.MainComponent)},
-  // {path: 'phase-creation', loadComponent: () => import('./components/projects/phase/pcreation/pcreation.component').then(mod => mod.PcreationComponent)},
-  // {path: 'phase-info/:id', loadComponent: () => import('./components/projects/phase/pinfo/pinfo.component').then(mod => mod.PinfoComponent)},
-  // {path: 'phases-analyze', loadComponent: () => import('./components/projects/phase/panalyze/panalyze.component').then(mod => mod.PanalyzeComponent)},
+  {path: 'analyze-butterfly', loadComponent: () => import('./components/projects/analyze/butterfly-method/butterfly-method.component').then(mod => mod.ButterflyMethodComponent)},
+  {path: 'analyze-stairs', loadComponent: () => import('./components/projects/analyze/stairs-method/stairs-method.component').then(mod => mod.StairsMethodComponent)},
+  {path: 'analyze-solution', loadComponent: () => import('./components/projects/analyze/solutions/solutions.component').then(mod => mod.SolutionsComponent)},
+  {path: 'analyze-result', loadComponent: () => import('./components/projects/analyze/result/result.component').then(mod => mod.ResultComponent)},
 
   {path: '**', redirectTo: '/login' },
 ];

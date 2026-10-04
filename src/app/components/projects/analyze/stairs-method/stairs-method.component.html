@@ -7,5 +7,164 @@
       severity="primary"
       (click)="back()"/>
   </div>
+  <section>
+    <p-button
+      label="Створити ризик"
+      pTooltip="Натисніть, щоб створити новий ризик"
+      tooltipPosition="top"
+      severity="primary"
+      (click)="openDialogAddUpdateRow()"/>
+    <div class="container-analyze flex column">
+      <h2> <span class="bold">Ризики</span></h2>
+    </div>
+    @if (currentRiskTables) {
+      <div class="flex">
+        <p-button
+          label="Усі"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          (click)="tableFilter('All')"/>
+        <p-button
+          label="Критичні"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'red', 'border-color': 'red' }"
+          (click)="tableFilter('Критична')"/>
+        <p-button
+          label="Високі"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkred', 'border-color': 'darkred' }"
+          (click)="tableFilter('Висока')"/>
+        <p-button
+          label="Помірні"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkgoldenrod', 'border-color': 'darkgoldenrod' }"
+          (click)="tableFilter('Помірна')"/>
+        <p-button
+          label="Низькі"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkgreen', 'border-color': 'darkgreen' }"
+          (click)="tableFilter('Низька')"/>
+        <p-button
+          label="Неістотні"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'rgba(29, 227, 227, 0.9)', 'border-color': 'rgba(29, 227, 227, 0.9)' }"
+          (click)="tableFilter('Unused')"/>
+        <p-button
+          label="Істотні"
+          pTooltip="Натисніть, щоб створити новий ризик"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'rgba(153, 102, 255, 0.9)', 'border-color': 'rgba(153, 102, 255, 0.9)' }"
+          (click)="tableFilter('Used')"/>
+      </div>
+      <div class="table-container">
+        <p-table [value]="currentRiskTables?.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+          <ng-template #header>
+              <tr>
+                @for (th of currentRiskTables?.th; track `th-id-${th}`) {
+                  <th [id]="`th-id-${th}`">{{ th }}</th>
+                }
+              </tr>
+          </ng-template>
+          <ng-template #body let-tds let-rowIndex="rowIndex">
+            <tr>
+              @for (td of tds; track `td-id-${td}${$index}`) {
+                @if ($index === 4 || $index === 5) {
+                  <td
+                    class="bold"
+                    [style]="{
+                      color: td === 'Критична' || (+td.split(' %')[0] > 75) ? 'red' :
+                      td === 'Висока' || (+td.split(' %')[0] > 50) ? 'darkred' :
+                      td === 'Помірна' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
+                    }">
+                      {{td}}
+                  </td>
+                } @else {
+                  <td [id]="`td-id-${td}`">{{td}}</td>
+                }
+              }
+              <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
+                <div class="actions">
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб переглянути цей ризик"
+                    tooltipPosition="top"
+                    severity="secondary"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogInfo(rowIndex)"
+                    aria-label="Notification">
+                      <svg data-p-icon="eye"></svg>
+                  </button>
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб оновити цей ризик"
+                    tooltipPosition="top"
+                    severity="warn"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogAddUpdateRow(rowIndex)"
+                    aria-label="Notification">
+                      <svg data-p-icon="pencil"></svg>
+                  </button>
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб видалити цей ризик"
+                    tooltipPosition="left"
+                    severity="danger"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="remove(rowIndex)"
+                    aria-label="Cancel">
+                      <svg data-p-icon="times"></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+  </section>
+  <section>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+  </section>
 </main>
 <app-footer></app-footer>
+<app-creation-dialog
+  [visible]="visible.creation"
+  (changeVisibleEvent)="visibleOnChange($event)"
+  (submitionUpdateEvent)="updateRisk($event)"
+  (submitionCreateEvent)="createRisk($event)"></app-creation-dialog>

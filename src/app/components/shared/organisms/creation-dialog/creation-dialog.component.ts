@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -20,7 +20,7 @@ import { DialogModule } from 'primeng/dialog';
 import { IProjectData } from '@port/interfaces';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
-import { FakeRequestService } from '@port/services/fake-request.service';
+import { v6 } from 'uuid';
 
 @Component({
   selector: 'app-creation-dialog',
@@ -46,134 +46,87 @@ import { FakeRequestService } from '@port/services/fake-request.service';
   templateUrl: './creation-dialog.component.html',
   styleUrl: './creation-dialog.component.scss'
 })
-export class CreationDialogComponent {
+export class CreationDialogComponent implements OnDestroy {
   @Input() visible: boolean = false;
-  // TODO: generated type for input decorator
-  // @Input() formData: T = {
-  public current: any
-  public formData: any = {
-    _id: '',
-    name: '',
-    subinfo: '',
-    type: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    responsibleOrganization: '',
-    budget: 0,
-    budgetSource: '',
-    processDuration: 0,
-    profit: 0,
-    traffic: 0,
-    forecastProjectTaskAmount: 0,
-    road: '',
-    distance: 0,
-    mainRoad: false,
-    dateCreation: '',
-    dateInitialization: '',
-    permissionDuration: 0,
-    score: 0,
-    priority: 0
-  };
+  public subscription: any
+  public currentProjectID: any
+  public data: any = null
+  public currentMode: string = 'logistic'
+  public header: string = 'Створити проект'
 
   @Output() changeVisibleEvent = new EventEmitter<string>();
-  @Output() submitionEvent = new EventEmitter<string>();
+  @Output() submitionUpdateEvent = new EventEmitter<string>();
+  @Output() submitionCreateEvent = new EventEmitter<string>();
 
   public inputs: any = {}
 
   constructor(
     private appCommunicationService: AppCommunicationService,
-    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
-    this.inputs = this.appCommunicationService.getInputsForm(['logistic'])
-    this.current = this.appCommunicationService.getCurrentProject()
-    if (this.current._id) {
-      this.inputs.logistic = this.inputs.logistic.map((input: any) => {
-        input.value = this.current[input.name]
+    this.inputs = this.appCommunicationService.getInputsForm([this.currentMode])
+    this.communicationUpdate()
+  }
+
+  private communicationUpdate(): void {
+    this.subscription = this.appCommunicationService.infoCreate.subscribe((data: any) => {
+      this.inputs = this.appCommunicationService.getInputsForm([data.inputRowsName])
+      this.currentProjectID = this.appCommunicationService.currentProject.id
+      this.currentMode = data.inputRowsName
+      this.header = data.header
+      if (data.inputRowsName === 'butterfly' || data.inputRowsName === 'stairs') {
+        this.data = this.appCommunicationService.getCurrentRisk()
+        console.log(this.data)
+      } else if (data.inputRowsName === 'solution') {
+        this.data = this.appCommunicationService.getCurrentSolution()
+      } else {
+        this.data = this.appCommunicationService.getCurrentProject()
+      }
+      this.inputs[this.currentMode] = this.inputs[this.currentMode].map((input: any) => {
+        if (input.name) {
+          input.value = this.data ? this.data[input.name] : ''
+        }
         return input
       })
-    } else {
-      this.inputs.logistic = this.inputs.logistic.map((input: any) => {
-        input.value = typeof input.value === 'string' ? '' : 0
-        return input
-      })
-    }
+    })
   }
 
   public visibleOnChange(): void {
     this.changeVisibleEvent.emit('creation');
   }
 
-  public getAllProjects(): void {
-    this.submitionEvent.emit();
+  public cancel(form: NgForm): void {
+    form.resetForm()
+    this.visibleOnChange()
   }
 
-  public updateProject(id: string, form: any) {
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
+  public update(form: any): void {
     if (form.valid) {
-      const data: any = Object.assign(this.current)
-      this.inputs.logistic.forEach((el: any) => {
-        if (el.name === 'type') {
-          data[el.name] = el.items.find((item: any) => item.value === el.value).label
-        } else {
-          data[el.name] = el.value
+      this.inputs[this.currentMode].forEach((input: any) => {
+        if (input.name) {
+          this.data[input.name] = input.value
         }
       })
-      // this.fakeRequestService.updateProject(this.current._id, data)
-      // this.getAllProjects()
-
-      // form.resetForm()
-      // this.formData = Object.assign(this.appCommunicationService.clearProject)
-      // this.visibleOnChange()
-      this.httpService.updateProject(id, data)
-        .subscribe((data: any) => {
-          if (data) {
-            this.getAllProjects()
-            form.resetForm()
-            this.formData = Object.assign(this.appCommunicationService.clearProject)
-            this.visibleOnChange()
-          }
-        })
+      form.resetForm()
+      this.submitionUpdateEvent.emit(this.data)
     }
   }
 
-  public createProject(form: any) {
+  public create(form: any): void {
     if (form.valid) {
-      const data: any = {
-        options: {}
-      }
-      this.inputs.logistic.forEach((el: any) => {
-        if (el.name === 'type') {
-          data[el.name] = el.items.find((item: any) => item.value === el.value).label
-        } else {
-          data[el.name] = el.value
+      this.data = {}
+      this.data._id = v6()
+      this.inputs[this.currentMode].forEach((input: any) => {
+        if (input.name) {
+          this.data[input.name] = input.value
         }
       })
-      data.analyze = {}
-      if (this.current._id) {
-        // this.fakeRequestService.updateProject(this.current._id, data)
-        // this.getAllProjects()
-        // this.visibleOnChange()
-        this.httpService.updateProject(this.current._id, data)
-          .subscribe((data: any) => {
-            this.getAllProjects()
-            this.visibleOnChange()
-        })
-      } else {
-        // this.fakeRequestService.createProject(data)
-        // this.getAllProjects()
-        // this.visibleOnChange()
-        // const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-        // user.data.projectIds.push(data._id)
-        this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-          .subscribe((data: any) => {
-            const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-            user.data.projectIds.push(data._id)
-            this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
-            this.getAllProjects()
-            this.visibleOnChange()
-        })
-      }
+      form.resetForm()
+      this.submitionCreateEvent.emit(this.data)
     }
   }
 }

@@ -66,8 +66,10 @@
 </main>
 <app-footer></app-footer>
 
-<app-info-dialog [visible]="visible.info" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 
-@if (visible.creation) {
-  <app-creation-dialog [visible]="visible.creation" (changeVisibleEvent)="visibleOnChange($event)" (submitionEvent)="getAllProjects()"></app-creation-dialog>
-}
+<app-creation-dialog
+  [visible]="visible.creation"
+  (changeVisibleEvent)="visibleOnChange($event)"
+  (submitionUpdateEvent)="updateProject($event)"
+  (submitionCreateEvent)="createProject($event)"></app-creation-dialog>

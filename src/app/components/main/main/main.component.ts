@@ -145,7 +145,9 @@ export class MainComponent {
     } else {
       this.currentProject = Object.assign(this.appCommunicationService.clearProject)
     }
-    this.visible.info = !this.visible.info
+    this.appCommunicationService.saveCurrentProject(this.currentProject)
+    this.visible.info = true
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'logistic', header: 'Переглянути проект' })
   }
 
   public showDialogProjects(mode?: boolean, id?: string, event?: any) {
@@ -164,6 +166,7 @@ export class MainComponent {
     }
     this.appCommunicationService.saveCurrentProject(this.currentProject)
     this.visible.creation = true
+    this.appCommunicationService.sendCreateData({ inputRowsName: 'logistic', header: id ? 'Оновити проект' : 'Створити проект' })
   }
 
   public removeProjects(id: string, event: any) {
@@ -181,4 +184,31 @@ export class MainComponent {
         this.getAllProjects()
       })
   }
+
+  public updateProject(data: any): void {
+    this.httpService.updateProject(this.currentProject._id, data)
+      .subscribe((data: any) => {
+        if (data) {
+          this.getAllProjects()
+          this.visible.creation = false
+        }
+      })
+  }
+
+  public createProject(data: any): void {
+    console.log(data)
+    this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+      .subscribe((data: any) => {
+        if (data) {
+          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
+          user.data.projectIds.push(data._id)
+          this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+          this.getAllProjects()
+          this.visible.creation = false
+        }
+      })
+  }
+
+
+  // набор средств
 }

@@ -11,7 +11,19 @@
   <h1>Моніторинг проекту</h1>
   <p-divider></p-divider>
   <section>
+    <h2>Загальний стан</h2>
+    <h3>Загальна кількість ризиків: {{current.all}}</h3>
+    <h3>Ризики, що знаходяться на моніторингу: {{current.check}}</h3>
+    <h3>Ризики, які потребують вирішення: {{current.critical}}</h3>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+  </section>
+  <p-divider></p-divider>
+  <section>
     <h2>Результат аналізу моделі "Метелик"</h2>
+    <h3>Загальна кількість ризиків: {{butterfly.all}}</h3>
+    <h3>Ризики, що знаходяться на моніторингу: {{butterfly.check}}</h3>
+    <h3>Ризики, які потребують вирішення: {{butterfly.critical}}</h3>
+    <p-chart type="bar" [data]="basicButterflyData" [options]="basicOptions" />
     <div class="flex">
       <p-button
         label="Дані обробки методу 'Метелик'"
@@ -23,6 +35,10 @@
   <p-divider></p-divider>
   <section>
     <h2>Результат аналізу моделі "Сходи"</h2>
+    <h3>Загальна кількість ризиків: {{stairs.all}}</h3>
+    <h3>Ризики, що знаходяться на моніторингу: {{stairs.check}}</h3>
+    <h3>Ризики, які потребують вирішення: {{stairs.critical}}</h3>
+    <p-chart type="bar" [data]="basicStairsData" [options]="basicOptions" />
     <div class="flex">
       <p-button
         label="Дані обробки методу 'Сходи'"
@@ -42,18 +58,8 @@
         (click)="navigate('analyze-solution')"/>
     </div>
   </section>
-  <p-divider></p-divider>
-  <section>
-    <h2>Загальний стан</h2>
-    <div class="flex">
-      <p-button
-        label="Оглянути докладний стан проекту"
-        pTooltip="Натисніть, щоб перейти на сторінку стану проекту"
-        severity="primary"
-        (click)="navigate('analyze-result')"/>
-    </div>
-  </section>
 
 </main>
 <app-footer></app-footer>
-<app-info-dialog [visible]="visible.project" [currentProject]="currentProject" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>

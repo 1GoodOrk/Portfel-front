@@ -1,64 +1,61 @@
 <p-dialog
-  [header]="`${'pages.portfolio.dialog.infoDialogHeaderFirstPart' | translate} ${currentProject.name} ${'pages.portfolio.dialog.infoDialogHeaderLastPart' | translate}`"
+  [header]="header"
   [modal]="true"
   [(visible)]="visible"
   (visibleChange)="visibleOnChange()"
-  [style]="{ width: '40rem' }">
-  <!-- @if (currentProject.img) {
+  [style]="{ width: '40rem', 'max-height': '700px' }">
+  @if (data) {
     <div>
-      <img alt="Card" class="w-full" [src]="currentProject.img" />
-    </div>
-  } -->
-  <div>
-    @for (valueKey of infoPageProjectValueKeys; track valueKey) {
-      @if (!valueKey.type) {
-        @if (currentProject[valueKey.propName] && currentProject[valueKey.propName][0] && currentProject[valueKey.propName][0].label) {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span>
-            @for (item of currentProject[valueKey.propName]; track item) {
-              @if ($index === currentProject[valueKey.propName].length - 1) {
-                {{item.label}}
-              } @else {
-                {{item.label + ', '}}
+      @for (valueKey of infoPageProjectValueKeys; track valueKey) {
+        @if (!valueKey.type) {
+          @if (data[valueKey.propName] && data[valueKey.propName][0] && data[valueKey.propName][0].label) {
+            <p> <span class="bold">{{valueKey.label | translate}}:</span>
+              @for (item of data[valueKey.propName]; track item) {
+                @if ($index === data[valueKey.propName].length - 1) {
+                  {{item.label}}
+                } @else {
+                  {{item.label + ', '}}
+                }
               }
-            }
-          </p>
-        } @else {
-          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName]}}
-            @if (!valueKey.type) {
-              {{valueKey.suffix | translate}}
-            }
-          </p>
-        }
-      } @else if (valueKey.type === 'divider') {
-        <p-divider />
-      } @else if (valueKey.type === 'date') {
-        <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName] | date: 'dd/MM/yyyy'}}</p>
-      } @else if (valueKey.type === 'multyInOne') {
-        <p> <span class="bold">{{valueKey.label | translate}}:</span>
-          @for (item of valueKey.items; track item) {
-            {{currentProject[item.propName] + ' '}}
-          }
-        </p>
-      } @else if (valueKey.type === 'options') {
-        <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
-        @for (item of valueKey.items; track item) {
-          <p> {{item.label | translate}}: {{currentProject.options[item.propName]}} %</p>
-        }
-      } @else if (valueKey.type === 'permission') {
-        @if (currentProject[valueKey.propPermission]) {
-          @if (valueKey.items && valueKey.items[0] && valueKey.items[0].type === 'deepInside') {
-            @for (item of valueKey.items; track item) {
-              <p> <span class="bold">{{item.label | translate}}:</span> {{currentProject[item.propNames[0]][item.propNames[1]]}} </p>
-            }
+            </p>
           } @else {
-            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{currentProject[valueKey.propName]}}
+            <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName]}}
               @if (!valueKey.type) {
                 {{valueKey.suffix | translate}}
               }
             </p>
           }
+        } @else if (valueKey.type === 'divider') {
+          <p-divider />
+        } @else if (valueKey.type === 'date') {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName] | date: 'dd/MM/yyyy'}}</p>
+        } @else if (valueKey.type === 'multyInOne') {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span>
+            @for (item of valueKey.items; track item) {
+              {{data[item.propName] + ' '}}
+            }
+          </p>
+        } @else if (valueKey.type === 'options') {
+          <p> <span class="bold">{{valueKey.label | translate}}:</span></p>
+          @for (item of valueKey.items; track item) {
+            <p> {{item.label | translate}}: {{data.options[item.propName]}} %</p>
+          }
+        } @else if (valueKey.type === 'permission') {
+          @if (data[valueKey.propPermission]) {
+            @if (valueKey.items && valueKey.items[0] && valueKey.items[0].type === 'deepInside') {
+              @for (item of valueKey.items; track item) {
+                <p> <span class="bold">{{item.label | translate}}:</span> {{data[item.propNames[0]][item.propNames[1]]}} </p>
+              }
+            } @else {
+              <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName]}}
+                @if (!valueKey.type) {
+                  {{valueKey.suffix | translate}}
+                }
+              </p>
+            }
+          }
         }
       }
-    }
-  </div>
+    </div>
+  }
 </p-dialog>

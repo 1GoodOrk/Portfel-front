@@ -8,13 +8,14 @@ import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChartModule } from 'primeng/chart';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { StackholderComponent } from './stackholder/stackholder.component';
+import { HttpService } from '@port/services/http.service';
 
 @Component({
   selector: 'app-analyze',
@@ -26,8 +27,8 @@ import { StackholderComponent } from './stackholder/stackholder.component';
     HeaderComponent,
     FooterComponent,
     TooltipModule,
+    ChartModule,
     InfoDialogComponent,
-    StackholderComponent,
     DividerModule,
     TableModule,
     ButtonModule,
@@ -39,78 +40,156 @@ import { StackholderComponent } from './stackholder/stackholder.component';
   styleUrl: './analyze.component.scss',
 })
 export class AnalyzeComponent {
-  public current: any = {}
+  public current: any = {
+    all: 0,
+    check: 0,
+    critical: 0
+  }
+  public stairs: any = {
+    all: 0,
+    check: 0,
+    critical: 0
+  }
+  public butterfly: any = {
+    all: 0,
+    check: 0,
+    critical: 0
+  }
+  public basicData: any = {}
+  public basicStairsData: any = {}
+  public basicButterflyData: any = {}
+  public basicOptions: any = {}
   public currentProject: any = {}
   public risksData: any = []
 
+  public inputs: any = {}
+
   public visible: any = {
-    project: false
+    info: false
   }
 
   constructor(
     private router: Router,
-    private cdr: ChangeDetectorRef,
+    private httpService: HttpService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
-    // this.current = this.appCommunicationService.getCurrentExpertise()
-    if (this.currentProject.stackholderData) {
-      if (!this.currentProject.stackholderData.tableParams) {
-        this.currentProject.stackholderData.tableParams = { td: [], th: ['Стейкхолдер'] }
-      }
-      if (!this.currentProject.stackholderData.analyzeTable) {
-        this.currentProject.stackholderData.analyzeTable = {
-          tableParams: { td: [], th: [] }
-        }
-        this.currentProject.stackholderData.analyzeTable.tableParams.td = {td: [], th: []}
-      }
-      this.updateView()
-    }
+    this.recreateCharts()
   }
-
-  public updateView() {
-    this.calculationOfMainTable()
-    // this.current.risksData
-    //   .forEach((el: any, index: number) => {
-
-    //     this.risksData.push({
-    //       expert: this.current.email.find((mail: any) => mail.email === el.email).name,
-    //       tableParams: el.tableParams,
-    //       analyzeTable: el.analyzeTable,
-    //       additionalTableParams: el.additionalTableParams,
-    //       recommendationDescription: el.recommendationDescription,
-    //       fields: this.current.approve.fields.map((field: any) => ({ label: field.label, value: field.approve.find((appr: any) => appr.email === el.email).value })),
-    //       graph: {}
-    //     })
-    //   })
-    // if (this.risksData[0].additionalTableParams) {
-    //   for (let i = 0; i < this.risksData.length; i++) {
-    //     this.createCharts(i)
-    //   }
-    // }
-  }
-
-  public navigate(path: string) {
-    this.router.navigateByUrl(`/${path}`);
-  }
-
-  public back() {
-    this.navigate('cog-model')
-  }
-
-  private calculationOfMainTable() {
-
-  }
-
 
   public showInfoProjectDialog(event?: any): void {
     event.stopPropagation()
-    this.visible.project = !this.visible.project
+    this.visible.info = true
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'logistic', header: `Переглянути проект "${this.currentProject.name}"` })
   }
 
   public visibleOnChange(key: string): void {
     this.visible[key] = !this.visible[key]
   }
 
+  public navigate(path: string) {
+    this.router.navigateByUrl(`/${path}`);
+  }
 
+  public openDialogInfo(index: number): void {
+    this.appCommunicationService.saveCurrentRisk(this.currentProject.risks[index])
+    this.navigate(`risk/${this.currentProject.risks[index]._id}`)
+  }
+
+  public recreateCharts () {
+    this.currentProject.analyze.butterfly.forEach((el: any) => {
+      this.current.all++
+      this.butterfly.all++
+      if (el.status === 'Критична' || el.status === 'Помірна') {
+        this.current.critical++
+        this.butterfly.critical++
+      } else {
+        this.current.check++
+        this.butterfly.check++
+      }
+    });
+    this.currentProject.analyze.stairs.forEach((el: any) => {
+      this.current.all++
+      this.stairs.all++
+      if (el.status === 'Критична' || el.status === 'Помірна') {
+        this.current.critical++
+        this.stairs.critical++
+      } else {
+        this.current.check++
+        this.stairs.check++
+      }
+    });
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    this.basicData = {
+      labels: ['Усі', 'Моніторинг', 'Критичні'],
+      datasets: [
+        {
+          label: 'Ризики',
+          data: [this.current.all, this.current.check, this.current.critical],
+          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderWidth: 1
+        }
+      ]
+    };
+    this.basicStairsData = {
+      labels: ['Усі', 'Моніторинг', 'Критичні'],
+      datasets: [
+        {
+          label: 'Ризики',
+          data: [this.stairs.all, this.stairs.check, this.stairs.critical],
+          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderWidth: 1
+        }
+      ]
+    };
+    this.basicButterflyData = {
+      labels: ['Усі', 'Моніторинг', 'Критичні'],
+      datasets: [
+        {
+          label: 'Ризики',
+          data: [this.butterfly.all, this.butterfly.check, this.butterfly.critical],
+          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderWidth: 1
+        }
+      ]
+    };
+
+    this.basicOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        },
+        x: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    };
+  }
 }

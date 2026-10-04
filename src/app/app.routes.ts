@@ -17,7 +17,7 @@ export const routes: Routes = [
   {path: 'analyze-butterfly', loadComponent: () => import('./components/projects/analyze/butterfly-method/butterfly-method.component').then(mod => mod.ButterflyMethodComponent)},
   {path: 'analyze-stairs', loadComponent: () => import('./components/projects/analyze/stairs-method/stairs-method.component').then(mod => mod.StairsMethodComponent)},
   {path: 'analyze-solution', loadComponent: () => import('./components/projects/analyze/solutions/solutions.component').then(mod => mod.SolutionsComponent)},
-  {path: 'analyze-result', loadComponent: () => import('./components/projects/analyze/result/result.component').then(mod => mod.ResultComponent)},
+  {path: 'analyze-solution/current/:id', loadComponent: () => import('./components/projects/analyze/solutions/current/current.component').then(mod => mod.CurrentComponent)},
 
   {path: '**', redirectTo: '/login' },
 ];

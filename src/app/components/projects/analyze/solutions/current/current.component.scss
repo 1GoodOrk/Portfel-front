@@ -1,16 +1,10 @@
-.analyze-butterfly {
+.risk {
   max-width: 1024px;
   margin: 0 auto;
-  min-height: calc(100vh - 92px);
+  min-height: calc(100vh - 112px);
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 5px;
-  p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
   .container {
     display: flex;
     justify-content: space-evenly;
@@ -29,6 +23,7 @@
     margin: 10px 0;
     padding: 10px 10px 20px;
   }
+
   .table-container {
     display: flex;
     justify-content: space-evenly;
@@ -36,25 +31,28 @@
     padding: 10px 10px 20px;
   }
 
-  .line {
-    align-items: center;
-    margin-right: 40px;
+  .control-container {
+    display: flex;
+    justify-content: center;
+    .control {
+      width: max-content;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+      color: white;
+      border-radius: 20px;
+      padding: 0 20px;
+      background-color: darkred;
+      animation: blinker 3s linear infinite;
+      // animation: pulse 2s infinite;
+    }
   }
-  .square {
-    width: 15px;
-    height: 15px;
-    margin-right: 20px;
-  }
-  .light {
-    background-color: rgb(255, 127, 14);
-  }
-  .blue {
-    background-color: rgb(31, 119, 180);
-  }
-  .red {
-    background-color: #ef4444;
-  }
-  .green {
-    background-color: #14532d;
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.5;
+    }
   }
 }

@@ -24,7 +24,7 @@ import { HttpService } from '@port/services/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
 @Component({
-  selector: 'app-stackholder',
+  selector: 'app-factors',
   standalone: true,
   imports: [
     FormsModule,
@@ -47,14 +47,14 @@ import { FakeRequestService } from '@port/services/fake-request.service';
     ScrollerModule,
     TranslatePipe,
   ],
-  templateUrl: './stackholder.component.html',
-  styleUrl: './stackholder.component.scss',
+  templateUrl: './factors.component.html',
+  styleUrl: './factors.component.scss',
 })
-export class StackholderComponent {
+export class FactorsComponent {
   public currentProject: any = {}
   public inputs: any = {}
-  public stackholderData: any = {
-    tableParams: { td: [], th: ['Стейкхолдер'] }
+  public factorData: any = {
+    tableParams: { td: [], th: ['Фактор'] }
   }
   public timeOut: any
   @Output() updateView = new EventEmitter();
@@ -64,24 +64,25 @@ export class StackholderComponent {
     private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
-    this.inputs = this.appCommunicationService.getInputsForm(['stackholdersLogistic'])
+    this.inputs = this.appCommunicationService.getInputsForm(['factorLogistic'])
     this.currentProject = this.appCommunicationService.getCurrentProject()
-    if (this.currentProject.stackholderData) {
-      this.stackholderData = Object.assign(this.currentProject.stackholderData)
+    if (!this.currentProject.analyze.butterflyFactors) {
+      this.currentProject.analyze.butterflyFactors = []
+    }
+    if (this.currentProject.analyze.butterflyFactors) {
+      this.factorData = Object.assign(this.currentProject.analyze.butterflyFactorData)
     } else {
       this.recreateTable()
     }
   }
 
-  public removeStackholder(index: number) {
-    // this.stackholderData.tableParams = { td: [], th: ['Стейкхолдер'] }
-    // this.currentProject.stackholders = []
-    this.removeStackholderTable(this.currentProject.stackholders[index].name)
-    this.currentProject.stackholders.splice(index, 1)
+  public removeFactor(index: number) {
+    this.removeFactorTable(this.currentProject.analyze.butterflyFactors[index].name)
+    this.currentProject.analyze.butterflyFactors.splice(index, 1)
     this.httpService.updateProject(this.currentProject._id, this.currentProject)
       .subscribe(() => {
         this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-        this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
+        this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: any) => {
           input.value = ''
           return input
         })
@@ -90,13 +91,13 @@ export class StackholderComponent {
 
   }
 
-  public removeStackholderTable(name: string) {
-    const indexStackholder = this.stackholderData.tableParams.th.indexOf(name)
-    this.stackholderData.tableParams.th.splice(indexStackholder, 1)
-    this.stackholderData.tableParams.td.splice(indexStackholder - 1, 1)
-    this.stackholderData.tableParams.td = this.stackholderData.tableParams.td
+  public removeFactorTable(name: string) {
+    const elementIndex = this.factorData.tableParams.th.indexOf(name)
+    this.factorData.tableParams.th.splice(elementIndex, 1)
+    this.factorData.tableParams.td.splice(elementIndex - 1, 1)
+    this.factorData.tableParams.td = this.factorData.tableParams.td
       .map((td: any) => {
-        td.splice(indexStackholder, 1)
+        td.splice(elementIndex, 1)
         return td
       })
   }
@@ -104,50 +105,52 @@ export class StackholderComponent {
   public updateProject(form: any) {
     if (form.valid) {
       form.resetForm()
-      this.currentProject.stackholders.push({
-        name: this.inputs.stackholdersLogistic[0].value,
-        type: this.inputs.stackholdersLogistic[1].value
+      this.currentProject.analyze.butterflyFactors.push({
+        name: this.inputs.factorLogistic[0].value,
+        des: this.inputs.factorLogistic[1].value,
+        cause: this.inputs.factorLogistic[2].value,
+        type: this.inputs.factorLogistic[3].value,
       })
       this.recreateTable()
-      this.fakeRequestService.updateProject(this.currentProject._id, this.currentProject)
-      this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-      this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
-        input.value = ''
-        return input
-      })
+      // this.fakeRequestService.updateProject(this.currentProject._id, this.currentProject)
+      // this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      // this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
+      //   input.value = ''
+      //   return input
+      // })
       // this.getAllProjects()
-      // this.httpService.updateProject(this.currentProject._id, this.currentProject)
-      //   .subscribe(() => {
-      //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-      //     this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
-      //       input.value = ''
-      //       return input
-      //     })
-      //   })
+      this.httpService.updateProject(this.currentProject._id, this.currentProject)
+        .subscribe(() => {
+          this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+          console.log(this.currentProject)
+          this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: any) => {
+            input.value = ''
+            return input
+          })
+        })
     }
   }
 
   public recreateTable() {
-    this.currentProject.stackholders.forEach((stackholder: any) => {
-      console.log(this.stackholderData)
-      const indexStackholder = this.stackholderData.tableParams.th.indexOf(stackholder.name) - 1
-      if (indexStackholder > -1) {
-        this.stackholderData.tableParams.td[indexStackholder].push(0)
+    this.currentProject.analyze.butterflyFactors.forEach((factor: any) => {
+      const elementIndex = this.factorData.tableParams.th.indexOf(factor.name) - 1
+      if (elementIndex > -1) {
+        this.factorData.tableParams.td[elementIndex].push(0)
       } else {
-        this.stackholderData.tableParams.td.push([stackholder.name])
-        for (let index = 0; index < this.currentProject.stackholders.length; index++) {
-          this.stackholderData.tableParams.td[this.stackholderData.tableParams.td.length - 1].push(0)
+        this.factorData.tableParams.td.push([factor.name])
+        for (let index = 0; index < this.currentProject.analyze.butterflyFactors.length; index++) {
+          this.factorData.tableParams.td[this.factorData.tableParams.td.length - 1].push(0)
         }
-        this.stackholderData.tableParams.th.push(stackholder.name)
+        this.factorData.tableParams.th.push(factor.name)
       }
     })
   }
 
   public changeTable(event: any, rowIndex: number, index: number) {
-    this.stackholderData.tableParams.td[rowIndex][index] = event
+    this.factorData.tableParams.td[rowIndex][index] = event
     clearTimeout(this.timeOut)
     this.timeOut = setTimeout(() => {
-      this.currentProject.stackholderData = Object.assign(this.stackholderData)
+      this.currentProject.analyze.butterflyFactorData = Object.assign(this.factorData)
       this.httpService.updateProject(this.currentProject._id, this.currentProject)
         .subscribe(() => {
           this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))

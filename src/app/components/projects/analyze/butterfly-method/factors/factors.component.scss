@@ -1,8 +1,6 @@
-.stackholder {
-  // max-width: 1024px;
+.factor {
   margin: 0 auto;
   padding: 10px;
-  // border-radius: 5px;
   p-select {
     margin: 5px 0;
   }
@@ -21,7 +19,7 @@
     padding: 10px 10px 20px;
   }
   .scroll {
-    height: 145px;
+    height: 245px;
     overflow-y: auto;
     &::-webkit-scrollbar {
       width: 0;
@@ -30,9 +28,9 @@
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: #0f172a;
+      background-color: #14532d;
       border-radius: 20px;
-      border: 3px solid #0f172a;
+      border: 3px solid #14532d;
     }
   }
 

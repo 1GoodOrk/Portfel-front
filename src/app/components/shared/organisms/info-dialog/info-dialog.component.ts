@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TranslatePipe } from "@ngx-translate/core";
 
@@ -16,59 +16,41 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
   templateUrl: './info-dialog.component.html',
   styleUrl: './info-dialog.component.scss'
 })
-export class InfoDialogComponent {
+export class InfoDialogComponent implements OnDestroy {
   @Input() visible: boolean = false;
   @Output() changeVisibleEvent = new EventEmitter<string>();
-  // @Output() visible: boolean = false;
-  @Input() currentProject: any = {
-    _id: '',
-    name: '',
-    subinfo: '',
-    type: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    managerName: '',
-    managerSurname: '',
-    managerLastname: '',
-    responsibleOrganization: '',
-    budget: 0,
-    budgetSource: '',
-    processDuration: 0,
-    profit: 0,
-    traffic: 0,
-    forecastProjectTaskAmount: 0,
-    road: '',
-    distance: 0,
-    mainRoad: false,
-    inTown: false,
-    town: '',
-    addressStart: '',
-    addressEnd: '',
-    des: '',
-    img: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-    dateCreation: '',
-    dateInitialization: '',
-    permissionDuration: 0,
-    score: 0,
-    priority: 0,
-    options: {
-      eco: 0,
-      war: 0,
-      log: 0,
-      soc: 0,
-      struc: 0
-    }
-  }
+
+  public currentMode: string = 'logistic'
+  public data: any = null
+  public header: string = 'Переглянути проект'
+  public subscription: any
   public infoPageProjectValueKeys: any = []
 
   constructor (
     private appCommunicationService: AppCommunicationService
   ) {
-    this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys('logistic')]
+    this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys(this.currentMode)]
+    this.communicationUpdate()
+  }
+
+  private communicationUpdate(): void {
+    this.subscription = this.appCommunicationService.infoSub.subscribe((data: any) => {
+      this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys(data.inputRowsName)]
+      this.currentMode = data.inputRowsName
+      this.header = data.header
+      if (data.inputRowsName === 'solution') {
+        this.data = this.appCommunicationService.getCurrentSolution()
+      } else {
+        this.data = this.appCommunicationService.getCurrentProject()
+      }
+    })
   }
 
   public visibleOnChange(): void {
     this.changeVisibleEvent.emit('info');
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

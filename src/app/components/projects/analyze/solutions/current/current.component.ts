@@ -56,12 +56,14 @@ export class CurrentComponent {
     private httpService: HttpService,
     private appCommunicationService: AppCommunicationService
   ) {
-    // this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys('risk')]
     this.data = this.appCommunicationService.getCurrentRisk()
     this.currentGroup = this.appCommunicationService.getCurrentGroup()
+    this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys(`${this.currentGroup}Acc`)]
     this.currentProject = this.appCommunicationService.getCurrentProject()
-    this.recreateTable()
-    this.changeCharts()
+    if (this.data.solutions) {
+      this.recreateTable()
+      this.changeCharts()
+    }
   }
 
   public visibleOnChange(key: string): void {
@@ -80,7 +82,8 @@ export class CurrentComponent {
 
   private indexCalculation(data: any): any {
     data.value = +(data.probability * data.influence / 100).toFixed(2)
-    if (data.finalState !== 'Сценарій не вирішен') {
+    data.valueInfluence = +(data.probability * data.influence / 100).toFixed(2)
+    if (data.finalState !== 'Рішення не реалізовано') {
       data.disabled = true
       data.dateFinish = new Date().toISOString().split('T').join(' - ').split('Z')[0]
       data.control = 100
@@ -92,14 +95,14 @@ export class CurrentComponent {
   private riskValueRecalculation() {
     this.data.value = this.data.firstValue
     this.data.solutions.forEach((data: any) => {
-      if (data.finalState === 'Сценарій вирішен позитивно') {
+      if (data.finalState === 'Рішення реалізовано') {
         this.data.value = this.data.value > data.value ? +(this.data.value - data.value).toFixed(2) : 0
         if (this.data.value === 0) {
           this.data.status = 'Низька'
         } else {
           this.data.status = this.data.value > 75 ? 'Критична' : this.data.value > 50 ? 'Висока' : this.data.value > 25 ? 'Помірна' : 'Низька'
         }
-      } else if (data.finalState === 'Сценарій вирішен негативно') {
+      } else if (data.finalState === 'Рішення реалізовано з негативним результатом') {
         this.data.value = +(this.data.value + data.value).toFixed(2)
         this.data.status = this.data.value > 75 ? 'Критична' : this.data.value > 50 ? 'Висока' : this.data.value > 25 ? 'Помірна' : 'Низька'
       }
@@ -130,12 +133,12 @@ export class CurrentComponent {
 
   public recreateTable(): void {
     this.data.solutionTableParams = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус (позитивно, негативно, без впливу, не вирішено)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність стабілізації ризику (1 - 100)', 'Вплив рішення на стабілізацію ризику (1 - 100)', 'Ймовірні наслідки', 'Статус (позитивно, негативно, без впливу, не вирішено)', 'Реалізація %', 'Взаємодія'],
       td: [],
       disabled: []
     }
     this.data.solutions.forEach((solution: any) => {
-      this.data.solutionTableParams.td.push([solution.name, `${solution.probability} %`, `${solution.influence} %`, solution.consequences, solution.finalState, `${solution.value} %`])
+      this.data.solutionTableParams.td.push([solution.name, `${solution.probability} %`, solution.value, solution.consequences, solution.finalState, `${solution.control} %`])
     })
   }
 
@@ -150,26 +153,26 @@ export class CurrentComponent {
     } else {
       this.appCommunicationService.saveCurrentSolution(this.data.solutions[index])
     }
-    this.appCommunicationService.sendCreateData({ inputRowsName: 'solution', header: !index && index !== 0 ? 'Створити сценарій' : 'Оновити сценарій' })
+    this.appCommunicationService.sendCreateData({ inputRowsName: 'solution', header: !index && index !== 0 ? 'Створити рішення' : 'Оновити рішення' })
   }
 
   public openDialogInfo(index: number): void {
     this.visible.info = true
     this.appCommunicationService.saveCurrentSolution(this.data.solutions[index])
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'solution', header: 'Інформація про сценарій' })
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'solution', header: 'Інформація про рішення' })
   }
 
   private changeCharts(): void {
     if (!this.data.solutions) {
       return
     }
-    const solutions = this.data.solutions.filter((solution: any) => solution.finalState !== 'Сценарій не вирішен')
+    const solutions = this.data.solutions.filter((solution: any) => solution.finalState !== 'Рішення не реалізовано')
     const labels = [this.data.dateCreation, ...solutions.map((solution: any) => solution.dateFinish)]
     let secDigitalRiskIndex = this.data.firstValue
     const dataAk = [this.data.firstValue, ...solutions.map((solution: any) => {
-      if (solution.finalState === 'Сценарій вирішен позитивно') {
+      if (solution.finalState === 'Рішення реалізовано') {
         secDigitalRiskIndex = secDigitalRiskIndex - solution.value
-      } else if (solution.finalState === 'Сценарій вирішен негативно') {
+      } else if (solution.finalState === 'Рішення реалізовано з негативним результатом') {
         secDigitalRiskIndex = secDigitalRiskIndex + solution.value
       }
       return secDigitalRiskIndex

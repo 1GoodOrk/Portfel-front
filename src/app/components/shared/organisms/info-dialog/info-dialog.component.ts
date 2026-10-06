@@ -38,11 +38,14 @@ export class InfoDialogComponent implements OnDestroy {
       this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys(data.inputRowsName)]
       this.currentMode = data.inputRowsName
       this.header = data.header
-      if (data.inputRowsName === 'solution') {
+      if (data.inputRowsName === 'stairs' || data.inputRowsName === 'butterfly') {
+        this.data = this.appCommunicationService.getCurrentRisk()
+      } else if (data.inputRowsName === 'solution') {
         this.data = this.appCommunicationService.getCurrentSolution()
       } else {
         this.data = this.appCommunicationService.getCurrentProject()
       }
+      console.log(this.data)
     })
   }
 

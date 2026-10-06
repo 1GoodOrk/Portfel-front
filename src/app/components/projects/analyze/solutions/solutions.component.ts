@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Times, Pencil, Eye } from '@primeicons/angular';
+import { Eye } from '@primeicons/angular';
 import { FormsModule, NgForm } from '@angular/forms';
-import { TranslatePipe } from "@ngx-translate/core";
 
 import { AccordionModule } from 'primeng/accordion';
 import { StepperModule } from 'primeng/stepper';
@@ -15,27 +14,23 @@ import { TableModule } from 'primeng/table';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
-import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
 @Component({
   selector: 'app-solutions',
   imports: [
     AccordionModule,
     StepperModule,
     ButtonModule,
-    TranslatePipe,
     HeaderComponent,
     FooterComponent,
     TooltipModule,
-    CreationDialogComponent,
     FormsModule,
     DividerModule,
     InputNumberModule,
     SelectModule,
     TableModule,
-    Times, Pencil, Eye
+    Eye
   ],
   templateUrl: './solutions.component.html',
   styleUrl: './solutions.component.scss',
@@ -81,21 +76,25 @@ export class SolutionsComponent {
 
   public recreateTableButterfly(): void {
     this.currentButterflyRiskTables = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.analyze.butterfly.forEach((risk: any) => {
-      this.currentButterflyRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
+      if (risk.status === "Висока" || risk.status === "Критична") {
+        this.currentButterflyRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.moveState, risk.status, `${risk.value} %`])
+      }
     })
   }
 
   public recreateTableStairs(): void {
     this.currentStairsRiskTables = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.analyze.stairs.forEach((risk: any) => {
-      this.currentStairsRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
+      if (risk.value >= 50) {
+        this.currentStairsRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
+      }
     })
   }
 }

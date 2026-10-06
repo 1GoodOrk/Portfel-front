@@ -111,7 +111,7 @@ export class AnalyzeComponent {
     this.currentProject.analyze.stairs.forEach((el: any) => {
       this.current.all++
       this.stairs.all++
-      if (el.status === 'Критична' || el.status === 'Помірна') {
+      if (el.value >= 50) {
         this.current.critical++
         this.stairs.critical++
       } else {
@@ -125,19 +125,19 @@ export class AnalyzeComponent {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     this.basicData = {
-      labels: ['Усі', 'Моніторинг', 'Критичні'],
+      labels: ['Усі', 'Моніторинг', 'Вимагають прийняття рішення', 'Усі (модель "Метелик")', 'Моніторинг (модель "Метелик")', 'Вимагають прийняття рішення (модель "Метелик")', 'Усі (модель "Сходи")', 'Моніторинг (модель "Сходи")', 'Вимагають прийняття рішення (модель "Сходи")'],
       datasets: [
         {
           label: 'Ризики',
-          data: [this.current.all, this.current.check, this.current.critical],
-          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
-          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          data: [this.current.all, this.current.check, this.current.critical, this.butterfly.all, this.butterfly.check, this.butterfly.critical, this.stairs.all, this.stairs.check, this.stairs.critical],
+          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred', 'rgb(55, 7, 152)', 'darkblue', 'darkred','rgb(55, 7, 152)', 'darkblue', 'darkred'],
+          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred', 'rgb(55, 7, 152)', 'darkblue', 'darkred','rgb(55, 7, 152)', 'darkblue', 'darkred'],
           borderWidth: 1
         }
       ]
     };
     this.basicStairsData = {
-      labels: ['Усі', 'Моніторинг', 'Критичні'],
+      labels: ['Усі', 'Моніторинг', 'Вимагають прийняття рішення'],
       datasets: [
         {
           label: 'Ризики',
@@ -149,7 +149,7 @@ export class AnalyzeComponent {
       ]
     };
     this.basicButterflyData = {
-      labels: ['Усі', 'Моніторинг', 'Критичні'],
+      labels: ['Усі', 'Моніторинг', 'Вимагають прийняття рішення'],
       datasets: [
         {
           label: 'Ризики',

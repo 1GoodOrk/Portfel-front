@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Times, Pencil, Eye } from '@primeicons/angular';
 import { FormsModule, NgForm } from '@angular/forms';
-import { TranslatePipe } from "@ngx-translate/core";
 import * as d3 from 'd3';
 
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
+import { ChartModule } from 'primeng/chart';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
@@ -25,7 +25,7 @@ import { FactorsComponent } from './factors/factors.component';
     ButtonModule,
     TooltipModule,
     TableModule,
-    TranslatePipe,
+    ChartModule,
     HeaderComponent,
     FooterComponent,
     FactorsComponent,
@@ -37,18 +37,13 @@ import { FactorsComponent } from './factors/factors.component';
   styleUrl: './butterfly-method.component.scss',
 })
 export class ButterflyMethodComponent {
-
-  // Сортировка по проектным, операционным и дублирующим
-  // дата возникновения риска
-  // фактор, влияние и таблица взаимоотношений (из стекхолдер)
-  // сортировка факторов
-  // граф рисков и влияния
-  // расчитать проектного риска
-  // расчитать операционного риска
-  // расчитать дублирующего риска
   public current: any = {}
+
+  public currentMode: string = 'All'
+  public basicData: any = {}
+  public basicOptions: any = {}
   public currentRiskTables: any = {
-    th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+    th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
     td: []
   }
   public currentProject: any = {}
@@ -77,6 +72,7 @@ export class ButterflyMethodComponent {
     if (this.currentProject.analyze.butterflyFactorData) {
       this.createCharts()
     }
+    this.recreateCharts()
   }
 
   public navigate(path: string) {
@@ -114,6 +110,7 @@ export class ButterflyMethodComponent {
     data = this.indexCalculation(data)
     this.visible.creation = false
     this.recreateTable()
+    this.recreateCharts()
     this.updateProject()
   }
 
@@ -125,37 +122,45 @@ export class ButterflyMethodComponent {
     this.currentProject.analyze.butterfly.push(data)
     this.visible.creation = false
     this.recreateTable()
+    this.recreateCharts()
     this.updateProject()
   }
 
   public recreateTable(): void {
     this.currentProject.analyze.butterflyRisksTableParams = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.analyze.butterfly.forEach((risk: any) => {
-      this.currentProject.analyze.butterflyRisksTableParams.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
+      this.currentProject.analyze.butterflyRisksTableParams.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.moveState, risk.status, `${risk.value} %`])
     })
     this.tableFilter()
   }
 
   private refreshTable(): void {
     this.currentRiskTables = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.analyze.butterfly.forEach((risk: any) => {
-      this.currentRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
+      this.currentRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.moveState, risk.status, `${risk.value} %`])
     })
   }
 
-  public tableFilter(): void {
+  public tableFilter(mode?: string): void {
+    if (mode) {
+      this.currentMode = mode
+    }
     this.refreshTable()
+    if (this.currentMode !== 'All') {
+      this.currentRiskTables.td = this.currentRiskTables.td.filter((risk: any) => risk[4] === this.currentMode)
+    }
   }
 
   public openDialogInfo(index: number): void {
+    this.visible.info = true
     this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze.butterfly[index])
-    // this.navigate(`risk/${this.currentProject.analyze.butterfly[index]._id}`)
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'butterfly', header: 'Інформація про ризик' })
   }
 
   public openDialogAddUpdateRow(index?: number): void {
@@ -175,6 +180,65 @@ export class ButterflyMethodComponent {
 
   public updateView() {
     this.createCharts()
+  }
+
+  public recreateCharts () {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    const calculation = {
+      proj: 0,
+      oper: 0,
+      double: 0
+    }
+    this.currentRiskTables.td.forEach((el: any) => {
+      el[4] === 'Проектний' ? calculation.proj++ :
+        el[4] === 'Операційний' ? calculation.oper++ : calculation.double++
+    });
+    this.basicData = {
+      labels: ['Проектні', 'Операційні', 'Дублюючі'],
+      datasets: [
+        {
+          label: 'Ризики',
+          data: [calculation.proj, calculation.oper, calculation.double],
+          backgroundColor: ['darkgreen', 'darkblue', 'darkred'],
+          borderColor: ['darkgreen', 'darkblue', 'darkred'],
+          borderWidth: 1
+        }
+      ]
+    };
+
+    this.basicOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        },
+        x: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    };
   }
 
   async createCharts() {

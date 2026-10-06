@@ -7,11 +7,16 @@
         "label": "Назва ризику",
         "placeholder": "Назва",
         "pTooltip": "Назва ризику (код, повне ім'я, умовне позначення)",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "name"
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "code",
+        "label": "Код ризику",
+        "placeholder": "Код",
+        "pTooltip": "Введіть код ризику",
+        "value": ""
       },
       {
         "type": "text",
@@ -101,7 +106,7 @@
         "name": "moveState",
         "label": "Тип діяльності ризику",
         "pTooltip": "Виберіть тип діяльності ризику",
-        "value": "Сценарій не вирішен",
+        "value": "Проектний",
         "items": [
           { "label": "Проектний", "value": "Проектний" },
           { "label": "Операційний", "value": "Операційний" },
@@ -112,7 +117,7 @@
         "type": "number",
         "displayCondition": true,
         "name": "moneyMax",
-        "label": "Максимально допустимий обсяг фінансових ресурсів",
+        "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)",
         "pTooltip": "Введіть максимально допустимий обсяг фінансових ресурсів",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
@@ -177,11 +182,16 @@
         "label": "Назва ризику",
         "placeholder": "Назва",
         "pTooltip": "Назва ризику (код, повне ім'я, умовне позначення)",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "name"
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "code",
+        "label": "Код ризику",
+        "placeholder": "Код",
+        "pTooltip": "Введіть код ризику",
+        "value": ""
       },
       {
         "type": "text",
@@ -294,7 +304,7 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "aCoef",
+        "name": "bCoef",
         "label": "Ваговий коефіцієнт β (0 - 100)",
         "pTooltip": "Введіть ваговий коефіцієнт β",
         "errors": {
@@ -309,7 +319,7 @@
       {
         "type": "number",
         "displayCondition": true,
-        "name": "aCoef",
+        "name": "yCoef",
         "label": "Ваговий коефіцієнт γ (0 - 100)",
         "pTooltip": "Введіть ваговий коефіцієнт γ",
         "errors": {
@@ -325,7 +335,7 @@
         "type": "number",
         "displayCondition": true,
         "name": "moneyMax",
-        "label": "Максимально допустимий обсяг фінансових ресурсів",
+        "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)",
         "pTooltip": "Введіть максимально допустимий обсяг фінансових ресурсів",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
@@ -390,11 +400,16 @@
         "label": "Назва рішення",
         "placeholder": "Назва",
         "pTooltip": "Назва рішення (код, повне ім'я, умовне позначення)",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "name"
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "code",
+        "label": "Код рішення",
+        "placeholder": "Код",
+        "pTooltip": "Введіть код рішення",
+        "value": ""
       },
       {
         "type": "text",
@@ -403,11 +418,7 @@
         "label": "Ймовірні наслідки",
         "placeholder": "Наслідки",
         "pTooltip": "Опишіть вплив, який виникне внаслідок цього рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "consequences"
+        "value": ""
       },
       {
         "type": "text",
@@ -416,11 +427,7 @@
         "label": "Сфера прояву",
         "placeholder": "Сфера прояву",
         "pTooltip": "Опишіть сфера прояву рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "sphere"
+        "value": ""
       },
       {
         "type": "textarea",
@@ -485,7 +492,7 @@
       {
         "type": "textarea",
         "displayCondition": true,
-        "name": "sources",
+        "name": "sourcesDes",
         "label": "Необхідні ресурси",
         "placeholder": "Необхідні ресурси",
         "pTooltip": "Детальний опис необхідних ресурсів",
@@ -493,7 +500,7 @@
           "required": "pages.portfolio.dialog.descriptionRequired"
         },
         "value": "",
-        "refName": "sources"
+        "refName": "sourcesDes"
       },
       {
         "type": "number",
@@ -513,7 +520,7 @@
       {
         "type": "textarea",
         "displayCondition": true,
-        "name": "sources",
+        "name": "sourcesDesReal",
         "label": "Опис порядку реалізації управлінського впливу",
         "placeholder": "Опис порядку реалізації управлінського впливу",
         "pTooltip": "Детальний опис порядку реалізації управлінського впливу",
@@ -521,7 +528,7 @@
           "required": "pages.portfolio.dialog.descriptionRequired"
         },
         "value": "",
-        "refName": "sources"
+        "refName": "sourcesDesReal"
       },
       {
         "label": "Набор ресурсов"
@@ -544,25 +551,36 @@
         ]
       },
       {
+        "type": "number",
+        "displayCondition": true,
+        "name": "control",
+        "label": "Реалізація (1 - 100)",
+        "pTooltip": "Введіть реалізацію",
+        "value": "",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
         "type": "selector",
         "displayCondition": true,
         "name": "finalState",
-        "label": "Статус закінчення рішення",
-        "pTooltip": "Виберіть поточний статус закінчення рішення",
-        "value": "Сценарій не вирішен",
+        "label": "Статус реалізації рішення",
+        "pTooltip": "Виберіть поточний статус реалізації рішення",
+        "value": "Рішення не реалізовано",
         "items": [
-          { "label": "Сценарій не вирішен", "value": "Сценарій не вирішен" },
-          { "label": "Сценарій вирішен позитивно", "value": "Сценарій вирішен позитивно" },
-          { "label": "Сценарій вирішен, але не змінює статусу ризику", "value": "Сценарій вирішен, але не змінює статусу ризику" },
-          { "label": "Сценарій вирішен негативно", "value": "Сценарій вирішен негативно" }
+          { "label": "Рішення не реалізовано", "value": "Рішення не реалізовано" },
+          { "label": "Рішення реалізовано", "value": "Рішення реалізовано" },
+          { "label": "Рішення реалізовано, але не вплинуло на ризик", "value": "Рішення реалізовано, але не вплинуло на ризик" },
+          { "label": "Рішення реалізовано з негативним результатом", "value": "Рішення реалізовано з негативним результатом" }
         ]
       },
       {
         "type": "number",
         "displayCondition": true,
         "name": "money",
-        "label": "Максимально допустимий обсяг фінансових ресурсів",
-        "pTooltip": "Введіть максимально допустимий обсяг фінансових ресурсів",
+        "label": "Обсяг фінансових ресурсів (UAH)",
+        "pTooltip": "Введіть обсяг фінансових ресурсів",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -576,8 +594,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "time",
-        "label": "Максимально допустимий час реалізації (кален. д.)",
-        "pTooltip": "Введіть максимально допустимий час реалізації",
+        "label": "Час реалізації (кален. д.)",
+        "pTooltip": "Введіть час реалізації",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -606,8 +624,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "quality",
-        "label": "Mінімально допустимий рівень якості (1 - 100)",
-        "pTooltip": "Введіть максимально допустимий час реалізації",
+        "label": "Рівень якості (1 - 100)",
+        "pTooltip": "Введіть рівень якості",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -618,152 +636,6 @@
         "step": 1
       }
     ],
-        "solution": [
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "name",
-        "label": "Назва рішення",
-        "placeholder": "Назва",
-        "pTooltip": "Назва рішення (код, повне ім'я, умовне позначення)",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "name"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "cause",
-        "label": "Причини виникнення",
-        "placeholder": "Причини виникнення",
-        "pTooltip": "Опишіть причини виникнення рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "cause"
-      },
-      {
-        "type": "text",
-        "displayCondition": true,
-        "name": "consequences",
-        "label": "Ймовірні наслідки",
-        "placeholder": "Наслідки",
-        "pTooltip": "Опишіть вплив, який виникне внаслідок ціеї рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.nameRequired"
-        },
-        "value": "",
-        "refName": "consequences"
-      },
-      {
-        "type": "textarea",
-        "displayCondition": true,
-        "name": "des",
-        "label": "Опис рішення",
-        "placeholder": "Опис рішення",
-        "pTooltip": "Детальний опис рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.descriptionRequired"
-        },
-        "value": "",
-        "refName": "des"
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "influence",
-        "label": "Вплив рішення на перебіг проекту (1 - 100)",
-        "pTooltip": "Введіть вплив рішення на проект",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "influence",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "probability",
-        "label": "Ймовірність виникнення рішення (1 - 100)",
-        "pTooltip": "Введіть ймовірність виникнення рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 1,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "timeReaction",
-        "label": "Допустимий час впровадження (кален. д.)",
-        "pTooltip": "Введіть допустимий час впровадження рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "suffix": "d",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "number",
-        "displayCondition": true,
-        "name": "control",
-        "label": "Виконання (0 - 100)",
-        "pTooltip": "Введіть відсоток вирішення рішення",
-        "errors": {
-          "required": "pages.portfolio.dialog.termRequired"
-        },
-        "value": "",
-        "refName": "term",
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      {
-        "type": "multiselector",
-        "displayCondition": true,
-        "name": "restrictions",
-        "label": "Обмеження",
-        "pTooltip": "Виберіть обмеження, що супроводжують рішення",
-        "placeholder": "Обмеження",
-        "value": "",
-        "items": [
-          { "label": "Доступні ресурси", "value": "Доступні ресурси" },
-          { "label": "Технічні можливості", "value": "Технічні можливості" },
-          { "label": "Вимоги безпеки", "value": "Вимоги безпеки" },
-          { "label": "Нормативні обмеження", "value": "Нормативні обмеження" },
-          { "label": "Договірні обмеження", "value": "Договірні обмеження" },
-          { "label": "Організаційні обмеження", "value": "Організаційні обмеження" }
-        ]
-      },
-      {
-        "type": "selector",
-        "displayCondition": true,
-        "name": "finalState",
-        "label": "Статус закінчення сценарію",
-        "pTooltip": "Виберіть поточний статус закінчення рішення",
-        "value": "Сценарій не вирішен",
-        "items": [
-          { "label": "Сценарій не вирішен", "value": "Сценарій не вирішен" },
-          { "label": "Сценарій вирішен позитивно", "value": "Сценарій вирішен позитивно" },
-          { "label": "Сценарій вирішен, але не змінює статусу ризику", "value": "Сценарій вирішен, але не змінює статусу ризику" },
-          { "label": "Сценарій вирішен негативно", "value": "Сценарій вирішен негативно" }
-        ]
-      }
-    ],
     "factorLogistic": [
       {
         "type": "text",
@@ -772,6 +644,15 @@
         "label": "Назва фактора",
         "placeholder": "Назва",
         "pTooltip": "Введіть назву фактора",
+        "value": ""
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "code",
+        "label": "Код фактора",
+        "placeholder": "Код",
+        "pTooltip": "Введіть код фактора",
         "value": ""
       },
       {
@@ -824,6 +705,19 @@
         },
         "value": "",
         "refName": "name"
+      },
+      {
+        "type": "text",
+        "displayCondition": true,
+        "name": "code",
+        "label": "Код проєкту",
+        "placeholder": "Код",
+        "pTooltip": "Введіть код проєкту",
+        "errors": {
+          "required": "pages.portfolio.dialog.nameRequired"
+        },
+        "value": "",
+        "refName": "code"
       },
       {
         "type": "textarea",

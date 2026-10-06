@@ -21,48 +21,48 @@
       <div class="flex">
         <p-button
           label="Усі"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          pTooltip="Натисніть, щоб вибрати всі ризики"
           tooltipPosition="top"
           severity="primary"
           (click)="tableFilter('All')"/>
         <p-button
-          label="Критичні"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          label="Критичні (>75 %)"
+          pTooltip="Натисніть, щоб вибрати тільки критичні ризики"
           tooltipPosition="top"
           severity="primary"
           [style]="{ 'background': 'red', 'border-color': 'red' }"
-          (click)="tableFilter('Критична')"/>
+          (click)="tableFilter('Критичний')"/>
         <p-button
-          label="Високі"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          label="Високі (50-75 %)"
+          pTooltip="Натисніть, щоб вибрати тільки високі ризики"
           tooltipPosition="top"
           severity="primary"
           [style]="{ 'background': 'darkred', 'border-color': 'darkred' }"
-          (click)="tableFilter('Висока')"/>
+          (click)="tableFilter('Високий')"/>
         <p-button
-          label="Помірні"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          label="Помірні (25-50 %)"
+          pTooltip="Натисніть, щоб вибрати тільки помирні ризики"
           tooltipPosition="top"
           severity="primary"
           [style]="{ 'background': 'darkgoldenrod', 'border-color': 'darkgoldenrod' }"
-          (click)="tableFilter('Помірна')"/>
+          (click)="tableFilter('Помірний')"/>
         <p-button
-          label="Низькі"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          label="Низькі (0-25 %)"
+          pTooltip="Натисніть, щоб вибрати тільки низькі ризики"
           tooltipPosition="top"
           severity="primary"
           [style]="{ 'background': 'darkgreen', 'border-color': 'darkgreen' }"
-          (click)="tableFilter('Низька')"/>
+          (click)="tableFilter('Низький')"/>
         <p-button
-          label="Неістотні"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          label="Неістотні (0-50 %)"
+          pTooltip="Натисніть, щоб вибрати тільки неістотні ризики"
           tooltipPosition="top"
           severity="primary"
           [style]="{ 'background': 'rgba(29, 227, 227, 0.9)', 'border-color': 'rgba(29, 227, 227, 0.9)' }"
           (click)="tableFilter('Unused')"/>
         <p-button
-          label="Істотні"
-          pTooltip="Натисніть, щоб створити новий ризик"
+          label="Істотні (>50 %)"
+          pTooltip="Натисніть, щоб вибрати тільки істотні ризики"
           tooltipPosition="top"
           severity="primary"
           [style]="{ 'background': 'rgba(153, 102, 255, 0.9)', 'border-color': 'rgba(153, 102, 255, 0.9)' }"
@@ -84,9 +84,9 @@
                   <td
                     class="bold"
                     [style]="{
-                      color: td === 'Критична' || (+td.split(' %')[0] > 75) ? 'red' :
-                      td === 'Висока' || (+td.split(' %')[0] > 50) ? 'darkred' :
-                      td === 'Помірна' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
+                      color: td === 'Критичний' || (+td.split(' %')[0] > 75) ? 'red' :
+                      td === 'Високий' || (+td.split(' %')[0] > 50) ? 'darkred' :
+                      td === 'Помірний' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
                     }">
                       {{td}}
                   </td>
@@ -163,6 +163,7 @@
   </section>
 </main>
 <app-footer></app-footer>
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 <app-creation-dialog
   [visible]="visible.creation"
   (changeVisibleEvent)="visibleOnChange($event)"

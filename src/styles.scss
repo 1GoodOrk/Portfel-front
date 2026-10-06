@@ -38,6 +38,10 @@ body {
   right: 20px;
 }
 
+.p-dialog-mask {
+  height: 100vh !important;
+}
+
 body {
   background-image: url('../public/main.jpeg');
   backdrop-filter: blur(5px);

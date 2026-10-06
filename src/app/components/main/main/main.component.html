@@ -31,6 +31,7 @@
           <ng-template #title> <span class="bold">{{'pages.main.main.nameLabel' | translate}}: </span>{{project.name}} </ng-template>
           <ng-template #subtitle><span class="bold">{{'pages.main.main.descriptionLabel' | translate}}:</span> {{project.des}} </ng-template>
           <ng-template #content>
+            <p> <span class="bold">Код: </span>{{project.code}}</p>
             <p> <span class="bold">{{'pages.portfolio.dialog.responsibleLabel' | translate}}: </span>{{project.responsibleName}}</p>
             <p> <span class="bold">{{'pages.main.main.priorityLabel' | translate}}: </span>{{project.priority}}</p>
             <p> <span class="bold">{{'pages.portfolio.dialog.subinfoLabel' | translate}}: </span>{{project.subinfo}}</p>

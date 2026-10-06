@@ -1,10 +1,119 @@
 {
   "logistic": [
-      { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" },
-      { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },
-      { "propName": "responsibleName", "label": "pages.portfolio.dialog.responsibleLabel" },
-      { "propName": "subinfo", "label": "pages.portfolio.dialog.subinfoLabel" }
-
-    ]
-
-  }
+    { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" },
+    { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },
+    { "propName": "responsibleName", "label": "pages.portfolio.dialog.responsibleLabel" },
+    { "propName": "subinfo", "label": "pages.portfolio.dialog.subinfoLabel" }
+  ],
+  "butterfly": [
+    { "type": "control", "propName": "value", "label": "Актуальність" },
+    { "propName": "name", "label": "Назва ризику" },
+    { "propName": "code", "label": "Код ризику" },
+    { "propName": "cause", "label": "Джерело виникнення" },
+    { "propName": "sphere", "label": "Сфера прояву" },
+    { "propName": "consequences", "label": "Ймовірні наслідки" },
+    { "propName": "des", "label": "Опис ризику" },
+    { "propName": "influence", "label": "Вплив ризику на перебіг проекту (1 - 100)" },
+    { "propName": "probability", "label": "Ймовірність виникнення ризику (1 - 100)", "postfix": " %" },
+    { "propName": "moveState", "label": "Тип діяльності ризику" },
+    { "type": "divider" },
+    { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
+    { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
+    { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+    { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
+  ],
+  "stairs": [
+    { "type": "control", "propName": "value", "label": "Актуальність" },
+    { "propName": "name", "label": "Назва ризику" },
+    { "propName": "code", "label": "Код ризику" },
+    { "propName": "cause", "label": "Джерело виникнення" },
+    { "propName": "sphere", "label": "Сфера прояву" },
+    { "propName": "consequences", "label": "Ймовірні наслідки" },
+    { "propName": "des", "label": "Опис ризику" },
+    { "propName": "influence", "label": "Вплив ризику на перебіг проекту (1 - 100)" },
+    { "propName": "probability", "label": "Ймовірність виникнення ризику (1 - 100)", "postfix": " %" },
+    { "type": "divider" },
+    { "propName": "aCoef", "label": "Ваговий коефіцієнт α", "postfix": " %" },
+    { "propName": "bCoef", "label": "Ваговий коефіцієнт β", "postfix": " %" },
+    { "propName": "yCoef", "label": "Ваговий коефіцієнт γ", "postfix": " %" },
+    { "propName": "projectValue", "label": "Проєктна складова" },
+    { "propName": "operationValue", "label": "Операційна складова" },
+    { "propName": "doubleValue", "label": "Дублююча складова" },
+    { "propName": "integrateValue", "label": "Інтегрований рівень ризику" },
+    { "type": "divider" },
+    { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
+    { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
+    { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+    { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
+  ],
+  "butterflyAcc": [
+    { "type": "control", "propName": "value", "label": "Актуальність" },
+    { "propName": "name", "label": "Назва ризику" },
+    { "propName": "consequences", "label": "Ймовірні наслідки" },
+    { "propName": "des", "label": "Опис ризику" },
+    { "type": "accordion",
+      "label": "Вся інформація",
+      "items": [
+        { "propName": "code", "label": "Код ризику" },
+        { "propName": "cause", "label": "Джерело виникнення" },
+        { "propName": "sphere", "label": "Сфера прояву" },
+        { "propName": "influence", "label": "Вплив ризику на перебіг проекту (1 - 100)" },
+        { "propName": "probability", "label": "Ймовірність виникнення ризику (1 - 100)", "postfix": " %" },
+        { "propName": "moveState", "label": "Тип діяльності ризику" },
+        { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
+        { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
+        { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+        { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
+      ]
+    }
+  ],
+  "stairsAcc": [
+    { "type": "control", "propName": "value", "label": "Актуальність" },
+    { "propName": "name", "label": "Назва ризику" },
+    { "propName": "consequences", "label": "Ймовірні наслідки" },
+    { "propName": "des", "label": "Опис ризику" },
+    { "type": "accordion",
+      "label": "Вся інформація",
+      "items": [
+        { "propName": "code", "label": "Код ризику" },
+        { "propName": "cause", "label": "Джерело виникнення" },
+        { "propName": "sphere", "label": "Сфера прояву" },
+        { "propName": "influence", "label": "Вплив ризику на перебіг проекту (1 - 100)" },
+        { "propName": "probability", "label": "Ймовірність виникнення ризику (1 - 100)", "postfix": " %" },
+        { "propName": "aCoef", "label": "Ваговий коефіцієнт α", "postfix": " %" },
+        { "propName": "bCoef", "label": "Ваговий коефіцієнт β", "postfix": " %" },
+        { "propName": "yCoef", "label": "Ваговий коефіцієнт γ", "postfix": " %" },
+        { "propName": "projectValue", "label": "Проєктна складова" },
+        { "propName": "operationValue", "label": "Операційна складова" },
+        { "propName": "doubleValue", "label": "Дублююча складова" },
+        { "propName": "integrateValue", "label": "Інтегрований рівень ризику" },
+        { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
+        { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
+        { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+        { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
+      ]
+    }
+  ],
+  "solution": [
+    { "type": "control", "propName": "control", "label": "Контроль" },
+    { "propName": "name", "label": "Назва рішення" },
+    { "propName": "code", "label": "Код рішення" },
+    { "propName": "consequences", "label": "Ймовірні наслідки" },
+    { "propName": "des", "label": "Опис рішення" },
+    { "propName": "responsible", "label": "Відповідальні суб’єкти" },
+    { "propName": "value", "label": "Вплив рішення на стабілізацію ризику (1 - 100)" },
+    { "propName": "probability", "label": "Ймовірність стабілізації ризику (1 - 100)", "postfix": " %" },
+    { "type": "divider" },
+    { "propName": "sourcesDes", "label": "Необхідні ресурси" },
+    { "propName": "timeWork", "label": "Строки виконання (календ. дн.)", "postfix": " (кален. д.)" },
+    { "propName": "sourcesDesReal", "label": "Опис порядку реалізації управлінського впливу" },
+    { "type": "multiselector", "propName": "restrictions", "label": "Обмеження" },
+    { "propName": "finishPerc", "label": "Реалізація (1 - 100)", "postfix": " %" },
+    { "propName": "finalState", "label": "Статус реалізації рішення" },
+    { "type": "divider" },
+    { "propName": "money", "label": "Обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
+    { "propName": "time", "label": "Час реалізації (кален. д.)", "postfix": " (кален. д.)" },
+    { "propName": "sources", "label": "Обсяг доступних ресурсів" },
+    { "propName": "quality", "label": "Рівень якості (1 - 100)", "postfix": " %" }
+  ]
+}

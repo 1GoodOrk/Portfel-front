@@ -6,7 +6,7 @@
     tooltipPosition="top"
     severity="secondary"
     (click)="navigate('analyze-solution')"/>
-  <!-- <section>
+  <section>
     @for (valueKey of infoPageProjectValueKeys; track valueKey) {
       @if (!valueKey.type) {
         @if (data[valueKey.propName] && data[valueKey.propName][0] && data[valueKey.propName][0].label) {
@@ -23,6 +23,9 @@
           <p> <span class="bold">{{valueKey.label | translate}}:</span> {{data[valueKey.propName]}}
             @if (!valueKey.type) {
               {{valueKey.suffix | translate}}
+            }
+            @if (valueKey.postfix) {
+              {{valueKey.postfix}}
             }
           </p>
         }
@@ -80,16 +83,16 @@
         </p-accordion>
       }
     }
-  </section> -->
+  </section>
   <section>
     <p-button
-      label="Створити сценарій"
-      pTooltip="Натисніть, щоб створити новий сценарій"
+      label="Створити рішення"
+      pTooltip="Натисніть, щоб створити нове рішення"
       tooltipPosition="top"
       severity="primary"
       (click)="openDialogAddUpdateRow()"/>
     <div class="container-analyze flex column">
-      <h3> <span class="bold">Сценарій</span></h3>
+      <h3> <span class="bold">Рішення</span></h3>
     </div>
     @if (data.solutionTableParams) {
       <div class="table-container">
@@ -109,9 +112,9 @@
                     [id]="`td-id-${td}`"
                     class="bold"
                     [style]="{
-                      color: td === 'Сценарій не вирішен' ? 'darkblue' :
-                        td === 'Сценарій вирішен позитивно' ? 'darkgreen' :
-                        td === 'Сценарій вирішен, але не змінює статусу ризику' ? 'darkyellow' : 'darkred'
+                      color: td === 'Рішення не реалізовано' ? 'darkblue' :
+                        td === 'Рішення реалізовано' ? 'darkgreen' :
+                        td === 'Рішення реалізовано, але не вплинуло на ризик' ? 'darkyellow' : 'darkred'
                     }">
                       {{td}}
                   </td>

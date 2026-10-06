@@ -9,56 +9,28 @@
       (click)="showInfoProjectDialog($event)"/>
   </div>
   <h1>Моніторинг проекту</h1>
-  <p-divider></p-divider>
   <section>
-    <h2>Загальний стан</h2>
-    <h3>Загальна кількість ризиків: {{current.all}}</h3>
-    <h3>Ризики, що знаходяться на моніторингу: {{current.check}}</h3>
-    <h3>Ризики, які потребують вирішення: {{current.critical}}</h3>
-    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
-  </section>
-  <p-divider></p-divider>
-  <section>
-    <h2>Результат аналізу моделі "Метелик"</h2>
-    <h3>Загальна кількість ризиків: {{butterfly.all}}</h3>
-    <h3>Ризики, що знаходяться на моніторингу: {{butterfly.check}}</h3>
-    <h3>Ризики, які потребують вирішення: {{butterfly.critical}}</h3>
-    <p-chart type="bar" [data]="basicButterflyData" [options]="basicOptions" />
+    <h4>Загальна кількість ризиків: {{current.all}} - Ризики, що знаходяться на моніторингу: {{current.check}} - Ризики, які потребують прийняття рішення: {{current.critical}}</h4>
+    <p>Щоб переглянути дані моделі, натисніть на кнопки переходу на їхні сторінки. Сторінка обробки дозволить сформувати рішення для ризиків </p>
     <div class="flex">
       <p-button
-        label="Дані обробки методу 'Метелик'"
+        label="Сторінка моделі 'Метелик'"
         pTooltip="Натисніть, щоб перейти на сторінку методу 'Метелик'"
         severity="primary"
         (click)="navigate('analyze-butterfly')"/>
-    </div>
-  </section>
-  <p-divider></p-divider>
-  <section>
-    <h2>Результат аналізу моделі "Сходи"</h2>
-    <h3>Загальна кількість ризиків: {{stairs.all}}</h3>
-    <h3>Ризики, що знаходяться на моніторингу: {{stairs.check}}</h3>
-    <h3>Ризики, які потребують вирішення: {{stairs.critical}}</h3>
-    <p-chart type="bar" [data]="basicStairsData" [options]="basicOptions" />
-    <div class="flex">
       <p-button
-        label="Дані обробки методу 'Сходи'"
+        label="Сторінка моделі 'Сходи'"
         pTooltip="Натисніть, щоб перейти на сторінку методу 'Сходи'"
         severity="primary"
         (click)="navigate('analyze-stairs')"/>
-    </div>
-  </section>
-  <p-divider></p-divider>
-  <section>
-    <h2>Вибірка прийнятих рішень</h2>
-    <div class="flex">
       <p-button
-        label="Обробка рішень"
+        label="Сторінка обробки ризиків"
         pTooltip="Натисніть, щоб перейти на сторінку обробки рішень"
         severity="primary"
         (click)="navigate('analyze-solution')"/>
     </div>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
   </section>
-
 </main>
 <app-footer></app-footer>
 

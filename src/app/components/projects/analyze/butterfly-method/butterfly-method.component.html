@@ -18,6 +18,35 @@
       <h2> <span class="bold">Ризики</span></h2>
     </div>
     @if (currentRiskTables) {
+      <div class="flex">
+        <p-button
+          label="Усі"
+          pTooltip="Натисніть, щоб вибрати всі ризики"
+          tooltipPosition="top"
+          severity="primary"
+          (click)="tableFilter('All')"/>
+        <p-button
+          label="Проектні"
+          pTooltip="Натисніть, щоб вибрати тільки проектні ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkgreen', 'border-color': 'darkgreen' }"
+          (click)="tableFilter('Проектний')"/>
+        <p-button
+          label="Операційні"
+          pTooltip="Натисніть, щоб вибрати тільки операційні ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkblue', 'border-color': 'darkblue' }"
+          (click)="tableFilter('Операційний')"/>
+        <p-button
+          label="Дублюючі"
+          pTooltip="Натисніть, щоб вибрати тільки дублюючі ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkred', 'border-color': 'darkred' }"
+          (click)="tableFilter('Дублюючий')"/>
+      </div>
       <div class="table-container">
         <p-table [value]="currentRiskTables?.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
           <ng-template #header>
@@ -30,7 +59,7 @@
           <ng-template #body let-tds let-rowIndex="rowIndex">
             <tr>
               @for (td of tds; track `td-id-${td}${$index}`) {
-                @if ($index === 4 || $index === 5) {
+                @if ($index === 5 || $index === 6) {
                   <td
                     class="bold"
                     [style]="{
@@ -109,6 +138,9 @@
     }
   </section>
   <section>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+  </section>
+  <section>
     <h2>Фактори</h2>
     <div class="flex flex-col h-48">
       <app-factors (updateView)="updateView()"></app-factors>
@@ -137,6 +169,7 @@
   </section>
 </main>
 <app-footer></app-footer>
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
 
 <app-creation-dialog
   [visible]="visible.creation"

@@ -23,6 +23,9 @@
               @if (!valueKey.type) {
                 {{valueKey.suffix | translate}}
               }
+              @if (valueKey.postfix) {
+                {{valueKey.postfix}}
+              }
             </p>
           }
         } @else if (valueKey.type === 'divider') {

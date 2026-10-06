@@ -10,6 +10,7 @@
 
   <div class="container-analyze flex column">
     <h3> <span class="bold">Ризики "Метелик"</span></h3>
+    <p>Виберіть ризик і натисніть на око, щоб перейти на сторінку формування рішення для цього ризику</p>
   </div>
   @if (currentButterflyRiskTables) {
     <div class="table-container">
@@ -24,7 +25,7 @@
         <ng-template #body let-tds let-rowIndex="rowIndex">
           <tr>
             @for (td of tds; track `td-id-${td}${$index}`) {
-              @if ($index === 4 || $index === 5) {
+              @if ($index === 5 || $index === 6) {
                 <td
                   class="bold"
                   [style]="{
@@ -46,7 +47,7 @@
                   rounded
                   raised
                   variant="text"
-                  pTooltip="Натисніть, щоб переглянути цей ризик"
+                  pTooltip="Натисніть, щоб перейти на сторінку рішень цього ризику"
                   tooltipPosition="top"
                   severity="secondary"
                   [style]="{
@@ -68,6 +69,7 @@
 
   <div class="container-analyze flex column">
     <h3> <span class="bold">Ризики "Сходи"</span></h3>
+    <p>Виберіть ризик і натисніть на око, щоб перейти на сторінку формування рішення для цього ризику</p>
   </div>
     @if (currentStairsRiskTables) {
       <div class="table-container">
@@ -86,9 +88,9 @@
                   <td
                     class="bold"
                     [style]="{
-                      color: td === 'Критична' || (+td.split(' %')[0] > 75) ? 'red' :
-                      td === 'Висока' || (+td.split(' %')[0] > 50) ? 'darkred' :
-                      td === 'Помірна' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
+                      color: td === 'Критичний' || (+td.split(' %')[0] > 75) ? 'red' :
+                      td === 'Високий' || (+td.split(' %')[0] > 50) ? 'darkred' :
+                      td === 'Помірний' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
                     }">
                       {{td}}
                   </td>
@@ -104,7 +106,7 @@
                     rounded
                     raised
                     variant="text"
-                    pTooltip="Натисніть, щоб переглянути цей ризик"
+                    pTooltip="Натисніть, щоб перейти на сторінку рішень цього ризику"
                     tooltipPosition="top"
                     severity="secondary"
                     [style]="{

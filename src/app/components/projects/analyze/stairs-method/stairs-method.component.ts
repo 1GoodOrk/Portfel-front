@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Times, Pencil, Eye } from '@primeicons/angular';
 import { FormsModule, NgForm } from '@angular/forms';
-import { TranslatePipe } from "@ngx-translate/core";
 
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -23,7 +22,6 @@ import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/
     ButtonModule,
     TooltipModule,
     TableModule,
-    TranslatePipe,
     ChartModule,
     HeaderComponent,
     FooterComponent,
@@ -44,7 +42,7 @@ export class StairsMethodComponent {
   // Отсортировать по табам и значению рисков
   public current: any = {}
   public currentRiskTables: any = {
-    th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+    th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
     td: []
   }
   public currentProject: any = {}
@@ -102,10 +100,14 @@ export class StairsMethodComponent {
     if (!data.dateCreation) {
       data.dateCreation = new Date().toISOString().split('T').join(' - ').split('Z')[0]
     }
+    data.projectValue = +(data.aCoef * data.value / 100).toFixed(2)
+    data.operationValue = +(data.bCoef * data.value / 100).toFixed(2)
+    data.doubleValue = +(data.yCoef * data.value / 100).toFixed(2)
+    data.integrateValue = +((data.projectValue + data.operationValue + data.doubleValue) / 3).toFixed(2)
     data.status = data.value > 75 ?
-      'Критична' :
-      data.value > 50 ? 'Висока' :
-      data.value > 25 ? 'Помірна' : 'Низька'
+      'Критичний' :
+      data.value > 50 ? 'Високий' :
+      data.value > 25 ? 'Помірний' : 'Низький'
     return data
   }
 
@@ -129,7 +131,7 @@ export class StairsMethodComponent {
 
   public recreateTable(): void {
     this.currentProject.analyze.stairsRisksTableParams = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.analyze.stairs.forEach((risk: any) => {
@@ -140,7 +142,7 @@ export class StairsMethodComponent {
 
   private refreshTable(): void {
     this.currentRiskTables = {
-      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
+      th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
     this.currentProject.analyze.stairs.forEach((risk: any) => {
@@ -162,8 +164,9 @@ export class StairsMethodComponent {
   }
 
   public openDialogInfo(index: number): void {
+    this.visible.info = true
     this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze.stairs[index])
-    // this.navigate(`risk/${this.currentProject.analyze.stairs[index]._id}`)
+    this.appCommunicationService.sendInfoData({ inputRowsName: 'stairs', header: 'Інформація про ризик' })
   }
 
   public openDialogAddUpdateRow(index?: number): void {
@@ -196,9 +199,9 @@ export class StairsMethodComponent {
     }
     this.currentRiskTables.td.forEach((el: any) => {
       el[5].split(' %')[0] <= 50 ? calculation.unused++ : calculation.used++
-      el[4] === 'Критична' ? calculation.critical++ :
-        el[4] === 'Висока' ? calculation.high++ :
-        el[4] === 'Помірна' ? calculation.middle++ : calculation.low++
+      el[4] === 'Критичний' ? calculation.critical++ :
+        el[4] === 'Високий' ? calculation.high++ :
+        el[4] === 'Помірний' ? calculation.middle++ : calculation.low++
     });
     this.basicData = {
       labels: ['Критичні', 'Високі', 'Помірні', 'Низькі', 'Істотні', 'Неістотні'],

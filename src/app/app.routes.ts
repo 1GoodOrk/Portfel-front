@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { unprotectedGuard, mainGuard } from './guards/main.guard';
+
 
 export const routes: Routes = [
   {path: 'login', loadComponent: () => import('./components/user/login/login.component').then(mod => mod.LoginComponent)},
@@ -7,17 +9,17 @@ export const routes: Routes = [
   {path: 'new-password', loadComponent: () => import('./components/user/password/password.component').then(mod => mod.PasswordComponent)},
   {path: 'profile', loadComponent: () => import('./components/user/profile/profile.component').then(mod => mod.ProfileComponent)},
 
-  {path: 'main', loadComponent: () => import('./components/main/main/main.component').then(mod => mod.MainComponent)},
-  {path: 'contacts', loadComponent: () => import('./components/main/contacts/contacts.component').then(mod => mod.ContactsComponent)},
-  {path: 'about', loadComponent: () => import('./components/main/about/about.component').then(mod => mod.AboutComponent)},
+  {path: 'main', loadComponent: () => import('./components/main/main/main.component').then(mod => mod.MainComponent), canActivate: [mainGuard]},
+  {path: 'contacts', loadComponent: () => import('./components/main/contacts/contacts.component').then(mod => mod.ContactsComponent), canActivate: [mainGuard]},
+  {path: 'about', loadComponent: () => import('./components/main/about/about.component').then(mod => mod.AboutComponent), canActivate: [mainGuard]},
   {path: 'terms', loadComponent: () => import('./components/main/terms/terms.component').then(mod => mod.TermsComponent)},
 
 
-  {path: 'analyze', loadComponent: () => import('./components/projects/analyze/analyze.component').then(mod => mod.AnalyzeComponent)},
-  {path: 'analyze-butterfly', loadComponent: () => import('./components/projects/analyze/butterfly-method/butterfly-method.component').then(mod => mod.ButterflyMethodComponent)},
-  {path: 'analyze-stairs', loadComponent: () => import('./components/projects/analyze/stairs-method/stairs-method.component').then(mod => mod.StairsMethodComponent)},
-  {path: 'analyze-solution', loadComponent: () => import('./components/projects/analyze/solutions/solutions.component').then(mod => mod.SolutionsComponent)},
-  {path: 'analyze-solution/current/:id', loadComponent: () => import('./components/projects/analyze/solutions/current/current.component').then(mod => mod.CurrentComponent)},
+  {path: 'analyze', loadComponent: () => import('./components/projects/analyze/analyze.component').then(mod => mod.AnalyzeComponent), canActivate: [unprotectedGuard]},
+  {path: 'analyze-butterfly', loadComponent: () => import('./components/projects/analyze/butterfly-method/butterfly-method.component').then(mod => mod.ButterflyMethodComponent), canActivate: [unprotectedGuard]},
+  {path: 'analyze-stairs', loadComponent: () => import('./components/projects/analyze/stairs-method/stairs-method.component').then(mod => mod.StairsMethodComponent), canActivate: [unprotectedGuard]},
+  {path: 'analyze-solution', loadComponent: () => import('./components/projects/analyze/solutions/solutions.component').then(mod => mod.SolutionsComponent), canActivate: [unprotectedGuard]},
+  {path: 'analyze-solution/current/:id', loadComponent: () => import('./components/projects/analyze/solutions/current/current.component').then(mod => mod.CurrentComponent), canActivate: [unprotectedGuard]},
 
   {path: '**', redirectTo: '/login' },
 ];

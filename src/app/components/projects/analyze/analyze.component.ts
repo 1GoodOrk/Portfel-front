@@ -74,7 +74,9 @@ export class AnalyzeComponent {
     private appCommunicationService: AppCommunicationService
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
-    this.recreateCharts()
+    if (this.currentProject.analyze) {
+      this.recreateCharts()
+    }
   }
 
   public showInfoProjectDialog(event?: any): void {
@@ -100,7 +102,7 @@ export class AnalyzeComponent {
     this.currentProject.analyze.butterfly.forEach((el: any) => {
       this.current.all++
       this.butterfly.all++
-      if (el.status === 'Критична' || el.status === 'Помірна') {
+      if (el.status === 'Критична' || el.status === 'Висока') {
         this.current.critical++
         this.butterfly.critical++
       } else {

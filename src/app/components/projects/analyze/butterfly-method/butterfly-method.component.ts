@@ -103,9 +103,29 @@ export class ButterflyMethodComponent {
       'Критична' :
       data.value > 50 ? 'Висока' :
       data.value > 25 ? 'Помірна' : 'Низька'
+    if (data.solutions && data.solutions.length) {
+      data = this.riskValueRecalculation(data)
+    }
     return data
   }
 
+  private riskValueRecalculation(data: any) {
+    data.value = data.firstValue
+    data.solutions.forEach((dataSolution: any) => {
+      if (dataSolution.finalState === 'Рішення реалізовано') {
+        data.value = data.value > dataSolution.value ? +(data.value - dataSolution.value).toFixed(2) : 0
+        if (data.value === 0) {
+          data.status = 'Низька'
+        } else {
+          data.status = data.value > 75 ? 'Критична' : data.value > 50 ? 'Висока' : data.value > 25 ? 'Помірна' : 'Низька'
+        }
+      } else if (dataSolution.finalState === 'Рішення реалізовано з негативним результатом') {
+        data.value = +(data.value + dataSolution.value).toFixed(2)
+        data.status = data.value > 75 ? 'Критична' : data.value > 50 ? 'Висока' : data.value > 25 ? 'Помірна' : 'Низька'
+      }
+    })
+    return data
+  }
   public updateRisk(data: any): void {
     data = this.indexCalculation(data)
     this.visible.creation = false

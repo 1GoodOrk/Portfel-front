@@ -68,4 +68,9 @@ export class HeaderComponent {
     this.translate.use(this.selectedLanguage)
   }
 
+  public logout(): void {
+    this.appCommunicationService.clearSessionStorage()
+    this.navigate('login')
+  }
+
 }

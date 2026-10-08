@@ -3,55 +3,52 @@ import { v6 } from 'uuid';
 
 import users from '@port/asserts/data/fake-data/user.json'
 import projects from '@port/asserts/data/fake-data/project.json'
+import { IError, IFormMessage, IFormUser, IMessage, IUserData } from '@port/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FakeRequestService {
-  private users: any = users
+  private users: IUserData[] = users
   private projects: any = projects
-  // getFile() {
-  //   return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
-  // }
-  // sendMessage(data: any) {
-  //   return this.http.post(`${this.link}/messages`, { data });
-  // }
 
-  // // TODO: JWT
-  login(data: any): any {
-    const userIndex = this.users.findIndex((user: any) => user.email === data.email)
-    return userIndex > -1 ? this.users[userIndex] : { error: 'NOT_FOUND' }
+  public login(data: IFormUser): IUserData | IError {
+    const userIndex = this.users.findIndex((user: IUserData) => user.email === data.email)
+    return userIndex > -1 ? this.users[userIndex] : { message: 'NOT_FOUND' }
   }
-  registration(data: any): any {
-    if (this.users.findIndex((user: any) => user.email === data.email) > -1) {
+
+  public registration(data: IFormUser): IUserData | IError {
+    if (this.users.findIndex((user: IUserData) => user.email === data.email) > -1) {
       this.users.push({
         _id: v6(),
-        organization: data.organization,
-        email: data.email,
-        password: data.password,
+        organization: data.organization!,
+        email: data.email!,
+        password: data.password!,
+        token: '',
         type: data.type ? data.type : 'USER',
-        projectIds: [],
-        portfolioIds: []
+        projectIds: []
       })
       return this.users[this.users.length - 1]
     } else {
-      return { error: 'ALREADY_EXIST' }
+      return { message: 'ALREADY_EXIST' }
     }
   }
-  forget(data: any) {
+
+  public forget(data: IFormUser): IMessage {
     return { message: 'SENDED' }
   }
-  newPassword(data: any) {
+
+  public newPassword(data: IFormUser): IMessage {
     return { message: 'SENDED' }
   }
-  updateUser(id: null | string, data: any) {
-    const userIndex = this.users.findIndex((user: any) => user.email === data.email)
+
+  public updateUser(data: IFormUser): void {
+    const userIndex = this.users.findIndex((user: IUserData) => user.email === data.email)
     if (userIndex > -1) {
-      this.users[userIndex].organization = data.organization
-      this.users[userIndex].email = data.email
-      this.users[userIndex].password = data.password
-      this.users[userIndex].projectIds = data.projectIds
-      this.users[userIndex].portfolioIds = data.portfolioIds
+      this.users[userIndex].organization = data.organization!
+      this.users[userIndex].email = data.email!
+      this.users[userIndex].password = data.password!
+      this.users[userIndex].projectIds = data.projectIds!
     }
   }
 
@@ -76,6 +73,10 @@ export class FakeRequestService {
   createProject(data: any) {
     data._id = v6()
     this.projects.push(data)
+  }
+
+  public sendMessage(data: IFormMessage): IMessage {
+    return { message: 'SENDED' }
   }
 
   // getExperts(): Observable<any> {

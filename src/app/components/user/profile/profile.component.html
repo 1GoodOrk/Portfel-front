@@ -18,7 +18,7 @@
             [pTooltip]="'pages.user.profile.organizationTolltip' | translate"
             tooltipPosition="right"
             name="organization"
-            [(ngModel)]="user.organization"
+            [(ngModel)]="formData.organization"
             #organization="ngModel"
             [invalid]="organization.invalid && (organization.touched || form.submitted)"
             required />
@@ -35,7 +35,7 @@
             [placeholder]="'pages.user.profile.emailPlaceholder' | translate"
             [pTooltip]="'pages.user.profile.emailTolltip' | translate"
             tooltipPosition="right"
-            [(ngModel)]="user.email"
+            [(ngModel)]="formData.email"
             #email="ngModel"
             required
             email
@@ -81,7 +81,7 @@
               [placeholder]="'pages.user.profile.passwordPlaceholder' | translate"
               [pTooltip]="'pages.user.profile.passwordTolltip'  | translate"
               tooltipPosition="right"
-              [(ngModel)]="user.password"
+              [(ngModel)]="formData.password"
               #password="ngModel"
               required
               password
@@ -106,7 +106,7 @@
               [placeholder]="'pages.user.profile.confirmPasswordPlaceholder' | translate"
               [pTooltip]="'pages.user.profile.confirmPasswordTolltip'  | translate"
               tooltipPosition="right"
-              [(ngModel)]="user.confirmPassword"
+              [(ngModel)]="formData.confirmPassword"
               #confirmPassword="ngModel"
               required
               confirmPassword

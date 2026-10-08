@@ -7,7 +7,7 @@ import {
 import translationsEN from "@port/asserts/i18n/en.json";
 import translationsRU from "@port/asserts/i18n/ru.json";
 import translationsUA from "@port/asserts/i18n/ua.json";
-// import * as argon2 from 'argon2';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -18,11 +18,11 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { FormsModule } from '@angular/forms';
 import { HttpService } from '@port/services/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { IUserData } from '@port/interfaces';
 import { FakeRequestService } from '@port/services/fake-request.service';
+
+import { IFormUser, IUserData } from '@port/interfaces';
 
 @Component({
   selector: 'app-registration',
@@ -44,12 +44,13 @@ import { FakeRequestService } from '@port/services/fake-request.service';
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
-  public user: any = {
+  public formData: IFormUser = {
     organization: '',
     email: '',
     password: '',
     confirmPassword: '',
-    type: 'USER'
+    type: 'USER',
+    terms: false
   };
   public error: undefined | Error
 
@@ -78,39 +79,39 @@ export class RegistrationComponent {
     this.translate.use(this.selectedLanguage)
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigate([`/${path}`]);
   }
 
-  public async onSubmit(form: any): Promise<void> {
-    if (window.location.href.match('owner')) {
-      this.user.type = 'USER'
-    } else {
-      this.user.type = 'EXPERT'
-    }
+  private fakeRequest(form: NgForm) {
     const data = this.fakeRequestService.registration({
-      email: this.user.email,
-      password: this.user.password,
-      organization: this.user.organization,
-      type: this.user.type
+      email: this.formData.email,
+      password: this.formData.password,
+      organization: this.formData.organization,
+      type: this.formData.type
     })
-    this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+    this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
     form.resetForm()
     this.navigate('main')
-    // if (form.valid) {
+  }
+
+  public async onSubmit(form: NgForm): Promise<void> {
+    this.formData.type = 'USER'
+    if (form.valid && this.formData.terms) {
+      this.fakeRequest(form)
     //   this.showSpinner = true
     //   this.httpService.registration({
-    //     email: this.user.email,
-    //     password: this.user.password,
-    //     organization: this.user.organization,
-    //     type: this.user.type
+    //     email: this.formData.email,
+    //     password: this.formData.password,
+    //     organization: this.formData.organization,
+    //     type: this.formData.type
     //   })
     //     .subscribe((data: IUserData) => {
-    //       this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+    //       this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
     //       form.resetForm()
     //       this.showSpinner = false
     //       this.navigate('main')
     //     })
-    // }
+    }
   }
 }

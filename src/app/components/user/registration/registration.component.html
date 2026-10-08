@@ -34,7 +34,7 @@
           [placeholder]="'pages.user.registration.emailPlaceholder' | translate"
           [pTooltip]="'pages.user.registration.emailTolltip' | translate"
           tooltipPosition="right"
-          [(ngModel)]="user.email"
+          [(ngModel)]="formData.email"
           #email="ngModel"
           required
           email
@@ -50,6 +50,7 @@
           </p-message>
         }
       </div>
+      <!-- TODO: uncomment is type field is needed -->
       <!-- <div class="flex flex-col gap-1">
         <p-select
           id="type"
@@ -66,7 +67,7 @@
           <p-message severity="error" size="small" variant="simple">{{'pages.user.registration.typeRequired' | translate}}</p-message>
         }
       </div> -->
-      @if (user.type === 'USER') {
+      @if (formData.type === 'USER') {
         <div class="flex flex-col gap-1">
           <input
             pInputText
@@ -76,7 +77,7 @@
             [pTooltip]="'pages.user.registration.organizationTolltip' | translate"
             tooltipPosition="right"
             name="organization"
-            [(ngModel)]="user.organization"
+            [(ngModel)]="formData.organization"
             #organization="ngModel"
             [invalid]="organization.invalid && (organization.touched || form.submitted)"
             required />
@@ -94,7 +95,7 @@
               [pTooltip]="'pages.user.registration.nameTolltip' | translate"
               tooltipPosition="right"
               name="organization"
-              [(ngModel)]="user.organization"
+              [(ngModel)]="formData.organization"
               #organization="ngModel"
               [invalid]="organization.invalid && (organization.touched || form.submitted)"
               required />
@@ -112,7 +113,7 @@
           [placeholder]="'pages.user.registration.passwordPlaceholder' | translate"
           [pTooltip]="'pages.user.registration.passwordTolltip'  | translate"
           tooltipPosition="right"
-          [(ngModel)]="user.password"
+          [(ngModel)]="formData.password"
           #password="ngModel"
           required
           password
@@ -137,7 +138,7 @@
           [placeholder]="'pages.user.registration.confirmPasswordPlaceholder' | translate"
           [pTooltip]="'pages.user.registration.confirmPasswordTolltip'  | translate"
           tooltipPosition="right"
-          [(ngModel)]="user.confirmPassword"
+          [(ngModel)]="formData.confirmPassword"
           #confirmPassword="ngModel"
           required
           confirmPassword
@@ -154,7 +155,7 @@
         }
       </div>
       <div class="flex items-center">
-        <p-checkbox inputId="terms" name="terms" value="Terms" [(ngModel)]="user.terms" />
+        <p-checkbox inputId="terms" name="terms" value="Terms" [(ngModel)]="formData.terms" />
         <p-button [label]="'pages.user.registration.terms'  | translate" [link]="true" (click)="navigate('terms')" />
       </div>
       <div class="buttons">

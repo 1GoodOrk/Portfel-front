@@ -3,14 +3,6 @@
     <p-progress-spinner ariaLabel="loading" />
   </div>
 }
-<!-- <div class="selector-lang">
-  <p-select
-  [options]="languages"
-  (onChange)="changeLanguage()"
-  [(ngModel)]="selectedLanguage"
-  placeholder="Select a Language"
-  class="w-full md:w-56" />
-</div> -->
 <main class="forget">
   <p-card [header]="'pages.user.forget.header' | translate"
     [style]="{
@@ -34,7 +26,7 @@
           [placeholder]="'pages.user.forget.emailPlaceholder' | translate"
           [pTooltip]="'pages.user.forget.emailTolltip' | translate"
           tooltipPosition="right"
-          [(ngModel)]="user.email"
+          [(ngModel)]="formData.email"
           #email="ngModel"
           required
           email

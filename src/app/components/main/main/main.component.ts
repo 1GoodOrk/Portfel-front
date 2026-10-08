@@ -61,11 +61,9 @@ export class MainComponent {
     info: false
   }
   public search: any = {
-    portfolio: '',
     project: ''
   }
   public timeout: any = {
-    portfolio: {},
     project: {}
   }
 
@@ -76,13 +74,16 @@ export class MainComponent {
     private httpService: HttpService
   ) {
     this.getAllProjects()
-    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
+    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+  }
+
+  private fakeRequestGetAll(): void {
+    // this.projects = this.fakeRequestService.getProjects()
+    // this.projectsList = Array.from(this.projects)
   }
 
   public getAllProjects(): void {
-    // this.projects = this.fakeRequestService.getProjects()
-    // this.projectsList = Array.from(this.projects)
-    this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
       .subscribe((data: any) => {
         this.projects = data
         this.projectsList = Array.from(this.projects)
@@ -116,19 +117,6 @@ export class MainComponent {
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
     this.navigate('analyze')
   }
-
-  // public selectForCogBalanceModel(id: any, event: any) {
-  //   event.stopPropagation()
-  //   const index = this.projects.findIndex((el: any) => el._id === id)
-  //   Object.keys(this.projects[index]).forEach((key: string) => {
-  //     // TODO: type error
-  //     // @ts-expect-error
-  //     this.currentProject[key] = this.projects[index][key]
-  //   })
-  //   this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-  //   this.navigate('balance')
-  // }
-
 
   public navigate(path: string) {
     this.router.navigateByUrl(`/${path}`);
@@ -173,10 +161,10 @@ export class MainComponent {
     event.stopPropagation()
     // this.fakeRequestService.deleteProjects(id)
     // this.getAllProjects()
-    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
       .subscribe(() => {
-        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-        const index = user.data.projectIds.indexOf(id);
+        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+        const index = user.projectIds.indexOf(id);
         if (index > -1 && user && user.projectIds) {
           user.projectIds.splice(index, 1);
         }
@@ -196,19 +184,15 @@ export class MainComponent {
   }
 
   public createProject(data: any): void {
-    console.log(data)
-    this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
       .subscribe((data: any) => {
         if (data) {
-          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-          user.data.projectIds.push(data._id)
+          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+          user.projectIds.push(data._id)
           this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
           this.getAllProjects()
           this.visible.creation = false
         }
       })
   }
-
-
-  // набор средств
 }

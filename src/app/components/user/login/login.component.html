@@ -35,7 +35,7 @@
           [placeholder]="'pages.user.login.emailPlaceholder' | translate"
           [pTooltip]="'pages.user.login.emailTolltip' | translate"
           tooltipPosition="right"
-          [(ngModel)]="user.email"
+          [(ngModel)]="formData.email"
           [ngModelOptions]="{standalone: true}"
           #email="ngModel"
           required
@@ -61,7 +61,7 @@
           [placeholder]="'pages.user.login.passwordPlaceholder' | translate"
           [pTooltip]="'pages.user.login.passwordTolltip'  | translate"
           tooltipPosition="right"
-          [(ngModel)]="user.password"
+          [(ngModel)]="formData.password"
           [ngModelOptions]="{standalone: true}"
           #password="ngModel"
           required

@@ -8,10 +8,10 @@ export const mainGuard: CanActivateFn = (
 ) => {
   const appCommunicationService = inject(AppCommunicationService);
   const router = inject(Router);
-  if (!JSON.parse(appCommunicationService.sessionStorageGet('id'))) {
+  if (!JSON.parse(appCommunicationService.sessionStorageGet('user'))) {
     router.navigate(['./login']);
   }
-  return !!JSON.parse(appCommunicationService.sessionStorageGet('id'));
+  return !!JSON.parse(appCommunicationService.sessionStorageGet('user'));
 };
 
 export const unprotectedGuard: CanActivateFn = (

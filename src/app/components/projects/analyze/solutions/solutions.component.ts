@@ -16,6 +16,14 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
+import {
+  ERiskButterflyStatus,
+  IDialogVisibility,
+  IProjectData,
+  IRiskButterflyData,
+  IRiskStairsData,
+  ITableContainer
+} from '@port/interfaces';
 @Component({
   selector: 'app-solutions',
   imports: [
@@ -36,18 +44,17 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
   styleUrl: './solutions.component.scss',
 })
 export class SolutionsComponent {
-  public inputs: any = {}
-  public currentProject: any = {}
-  public currentButterflyRiskTables: any = {
+  public currentProject!: IProjectData
+  public currentButterflyRiskTables: ITableContainer<string> = {
     th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
     td: []
   }
-  public currentStairsRiskTables: any = {
+  public currentStairsRiskTables: ITableContainer<string> = {
     th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
     td: []
   }
 
-  public visible: any = {
+  public visible: IDialogVisibility = {
     creation: false,
     info: false
   }
@@ -60,11 +67,11 @@ export class SolutionsComponent {
     this.recreateTableStairs()
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public back() {
+  public back(): void {
     this.navigate('analyze')
   }
 
@@ -79,8 +86,8 @@ export class SolutionsComponent {
       th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
-    this.currentProject.analyze.butterfly.forEach((risk: any) => {
-      if (risk.status === "Висока" || risk.status === "Критична") {
+    this.currentProject.analyze.butterfly.forEach((risk: IRiskButterflyData) => {
+      if (risk.status === ERiskButterflyStatus.critical || risk.status === ERiskButterflyStatus.high) {
         this.currentButterflyRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.moveState, risk.status, `${risk.value} %`])
       }
     })
@@ -91,7 +98,7 @@ export class SolutionsComponent {
       th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
-    this.currentProject.analyze.stairs.forEach((risk: any) => {
+    this.currentProject.analyze.stairs.forEach((risk: IRiskStairsData) => {
       if (risk.value >= 50) {
         this.currentStairsRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
       }

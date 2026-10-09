@@ -18,7 +18,7 @@
                 </label>
               }
               @if (input.type === 'info') {
-                <h3 class="bold">{{ input.items[0] }}</h3>
+                <h3 class="bold">{{ input.items ? input.items[0] : '' }}</h3>
               } @else if (input.type === 'text') {
                 <input
                   pInputText

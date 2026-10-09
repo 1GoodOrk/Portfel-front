@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+// TODO: ChangeDetectionStrategy, ChangeDetectorRef
+import { Component } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
 import { Router } from '@angular/router';
 
@@ -15,8 +16,17 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
-
+import {
+  EDialogVisibilityKeys,
+  EInputRowsName,
+  IAnalyzeRiskAmount,
+  IChartsBarDataContainer,
+  IChartsBarOptionsContainer,
+  IDialogVisibility,
+  IProjectData,
+  IRiskButterflyData,
+  IRiskStairsData
+} from '@port/interfaces';
 @Component({
   selector: 'app-analyze',
   imports: [
@@ -40,37 +50,32 @@ import { HttpService } from '@port/services/http.service';
   styleUrl: './analyze.component.scss',
 })
 export class AnalyzeComponent {
-  public current: any = {
+  public current: IAnalyzeRiskAmount = {
     all: 0,
     check: 0,
     critical: 0
   }
-  public stairs: any = {
+  public stairs: IAnalyzeRiskAmount = {
     all: 0,
     check: 0,
     critical: 0
   }
-  public butterfly: any = {
+  public butterfly: IAnalyzeRiskAmount = {
     all: 0,
     check: 0,
     critical: 0
   }
-  public basicData: any = {}
-  public basicStairsData: any = {}
-  public basicButterflyData: any = {}
-  public basicOptions: any = {}
-  public currentProject: any = {}
-  public risksData: any = []
+  public basicData!: IChartsBarDataContainer
+  public basicOptions!: IChartsBarOptionsContainer
+  public currentProject!: IProjectData
 
-  public inputs: any = {}
-
-  public visible: any = {
-    info: false
+  public visible: IDialogVisibility = {
+    info: false,
+    creation: false
   }
 
   constructor(
     private router: Router,
-    private httpService: HttpService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
@@ -79,27 +84,21 @@ export class AnalyzeComponent {
     }
   }
 
-  public showInfoProjectDialog(event?: any): void {
-    event.stopPropagation()
+  public showInfoProjectDialog(): void {
     this.visible.info = true
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'logistic', header: `Переглянути проект "${this.currentProject.name}"` })
+    this.appCommunicationService.sendInfoData({ inputRowsName: EInputRowsName.logistic, header: `Переглянути проект "${this.currentProject.name}"` })
   }
 
-  public visibleOnChange(key: string): void {
+  public visibleOnChange(key: EDialogVisibilityKeys): void {
     this.visible[key] = !this.visible[key]
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public openDialogInfo(index: number): void {
-    this.appCommunicationService.saveCurrentRisk(this.currentProject.risks[index])
-    this.navigate(`risk/${this.currentProject.risks[index]._id}`)
-  }
-
   public recreateCharts () {
-    this.currentProject.analyze.butterfly.forEach((el: any) => {
+    this.currentProject.analyze.butterfly.forEach((el: IRiskButterflyData) => {
       this.current.all++
       this.butterfly.all++
       if (el.status === 'Критична' || el.status === 'Висока') {
@@ -110,7 +109,7 @@ export class AnalyzeComponent {
         this.butterfly.check++
       }
     });
-    this.currentProject.analyze.stairs.forEach((el: any) => {
+    this.currentProject.analyze.stairs.forEach((el: IRiskStairsData) => {
       this.current.all++
       this.stairs.all++
       if (el.value >= 50) {
@@ -134,30 +133,6 @@ export class AnalyzeComponent {
           data: [this.current.all, this.current.check, this.current.critical, this.butterfly.all, this.butterfly.check, this.butterfly.critical, this.stairs.all, this.stairs.check, this.stairs.critical],
           backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred', 'rgb(55, 7, 152)', 'darkblue', 'darkred','rgb(55, 7, 152)', 'darkblue', 'darkred'],
           borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred', 'rgb(55, 7, 152)', 'darkblue', 'darkred','rgb(55, 7, 152)', 'darkblue', 'darkred'],
-          borderWidth: 1
-        }
-      ]
-    };
-    this.basicStairsData = {
-      labels: ['Усі', 'Моніторинг', 'Вимагають прийняття рішення'],
-      datasets: [
-        {
-          label: 'Ризики',
-          data: [this.stairs.all, this.stairs.check, this.stairs.critical],
-          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
-          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
-          borderWidth: 1
-        }
-      ]
-    };
-    this.basicButterflyData = {
-      labels: ['Усі', 'Моніторинг', 'Вимагають прийняття рішення'],
-      datasets: [
-        {
-          label: 'Ризики',
-          data: [this.butterfly.all, this.butterfly.check, this.butterfly.critical],
-          backgroundColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
-          borderColor: ['rgb(55, 7, 152)', 'darkblue', 'darkred'],
           borderWidth: 1
         }
       ]

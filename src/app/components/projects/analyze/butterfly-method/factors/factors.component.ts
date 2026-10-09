@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -22,6 +22,14 @@ import { TooltipModule } from 'primeng/tooltip';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
+import {
+  EInputRowsName,
+  IInputRow,
+  IInputRowContainer,
+  IProjectData,
+  IRiskButterflyFactorData,
+  ITableContainer
+} from '@port/interfaces';
 
 @Component({
   selector: 'app-factors',
@@ -51,20 +59,20 @@ import { FakeRequestService } from '@port/services/fake-request.service';
   styleUrl: './factors.component.scss',
 })
 export class FactorsComponent {
-  public currentProject: any = {}
-  public inputs: any = {}
-  public factorData: any = {
+  @Output() updateView = new EventEmitter();
+  public currentProject!: IProjectData
+  public inputs!: IInputRowContainer
+  public factorData: { tableParams: ITableContainer<string | number>; } = {
     tableParams: { td: [], th: ['Фактор'] }
   }
-  public timeOut: any
-  @Output() updateView = new EventEmitter();
+  public timeOut!: number
 
   constructor(
     private appCommunicationService: AppCommunicationService,
     private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
-    this.inputs = this.appCommunicationService.getInputsForm(['factorLogistic'])
+    this.inputs = this.appCommunicationService.getInputsForm([EInputRowsName.factorLogistic])
     this.currentProject = this.appCommunicationService.getCurrentProject()
     if (!this.currentProject.analyze.butterflyFactors) {
       this.currentProject.analyze.butterflyFactors = []
@@ -76,33 +84,35 @@ export class FactorsComponent {
     }
   }
 
-  public removeFactor(index: number) {
+  public removeFactor(index: number): void {
     this.removeFactorTable(this.currentProject.analyze.butterflyFactors[index].name)
     this.currentProject.analyze.butterflyFactors.splice(index, 1)
     this.httpService.updateProject(this.currentProject._id, this.currentProject)
       .subscribe(() => {
         this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-        this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: any) => {
+        this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: IInputRow) => {
           input.value = ''
           return input
         })
       })
-
-
   }
 
-  public removeFactorTable(name: string) {
+  public removeFactorTable(name: string): void {
     const elementIndex = this.factorData.tableParams.th.indexOf(name)
     this.factorData.tableParams.th.splice(elementIndex, 1)
     this.factorData.tableParams.td.splice(elementIndex - 1, 1)
     this.factorData.tableParams.td = this.factorData.tableParams.td
-      .map((td: any) => {
+      .map((td: Array<string | number>) => {
         td.splice(elementIndex, 1)
         return td
       })
   }
 
-  public updateProject(form: any) {
+  private fakeRequest(id: string, data: IProjectData): void {
+    this.fakeRequestService.updateProject(id, data)
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+  }
+  public updateProject(form: NgForm): void {
     if (form.valid) {
       form.resetForm()
       this.currentProject.analyze.butterflyFactors.push({
@@ -112,18 +122,11 @@ export class FactorsComponent {
         type: this.inputs.factorLogistic[3].value,
       })
       this.recreateTable()
-      // this.fakeRequestService.updateProject(this.currentProject._id, this.currentProject)
-      // this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-      // this.inputs.stackholdersLogistic = this.inputs.stackholdersLogistic.map((input: any) => {
-      //   input.value = ''
-      //   return input
-      // })
-      // this.getAllProjects()
       this.httpService.updateProject(this.currentProject._id, this.currentProject)
         .subscribe(() => {
           this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
           console.log(this.currentProject)
-          this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: any) => {
+          this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: IInputRow) => {
             input.value = ''
             return input
           })
@@ -131,8 +134,8 @@ export class FactorsComponent {
     }
   }
 
-  public recreateTable() {
-    this.currentProject.analyze.butterflyFactors.forEach((factor: any) => {
+  public recreateTable(): void {
+    this.currentProject.analyze.butterflyFactors.forEach((factor: IRiskButterflyFactorData) => {
       const elementIndex = this.factorData.tableParams.th.indexOf(factor.name) - 1
       if (elementIndex > -1) {
         this.factorData.tableParams.td[elementIndex].push(0)
@@ -146,7 +149,7 @@ export class FactorsComponent {
     })
   }
 
-  public changeTable(event: any, rowIndex: number, index: number) {
+  public changeTable(event: string, rowIndex: number, index: number): void {
     this.factorData.tableParams.td[rowIndex][index] = event
     clearTimeout(this.timeOut)
     this.timeOut = setTimeout(() => {

@@ -58,7 +58,7 @@ export class HeaderComponent {
     this.translate.use(this.selectedLanguage)
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigate([`/${path}`]);
   }
 

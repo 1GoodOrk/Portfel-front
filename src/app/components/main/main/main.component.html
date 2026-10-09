@@ -16,7 +16,7 @@
         />
     </div>
     <div legend="Projects" class="container">
-      @for (project of projectsList; track project) {
+      @for (project of projectsFilteredList; track project) {
         <p-card
           [style]="{
             'max-width': '300px',
@@ -43,7 +43,7 @@
                 [pTooltip]="`${'pages.main.main.updateButtonTooltip' | translate} ${project.name}`"
                 tooltipPosition="top"
                 severity="warn"
-                (click)="showDialogProjects(true, project._id, $event)"/>
+                (click)="showDialogProjects(project._id, $event)"/>
               <p-button
                 [label]="`${'pages.main.main.removeButton' | translate}`"
                 [pTooltip]="`${'pages.main.main.removeButtonTooltip' | translate} ${project.name}`"

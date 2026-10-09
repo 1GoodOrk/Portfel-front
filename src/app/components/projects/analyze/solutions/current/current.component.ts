@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from "@ngx-translate/core";
+import { DatePipe } from '@angular/common';
 
 import { Times, Pencil, Eye } from '@primeicons/angular';
 import { ChartModule } from 'primeng/chart';
@@ -9,14 +10,30 @@ import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
+import { AppCommunicationService } from '@port/services/app-communication.service';
+import { HttpService } from '@port/services/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
+
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
 
-import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
-import { DatePipe } from '@angular/common';
+import {
+  EDialogVisibilityKeys,
+  EInputRowsName,
+  ERiskButterflyStatus,
+  ERiskStairsStatus,
+  ESolutionFinalStatus,
+  IChartsLineDataContainer,
+  IChartsLineOptionsContainer,
+  IDialogVisibility,
+  IInfoRow,
+  IProjectData,
+  IRiskButterflyData,
+  IRiskStairsData,
+  ISolutionData
+} from '@port/interfaces';
 
 @Component({
   selector: 'app-current',
@@ -38,53 +55,59 @@ import { DatePipe } from '@angular/common';
   styleUrl: './current.component.scss',
 })
 export class CurrentComponent {
-  public value = signal<string[]>([]);
-
-  public data: any = {}
+  public data!: IRiskButterflyData | IRiskStairsData | any
   public currentGroup: string = ''
-  public currentProject: any = {}
-  public infoPageProjectValueKeys: any = []
-  public visible: any = {
+  public currentProject!: IProjectData
+  public infoPageProjectValueKeys: Array<IInfoRow> = []
+  public visible: IDialogVisibility = {
     creation: false,
     info: false
   }
-  public chartData: any = {}
-  public options: any = {}
+  public chartData!: IChartsLineDataContainer
+  public options!: IChartsLineOptionsContainer
 
   constructor(
     private router: Router,
     private httpService: HttpService,
+    private fakeRequestService: FakeRequestService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.data = this.appCommunicationService.getCurrentRisk()
     this.currentGroup = this.appCommunicationService.getCurrentGroup()
     this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys(`${this.currentGroup}Acc`)]
     this.currentProject = this.appCommunicationService.getCurrentProject()
-    if (this.data.solutions) {
+    if (this.data?.solutions) {
       this.recreateTable()
       this.changeCharts()
     }
   }
 
-  public visibleOnChange(key: string): void {
+  public visibleOnChange(key: EDialogVisibilityKeys): void {
     this.visible[key] = !this.visible[key]
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
+  }
+
+  private fakeRequest(id: string, data: IProjectData): void {
+    this.fakeRequestService.updateProject(id, data)
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
   }
 
   public updateProject(): void {
     this.httpService
       .updateProject(this.currentProject._id, this.currentProject)
-      .subscribe((data: any) => {})
+      .subscribe(() => {
+        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      })
   }
 
-  private indexCalculation(data: any): any {
+
+  private indexCalculation(data: ISolutionData): ISolutionData {
     data.value = +(data.probability * data.influence / 100).toFixed(2)
     data.valueInfluence = +(data.probability * data.influence / 100).toFixed(2)
-    if (data.finalState !== 'Рішення не реалізовано') {
-      data.disabled = true
+    if (data.finalState !== ESolutionFinalStatus.inProgress) {
       data.dateFinish = new Date().toISOString().split('T').join(' - ').split('Z')[0]
       data.control = 100
       this.changeCharts()
@@ -92,40 +115,57 @@ export class CurrentComponent {
     return data
   }
 
-  private riskValueRecalculation() {
+  private riskButterflyValueRecalculation(): void {
     this.data.value = this.data.firstValue
-    this.data.solutions.forEach((data: any) => {
-      if (data.finalState === 'Рішення реалізовано') {
+    this.data.solutions.forEach((data: ISolutionData) => {
+      if (data.finalState === ESolutionFinalStatus.success) {
         this.data.value = this.data.value > data.value ? +(this.data.value - data.value).toFixed(2) : 0
         if (this.data.value === 0) {
-          this.data.status = 'Низька'
+          this.data.status = ERiskButterflyStatus.low
         } else {
-          this.data.status = this.data.value > 75 ? 'Критична' : this.data.value > 50 ? 'Висока' : this.data.value > 25 ? 'Помірна' : 'Низька'
+          this.data.status = this.data.value > 75 ? ERiskButterflyStatus.critical : this.data.value > 50 ? ERiskButterflyStatus.high : this.data.value > 25 ? ERiskButterflyStatus.middle : ERiskButterflyStatus.low
         }
-      } else if (data.finalState === 'Рішення реалізовано з негативним результатом') {
+      } else if (data.finalState === ESolutionFinalStatus.unsuccess) {
         this.data.value = +(this.data.value + data.value).toFixed(2)
-        this.data.status = this.data.value > 75 ? 'Критична' : this.data.value > 50 ? 'Висока' : this.data.value > 25 ? 'Помірна' : 'Низька'
+        this.data.status = this.data.value > 75 ? ERiskButterflyStatus.critical : this.data.value > 50 ? ERiskButterflyStatus.high : this.data.value > 25 ? ERiskButterflyStatus.middle : ERiskButterflyStatus.low
       }
     })
   }
 
-  public updateRisk(data: any): void {
+  private riskStairsValueRecalculation(): void {
+    this.data.value = this.data.firstValue
+    this.data.solutions.forEach((data: ISolutionData) => {
+      if (data.finalState === ESolutionFinalStatus.success) {
+        this.data.value = this.data.value > data.value ? +(this.data.value - data.value).toFixed(2) : 0
+        if (this.data.value === 0) {
+          this.data.status = ERiskStairsStatus.low
+        } else {
+          this.data.status = this.data.value > 75 ? ERiskStairsStatus.critical : this.data.value > 50 ? ERiskStairsStatus.high : this.data.value > 25 ? ERiskStairsStatus.middle : ERiskStairsStatus.low
+        }
+      } else if (data.finalState === ESolutionFinalStatus.unsuccess) {
+        this.data.value = +(this.data.value + data.value).toFixed(2)
+        this.data.status = this.data.value > 75 ? ERiskStairsStatus.critical : this.data.value > 50 ? ERiskStairsStatus.high : this.data.value > 25 ? ERiskStairsStatus.middle : ERiskStairsStatus.low
+      }
+    })
+  }
+
+  public updateSolution(data: ISolutionData): void {
     data = this.indexCalculation(data)
-    this.riskValueRecalculation()
-    this.currentProject.analyze[this.currentGroup][this.currentProject.analyze[this.currentGroup].findIndex((risk: any) => risk._id === this.data._id)] = this.data
+    this.currentGroup === 'stairs' ? this.riskStairsValueRecalculation() : this.riskButterflyValueRecalculation()
+    this.currentProject.analyze[this.currentGroup][this.currentProject.analyze[this.currentGroup].findIndex((risk: IRiskButterflyData | IRiskStairsData) => risk._id === this.data._id)] = this.data
     this.visible.creation = false
     this.recreateTable()
     this.updateProject()
   }
 
-  public createRisk(data: any): void {
+  public createSolution(data: ISolutionData): void {
     data = this.indexCalculation(data)
     if (!this.data.solutions) {
       this.data.solutions = []
     }
     this.data.solutions.push(data)
-    this.riskValueRecalculation()
-    this.currentProject.analyze[this.currentGroup][this.currentProject.analyze[this.currentGroup].findIndex((risk: any) => risk._id === this.data._id)] = this.data
+    this.currentGroup === 'stairs' ? this.riskStairsValueRecalculation() : this.riskButterflyValueRecalculation()
+    this.currentProject.analyze[this.currentGroup][this.currentProject.analyze[this.currentGroup].findIndex((risk: IRiskButterflyData | IRiskStairsData) => risk._id === this.data._id)] = this.data
     this.visible.creation = false
     this.recreateTable()
     this.updateProject()
@@ -134,11 +174,10 @@ export class CurrentComponent {
   public recreateTable(): void {
     this.data.solutionTableParams = {
       th: ['Назва', 'Ймовірність стабілізації ризику (1 - 100)', 'Вплив рішення на стабілізацію ризику (1 - 100)', 'Ймовірні наслідки', 'Статус (позитивно, негативно, без впливу, не вирішено)', 'Реалізація %', 'Взаємодія'],
-      td: [],
-      disabled: []
+      td: []
     }
-    this.data.solutions.forEach((solution: any) => {
-      this.data.solutionTableParams.td.push([solution.name, `${solution.probability} %`, solution.value, solution.consequences, solution.finalState, `${solution.control} %`])
+    this.data.solutions.forEach((solution: ISolutionData) => {
+      this.data.solutionTableParams.td.push([solution.name, `${solution.probability} %`, `${solution.value}`, solution.consequences, solution.finalState, `${solution.control} %`])
     })
   }
 
@@ -153,26 +192,26 @@ export class CurrentComponent {
     } else {
       this.appCommunicationService.saveCurrentSolution(this.data.solutions[index])
     }
-    this.appCommunicationService.sendCreateData({ inputRowsName: 'solution', header: !index && index !== 0 ? 'Створити рішення' : 'Оновити рішення' })
+    this.appCommunicationService.sendCreateData({ inputRowsName: EInputRowsName.solution, header: !index && index !== 0 ? 'Створити рішення' : 'Оновити рішення' })
   }
 
   public openDialogInfo(index: number): void {
     this.visible.info = true
     this.appCommunicationService.saveCurrentSolution(this.data.solutions[index])
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'solution', header: 'Інформація про рішення' })
+    this.appCommunicationService.sendInfoData({ inputRowsName: EInputRowsName.solution, header: 'Інформація про рішення' })
   }
 
   private changeCharts(): void {
     if (!this.data.solutions) {
       return
     }
-    const solutions = this.data.solutions.filter((solution: any) => solution.finalState !== 'Рішення не реалізовано')
+    const solutions = this.data.solutions.filter((solution: any) => solution.finalState !== ESolutionFinalStatus.inProgress)
     const labels = [this.data.dateCreation, ...solutions.map((solution: any) => solution.dateFinish)]
     let secDigitalRiskIndex = this.data.firstValue
     const dataAk = [this.data.firstValue, ...solutions.map((solution: any) => {
-      if (solution.finalState === 'Рішення реалізовано') {
+      if (solution.finalState === ESolutionFinalStatus.success) {
         secDigitalRiskIndex = secDigitalRiskIndex - solution.value
-      } else if (solution.finalState === 'Рішення реалізовано з негативним результатом') {
+      } else if (solution.finalState === ESolutionFinalStatus.unsuccess) {
         secDigitalRiskIndex = secDigitalRiskIndex + solution.value
       }
       return secDigitalRiskIndex

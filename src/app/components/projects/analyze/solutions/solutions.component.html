@@ -14,10 +14,10 @@
   </div>
   @if (currentButterflyRiskTables) {
     <div class="table-container">
-      <p-table [value]="currentButterflyRiskTables?.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+      <p-table [value]="currentButterflyRiskTables.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
         <ng-template #header>
             <tr>
-              @for (th of currentButterflyRiskTables?.th; track `th-id-${th}`) {
+              @for (th of currentButterflyRiskTables.th; track `th-id-${th}`) {
                 <th [id]="`th-id-${th}`">{{ th }}</th>
               }
             </tr>
@@ -73,10 +73,10 @@
   </div>
     @if (currentStairsRiskTables) {
       <div class="table-container">
-        <p-table [value]="currentStairsRiskTables?.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+        <p-table [value]="currentStairsRiskTables.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
           <ng-template #header>
               <tr>
-                @for (th of currentStairsRiskTables?.th; track `th-id-${th}`) {
+                @for (th of currentStairsRiskTables.th; track `th-id-${th}`) {
                   <th [id]="`th-id-${th}`">{{ th }}</th>
                 }
               </tr>

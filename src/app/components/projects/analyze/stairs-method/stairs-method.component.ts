@@ -13,8 +13,24 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
+
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
+import {
+  EDialogVisibilityKeys,
+  EInputRowsName,
+  ERiskStairsStatus,
+  ESolutionFinalStatus,
+  EStairsFilterModes,
+  IChartsBarDataContainer,
+  IChartsBarOptionsContainer,
+  IDialogVisibility,
+  IProjectData,
+  IRiskStairsData,
+  ISolutionData,
+  ITableContainer
+} from '@port/interfaces';
 @Component({
   selector: 'app-stairs-method',
   imports: [
@@ -33,33 +49,25 @@ import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/
   styleUrl: './stairs-method.component.scss',
 })
 export class StairsMethodComponent {
-  // Расчитать Проектную составляющую
-  // Расчитать Операционную составляющую
-  // Расчитать взаимодействие между ними
-  // Расчитать коэффичиент грузового риска
-  // Расчитать интергрированне значение риска
-  // Определить категорию риска
-  // Отсортировать по табам и значению рисков
   public current: any = {}
-  public currentRiskTables: any = {
+  public currentRiskTables: ITableContainer<string> = {
     th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
     td: []
   }
-  public currentProject: any = {}
-  public currentMode: string = 'All'
-  public basicData: any = {}
-  public basicOptions: any = {}
-  // public stairsFactorData: any = []
+  public currentProject!: IProjectData
+  public currentMode: EStairsFilterModes = EStairsFilterModes.all
+  public basicData!: IChartsBarDataContainer
+  public basicOptions!: IChartsBarOptionsContainer
 
-  public inputs: any = {}
-
-  public visible: any = {
-    info: false
+  public visible: IDialogVisibility = {
+    info: false,
+    creation: false
   }
 
   constructor(
     private router: Router,
     private httpService: HttpService,
+    private fakeRequestService: FakeRequestService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
@@ -76,25 +84,40 @@ export class StairsMethodComponent {
     // }
   }
 
-  public navigate(path: string) {
+  public get eStairsFilterModes(): typeof EStairsFilterModes {
+    return EStairsFilterModes
+  }
+
+  public get eRiskStairsStatus(): typeof ERiskStairsStatus {
+    return ERiskStairsStatus
+  }
+
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public back() {
+  public back(): void {
     this.navigate('analyze')
   }
 
-  public visibleOnChange(key: string): void {
+  public visibleOnChange(key: EDialogVisibilityKeys): void {
     this.visible[key] = !this.visible[key]
+  }
+
+  private fakeRequest(id: string, data: IProjectData): void {
+    this.fakeRequestService.updateProject(id, data)
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
   }
 
   public updateProject(): void {
     this.httpService
       .updateProject(this.currentProject._id, this.currentProject)
-      .subscribe((data: any) => {})
+      .subscribe(() => {
+        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      })
   }
 
-  private indexCalculation(data: any, mode?: string): any {
+  private indexCalculation(data: IRiskStairsData): IRiskStairsData {
     data.value = +(data.probability * data.influence / 100).toFixed(2)
     data.firstValue = data.value
     if (!data.dateCreation) {
@@ -105,42 +128,42 @@ export class StairsMethodComponent {
     data.doubleValue = +(data.yCoef * data.value / 100).toFixed(2)
     data.integrateValue = +((data.projectValue + data.operationValue + data.doubleValue) / 3).toFixed(2)
     data.status = data.value > 75 ?
-      'Критичний' :
-      data.value > 50 ? 'Високий' :
-      data.value > 25 ? 'Помірний' : 'Низький'
+      ERiskStairsStatus.critical :
+      data.value > 50 ? ERiskStairsStatus.high :
+      data.value > 25 ? ERiskStairsStatus.middle : ERiskStairsStatus.low
     if (data.solutions && data.solutions.length) {
       data = this.riskValueRecalculation(data)
     }
     return data
   }
 
-  private riskValueRecalculation(data: any) {
+  private riskValueRecalculation(data: IRiskStairsData): IRiskStairsData {
     data.value = data.firstValue
-    data.solutions.forEach((dataSolution: any) => {
-      if (dataSolution.finalState === 'Рішення реалізовано') {
+    data.solutions.forEach((dataSolution: ISolutionData) => {
+      if (dataSolution.finalState === ESolutionFinalStatus.success) {
         data.value = data.value > dataSolution.value ? +(data.value - dataSolution.value).toFixed(2) : 0
         if (data.value === 0) {
-          data.status = 'Низька'
+          data.status = ERiskStairsStatus.low
         } else {
-          data.status = data.value > 75 ? 'Критична' : data.value > 50 ? 'Висока' : data.value > 25 ? 'Помірна' : 'Низька'
+          data.status = data.value > 75 ? ERiskStairsStatus.critical : data.value > 50 ? ERiskStairsStatus.high : data.value > 25 ? ERiskStairsStatus.middle : ERiskStairsStatus.low
         }
-      } else if (dataSolution.finalState === 'Рішення реалізовано з негативним результатом') {
+      } else if (dataSolution.finalState === ESolutionFinalStatus.unsuccess) {
         data.value = +(data.value + dataSolution.value).toFixed(2)
-        data.status = data.value > 75 ? 'Критична' : data.value > 50 ? 'Висока' : data.value > 25 ? 'Помірна' : 'Низька'
+        data.status = data.value > 75 ? ERiskStairsStatus.critical : data.value > 50 ? ERiskStairsStatus.high : data.value > 25 ? ERiskStairsStatus.middle : ERiskStairsStatus.low
       }
     })
     return data
   }
 
-  public updateRisk(data: any): void {
+  public updateRisk(data: IRiskStairsData): void {
     data = this.indexCalculation(data)
     this.visible.creation = false
     this.recreateTable()
     this.updateProject()
   }
 
-  public createRisk(data: any): void {
-    data = this.indexCalculation(data, 'new')
+  public createRisk(data: IRiskStairsData): void {
+    data = this.indexCalculation(data)
     if (!this.currentProject.analyze.stairs) {
       this.currentProject.analyze.stairs = []
     }
@@ -155,7 +178,7 @@ export class StairsMethodComponent {
       th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
-    this.currentProject.analyze.stairs.forEach((risk: any) => {
+    this.currentProject.analyze.stairs.forEach((risk: IRiskStairsData) => {
       this.currentProject.analyze.stairsRisksTableParams.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
     })
     this.tableFilter()
@@ -166,19 +189,19 @@ export class StairsMethodComponent {
       th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Рівень інтегрованого ризику (Низький, Помірний, Високий, Критичний)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
-    this.currentProject.analyze.stairs.forEach((risk: any) => {
+    this.currentProject.analyze.stairs.forEach((risk: IRiskStairsData) => {
       this.currentRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.status, `${risk.value} %`])
     })
   }
 
-  public tableFilter(mode?: string): void {
+  public tableFilter(mode?: EStairsFilterModes): void {
     if (mode) {
       this.currentMode = mode
     }
     this.refreshTable()
-    if (this.currentMode === 'Unused' || this.currentMode === 'Used') {
-      this.currentRiskTables.td = this.currentRiskTables.td.filter((risk: any) => this.currentMode === 'Unused' ? risk[5].split(' %')[0] <= 50 : risk[5].split(' %')[0] > 50)
-    } else if (this.currentMode !== 'All') {
+    if (this.currentMode === EStairsFilterModes.unused || this.currentMode === EStairsFilterModes.used) {
+      this.currentRiskTables.td = this.currentRiskTables.td.filter((risk: any) => this.currentMode === EStairsFilterModes.unused ? risk[5].split(' %')[0] <= 50 : risk[5].split(' %')[0] > 50)
+    } else if (this.currentMode !== EStairsFilterModes.all) {
       this.currentRiskTables.td = this.currentRiskTables.td.filter((risk: any) => risk[4] === this.currentMode)
     }
     this.recreateCharts()
@@ -187,17 +210,17 @@ export class StairsMethodComponent {
   public openDialogInfo(index: number): void {
     this.visible.info = true
     this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze.stairs[index])
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'stairs', header: 'Інформація про ризик' })
+    this.appCommunicationService.sendInfoData({ inputRowsName: EInputRowsName.stairs, header: 'Інформація про ризик' })
   }
 
   public openDialogAddUpdateRow(index?: number): void {
     this.visible.creation = true
     if (!index && index !== 0) {
-      this.appCommunicationService.saveCurrentRisk(null)
+      this.appCommunicationService.clearCurrentRisk()
     } else {
       this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze.stairs[index])
     }
-    this.appCommunicationService.sendCreateData({ inputRowsName: 'stairs', header: !index && index !== 0 ? 'Створити ризик' : 'Оновити ризик' })
+    this.appCommunicationService.sendCreateData({ inputRowsName: EInputRowsName.stairs, header: !index && index !== 0 ? 'Створити ризик' : 'Оновити ризик' })
   }
 
   public remove(index: number): void {
@@ -205,7 +228,7 @@ export class StairsMethodComponent {
     this.updateProject()
   }
 
-  public recreateCharts () {
+  public recreateCharts(): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -220,9 +243,9 @@ export class StairsMethodComponent {
     }
     this.currentRiskTables.td.forEach((el: any) => {
       el[5].split(' %')[0] <= 50 ? calculation.unused++ : calculation.used++
-      el[4] === 'Критичний' ? calculation.critical++ :
-        el[4] === 'Високий' ? calculation.high++ :
-        el[4] === 'Помірний' ? calculation.middle++ : calculation.low++
+      el[4] === ERiskStairsStatus.critical ? calculation.critical++ :
+        el[4] === ERiskStairsStatus.high ? calculation.high++ :
+        el[4] === ERiskStairsStatus.middle ? calculation.middle++ : calculation.low++
     });
     this.basicData = {
       labels: ['Критичні', 'Високі', 'Помірні', 'Низькі', 'Істотні', 'Неістотні'],
@@ -236,8 +259,6 @@ export class StairsMethodComponent {
         }
       ]
     };
-
-    console.log(this.basicData)
 
     this.basicOptions = {
       plugins: {

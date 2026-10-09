@@ -17,10 +17,18 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { DialogModule } from 'primeng/dialog';
 
-import { IProjectData } from '@port/interfaces';
+import {
+  EDialogVisibilityKeys,
+  EInputRowsName,
+  IDialogCommunicationSubjectData,
+  IInputRowContainer,
+  IInputRow,
+  IProjectData,
+  IRiskButterflyData
+} from '@port/interfaces';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
 import { v6 } from 'uuid';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-creation-dialog',
@@ -48,41 +56,37 @@ import { v6 } from 'uuid';
 })
 export class CreationDialogComponent implements OnDestroy {
   @Input() visible: boolean = false;
-  public subscription: any
-  public currentProjectID: any
-  public data: any = null
-  public currentMode: string = 'logistic'
+  @Output() changeVisibleEvent = new EventEmitter<EDialogVisibilityKeys>();
+  @Output() submitionUpdateEvent = new EventEmitter<any>();
+  @Output() submitionCreateEvent = new EventEmitter<any>();
+
+  public inputs!: IInputRowContainer
+  public subscription!: any
+  public currentMode: EInputRowsName = EInputRowsName.logistic
+  public data: IProjectData | IRiskButterflyData| any = null
   public header: string = 'Створити проект'
 
-  @Output() changeVisibleEvent = new EventEmitter<string>();
-  @Output() submitionUpdateEvent = new EventEmitter<string>();
-  @Output() submitionCreateEvent = new EventEmitter<string>();
-
-  public inputs: any = {}
 
   constructor(
-    private appCommunicationService: AppCommunicationService,
-    private httpService: HttpService
+    private appCommunicationService: AppCommunicationService
   ) {
     this.inputs = this.appCommunicationService.getInputsForm([this.currentMode])
     this.communicationUpdate()
   }
 
   private communicationUpdate(): void {
-    this.subscription = this.appCommunicationService.infoCreate.subscribe((data: any) => {
+    this.subscription = this.appCommunicationService.infoCreate.subscribe((data: IDialogCommunicationSubjectData) => {
       this.inputs = this.appCommunicationService.getInputsForm([data.inputRowsName])
-      this.currentProjectID = this.appCommunicationService.currentProject.id
       this.currentMode = data.inputRowsName
       this.header = data.header
-      if (data.inputRowsName === 'butterfly' || data.inputRowsName === 'stairs') {
+      if (data.inputRowsName === EInputRowsName.butterfly || data.inputRowsName === EInputRowsName.stairs) {
         this.data = this.appCommunicationService.getCurrentRisk()
-        console.log(this.data)
-      } else if (data.inputRowsName === 'solution') {
+      } else if (data.inputRowsName === EInputRowsName.solution) {
         this.data = this.appCommunicationService.getCurrentSolution()
       } else {
         this.data = this.appCommunicationService.getCurrentProject()
       }
-      this.inputs[this.currentMode] = this.inputs[this.currentMode].map((input: any) => {
+      this.inputs[this.currentMode] = this.inputs[this.currentMode].map((input: IInputRow) => {
         if (input.name) {
           input.value = this.data ? this.data[input.name] : ''
         }
@@ -92,7 +96,7 @@ export class CreationDialogComponent implements OnDestroy {
   }
 
   public visibleOnChange(): void {
-    this.changeVisibleEvent.emit('creation');
+    this.changeVisibleEvent.emit(EDialogVisibilityKeys.creation);
   }
 
   public cancel(form: NgForm): void {
@@ -104,9 +108,9 @@ export class CreationDialogComponent implements OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  public update(form: any): void {
+  public update(form: NgForm): void {
     if (form.valid) {
-      this.inputs[this.currentMode].forEach((input: any) => {
+      this.inputs[this.currentMode].forEach((input: IInputRow) => {
         if (input.name) {
           this.data[input.name] = input.value
         }
@@ -116,11 +120,11 @@ export class CreationDialogComponent implements OnDestroy {
     }
   }
 
-  public create(form: any): void {
+  public create(form: NgForm): void {
     if (form.valid) {
       this.data = {}
       this.data._id = v6()
-      this.inputs[this.currentMode].forEach((input: any) => {
+      this.inputs[this.currentMode].forEach((input: IInputRow) => {
         if (input.name) {
           this.data[input.name] = input.value
         }

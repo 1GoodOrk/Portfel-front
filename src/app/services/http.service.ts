@@ -13,10 +13,10 @@ export class HttpService {
   private SECRET = 'EAAFCE8ECC522E391DEC31D8F5C54';
   constructor(private http: HttpClient) { }
 
-  getFile() {
+  getFile(): any {
     return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
   }
-  sendMessage(data: any) {
+  sendMessage(data: any): any {
     return this.http.post(`${this.link}/messages`, { data });
   }
 
@@ -29,49 +29,49 @@ export class HttpService {
   registration(data: any): Observable<any> {
     return this.http.post(`${this.link}/users`, { data: CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString() });
   }
-  forget(data: any) {
+  forget(data: any): any {
     return this.http.post(`${this.link}/forget`, { data });
   }
-  newPassword(data: any) {
+  newPassword(data: any): any {
     return this.http.post(`${this.link}/new-password`, { data });
   }
-  updateUser(id: null | string, data: any) {
+  updateUser(id: null | string, data: any): any {
     return this.http.post(`${this.link}/update/${id}`, { data });
   }
 
   getExperts(): Observable<any> {
     return this.http.get(`${this.link}/users?filter=EXPERT`);
   }
-  getAllExpertise(id: null | string) {
+  getAllExpertise(id: null | string): any {
     return this.http.get(`${this.link}/expertise?project=${id}`);
   }
-  getExpertise(id: null | string) {
+  getExpertise(id: null | string): any {
     return this.http.get(`${this.link}/expertise/${id}`);
   }
-  addExpertise(data: any, id: null | string) {
+  addExpertise(data: any, id: null | string): any {
     return this.http.post(`${this.link}/expertise?project=${id}`, { data });
   }
-  removeExpertise(id: string, idProj: null | string) {
+  removeExpertise(id: string, idProj: null | string): any {
     return this.http.delete(`${this.link}/expertise/${id}?project=${idProj}`);
   }
-  updateExpertise(data: any) {
+  updateExpertise(data: any): any {
     return this.http.put(`${this.link}/expertise`, { data });
   }
 
 
-  getAllProjects(token: string) {
+  getAllProjects(token: string): any {
     return this.http.get(`${this.link}/projects-meliksetov?token=${token}`);
   }
-  getProject(id: string) {
+  getProject(id: string): any {
     return this.http.get(`${this.link}/projects-meliksetov/${id}`);
   }
-  updateProject(id: string, data: any) {
+  updateProject(id: string, data: any): any {
     return this.http.put(`${this.link}/projects-meliksetov/${id}`, { data });
   }
-  createProject(data: any, token: string) {
+  createProject(data: any, token: string): any {
     return this.http.post(`${this.link}/projects-meliksetov?token=${token}`, { data });
   }
-  removeProject(id: string, token: string) {
+  removeProject(id: string, token: string): any {
     return this.http.delete(`${this.link}/projects-meliksetov/${id}?token=${token}`);
   }
 

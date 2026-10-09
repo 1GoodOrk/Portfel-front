@@ -44,7 +44,7 @@
             <p> {{item.label | translate}}: {{data.options[item.propName]}} %</p>
           }
         } @else if (valueKey.type === 'permission') {
-          @if (data[valueKey.propPermission]) {
+          @if (valueKey.propPermission && data[valueKey.propPermission]) {
             @if (valueKey.items && valueKey.items[0] && valueKey.items[0].type === 'deepInside') {
               @for (item of valueKey.items; track item) {
                 <p> <span class="bold">{{item.label | translate}}:</span> {{data[item.propNames[0]][item.propNames[1]]}} </p>

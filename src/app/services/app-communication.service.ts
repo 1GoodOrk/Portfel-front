@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IProjectData } from '@port/interfaces';
+import { IInfoRow, IInfoRowContainer, IInputRowContainer, IProjectData, IRiskButterflyData, IRiskStairsData } from '@port/interfaces';
 
 import inputs from '@port/asserts/data/inputs.json'
 import rows from '@port/asserts/data/rows.json'
@@ -8,54 +8,14 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AppCommunicationService {
-  public stackholders: any = []
-
-  public clearProject: IProjectData = {
-    _id: '',
-    name: '',
-    des: '',
-    subinfo: '',
-    priority: 0,
-    responsibleName: '',
-    phases: '',
-    stackholders: ''
-  }
-  public clearStackholder: any = {
-    type: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    responsibleOrganization: '',
-    power: 0,
-    influence: 0,
-    transport: 0,
-    social: 0,
-    economic: 0,
-    ecologic: 0,
-    comfort: 0,
-    technologic: 0,
-    informative: 0,
-    security: 0,
-    managment: 0,
-    eco: 0,
-    ecoPos: 0,
-    war: 0,
-    warPos: 0,
-    log: 0,
-    logPos: 0,
-    soc: 0,
-    socPos: 0,
-    struc: 0,
-    strucPos: 0
-  }
   public lang: string = 'ua'
 
   public sessionStorageSave(id: string, data: string): void {
-    sessionStorage.setItem('id', data)
+    sessionStorage.setItem(id, data)
   }
 
   public sessionStorageGet(id: string): string {
-    return String(sessionStorage.getItem('id'))
+    return String(sessionStorage.getItem(id))
   }
 
   public clearSessionStorage(): void {
@@ -64,20 +24,7 @@ export class AppCommunicationService {
 
   public inputsForm: any = inputs
 
-  public emptyCurrentProject(): void {
-    this.clearProject = {
-      _id: '',
-      name: '',
-      des: '',
-      subinfo: '',
-      priority: 0,
-      responsibleName: '',
-      phases: '',
-      stackholders: ''
-    }
-  }
-
-  public getInputsForm(setName: Array<string>, data?: any): any {
+  public getInputsForm(setName: Array<string>, data?: any): IInputRowContainer {
     const result: any = {}
     setName
       .forEach((el:string) => {
@@ -96,9 +43,11 @@ export class AppCommunicationService {
     return result
   }
 
+
+// IInfoRowContainer
   private infoPageProjectValueKeys: any = rows
 
-  public getInfoPageProjectValueKeys(valueKeysSetName: string): any {
+  public getInfoPageProjectValueKeys(valueKeysSetName: string): Array<IInfoRow> {
     return this.infoPageProjectValueKeys[valueKeysSetName]
   }
 
@@ -171,24 +120,27 @@ export class AppCommunicationService {
     return result
   }
 
-  public saveStackholder(data: any): any {
-    this.stackholders.push(data)
-  }
+  private currentProject!: IProjectData
 
-  public getStackholder(): any {
-    return this.stackholders
-  }
-
-  public deleteStackholder(index: any): any {
-    this.stackholders.splice(index, 1)
-  }
-  public currentProject: any = {}
-
-  public saveCurrentProject(data: any): any {
+  public saveCurrentProject(data: IProjectData): void {
     this.currentProject = data
   }
 
-  public getCurrentProject(): any {
+  public getCurrentProject(): IProjectData {
+    return this.currentProject
+  }
+
+  public clearCurrentProject(): IProjectData {
+    this.currentProject = {
+      _id: '',
+      name: '',
+      des: '',
+      code:'',
+      subinfo: '',
+      priority: 0,
+      responsibleName: '',
+      analyze: {}
+    }
     return this.currentProject
   }
 
@@ -206,23 +158,49 @@ export class AppCommunicationService {
     return this.currentSolution
   }
 
-  public currentRisk: any = null
+  public currentRisk!: IRiskButterflyData | IRiskStairsData
 
-  public saveCurrentRisk(data: any): any {
+  public saveCurrentRisk(data: IRiskButterflyData | IRiskStairsData): void {
     this.currentRisk = data
   }
 
-  public getCurrentRisk(): any {
+  public getCurrentRisk(): IRiskButterflyData | IRiskStairsData {
     return this.currentRisk
   }
 
-  private currentGroup: any = null
+  public clearCurrentRisk(): IRiskButterflyData | IRiskStairsData {
+    this.currentRisk = {
+      _id: '',
+      cause: '',
+      code: '',
+      consequences:'',
+      dateCreation: '',
+      des: '',
+      responsibleName: '',
+      firstValue: 0,
+      influence: 0,
+      moneyMax: 0,
+      moveState: '',
+      name: '',
+      probability: 0,
+      qualityMax: 0,
+      solutionTableParams: { th: [], td: [] },
+      solutions: [],
+      sourcesMax: 0,
+      sphere: '',
+      status: '',
+      timeMax: 0,
+      value: 0
+    }
+    return this.currentRisk
+  }
+  private currentGroup: string = ''
 
-  public saveCurrentGroup(data: any): any {
+  public saveCurrentGroup(data: string): void {
     this.currentGroup = data
   }
 
-  public getCurrentGroup(): any {
+  public getCurrentGroup(): string {
     return this.currentGroup
   }
 

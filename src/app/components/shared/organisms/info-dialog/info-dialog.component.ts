@@ -5,7 +5,7 @@ import { TranslatePipe } from "@ngx-translate/core";
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 
-import { IProjectData } from '@port/interfaces';
+import { EDialogVisibilityKeys, EInputRowsName, IDialogCommunicationSubjectData, IInfoRow, IProjectData } from '@port/interfaces';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 
 
@@ -18,13 +18,13 @@ import { AppCommunicationService } from '@port/services/app-communication.servic
 })
 export class InfoDialogComponent implements OnDestroy {
   @Input() visible: boolean = false;
-  @Output() changeVisibleEvent = new EventEmitter<string>();
+  @Output() changeVisibleEvent = new EventEmitter<EDialogVisibilityKeys>();
 
-  public currentMode: string = 'logistic'
-  public data: any = null
-  public header: string = 'Переглянути проект'
+  public infoPageProjectValueKeys!: Array<IInfoRow>
   public subscription: any
-  public infoPageProjectValueKeys: any = []
+  public currentMode: EInputRowsName = EInputRowsName.logistic
+  public data: IProjectData | any = null
+  public header: string = 'Переглянути проект'
 
   constructor (
     private appCommunicationService: AppCommunicationService
@@ -34,23 +34,22 @@ export class InfoDialogComponent implements OnDestroy {
   }
 
   private communicationUpdate(): void {
-    this.subscription = this.appCommunicationService.infoSub.subscribe((data: any) => {
+    this.subscription = this.appCommunicationService.infoSub.subscribe((data: IDialogCommunicationSubjectData) => {
       this.infoPageProjectValueKeys = [...this.appCommunicationService.getInfoPageProjectValueKeys(data.inputRowsName)]
       this.currentMode = data.inputRowsName
       this.header = data.header
-      if (data.inputRowsName === 'stairs' || data.inputRowsName === 'butterfly') {
+      if (data.inputRowsName === EInputRowsName.butterfly || data.inputRowsName === EInputRowsName.stairs) {
         this.data = this.appCommunicationService.getCurrentRisk()
-      } else if (data.inputRowsName === 'solution') {
+      } else if (data.inputRowsName === EInputRowsName.solution) {
         this.data = this.appCommunicationService.getCurrentSolution()
       } else {
         this.data = this.appCommunicationService.getCurrentProject()
       }
-      console.log(this.data)
     })
   }
 
   public visibleOnChange(): void {
-    this.changeVisibleEvent.emit('info');
+    this.changeVisibleEvent.emit(EDialogVisibilityKeys.info);
   }
 
   public ngOnDestroy(): void {

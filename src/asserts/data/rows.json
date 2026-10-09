@@ -1,5 +1,6 @@
 {
   "logistic": [
+    { "propName": "code", "label": "Код проекту" },
     { "propName": "des", "label": "pages.portfolio.dialog.descriptionLabel" },
     { "propName": "priority", "label": "pages.portfolio.dialog.priorityLabel" },
     { "propName": "responsibleName", "label": "pages.portfolio.dialog.responsibleLabel" },

@@ -14,9 +14,25 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { HttpService } from '@port/services/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
+
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
 import { FactorsComponent } from './factors/factors.component';
+import {
+  IChartsBarDataContainer,
+  IChartsBarOptionsContainer,
+  IDialogVisibility,
+  EDialogVisibilityKeys,
+  ITableContainer,
+  EButterflyFilterModes,
+  IProjectData,
+  IRiskButterflyData,
+  ERiskButterflyStatus,
+  ESolutionFinalStatus,
+  ISolutionData,
+  EInputRowsName
+} from '@port/interfaces';
 
 @Component({
   selector: 'app-butterfly-method',
@@ -37,34 +53,32 @@ import { FactorsComponent } from './factors/factors.component';
   styleUrl: './butterfly-method.component.scss',
 })
 export class ButterflyMethodComponent {
-  public current: any = {}
-
-  public currentMode: string = 'All'
-  public basicData: any = {}
-  public basicOptions: any = {}
-  public currentRiskTables: any = {
+  public currentMode: EButterflyFilterModes = EButterflyFilterModes.all
+  public basicData!: IChartsBarDataContainer
+  public basicOptions!: IChartsBarOptionsContainer
+  public currentRiskTables: ITableContainer<string> = {
     th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
     td: []
   }
-  public currentProject: any = {}
-  public butterflyFactorData: any = []
+  public currentProject!: IProjectData
+  public butterflyFactorData!: { tableParams: ITableContainer<string>; };
 
-  public inputs: any = {}
-
-  public visible: any = {
-    info: false
+  public visible: IDialogVisibility = {
+    info: false,
+    creation: false
   }
 
   constructor(
     private router: Router,
     private httpService: HttpService,
+    private fakeRequestService: FakeRequestService,
     private appCommunicationService: AppCommunicationService
   ) {
     this.currentProject = this.appCommunicationService.getCurrentProject()
     if (!this.currentProject.analyze.butterfly) {
       this.currentProject.analyze.butterfly = []
     }
-    this.currentProject.analyze.butterfly = this.currentProject.analyze.butterfly.map((el: any) => {
+    this.currentProject.analyze.butterfly = this.currentProject.analyze.butterfly.map((el: IRiskButterflyData) => {
       el = this.indexCalculation(el)
       return el
     })
@@ -75,58 +89,73 @@ export class ButterflyMethodComponent {
     this.recreateCharts()
   }
 
-  public navigate(path: string) {
+  public get eButterflyFilterModes(): typeof EButterflyFilterModes {
+    return EButterflyFilterModes
+  }
+
+  public get eRiskButterflyStatus(): typeof ERiskButterflyStatus {
+    return ERiskButterflyStatus
+  }
+
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public back() {
+  public back():void {
     this.navigate('analyze')
   }
 
-  public visibleOnChange(key: string): void {
+  public visibleOnChange(key: EDialogVisibilityKeys): void {
     this.visible[key] = !this.visible[key]
+  }
+
+  private fakeRequest(id: string, data: IProjectData): void {
+    this.fakeRequestService.updateProject(id, data)
+    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
   }
 
   public updateProject(): void {
     this.httpService
       .updateProject(this.currentProject._id, this.currentProject)
-      .subscribe((data: any) => {})
+      .subscribe(() => {
+        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      })
   }
 
-  private indexCalculation(data: any, mode?: string): any {
+  private indexCalculation(data: IRiskButterflyData): IRiskButterflyData {
     data.value = +(data.probability * data.influence / 100).toFixed(2)
     data.firstValue = data.value
     if (!data.dateCreation) {
       data.dateCreation = new Date().toISOString().split('T').join(' - ').split('Z')[0]
     }
     data.status = data.value > 75 ?
-      'Критична' :
-      data.value > 50 ? 'Висока' :
-      data.value > 25 ? 'Помірна' : 'Низька'
+      ERiskButterflyStatus.critical :
+      data.value > 50 ? ERiskButterflyStatus.high :
+      data.value > 25 ? ERiskButterflyStatus.middle : ERiskButterflyStatus.low
     if (data.solutions && data.solutions.length) {
       data = this.riskValueRecalculation(data)
     }
     return data
   }
 
-  private riskValueRecalculation(data: any) {
+  private riskValueRecalculation(data: IRiskButterflyData): IRiskButterflyData{
     data.value = data.firstValue
-    data.solutions.forEach((dataSolution: any) => {
-      if (dataSolution.finalState === 'Рішення реалізовано') {
+    data.solutions.forEach((dataSolution: ISolutionData) => {
+      if (dataSolution.finalState === ESolutionFinalStatus.success) {
         data.value = data.value > dataSolution.value ? +(data.value - dataSolution.value).toFixed(2) : 0
         if (data.value === 0) {
-          data.status = 'Низька'
+          data.status = ERiskButterflyStatus.low
         } else {
-          data.status = data.value > 75 ? 'Критична' : data.value > 50 ? 'Висока' : data.value > 25 ? 'Помірна' : 'Низька'
+          data.status = data.value > 75 ? ERiskButterflyStatus.critical : data.value > 50 ? ERiskButterflyStatus.high : data.value > 25 ? ERiskButterflyStatus.middle : ERiskButterflyStatus.low
         }
-      } else if (dataSolution.finalState === 'Рішення реалізовано з негативним результатом') {
+      } else if (dataSolution.finalState === ESolutionFinalStatus.unsuccess) {
         data.value = +(data.value + dataSolution.value).toFixed(2)
-        data.status = data.value > 75 ? 'Критична' : data.value > 50 ? 'Висока' : data.value > 25 ? 'Помірна' : 'Низька'
+        data.status = data.value > 75 ? ERiskButterflyStatus.critical : data.value > 50 ? ERiskButterflyStatus.high : data.value > 25 ? ERiskButterflyStatus.middle : ERiskButterflyStatus.low
       }
     })
     return data
   }
-  public updateRisk(data: any): void {
+  public updateRisk(data: IRiskButterflyData): void {
     data = this.indexCalculation(data)
     this.visible.creation = false
     this.recreateTable()
@@ -134,8 +163,8 @@ export class ButterflyMethodComponent {
     this.updateProject()
   }
 
-  public createRisk(data: any): void {
-    data = this.indexCalculation(data, 'new')
+  public createRisk(data: IRiskButterflyData): void {
+    data = this.indexCalculation(data)
     if (!this.currentProject.analyze.butterfly) {
       this.currentProject.analyze.butterfly = []
     }
@@ -151,7 +180,7 @@ export class ButterflyMethodComponent {
       th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
-    this.currentProject.analyze.butterfly.forEach((risk: any) => {
+    this.currentProject.analyze.butterfly.forEach((risk: IRiskButterflyData) => {
       this.currentProject.analyze.butterflyRisksTableParams.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.moveState, risk.status, `${risk.value} %`])
     })
     this.tableFilter()
@@ -162,35 +191,35 @@ export class ButterflyMethodComponent {
       th: ['Назва', 'Ймовірність виникнення (1 - 100)', 'Вплив ризику на перебіг проекту (1 - 100)', 'Ймовірні наслідки', 'Тип діяльності', 'Статус загрози ризику (Низька, Помірна, Висока, Критична)', 'Актуальність %', 'Взаємодія'],
       td: []
     }
-    this.currentProject.analyze.butterfly.forEach((risk: any) => {
+    this.currentProject.analyze.butterfly.forEach((risk: IRiskButterflyData) => {
       this.currentRiskTables.td.push([risk.name, `${risk.probability} %`, `${risk.influence} %`, risk.consequences, risk.moveState, risk.status, `${risk.value} %`])
     })
   }
 
-  public tableFilter(mode?: string): void {
+  public tableFilter(mode?: EButterflyFilterModes): void {
     if (mode) {
       this.currentMode = mode
     }
     this.refreshTable()
-    if (this.currentMode !== 'All') {
-      this.currentRiskTables.td = this.currentRiskTables.td.filter((risk: any) => risk[4] === this.currentMode)
+    if (this.currentMode !== EButterflyFilterModes.all) {
+      this.currentRiskTables.td = this.currentRiskTables.td.filter((row: Array<string>) => row[4] === this.currentMode)
     }
   }
 
   public openDialogInfo(index: number): void {
     this.visible.info = true
     this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze.butterfly[index])
-    this.appCommunicationService.sendInfoData({ inputRowsName: 'butterfly', header: 'Інформація про ризик' })
+    this.appCommunicationService.sendInfoData({ inputRowsName: EInputRowsName.butterfly, header: 'Інформація про ризик' })
   }
 
   public openDialogAddUpdateRow(index?: number): void {
     this.visible.creation = true
     if (!index && index !== 0) {
-      this.appCommunicationService.saveCurrentRisk(null)
+      this.appCommunicationService.clearCurrentRisk()
     } else {
       this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze.butterfly[index])
     }
-    this.appCommunicationService.sendCreateData({ inputRowsName: 'butterfly', header: !index && index !== 0 ? 'Створити ризик' : 'Оновити ризик' })
+    this.appCommunicationService.sendCreateData({ inputRowsName: EInputRowsName.butterfly, header: !index && index !== 0 ? 'Створити ризик' : 'Оновити ризик' })
   }
 
   public remove(index: number): void {
@@ -198,11 +227,11 @@ export class ButterflyMethodComponent {
     this.updateProject()
   }
 
-  public updateView() {
+  public updateView(): void {
     this.createCharts()
   }
 
-  public recreateCharts () {
+  public recreateCharts():void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -212,9 +241,9 @@ export class ButterflyMethodComponent {
       oper: 0,
       double: 0
     }
-    this.currentRiskTables.td.forEach((el: any) => {
-      el[4] === 'Проектний' ? calculation.proj++ :
-        el[4] === 'Операційний' ? calculation.oper++ : calculation.double++
+    this.currentRiskTables.td.forEach((row: Array<string>) => {
+      row[4] === EButterflyFilterModes.project ? calculation.proj++ :
+        row[4] === EButterflyFilterModes.operational ? calculation.oper++ : calculation.double++
     });
     this.basicData = {
       labels: ['Проектні', 'Операційні', 'Дублюючі'],
@@ -263,8 +292,8 @@ export class ButterflyMethodComponent {
 
   async createCharts() {
     const links: any = []
-    this.currentProject.analyze.butterflyFactorData.tableParams.td.forEach((td: any) => {
-      td.forEach((elTd: any, tdIndex: number) => {
+    this.currentProject.analyze.butterflyFactorData.tableParams.td.forEach((td: Array<number>) => {
+      td.forEach((elTd: number, tdIndex: number) => {
         if (!isNaN(elTd) && elTd !== 0 && tdIndex !== 0) {
           links.push({
             source: td[0],
@@ -281,7 +310,7 @@ export class ButterflyMethodComponent {
       })),
       links
     };
-    console.log(data)
+
     const elemPrev: any = document.getElementById('model-container-KO');
     if (elemPrev) {
       elemPrev.remove();

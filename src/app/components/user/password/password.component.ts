@@ -7,6 +7,7 @@ import {
 import translationsEN from "@port/asserts/i18n/en.json";
 import translationsRU from "@port/asserts/i18n/ru.json";
 import translationsUA from "@port/asserts/i18n/ua.json";
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule  } from 'primeng/message';
@@ -16,8 +17,10 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { FormsModule } from '@angular/forms';
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
+import { IFormUser } from '@port/interfaces';
+
 @Component({
   selector: 'app-password',
   standalone: true,
@@ -37,7 +40,7 @@ import { HttpService } from '@port/services/http.service';
   styleUrl: './password.component.scss'
 })
 export class PasswordComponent {
-  public user: any = {
+  public formData: IFormUser = {
     password: '',
     confirmPassword: ''
   };
@@ -53,6 +56,7 @@ export class PasswordComponent {
   constructor(
     private router: Router,
     private translate: TranslateService,
+    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
     this.changeLanguage()
@@ -63,18 +67,24 @@ export class PasswordComponent {
     this.translate.use(this.selectedLanguage)
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public onSubmit(form: any): void {
+  private fakeRequest(form: NgForm):void {
+    this.fakeRequestService.newPassword(this.formData)
+    form.resetForm()
+  }
+
+  public onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.showSpinner = true
-      this.httpService.newPassword(this.user.password)
-        .subscribe(() => {
-          this.showSpinner = false
-          form.resetForm()
-        })
+      this.fakeRequest(form)
+      // this.showSpinner = true
+      // this.httpService.newPassword(this.formData.password)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     form.resetForm()
+      //   })
     }
   }
 }

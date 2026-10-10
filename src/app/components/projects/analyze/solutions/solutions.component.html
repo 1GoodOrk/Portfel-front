@@ -1,0 +1,129 @@
+<app-header></app-header>
+<main class="analyze-solution">
+  <div class="flex">
+    <p-button
+      label="Назад"
+      pTooltip="Натисніть, щоб перейти на сторінку аналізу"
+      severity="primary"
+      (click)="back()"/>
+  </div>
+
+  <div class="container-analyze flex column">
+    <h3> <span class="bold">Ризики "Метелик"</span></h3>
+    <p>Виберіть ризик і натисніть на око, щоб перейти на сторінку формування рішення для цього ризику</p>
+  </div>
+  @if (currentButterflyRiskTables) {
+    <div class="table-container">
+      <p-table [value]="currentButterflyRiskTables.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+        <ng-template #header>
+            <tr>
+              @for (th of currentButterflyRiskTables.th; track `th-id-${th}`) {
+                <th [id]="`th-id-${th}`">{{ th }}</th>
+              }
+            </tr>
+        </ng-template>
+        <ng-template #body let-tds let-rowIndex="rowIndex">
+          <tr>
+            @for (td of tds; track `td-id-${td}${$index}`) {
+              @if ($index === 5 || $index === 6) {
+                <td
+                  class="bold"
+                  [style]="{
+                    color: td === 'Критична' || (+td.split(' %')[0] > 75) ? 'red' :
+                    td === 'Висока' || (+td.split(' %')[0] > 50) ? 'darkred' :
+                    td === 'Помірна' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
+                  }">
+                    {{td}}
+                </td>
+              } @else {
+                <td [id]="`td-id-${td}`">{{td}}</td>
+              }
+            }
+            <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
+              <div class="actions">
+                <button
+                  pButton
+                  iconOnly
+                  rounded
+                  raised
+                  variant="text"
+                  pTooltip="Натисніть, щоб перейти на сторінку рішень цього ризику"
+                  tooltipPosition="top"
+                  severity="secondary"
+                  [style]="{
+                    'width': '30px',
+                    'height': '30px',
+                    'margin': '5px 5px',
+                  }"
+                  (click)="openDialogInfo(rowIndex, 'butterfly')"
+                  aria-label="Notification">
+                    <svg data-p-icon="eye"></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  }
+
+  <div class="container-analyze flex column">
+    <h3> <span class="bold">Ризики "Сходи"</span></h3>
+    <p>Виберіть ризик і натисніть на око, щоб перейти на сторінку формування рішення для цього ризику</p>
+  </div>
+    @if (currentStairsRiskTables) {
+      <div class="table-container">
+        <p-table [value]="currentStairsRiskTables.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+          <ng-template #header>
+              <tr>
+                @for (th of currentStairsRiskTables.th; track `th-id-${th}`) {
+                  <th [id]="`th-id-${th}`">{{ th }}</th>
+                }
+              </tr>
+          </ng-template>
+          <ng-template #body let-tds let-rowIndex="rowIndex">
+            <tr>
+              @for (td of tds; track `td-id-${td}${$index}`) {
+                @if ($index === 4 || $index === 5) {
+                  <td
+                    class="bold"
+                    [style]="{
+                      color: td === 'Критичний' || (+td.split(' %')[0] > 75) ? 'red' :
+                      td === 'Високий' || (+td.split(' %')[0] > 50) ? 'darkred' :
+                      td === 'Помірний' || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
+                    }">
+                      {{td}}
+                  </td>
+                } @else {
+                  <td [id]="`td-id-${td}`">{{td}}</td>
+                }
+              }
+              <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
+                <div class="actions">
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб перейти на сторінку рішень цього ризику"
+                    tooltipPosition="top"
+                    severity="secondary"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogInfo(rowIndex, 'stairs')"
+                    aria-label="Notification">
+                      <svg data-p-icon="eye"></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+</main>
+<app-footer></app-footer>

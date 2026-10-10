@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslatePipe } from "@ngx-translate/core";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
@@ -9,10 +9,13 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { HttpService } from '@port/services/http.service';
-
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
+
+import { HttpService } from '@port/services/http/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
+
+import { IFormMessage } from '@port/interfaces';
 
 @Component({
   selector: 'app-contacts',
@@ -32,18 +35,26 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
   styleUrl: './contacts.component.scss'
 })
 export class ContactsComponent {
-  public formData: any = {
+  public formData: IFormMessage = {
     email: '',
     theme: '',
     message: ''
   }
 
-  constructor (private httpService: HttpService) {}
+  constructor (
+    private httpService: HttpService,
+    private fakeRequestService: FakeRequestService
+  ) {}
 
-  public onSubmit (form: any) {
+  private fakeRequest(form: NgForm):void {
+    this.fakeRequestService.sendMessage(this.formData)
+    form.resetForm()
+  }
+
+  public onSubmit (form: NgForm) {
     if (form.valid) {
       this.httpService.sendMessage(this.formData)
-        .subscribe(() => {})
+        .subscribe(() => { console.log('MESSAGE SENDED') })
       this.formData = {
         email: '',
         theme: '',

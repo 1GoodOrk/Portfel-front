@@ -7,6 +7,7 @@ import {
 import translationsEN from "@port/asserts/i18n/en.json";
 import translationsRU from "@port/asserts/i18n/ru.json";
 import translationsUA from "@port/asserts/i18n/ua.json";
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,11 +18,11 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { FormsModule } from '@angular/forms';
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { IUserData } from '@port/interfaces';
 import { FakeRequestService } from '@port/services/fake-request.service';
+
+import { IFormUser, IUserData } from '@port/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -43,10 +44,9 @@ import { FakeRequestService } from '@port/services/fake-request.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  public user: any = {
+  public formData: IFormUser = {
     email: '',
-    password: '',
-    terms: false
+    password: ''
   };
   public error: undefined | Error
 
@@ -71,25 +71,27 @@ export class LoginComponent {
 
   public changeLanguage (): void {
     this.translate.setTranslation(this.selectedLanguage, this.langJson[this.selectedLanguage])
-    // TODO save current lang in service?
-    // this.dataFormattingService.lang = this.selectedLanguage
     this.translate.use(this.selectedLanguage)
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigate([`/${path}`]);
   }
 
-  public onSubmit(form: any): void {
+  private fakeRequest(form: NgForm): void {
+    const data = this.fakeRequestService.login(this.formData)
+    this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
+    form.resetForm()
+    this.navigate('main')
+  }
+
+  public onSubmit(form: NgForm): void {
     if (form.valid) {
-      const data = this.fakeRequestService.login(this.user)
-      this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
-      form.resetForm()
-      this.navigate('main')
+      this.fakeRequest(form)
       // this.showSpinner = true
-      // this.httpService.login(this.user)
+      // this.httpService.login(this.formData)
       //   .subscribe((data: IUserData) => {
-      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify({ data }))
+      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
       //     this.showSpinner = false
       //     form.resetForm()
       //     this.navigate('main')

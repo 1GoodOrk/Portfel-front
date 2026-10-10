@@ -1,77 +1,30 @@
 import { Injectable } from '@angular/core';
-import { IProjectData } from '@port/interfaces';
+import { IInfoRow, IInfoRowContainer, IInputRowContainer, IProjectData, IRiskButterflyData, IRiskStairsData } from '@port/interfaces';
 
 import inputs from '@port/asserts/data/inputs.json'
 import rows from '@port/asserts/data/rows.json'
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AppCommunicationService {
-  public stackholders: any = []
-
-  public clearProject: IProjectData = {
-    _id: '',
-    name: '',
-    des: '',
-    subinfo: '',
-    priority: 0,
-    responsibleName: '',
-    phases: '',
-    stackholders: ''
-  }
-  public clearStackholder: any = {
-    type: '',
-    responsibleName: '',
-    responsibleSurname: '',
-    responsibleLastname: '',
-    responsibleOrganization: '',
-    power: 0,
-    influence: 0,
-    transport: 0,
-    social: 0,
-    economic: 0,
-    ecologic: 0,
-    comfort: 0,
-    technologic: 0,
-    informative: 0,
-    security: 0,
-    managment: 0,
-    eco: 0,
-    ecoPos: 0,
-    war: 0,
-    warPos: 0,
-    log: 0,
-    logPos: 0,
-    soc: 0,
-    socPos: 0,
-    struc: 0,
-    strucPos: 0
-  }
   public lang: string = 'ua'
 
   public sessionStorageSave(id: string, data: string): void {
-    sessionStorage.setItem('id', data)
+    sessionStorage.setItem(id, data)
   }
 
   public sessionStorageGet(id: string): string {
-    return String(sessionStorage.getItem('id'))
+    return String(sessionStorage.getItem(id))
   }
+
+  public clearSessionStorage(): void {
+    sessionStorage.clear()
+  }
+
   public inputsForm: any = inputs
 
-  public emptyCurrentProject(): void {
-    this.clearProject = {
-      _id: '',
-      name: '',
-      des: '',
-      subinfo: '',
-      priority: 0,
-      responsibleName: '',
-      phases: '',
-      stackholders: ''
-    }
-  }
-
-  public getInputsForm(setName: Array<string>, data?: any): any {
+  public getInputsForm(setName: Array<string>, data?: any): IInputRowContainer {
     const result: any = {}
     setName
       .forEach((el:string) => {
@@ -91,137 +44,10 @@ export class AppCommunicationService {
   }
 
 
-  public getDynamicKOInputsForm(data: any, userEmail: string, inputs: any): any {
-    data
-      .forEach((field: any) => {
-        const currentApprove = field.approve.find((app: any) => app.email === userEmail)
-        inputs.push({
-          type: 'number',
-          displayCondition: true,
-          name: field.label,
-          label: field.label,
-          pTooltip: `Задати дані для поля ${field.label}`,
-          errors: {
-            required: ''
-          },
-          value: currentApprove.value,
-          min: 0,
-          max: 100000,
-          step: 1,
-        })
-      })
-    return inputs
-  }
-
-  public getDynamicCLDInputsForm(data: any, userEmail: string, inputs: any): any {
-    data
-      .forEach((field: any) => {
-        const currentApprove = field.approve.find((app: any) => app.email === userEmail)
-        inputs.push({
-          type: 'rating',
-          displayCondition: true,
-          name: field.label,
-          label: `Вплив поля '${field.label}'`,
-          pTooltip: `Задати дані для впливу поля ${field.label}`,
-          value: currentApprove.quality,
-        })
-        inputs.push({
-          type: 'number',
-          displayCondition: true,
-          name: field.label,
-          label: `Ймовірність ризику '${field.label}'`,
-          pTooltip: `Задати дані для ймовірність виникнення поля ${field.label}`,
-          errors: {
-            required: ''
-          },
-          value: currentApprove.value,
-          min: 0,
-          max: 100,
-          step: 1,
-        })
-        inputs.push({
-          type: 'number',
-          displayCondition: true,
-          name: field.label,
-          label: field.label,
-          pTooltip: `Задати дані для поля ${field.label}`,
-          errors: {
-            required: ''
-          },
-          value: currentApprove.value,
-          min: 0,
-          max: 100,
-          step: 1,
-        })
-        inputs.push({
-          "type": "selector",
-          "displayCondition": true,
-          "name": "staff",
-          "label": 'Моделюючий коефіцієнт цифровізації',
-          "pTooltip": `Задати дані для моделюючого коефіцієнту цифровізації ризику '${field.label}'`,
-          "value": "",
-          "refName": "staff",
-          "items": [
-            { "label": "Нульовий", "value": "0.01" },
-            { "label": "Локальний", "value": "0.19" },
-            { "label": "Системний", "value": "0.3" },
-            { "label": "Інфраструктурний", "value": "0.5" }
-          ]
-        })
-        inputs.push({
-          "type": "radio-options",
-          "displayCondition": true,
-          "name": "staff",
-          "label": 'Моделюючий коефіцієнт lean',
-          "pTooltip": `Задати дані для моделюючого коефіцієнту lean ризику '${field.label}'`,
-          "value": [],
-          "refName": "staff",
-          "items": [
-            { "label": "Дефекти", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
-            { "label": "Очікування", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
-            { "label": "Надвиробництво", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
-            { "label": "Зайві переміщення", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
-            { "label": "Зайва обробка", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
-            { "label": "Зайве транспортування", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] },
-            { "label": "Нереалізований потенціал працівників", "value": 0, options: [0, 0.25, 0.5, 0.75, 1] }
-          ]
-        })
-        inputs.push({
-          "type": "radio-options",
-          "displayCondition": true,
-          "name": "staff",
-          "label": 'Моделюючий коефіцієнт classic',
-          "pTooltip": `Задати дані для моделюючого коефіцієнту classic ризику '${field.label}'`,
-          "value": [],
-          "refName": "staff",
-          "items": [
-            { "label": "Вплив на якість", "value": 0, options: [0, 0.5, 1] },
-            { "label": "Вплив на гроші", "value": 0, options: [0, 0.5, 1] },
-            { "label": "Вплив на час", "value": 0, options: [0, 0.5, 1] }
-          ]
-        })
-        inputs.push({
-          type: 'number',
-          displayCondition: true,
-          name: field.label,
-          label: `Керованість ризику '${field.label}'`,
-          pTooltip: `Задати дані для керованість ризику ${field.label}`,
-          errors: {
-            required: ''
-          },
-          value: currentApprove.value,
-          min: 0,
-          max: 100,
-          step: 1,
-        })
-        inputs.push({ type: 'line', displayCondition: true })
-      })
-    return inputs
-  }
-
+// IInfoRowContainer
   private infoPageProjectValueKeys: any = rows
 
-  public getInfoPageProjectValueKeys(valueKeysSetName: string): any {
+  public getInfoPageProjectValueKeys(valueKeysSetName: string): Array<IInfoRow> {
     return this.infoPageProjectValueKeys[valueKeysSetName]
   }
 
@@ -294,48 +120,99 @@ export class AppCommunicationService {
     return result
   }
 
-  public saveStackholder(data: any): any {
-    this.stackholders.push(data)
-  }
+  private currentProject!: IProjectData
 
-  public getStackholder(): any {
-    return this.stackholders
-  }
-
-  public deleteStackholder(index: any): any {
-    this.stackholders.splice(index, 1)
-  }
-  public currentProject: any = {}
-
-  public saveCurrentProject(data: any): any {
+  public saveCurrentProject(data: IProjectData): void {
     this.currentProject = data
   }
 
-  public getCurrentProject(): any {
+  public getCurrentProject(): IProjectData {
     return this.currentProject
   }
 
-  public currentPhase: any = {}
-
-  public clearCurrentPhase(): any {
-    this.currentPhase = {}
+  public clearCurrentProject(): IProjectData {
+    this.currentProject = {
+      _id: '',
+      name: '',
+      des: '',
+      code:'',
+      subinfo: '',
+      priority: 0,
+      responsibleName: '',
+      analyze: {}
+    }
+    return this.currentProject
   }
 
-  public saveCurrentPhase(data: any): any {
-    this.currentPhase = data
+  public currentSolution: any = {}
+
+  public clearCurrentSolution(): any {
+    this.currentSolution = {}
   }
 
-  public getCurrentPhase(): any {
-    return this.currentPhase
+  public saveCurrentSolution(data: any): any {
+    this.currentSolution = data
   }
 
-  public currentExpertise: any = {}
-
-  public saveCurrentExpertise(data: any): any {
-    this.currentExpertise = data
+  public getCurrentSolution(): any {
+    return this.currentSolution
   }
 
-  public getCurrentExpertise(): any {
-    return this.currentExpertise
+  public currentRisk!: IRiskButterflyData | IRiskStairsData
+
+  public saveCurrentRisk(data: IRiskButterflyData | IRiskStairsData): void {
+    this.currentRisk = data
+  }
+
+  public getCurrentRisk(): IRiskButterflyData | IRiskStairsData {
+    return this.currentRisk
+  }
+
+  public clearCurrentRisk(): IRiskButterflyData | IRiskStairsData {
+    this.currentRisk = {
+      _id: '',
+      cause: '',
+      code: '',
+      consequences:'',
+      dateCreation: '',
+      des: '',
+      responsibleName: '',
+      firstValue: 0,
+      influence: 0,
+      moneyMax: 0,
+      moveState: '',
+      name: '',
+      probability: 0,
+      qualityMax: 0,
+      solutionTableParams: { th: [], td: [] },
+      solutions: [],
+      sourcesMax: 0,
+      sphere: '',
+      status: '',
+      timeMax: 0,
+      value: 0
+    }
+    return this.currentRisk
+  }
+  private currentGroup: string = ''
+
+  public saveCurrentGroup(data: string): void {
+    this.currentGroup = data
+  }
+
+  public getCurrentGroup(): string {
+    return this.currentGroup
+  }
+
+  public infoSub = new Subject<any>();
+
+  public sendInfoData(data: any): void {
+    this.infoSub.next(data);
+  }
+
+  public infoCreate = new Subject<any>();
+
+  public sendCreateData(data: any): void {
+    this.infoCreate.next(data);
   }
 }

@@ -1,7 +1,7 @@
 <header>
   <p-menubar [model]="items" [style]="{
-    'background-color': '#14532d',
-    'border-color': '#14532d',
+    'background-color': '#0f172a',
+    'border-color': '#0f172a',
     'border-radius': 0,
     'color': 'white'
   }">
@@ -34,7 +34,7 @@
           pRipple
           pTooltip="Натисніть, щоб розлогитися"
           tooltipPosition="right"
-          (click)="navigate('login')"
+          (click)="logout()"
           class="flex items-center p-menubar-item-link">
           <span [style]="{'color': 'white'}">Вийти</span>
         </a>

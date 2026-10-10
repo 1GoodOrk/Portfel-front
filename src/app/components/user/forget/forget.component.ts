@@ -7,7 +7,7 @@ import {
 import translationsEN from "@port/asserts/i18n/en.json";
 import translationsRU from "@port/asserts/i18n/ru.json";
 import translationsUA from "@port/asserts/i18n/ua.json";
-import { HttpService } from '@port/services/http.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule  } from 'primeng/message';
@@ -17,7 +17,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { FormsModule } from '@angular/forms';
+import { HttpService } from '@port/services/http/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
+import { IFormUser } from '@port/interfaces';
 
 @Component({
   selector: 'app-forget',
@@ -38,7 +40,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './forget.component.scss'
 })
 export class ForgetComponent {
-  public user: any = {
+  public formData: IFormUser = {
     email: ''
   };
   public showInfoSend: boolean = false
@@ -55,6 +57,7 @@ export class ForgetComponent {
   constructor(
     private router: Router,
     private translate: TranslateService,
+    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
     this.changeLanguage()
@@ -65,20 +68,26 @@ export class ForgetComponent {
     this.translate.use(this.selectedLanguage)
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
-  public onSubmit(form: any): void {
+  private fakeRequest(form: NgForm):void {
+    this.fakeRequestService.forget(this.formData)
+    form.resetForm()
+  }
+
+  public onSubmit(form: NgForm): void {
     if (form.valid) {
       this.showInfoSend = true
-      this.showSpinner = true
-      this.httpService.forget(this.user)
-        .subscribe(() => {
-          this.showSpinner = false
-          this.showInfoSend = true
-          form.resetForm()
-        })
+      this.fakeRequest(form)
+      // this.showSpinner = true
+      // this.httpService.forget(this.formData)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     this.showInfoSend = true
+      //     form.resetForm()
+      //   })
     }
   }
 }

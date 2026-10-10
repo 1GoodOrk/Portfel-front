@@ -58,7 +58,7 @@ export class HeaderComponent {
     this.translate.use(this.selectedLanguage)
   }
 
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigate([`/${path}`]);
   }
 
@@ -66,6 +66,11 @@ export class HeaderComponent {
     this.translate.setTranslation(this.selectedLanguage, this.langJson[this.selectedLanguage])
     this.appCommunicationService.lang = this.selectedLanguage
     this.translate.use(this.selectedLanguage)
+  }
+
+  public logout(): void {
+    this.appCommunicationService.clearSessionStorage()
+    this.navigate('login')
   }
 
 }

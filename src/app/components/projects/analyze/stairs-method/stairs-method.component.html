@@ -1,0 +1,171 @@
+<app-header></app-header>
+<main class="analyze-stairs">
+  <div class="flex">
+    <p-button
+      label="Назад"
+      pTooltip="Натисніть, щоб перейти на сторінку аналізу"
+      severity="primary"
+      (click)="back()"/>
+  </div>
+  <section>
+    <p-button
+      label="Створити ризик"
+      pTooltip="Натисніть, щоб створити новий ризик"
+      tooltipPosition="top"
+      severity="primary"
+      (click)="openDialogAddUpdateRow()"/>
+    <div class="container-analyze flex column">
+      <h2> <span class="bold">Ризики</span></h2>
+    </div>
+    @if (currentRiskTables) {
+      <div class="flex">
+        <p-button
+          label="Усі"
+          pTooltip="Натисніть, щоб вибрати всі ризики"
+          tooltipPosition="top"
+          severity="primary"
+          (click)="tableFilter(eStairsFilterModes.all)"/>
+        <p-button
+          label="Критичні (>75 %)"
+          pTooltip="Натисніть, щоб вибрати тільки критичні ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'red', 'border-color': 'red' }"
+          (click)="tableFilter(eStairsFilterModes.critical)"/>
+        <p-button
+          label="Високі (50-75 %)"
+          pTooltip="Натисніть, щоб вибрати тільки високі ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkred', 'border-color': 'darkred' }"
+          (click)="tableFilter(eStairsFilterModes.high)"/>
+        <p-button
+          label="Помірні (25-50 %)"
+          pTooltip="Натисніть, щоб вибрати тільки помирні ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkgoldenrod', 'border-color': 'darkgoldenrod' }"
+          (click)="tableFilter(eStairsFilterModes.middle)"/>
+        <p-button
+          label="Низькі (0-25 %)"
+          pTooltip="Натисніть, щоб вибрати тільки низькі ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'darkgreen', 'border-color': 'darkgreen' }"
+          (click)="tableFilter(eStairsFilterModes.low)"/>
+        <p-button
+          label="Неістотні (0-50 %)"
+          pTooltip="Натисніть, щоб вибрати тільки неістотні ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'rgba(29, 227, 227, 0.9)', 'border-color': 'rgba(29, 227, 227, 0.9)' }"
+          (click)="tableFilter(eStairsFilterModes.unused)"/>
+        <p-button
+          label="Істотні (>50 %)"
+          pTooltip="Натисніть, щоб вибрати тільки істотні ризики"
+          tooltipPosition="top"
+          severity="primary"
+          [style]="{ 'background': 'rgba(153, 102, 255, 0.9)', 'border-color': 'rgba(153, 102, 255, 0.9)' }"
+          (click)="tableFilter(eStairsFilterModes.used)"/>
+      </div>
+      <div class="table-container">
+        <p-table [value]="currentRiskTables.td" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [style]="{ 'width': '100%' }">
+          <ng-template #header>
+              <tr>
+                @for (th of currentRiskTables.th; track `th-id-${th}`) {
+                  <th [id]="`th-id-${th}`">{{ th }}</th>
+                }
+              </tr>
+          </ng-template>
+          <ng-template #body let-tds let-rowIndex="rowIndex">
+            <tr>
+              @for (td of tds; track `td-id-${td}${$index}`) {
+                @if ($index === 4 || $index === 5) {
+                  <td
+                    class="bold"
+                    [style]="{
+                      color: td === eRiskStairsStatus.critical || (+td.split(' %')[0] > 75) ? 'red' :
+                      td === eRiskStairsStatus.high || (+td.split(' %')[0] > 50) ? 'darkred' :
+                      td === eRiskStairsStatus.middle || (+td.split(' %')[0] > 25) ? 'darkgoldenrod' : 'darkgreen'
+                    }">
+                      {{td}}
+                  </td>
+                } @else {
+                  <td [id]="`td-id-${td}`">{{td}}</td>
+                }
+              }
+              <td [id]="`td-id-actions-${rowIndex}`" [style]="{ 'min-width': '15rem' }">
+                <div class="actions">
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб переглянути цей ризик"
+                    tooltipPosition="top"
+                    severity="secondary"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogInfo(rowIndex)"
+                    aria-label="Notification">
+                      <svg data-p-icon="eye"></svg>
+                  </button>
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб оновити цей ризик"
+                    tooltipPosition="top"
+                    severity="warn"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="openDialogAddUpdateRow(rowIndex)"
+                    aria-label="Notification">
+                      <svg data-p-icon="pencil"></svg>
+                  </button>
+                  <button
+                    pButton
+                    iconOnly
+                    rounded
+                    raised
+                    variant="text"
+                    pTooltip="Натисніть, щоб видалити цей ризик"
+                    tooltipPosition="left"
+                    severity="danger"
+                    [style]="{
+                      'width': '30px',
+                      'height': '30px',
+                      'margin': '5px 5px',
+                    }"
+                    (click)="remove(rowIndex, $event)"
+                    aria-label="Cancel">
+                      <svg data-p-icon="times"></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+  </section>
+  <section>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+  </section>
+</main>
+<app-footer></app-footer>
+<app-info-dialog [visible]="visible.info" (changeVisibleEvent)="visibleOnChange($event)"></app-info-dialog>
+<app-creation-dialog
+  [visible]="visible.creation"
+  (changeVisibleEvent)="visibleOnChange($event)"
+  (submitionUpdateEvent)="updateRisk($event)"
+  (submitionCreateEvent)="createRisk($event)"></app-creation-dialog>

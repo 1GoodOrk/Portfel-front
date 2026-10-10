@@ -10,14 +10,14 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule  } from 'primeng/message';
 
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
 import { CreationDialogComponent } from '@port/shared/organisms/creation-dialog/creation-dialog.component';
-import { IProjectData } from '@port/interfaces';
+import { EDialogVisibilityKeys, EInputRowsName, IDialogVisibility, IFormProjectData, IProjectData, ISearchProperties, ITimeoutContainer, IUserData } from '@port/interfaces';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
 @Component({
@@ -42,32 +42,19 @@ import { FakeRequestService } from '@port/services/fake-request.service';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  public projectsList: any = []
-  public user: any = {}
+  public user!: IUserData
   public projects: Array<IProjectData> = []
+  public projectsFilteredList: Array<IProjectData> = []
 
-  public currentProject: IProjectData = {
-    _id: '',
-    name: '',
-    des: '',
-    subinfo: '',
-    priority: 0,
-    responsibleName: '',
-    phases: '',
-    stackholders: ''
-  }
-  public visible: any = {
+  public currentProject!: IProjectData
+  public visible: IDialogVisibility = {
     creation: false,
     info: false
   }
-  public search: any = {
-    portfolio: '',
+  public search: ISearchProperties = {
     project: ''
   }
-  public timeout: any = {
-    portfolio: {},
-    project: {}
-  }
+  public timeout: ITimeoutContainer = {}
 
   constructor (
     private router: Router,
@@ -75,110 +62,136 @@ export class MainComponent {
     private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
+    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
     this.getAllProjects()
-    this.user = JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data
+    this.currentProject = Object.assign(this.appCommunicationService.clearCurrentProject())
   }
 
   public getAllProjects(): void {
-    this.projects = this.fakeRequestService.getProjects()
-    this.projectsList = Array.from(this.projects)
-    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
-    //   .subscribe((data: any) => {
-    //     this.projects = data
-    //     this.projectsList = Array.from(this.projects)
+    this.fakeRequestGetAll()
+    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
+    //   .subscribe((data: Array<IProjectData>) => {
+    //     this.projects = Array.from(data)
+    //     this.projectsFilteredList = Array.from(this.projects)
     //   })
   }
 
-  public visibleOnChange(key: string): void {
-    this.appCommunicationService.emptyCurrentProject()
-    this.currentProject = Object.assign(this.appCommunicationService.clearProject)
+  public visibleOnChange(key: EDialogVisibilityKeys): void {
+    this.currentProject = Object.assign(this.appCommunicationService.clearCurrentProject())
     this.visible[key] = !this.visible[key]
   }
 
   public findProjects(): void {
     this.timeout.project = setTimeout(() => {
-      this.projectsList = Array.from(this.projects)
+      this.projectsFilteredList = Array.from(this.projects)
       if (this.search.project) {
-        this.projectsList = this.projectsList.filter((el : any) => el.name.match(this.search.project))
+        this.projectsFilteredList = this.projectsFilteredList.filter((el : IProjectData) => el.name.match(this.search.project))
       }
-      clearTimeout(this.timeout)
+      clearTimeout(this.timeout.project)
     }, 100)
   }
 
-  public selectForCogAnalyzeModel(id: any, event: any) {
-    event.stopPropagation()
-    const index = this.projects.findIndex((el: any) => el._id === id)
+  private copySelectedProject(id: string):void {
+    const index = this.projects.findIndex((el: IProjectData) => el._id === id)
     Object.keys(this.projects[index]).forEach((key: string) => {
       // TODO: type error
       // @ts-expect-error
-      this.currentProject[key] = this.projects[index][key]
+      this.currentProject[key as keyof IProjectData] = this.projects[index][key as keyof IProjectData]
     })
+  }
+
+  public selectForCogAnalyzeModel(id: string, event: PointerEvent) {
+    event.stopPropagation()
+    this.copySelectedProject(id)
     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
     this.navigate('analyze')
   }
 
-  public selectForCogBalanceModel(id: any, event: any) {
-    event.stopPropagation()
-    const index = this.projects.findIndex((el: any) => el._id === id)
-    Object.keys(this.projects[index]).forEach((key: string) => {
-      // TODO: type error
-      // @ts-expect-error
-      this.currentProject[key] = this.projects[index][key]
-    })
-    this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    this.navigate('balance')
-  }
-
-
-  public navigate(path: string) {
+  public navigate(path: string): void {
     this.router.navigateByUrl(`/${path}`);
   }
 
   public showInfoProjectDialog(id?: string): void {
     if (id) {
-      const index = this.projects.findIndex((el: any) => el._id === id)
-      Object.keys(this.projects[index]).forEach((key: string) => {
-        // TODO: type error
-        // @ts-expect-error
-        this.currentProject[key] = this.projects[index][key]
-      })
+      this.copySelectedProject(id)
     } else {
-      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
+      this.currentProject = Object.assign(this.appCommunicationService.clearCurrentProject())
     }
-    this.visible.info = !this.visible.info
+    this.appCommunicationService.saveCurrentProject(this.currentProject)
+    this.visible.info = true
+    this.appCommunicationService.sendInfoData({ inputRowsName: EInputRowsName.logistic, header: 'Переглянути проект' })
   }
 
-  public showDialogProjects(mode?: boolean, id?: string, event?: any) {
+  public showDialogProjects(id?: string, event?: PointerEvent) {
     if (event) {
       event.stopPropagation()
     }
     if (id) {
-      const index = this.projects.findIndex((el: any) => el._id === id)
-      Object.keys(this.projects[index]).forEach((key: string) => {
-        // TODO: type error
-        // @ts-expect-error
-        this.currentProject[key] = this.projects[index][key]
-      })
+      this.copySelectedProject(id)
     } else {
-      this.currentProject = Object.assign(this.appCommunicationService.clearProject)
+      this.currentProject = Object.assign(this.appCommunicationService.clearCurrentProject())
     }
     this.appCommunicationService.saveCurrentProject(this.currentProject)
     this.visible.creation = true
+    this.appCommunicationService.sendCreateData({ inputRowsName: EInputRowsName.logistic, header: id ? 'Оновити проект' : 'Створити проект' })
   }
 
-  public removeProjects(id: string, event: any) {
+  public removeProjects(id: string, event: PointerEvent) {
     event.stopPropagation()
-    this.fakeRequestService.deleteProjects(id)
+    this.fakeRequestRemoveProjects(id)
     this.getAllProjects()
-    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('id')).data.token)
+    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
     //   .subscribe(() => {
-    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('id'))
-    //     const index = user.data.projectIds.indexOf(id);
+    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+    //     const index = user.projectIds.indexOf(id);
     //     if (index > -1 && user && user.projectIds) {
     //       user.projectIds.splice(index, 1);
     //     }
-    //     this.appCommunicationService.sessionStorageSave('id', JSON.stringify(user))
+    //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify(user))
     //     this.getAllProjects()
     //   })
+  }
+
+  public updateProject(data: IFormProjectData): void {
+    this.fakeRequestUpdateProject(this.currentProject._id, data)
+    this.getAllProjects()
+    // this.httpService.updateProject(this.currentProject._id, data)
+    //   .subscribe(() => {
+    //     this.getAllProjects()
+    //     this.visible.creation = false
+    //   })
+  }
+
+  public createProject(data: IFormProjectData): void {
+    this.fakeRequestCreateProject(data)
+    this.getAllProjects()
+    // this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
+    //   .subscribe((data: IProjectData) => {
+    //     if (data) {
+    //       const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+    //       user.projectIds.push(data._id)
+    //       this.appCommunicationService.sessionStorageSave('user', JSON.stringify(user))
+    //       this.getAllProjects()
+    //       this.visible.creation = false
+    //     }
+    //   })
+  }
+
+
+  private fakeRequestGetAll(): void {
+    this.projects = Array.from(this.fakeRequestService.getProjects(this.user))
+    this.projectsFilteredList = Array.from(this.projects)
+  }
+
+  private fakeRequestCreateProject(data: any): void {
+    this.fakeRequestService.createProject(data)
+  }
+
+  private fakeRequestUpdateProject(id: string, data: any): void {
+    this.fakeRequestService.updateProject(id, data)
+  }
+
+  private fakeRequestRemoveProjects(id: string): void {
+    this.fakeRequestService.deleteProjects(id)
   }
 }

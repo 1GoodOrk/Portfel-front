@@ -21,7 +21,7 @@ export const unprotectedGuard: CanActivateFn = (
   const appCommunicationService = inject(AppCommunicationService);
   const router = inject(Router);
 
-  if (!appCommunicationService.getCurrentProject()._id) {
+  if (!appCommunicationService.getCurrentProject() || !appCommunicationService.getCurrentProject()._id) {
     router.navigate(['./main']);
   }
   return !!appCommunicationService.getCurrentProject()._id;

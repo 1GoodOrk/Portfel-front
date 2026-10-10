@@ -17,7 +17,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
 import { IFormUser } from '@port/interfaces';
 
 @Component({
@@ -55,6 +56,7 @@ export class PasswordComponent {
   constructor(
     private router: Router,
     private translate: TranslateService,
+    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
     this.changeLanguage()
@@ -69,14 +71,20 @@ export class PasswordComponent {
     this.router.navigateByUrl(`/${path}`);
   }
 
+  private fakeRequest(form: NgForm):void {
+    this.fakeRequestService.newPassword(this.formData)
+    form.resetForm()
+  }
+
   public onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.showSpinner = true
-      this.httpService.newPassword(this.formData.password)
-        .subscribe(() => {
-          this.showSpinner = false
-          form.resetForm()
-        })
+      this.fakeRequest(form)
+      // this.showSpinner = true
+      // this.httpService.newPassword(this.formData.password)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     form.resetForm()
+      //   })
     }
   }
 }

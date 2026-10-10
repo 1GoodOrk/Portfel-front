@@ -18,7 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 

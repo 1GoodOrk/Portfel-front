@@ -11,7 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
@@ -96,11 +96,12 @@ export class CurrentComponent {
   }
 
   public updateProject(): void {
-    this.httpService
-      .updateProject(this.currentProject._id, this.currentProject)
-      .subscribe(() => {
-        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-      })
+    this.fakeRequest(this.currentProject._id, this.currentProject)
+    // this.httpService
+    //   .updateProject(this.currentProject._id, this.currentProject)
+    //   .subscribe(() => {
+    //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    //   })
   }
 
 

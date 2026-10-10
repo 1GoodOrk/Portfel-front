@@ -13,7 +13,7 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
@@ -115,11 +115,12 @@ export class ButterflyMethodComponent {
   }
 
   public updateProject(): void {
-    this.httpService
-      .updateProject(this.currentProject._id, this.currentProject)
-      .subscribe(() => {
-        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-      })
+    this.fakeRequest(this.currentProject._id, this.currentProject)
+    // this.httpService
+    //   .updateProject(this.currentProject._id, this.currentProject)
+    //   .subscribe(() => {
+    //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    //   })
   }
 
   private indexCalculation(data: IRiskButterflyData): IRiskButterflyData {
@@ -225,6 +226,7 @@ export class ButterflyMethodComponent {
   public remove(index: number): void {
     this.currentProject.analyze.butterfly.splice(index, 1)
     this.updateProject()
+    this.recreateTable()
   }
 
   public updateView(): void {

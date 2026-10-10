@@ -14,7 +14,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
@@ -72,11 +72,12 @@ export class ProfileComponent {
 
   public onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.showSpinner = true
-      this.httpService.updateUser(localStorage.getItem('userID'), this.formData)
-        .subscribe(() => {
-          this.showSpinner = false
-        })
+      this.fakeRequest(form)
+      // this.showSpinner = true
+      // this.httpService.updateUser(localStorage.getItem('userID'), this.formData)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //   })
     }
   }
 }

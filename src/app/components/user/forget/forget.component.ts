@@ -17,7 +17,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
+import { FakeRequestService } from '@port/services/fake-request.service';
 import { IFormUser } from '@port/interfaces';
 
 @Component({
@@ -56,6 +57,7 @@ export class ForgetComponent {
   constructor(
     private router: Router,
     private translate: TranslateService,
+    private fakeRequestService: FakeRequestService,
     private httpService: HttpService
   ) {
     this.changeLanguage()
@@ -70,16 +72,22 @@ export class ForgetComponent {
     this.router.navigateByUrl(`/${path}`);
   }
 
+  private fakeRequest(form: NgForm):void {
+    this.fakeRequestService.forget(this.formData)
+    form.resetForm()
+  }
+
   public onSubmit(form: NgForm): void {
     if (form.valid) {
       this.showInfoSend = true
-      this.showSpinner = true
-      this.httpService.forget(this.formData)
-        .subscribe(() => {
-          this.showSpinner = false
-          this.showInfoSend = true
-          form.resetForm()
-        })
+      this.fakeRequest(form)
+      // this.showSpinner = true
+      // this.httpService.forget(this.formData)
+      //   .subscribe(() => {
+      //     this.showSpinner = false
+      //     this.showInfoSend = true
+      //     form.resetForm()
+      //   })
     }
   }
 }

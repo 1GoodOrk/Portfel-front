@@ -12,7 +12,7 @@ import { HeaderComponent } from '@port/shared/organisms/header/header.component'
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
 import { InfoDialogComponent } from '@port/shared/organisms/info-dialog/info-dialog.component';
@@ -110,11 +110,12 @@ export class StairsMethodComponent {
   }
 
   public updateProject(): void {
-    this.httpService
-      .updateProject(this.currentProject._id, this.currentProject)
-      .subscribe(() => {
-        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-      })
+    this.fakeRequest(this.currentProject._id, this.currentProject)
+    // this.httpService
+    //   .updateProject(this.currentProject._id, this.currentProject)
+    //   .subscribe(() => {
+    //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+    //   })
   }
 
   private indexCalculation(data: IRiskStairsData): IRiskStairsData {
@@ -223,9 +224,11 @@ export class StairsMethodComponent {
     this.appCommunicationService.sendCreateData({ inputRowsName: EInputRowsName.stairs, header: !index && index !== 0 ? 'Створити ризик' : 'Оновити ризик' })
   }
 
-  public remove(index: number): void {
+  public remove(index: number, event: PointerEvent): void {
+    event.stopPropagation()
     this.currentProject.analyze.stairs.splice(index, 1)
     this.updateProject()
+    this.recreateTable()
   }
 
   public recreateCharts(): void {

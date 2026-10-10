@@ -52,8 +52,8 @@ export class FakeRequestService {
     }
   }
 
-  getProjects(): any {
-    return this.projects
+  getProjects(user: any): any {
+    return this.projects.filter((el: any) => user.projectIds.find((id: string) => id === el._id))
   }
 
   deleteProjects(id: string): any {

@@ -12,7 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { HeaderComponent } from '@port/shared/organisms/header/header.component';
 import { FooterComponent } from '@port/shared/organisms/footer/footer.component';
 
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 
 import { IFormMessage } from '@port/interfaces';

@@ -20,7 +20,7 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { AppCommunicationService } from '@port/services/app-communication.service';
-import { HttpService } from '@port/services/http.service';
+import { HttpService } from '@port/services/http/http.service';
 import { FakeRequestService } from '@port/services/fake-request.service';
 import {
   EInputRowsName,
@@ -122,15 +122,16 @@ export class FactorsComponent {
         type: this.inputs.factorLogistic[3].value,
       })
       this.recreateTable()
-      this.httpService.updateProject(this.currentProject._id, this.currentProject)
-        .subscribe(() => {
-          this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-          console.log(this.currentProject)
-          this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: IInputRow) => {
-            input.value = ''
-            return input
-          })
-        })
+      this.fakeRequest(this.currentProject._id, this.currentProject)
+      // this.httpService.updateProject(this.currentProject._id, this.currentProject)
+      //   .subscribe(() => {
+      //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      //     console.log(this.currentProject)
+      //     this.inputs.factorLogistic = this.inputs.factorLogistic.map((input: IInputRow) => {
+      //       input.value = ''
+      //       return input
+      //     })
+      //   })
     }
   }
 
@@ -154,12 +155,13 @@ export class FactorsComponent {
     clearTimeout(this.timeOut)
     this.timeOut = setTimeout(() => {
       this.currentProject.analyze.butterflyFactorData = Object.assign(this.factorData)
-      this.httpService.updateProject(this.currentProject._id, this.currentProject)
-        .subscribe(() => {
-          this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-          this.updateView.emit();
-          clearTimeout(this.timeOut)
-        })
+      this.fakeRequest(this.currentProject._id, this.currentProject)
+      // this.httpService.updateProject(this.currentProject._id, this.currentProject)
+      //   .subscribe(() => {
+      //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      //     this.updateView.emit();
+      //     clearTimeout(this.timeOut)
+      //   })
     }, 500)
   }
 }

@@ -156,6 +156,9 @@ export class FactorsComponent {
     this.timeOut = setTimeout(() => {
       this.currentProject.analyze.butterflyFactorData = Object.assign(this.factorData)
       this.fakeRequest(this.currentProject._id, this.currentProject)
+      this.updateView.emit();
+      clearTimeout(this.timeOut)
+
       // this.httpService.updateProject(this.currentProject._id, this.currentProject)
       //   .subscribe(() => {
       //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))

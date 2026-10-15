@@ -1,3 +1,5 @@
+import { IAnalyzeData } from "./analyze";
+
 export interface IProjectData {
   _id: string;
   name: string;
@@ -6,12 +8,12 @@ export interface IProjectData {
   code: string;
   priority: number;
   responsibleName: string;
-  analyze: any;
+  analyze: IAnalyzeData;
   img?: string;
 }
 
 export interface IProjectRO {
-  data: IProjectData;
+  data: IFormProjectData;
 }
 
 export interface IFormProjectData {
@@ -22,6 +24,6 @@ export interface IFormProjectData {
   code?: string;
   priority?: number;
   responsibleName?: string;
-  analyze?: string;
+  analyze?: IAnalyzeData;
   img?: string;
 }

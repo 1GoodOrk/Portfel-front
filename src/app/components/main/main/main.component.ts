@@ -68,12 +68,12 @@ export class MainComponent {
   }
 
   public getAllProjects(): void {
-    this.fakeRequestGetAll()
-    // this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
-    //   .subscribe((data: Array<IProjectData>) => {
-    //     this.projects = Array.from(data)
-    //     this.projectsFilteredList = Array.from(this.projects)
-    //   })
+    // this.fakeRequestGetAll()
+    this.httpService.getAllProjects(JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
+      .subscribe((data: Array<IProjectData>) => {
+        this.projects = Array.from(data)
+        this.projectsFilteredList = Array.from(this.projects)
+      })
   }
 
   public visibleOnChange(key: EDialogVisibilityKeys): void {
@@ -82,6 +82,11 @@ export class MainComponent {
   }
 
   public findProjects(): void {
+    // this.searchControl.valueChanges.pipe(
+    //   debounceTime(500),
+    //   distinctUntilChanged(),
+    //   switchMap(value => this.apiService.getResults(value))
+    // ).subscribe(results => this.results = results);
     this.timeout.project = setTimeout(() => {
       this.projectsFilteredList = Array.from(this.projects)
       if (this.search.project) {
@@ -137,44 +142,52 @@ export class MainComponent {
   }
 
   public removeProjects(id: string, event: PointerEvent) {
-    event.stopPropagation()
-    this.fakeRequestRemoveProjects(id)
-    this.getAllProjects()
-    // this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
-    //   .subscribe(() => {
-    //     const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
-    //     const index = user.projectIds.indexOf(id);
-    //     if (index > -1 && user && user.projectIds) {
-    //       user.projectIds.splice(index, 1);
-    //     }
-    //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify(user))
-    //     this.getAllProjects()
-    //   })
+    // event.stopPropagation()
+    // this.fakeRequestRemoveProjects(id)
+    // this.getAllProjects()
+    this.httpService.removeProject(id, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
+      .subscribe(() => {
+        const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+        const index = user.projectIds.indexOf(id);
+        if (index > -1 && user && user.projectIds) {
+          user.projectIds.splice(index, 1);
+        }
+        this.appCommunicationService.sessionStorageSave('user', JSON.stringify(user))
+        this.getAllProjects()
+      })
   }
 
   public updateProject(data: IFormProjectData): void {
-    this.fakeRequestUpdateProject(this.currentProject._id, data)
-    this.getAllProjects()
-    // this.httpService.updateProject(this.currentProject._id, data)
-    //   .subscribe(() => {
-    //     this.getAllProjects()
-    //     this.visible.creation = false
-    //   })
+    // this.fakeRequestUpdateProject(this.currentProject._id, data)
+    // this.getAllProjects()
+    this.httpService.updateProject(this.currentProject._id, data)
+      .subscribe(() => {
+        this.getAllProjects()
+        this.visible.creation = false
+      })
   }
 
   public createProject(data: IFormProjectData): void {
-    this.fakeRequestCreateProject(data)
-    this.getAllProjects()
-    // this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
-    //   .subscribe((data: IProjectData) => {
-    //     if (data) {
-    //       const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
-    //       user.projectIds.push(data._id)
-    //       this.appCommunicationService.sessionStorageSave('user', JSON.stringify(user))
-    //       this.getAllProjects()
-    //       this.visible.creation = false
-    //     }
-    //   })
+    data.analyze = {
+      butterfly: [],
+      butterflyRisksTableParams: { th: [], td: [] },
+      butterflyFactors: [],
+      butterflyFactorData: { tableParams: { th: [], td: [] } },
+      stairs: [],
+      stairsRisksTableParams: { th: [], td: [] },
+    }
+    // this.fakeRequestCreateProject(data)
+    // this.getAllProjects()
+    this.httpService.createProject(data, JSON.parse(this.appCommunicationService.sessionStorageGet('user')).token)
+      .subscribe((data: IProjectData) => {
+        if (data) {
+          const user = JSON.parse(this.appCommunicationService.sessionStorageGet('user'))
+          user.projectIds.push(data._id)
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(user))
+          this.getAllProjects()
+          this.visible.creation = false
+        }
+      })
   }
 
 

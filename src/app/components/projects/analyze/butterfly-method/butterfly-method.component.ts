@@ -61,7 +61,7 @@ export class ButterflyMethodComponent {
     td: []
   }
   public currentProject!: IProjectData
-  public butterflyFactorData!: { tableParams: ITableContainer<string>; };
+  public butterflyFactorData!: { tableParams: ITableContainer<number>; };
 
   public visible: IDialogVisibility = {
     info: false,
@@ -115,12 +115,12 @@ export class ButterflyMethodComponent {
   }
 
   public updateProject(): void {
-    this.fakeRequest(this.currentProject._id, this.currentProject)
-    // this.httpService
-    //   .updateProject(this.currentProject._id, this.currentProject)
-    //   .subscribe(() => {
-    //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    //   })
+    // this.fakeRequest(this.currentProject._id, this.currentProject)
+    this.httpService
+      .updateProject(this.currentProject._id, this.currentProject)
+      .subscribe(() => {
+        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      })
   }
 
   private indexCalculation(data: IRiskButterflyData): IRiskButterflyData {
@@ -294,9 +294,9 @@ export class ButterflyMethodComponent {
 
   async createCharts() {
     const links: any = []
-    this.currentProject.analyze.butterflyFactorData.tableParams.td.forEach((td: Array<number>) => {
-      td.forEach((elTd: number, tdIndex: number) => {
-        if (!isNaN(elTd) && elTd !== 0 && tdIndex !== 0) {
+    this.currentProject.analyze.butterflyFactorData.tableParams.td.forEach((td: Array<number | string>) => {
+      td.forEach((elTd: number | string, tdIndex: number) => {
+        if (!isNaN(Number(elTd)) && elTd !== 0 && tdIndex !== 0) {
           links.push({
             source: td[0],
             target: this.currentProject.analyze.butterflyFactorData.tableParams.th[tdIndex],

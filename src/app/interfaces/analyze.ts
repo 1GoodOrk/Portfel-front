@@ -106,3 +106,9 @@ export enum EStairsFilterModes {
   used = 'Used',
   unused = 'Unused'
 }
+
+export enum ERiskGroup {
+  stairs = 'stairs',
+  butterfly = 'butterfly'
+}
+

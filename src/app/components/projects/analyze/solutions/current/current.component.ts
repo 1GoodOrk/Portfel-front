@@ -23,6 +23,7 @@ import {
   EDialogVisibilityKeys,
   EInputRowsName,
   ERiskButterflyStatus,
+  ERiskGroup,
   ERiskStairsStatus,
   ESolutionFinalStatus,
   IChartsLineDataContainer,
@@ -56,7 +57,7 @@ import {
 })
 export class CurrentComponent {
   public data!: IRiskButterflyData | IRiskStairsData | any
-  public currentGroup: string = ''
+  public currentGroup!: ERiskGroup
   public currentProject!: IProjectData
   public infoPageProjectValueKeys: Array<IInfoRow> = []
   public visible: IDialogVisibility = {
@@ -96,12 +97,12 @@ export class CurrentComponent {
   }
 
   public updateProject(): void {
-    this.fakeRequest(this.currentProject._id, this.currentProject)
-    // this.httpService
-    //   .updateProject(this.currentProject._id, this.currentProject)
-    //   .subscribe(() => {
-    //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    //   })
+    // this.fakeRequest(this.currentProject._id, this.currentProject)
+    this.httpService
+      .updateProject(this.currentProject._id, this.currentProject)
+      .subscribe(() => {
+        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      })
   }
 
 
@@ -152,7 +153,7 @@ export class CurrentComponent {
 
   public updateSolution(data: ISolutionData): void {
     data = this.indexCalculation(data)
-    this.currentGroup === 'stairs' ? this.riskStairsValueRecalculation() : this.riskButterflyValueRecalculation()
+    this.currentGroup === ERiskGroup.stairs ? this.riskStairsValueRecalculation() : this.riskButterflyValueRecalculation()
     this.currentProject.analyze[this.currentGroup][this.currentProject.analyze[this.currentGroup].findIndex((risk: IRiskButterflyData | IRiskStairsData) => risk._id === this.data._id)] = this.data
     this.visible.creation = false
     this.recreateTable()
@@ -165,7 +166,7 @@ export class CurrentComponent {
       this.data.solutions = []
     }
     this.data.solutions.push(data)
-    this.currentGroup === 'stairs' ? this.riskStairsValueRecalculation() : this.riskButterflyValueRecalculation()
+    this.currentGroup === ERiskGroup.stairs ? this.riskStairsValueRecalculation() : this.riskButterflyValueRecalculation()
     this.currentProject.analyze[this.currentGroup][this.currentProject.analyze[this.currentGroup].findIndex((risk: IRiskButterflyData | IRiskStairsData) => risk._id === this.data._id)] = this.data
     this.visible.creation = false
     this.recreateTable()

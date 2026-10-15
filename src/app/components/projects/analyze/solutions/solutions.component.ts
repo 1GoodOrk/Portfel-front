@@ -18,6 +18,7 @@ import { FooterComponent } from '@port/shared/organisms/footer/footer.component'
 import { AppCommunicationService } from '@port/services/app-communication.service';
 import {
   ERiskButterflyStatus,
+  ERiskGroup,
   IDialogVisibility,
   IProjectData,
   IRiskButterflyData,
@@ -75,7 +76,11 @@ export class SolutionsComponent {
     this.navigate('analyze')
   }
 
-  public openDialogInfo(index: number, riskGroup: string): void {
+  public get eRiskGroup(): typeof ERiskGroup {
+    return ERiskGroup
+  }
+
+  public openDialogInfo(index: number, riskGroup: ERiskGroup): void {
     this.appCommunicationService.saveCurrentRisk(this.currentProject.analyze[riskGroup][index])
     this.appCommunicationService.saveCurrentGroup(riskGroup)
     this.navigate(`analyze-solution/current/${this.currentProject.analyze[riskGroup][index]._id}`)

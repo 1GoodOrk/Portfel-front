@@ -79,9 +79,6 @@ export class StairsMethodComponent {
       return el
     })
     this.recreateTable()
-    // if (this.currentProject.analyze.stairsFactorData) {
-    //   this.createCharts()
-    // }
   }
 
   public get eStairsFilterModes(): typeof EStairsFilterModes {
@@ -110,12 +107,12 @@ export class StairsMethodComponent {
   }
 
   public updateProject(): void {
-    this.fakeRequest(this.currentProject._id, this.currentProject)
-    // this.httpService
-    //   .updateProject(this.currentProject._id, this.currentProject)
-    //   .subscribe(() => {
-    //     this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
-    //   })
+    // this.fakeRequest(this.currentProject._id, this.currentProject)
+    this.httpService
+      .updateProject(this.currentProject._id, this.currentProject)
+      .subscribe(() => {
+        this.appCommunicationService.saveCurrentProject(Object.assign(this.currentProject))
+      })
   }
 
   private indexCalculation(data: IRiskStairsData): IRiskStairsData {

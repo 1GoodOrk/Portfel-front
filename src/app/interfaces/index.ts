@@ -12,7 +12,8 @@ export {
   EButterflyFilterModes,
   EStairsFilterModes,
   ERiskButterflyStatus,
-  ERiskStairsStatus
+  ERiskStairsStatus,
+  ERiskGroup
 } from './analyze';
 export type { ISolutionData } from './solution';
 export { ESolutionFinalStatus } from './solution';

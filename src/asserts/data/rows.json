@@ -20,7 +20,7 @@
     { "type": "divider" },
     { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
     { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
-    { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+    { "propName": "sourcesMax", "label": "Обсяг доступних людських ресурсів (к-сть)" },
     { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
   ],
   "stairs": [
@@ -44,7 +44,7 @@
     { "type": "divider" },
     { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
     { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
-    { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+    { "propName": "sourcesMax", "label": "Обсяг доступних людських ресурсів (к-сть)" },
     { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
   ],
   "butterflyAcc": [
@@ -63,7 +63,7 @@
         { "propName": "moveState", "label": "Тип діяльності ризику" },
         { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
         { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
-        { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+        { "propName": "sourcesMax", "label": "Обсяг доступних людських ресурсів (к-сть)" },
         { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
       ]
     }
@@ -90,7 +90,7 @@
         { "propName": "integrateValue", "label": "Інтегрований рівень ризику" },
         { "propName": "moneyMax", "label": "Максимально допустимий обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
         { "propName": "timeMax", "label": "Максимально допустимий час реалізації (кален. д.)", "postfix": " (кален. д.)" },
-        { "propName": "sourcesMax", "label": "Обсяг доступних ресурсів" },
+        { "propName": "sourcesMax", "label": "Обсяг доступних людських ресурсів (к-сть)" },
         { "propName": "qualityMax", "label": "Mінімально допустимий рівень якості (1 - 100)", "postfix": " %" }
       ]
     }
@@ -114,7 +114,7 @@
     { "type": "divider" },
     { "propName": "money", "label": "Обсяг фінансових ресурсів (UAH)", "postfix": " (UAH)" },
     { "propName": "time", "label": "Час реалізації (кален. д.)", "postfix": " (кален. д.)" },
-    { "propName": "sources", "label": "Обсяг доступних ресурсів" },
+    { "propName": "sources", "label": "Обсяг доступних людських ресурсів (к-сть)" },
     { "propName": "quality", "label": "Рівень якості (1 - 100)", "postfix": " %" }
   ]
 }

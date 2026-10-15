@@ -147,8 +147,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "sourcesMax",
-        "label": "Обсяг доступних ресурсів",
-        "pTooltip": "Введіть обсяг доступних ресурсів",
+        "label": "Обсяг доступних людських ресурсів (к-сть)",
+        "pTooltip": "Введіть обсяг доступних людських ресурсів (к-сть)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -365,8 +365,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "sourcesMax",
-        "label": "Обсяг доступних ресурсів",
-        "pTooltip": "Введіть обсяг доступних ресурсів",
+        "label": "Обсяг доступних людських ресурсів (к-сть)",
+        "pTooltip": "Введіть обсяг доступних людських ресурсів (к-сть)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },
@@ -609,8 +609,8 @@
         "type": "number",
         "displayCondition": true,
         "name": "sources",
-        "label": "Обсяг доступних ресурсів",
-        "pTooltip": "Введіть обсяг доступних ресурсів",
+        "label": "Обсяг доступних людських ресурсів (к-сть)",
+        "pTooltip": "Введіть обсяг доступних людських ресурсів (к-сть)",
         "errors": {
           "required": "pages.portfolio.dialog.termRequired"
         },

@@ -3,7 +3,7 @@ import { v6 } from 'uuid';
 
 import users from '@port/asserts/data/fake-data/user.json'
 import projects from '@port/asserts/data/fake-data/project.json'
-import { IError, IFormMessage, IFormUser, IMessage, IUserData } from '@port/interfaces';
+import { IError, IFormMessage, IFormUser, IMessage, IProjectData, IUserData } from '@port/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -52,25 +52,25 @@ export class FakeRequestService {
     }
   }
 
-  getProjects(user: any): any {
-    return this.projects.filter((el: any) => user.projectIds.find((id: string) => id === el._id))
+  getProjects(user: IUserData): Array<IProjectData> {
+    return this.projects.filter((el: IProjectData) => user.projectIds.find((id: string) => id === el._id))
   }
 
-  deleteProjects(id: string): any {
-    const index = this.projects.findIndex((el: any) => el._id === id)
+  deleteProjects(id: string): void {
+    const index = this.projects.findIndex((el: IProjectData) => el._id === id)
     this.projects.splice(index, 1)
   }
 
-  updateProject(id: string, data: any) {
-    const index = this.projects.findIndex((el: any) => el._id === id)
+  updateProject(id: string, data: IProjectData) {
+    const index = this.projects.findIndex((el: IProjectData) => el._id === id)
     console.log(data)
     Object.keys(data).forEach((key: string) => {
-      this.projects[index][key] = data[key]
+      this.projects[index][key] = data[key as keyof IProjectData]
     })
   }
 
 
-  createProject(data: any) {
+  createProject(data: IProjectData): void {
     data._id = v6()
     this.projects.push(data)
   }
@@ -78,40 +78,4 @@ export class FakeRequestService {
   public sendMessage(data: IFormMessage): IMessage {
     return { message: 'SENDED' }
   }
-
-  // getExperts(): Observable<any> {
-  //   return this.http.get(`${this.link}/users?filter=EXPERT`);
-  // }
-  // getAllExpertise(id: null | string) {
-  //   return this.http.get(`${this.link}/expertise?project=${id}`);
-  // }
-  // getExpertise(id: null | string) {
-  //   return this.http.get(`${this.link}/expertise/${id}`);
-  // }
-  // addExpertise(data: any, id: null | string) {
-  //   return this.http.post(`${this.link}/expertise?project=${id}`, { data });
-  // }
-  // removeExpertise(id: string, idProj: null | string) {
-  //   return this.http.delete(`${this.link}/expertise/${id}?project=${idProj}`);
-  // }
-  // updateExpertise(data: any) {
-  //   return this.http.put(`${this.link}/expertise`, { data });
-  // }
-
-
-  // getAllProjects(token: string) {
-  //   return this.http.get(`${this.link}/projects-science?token=${token}`);
-  // }
-  // getProject(id: string) {
-  //   return this.http.get(`${this.link}/projects-science/${id}`);
-  // }
-  // updateProject(id: string, data: any) {
-  //   return this.http.put(`${this.link}/projects-science/${id}`, { data });
-  // }
-  // createProject(data: any, token: string) {
-  //   return this.http.post(`${this.link}/projects-science?token=${token}`, { data });
-  // }
-  // removeProject(id: string, token: string) {
-  //   return this.http.delete(`${this.link}/projects-science/${id}?token=${token}`);
-  // }
 }

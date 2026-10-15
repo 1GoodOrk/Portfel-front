@@ -1,78 +1,68 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUserData } from '@port/interfaces';
+import { IFormProjectData, IMessageData, IProjectRO, IUserData } from '@port/interfaces';
 import * as CryptoJS from 'crypto-js';
 import { Observable } from 'rxjs';
+import { HttpGenericService } from './http-generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class HttpService extends HttpGenericService {
 
   public link: string = 'http://localhost:27182/api'
   private SECRET = 'EAAFCE8ECC522E391DEC31D8F5C54';
-  constructor(private http: HttpClient) { }
-
-  getFile(): any {
-    return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
-  }
-  sendMessage(data: any): any {
-    return this.http.post(`${this.link}/messages`, { data });
+  constructor(private http: HttpClient) {
+    super(http)
   }
 
-  // TODO: JWT
-  login(data: any): Observable<any> {
-    return this.http.get(`${this.link}/login`, { headers: {
-      'Authorization': `Bearer ${CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString()}`
-    }});
+  public getFile(): Observable<any> {
+    return this.getRequestProcessing<any>({ url: `${this.link}/file?path=data-files/house-quality.txt` })
+    // return this.postRequestProcessing<any, IMessageData>({ url: `${this.link}/messages` }, data);
+    // return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
   }
-  registration(data: any): Observable<any> {
-    return this.http.post(`${this.link}/users`, { data: CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString() });
-  }
-  forget(data: any): any {
-    return this.http.post(`${this.link}/forget`, { data });
-  }
-  newPassword(data: any): any {
-    return this.http.post(`${this.link}/new-password`, { data });
-  }
-  updateUser(id: null | string, data: any): any {
-    return this.http.post(`${this.link}/update/${id}`, { data });
+  public sendMessage(data: any): Observable<any> {
+    return this.postRequestProcessing<any, IMessageData>({ url: `${this.link}/messages` }, data);
+    // return this.http.post(`${this.link}/messages`, { data });
   }
 
-  getExperts(): Observable<any> {
-    return this.http.get(`${this.link}/users?filter=EXPERT`);
+  public login(data: any): Observable<any> {
+    return this.getRequestProcessing<any>({
+      url: `${this.link}/login`,
+      headers: {
+        'Authorization': `Bearer ${CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString()}`
+      }
+    })
   }
-  getAllExpertise(id: null | string): any {
-    return this.http.get(`${this.link}/expertise?project=${id}`);
+  public registration(data: any): Observable<any> {
+    return this.postRequestProcessing<any, string>({ url: `${this.link}/users` }, CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET).toString());
   }
-  getExpertise(id: null | string): any {
-    return this.http.get(`${this.link}/expertise/${id}`);
+  public forget(data: any): Observable<any> {
+    return this.postRequestProcessing<any, IUserData>({ url: `${this.link}/forget` }, data);
   }
-  addExpertise(data: any, id: null | string): any {
-    return this.http.post(`${this.link}/expertise?project=${id}`, { data });
+  public newPassword(data: IUserData): Observable<any> {
+    return this.postRequestProcessing<any, IUserData>({ url: `${this.link}/new-password` }, data);
   }
-  removeExpertise(id: string, idProj: null | string): any {
-    return this.http.delete(`${this.link}/expertise/${id}?project=${idProj}`);
-  }
-  updateExpertise(data: any): any {
-    return this.http.put(`${this.link}/expertise`, { data });
+  public updateUser(id: null | string, data: IUserData): Observable<any> {
+    return this.postRequestProcessing<any, IUserData>({ url: `${this.link}/update/${id}` }, data);
   }
 
-
-  getAllProjects(token: string): any {
-    return this.http.get(`${this.link}/projects-meliksetov?token=${token}`);
+  public getAllProjects(token: string): Observable<any> {
+    return this.getRequestProcessing<any>({ url: `${this.link}/projects-meliksetov?token=${token}` })
   }
-  getProject(id: string): any {
-    return this.http.get(`${this.link}/projects-meliksetov/${id}`);
+  public getProject(id: string): Observable<any> {
+    return this.getRequestProcessing<any>({ url: `${this.link}/projects-meliksetov/${id}` })
   }
-  updateProject(id: string, data: any): any {
-    return this.http.put(`${this.link}/projects-meliksetov/${id}`, { data });
+  public updateProject(id: string, data: IFormProjectData): Observable<any> {
+    return this.putRequestProcessing<any, IProjectRO>({ url: `${this.link}/projects-meliksetov/${id}` }, { data })
+    // return this.http.put(`${this.link}/projects-meliksetov/${id}`, { data });
   }
-  createProject(data: any, token: string): any {
-    return this.http.post(`${this.link}/projects-meliksetov?token=${token}`, { data });
+  public createProject(data: IFormProjectData, token: string): Observable<any> {
+    return this.postRequestProcessing<any, IProjectRO>({ url: `${this.link}/projects-meliksetov?token=${token}` }, { data })
+    // return this.http.post(`${this.link}/projects-meliksetov?token=${token}`, { data });
   }
-  removeProject(id: string, token: string): any {
-    return this.http.delete(`${this.link}/projects-meliksetov/${id}?token=${token}`);
+  public removeProject(id: string, token: string): Observable<any> {
+    return this.deleteRequestProcessing<any>({ url: `${this.link}/projects-meliksetov/${id}?token=${token}` })
   }
 
 }

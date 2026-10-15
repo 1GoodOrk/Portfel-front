@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IInfoRow, IInfoRowContainer, IInputRowContainer, IProjectData, IRiskButterflyData, IRiskStairsData } from '@port/interfaces';
+import { ERiskGroup, IInfoRow, IInfoRowContainer, IInputRowContainer, IProjectData, IRiskButterflyData, IRiskStairsData } from '@port/interfaces';
 
 import inputs from '@port/asserts/data/inputs.json'
 import rows from '@port/asserts/data/rows.json'
@@ -139,7 +139,14 @@ export class AppCommunicationService {
       subinfo: '',
       priority: 0,
       responsibleName: '',
-      analyze: {}
+      analyze: {
+        butterfly: [],
+        butterflyRisksTableParams: { th: [], td: [] },
+        butterflyFactors: [],
+        butterflyFactorData: { tableParams: { th: [], td: [] } },
+        stairs: [],
+        stairsRisksTableParams: { th: [], td: [] },
+      }
     }
     return this.currentProject
   }
@@ -194,13 +201,13 @@ export class AppCommunicationService {
     }
     return this.currentRisk
   }
-  private currentGroup: string = ''
+  private currentGroup!: ERiskGroup
 
-  public saveCurrentGroup(data: string): void {
+  public saveCurrentGroup(data: ERiskGroup): void {
     this.currentGroup = data
   }
 
-  public getCurrentGroup(): string {
+  public getCurrentGroup(): ERiskGroup {
     return this.currentGroup
   }
 

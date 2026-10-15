@@ -87,15 +87,15 @@ export class LoginComponent {
 
   public onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.fakeRequest(form)
-      // this.showSpinner = true
-      // this.httpService.login(this.formData)
-      //   .subscribe((data: IUserData) => {
-      //     this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
-      //     this.showSpinner = false
-      //     form.resetForm()
-      //     this.navigate('main')
-      //   })
+      // this.fakeRequest(form)
+      this.showSpinner = true
+      this.httpService.login(this.formData)
+        .subscribe((data: IUserData) => {
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
+          this.showSpinner = false
+          form.resetForm()
+          this.navigate('main')
+        })
     }
   }
 }

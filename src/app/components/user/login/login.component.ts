@@ -89,8 +89,11 @@ export class LoginComponent {
     if (form.valid) {
       // this.fakeRequest(form)
       this.showSpinner = true
+      console.log(111)
       this.httpService.login(this.formData)
         .subscribe((data: IUserData) => {
+          console.log(data)
+          console.log(222)
           this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
           this.showSpinner = false
           form.resetForm()

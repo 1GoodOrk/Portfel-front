@@ -8,7 +8,8 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
-import { MessageModule  } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 import { HttpService } from '@port/services/http/http.service';
 import { AppCommunicationService } from '@port/services/app-communication.service';
@@ -30,14 +31,14 @@ import { FakeRequestService } from '@port/services/fake-request.service';
     FieldsetModule,
     TooltipModule,
     DividerModule,
-    MessageModule,
+    ToastModule,
     TranslatePipe,
     HeaderComponent,
     FooterComponent,
     InfoDialogComponent,
     CreationDialogComponent
   ],
-  providers: [],
+  providers: [MessageService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -58,6 +59,7 @@ export class MainComponent {
 
   constructor (
     private router: Router,
+    private messageService: MessageService,
     private appCommunicationService: AppCommunicationService,
     private fakeRequestService: FakeRequestService,
     private httpService: HttpService
@@ -190,6 +192,11 @@ export class MainComponent {
       })
   }
 
+  public saveProjectData():void {
+    this.httpService.getFile().subscribe(() => {
+      this.messageService.add({ severity: 'contrast', summary: 'Info', detail: 'Data saved!' });
+    });
+  }
 
   private fakeRequestGetAll(): void {
     this.projects = Array.from(this.fakeRequestService.getProjects(this.user))

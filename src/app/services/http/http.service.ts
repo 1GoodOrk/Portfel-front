@@ -17,7 +17,7 @@ export class HttpService extends HttpGenericService {
   }
 
   public getFile(): Observable<any> {
-    return this.getRequestProcessing<any>({ url: `${this.link}/file?path=data-files/house-quality.txt` })
+    return this.getRequestProcessing<any>({ url: `${this.link}/projects-meliksetov/save` })
     // return this.postRequestProcessing<any, IMessageData>({ url: `${this.link}/messages` }, data);
     // return this.http.get(`${this.link}/file?path=data-files/house-quality.txt`);
   }

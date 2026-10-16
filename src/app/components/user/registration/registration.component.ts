@@ -98,20 +98,20 @@ export class RegistrationComponent {
   public async onSubmit(form: NgForm): Promise<void> {
     this.formData.type = 'USER'
     if (form.valid && this.formData.terms) {
-      this.fakeRequest(form)
-    //   this.showSpinner = true
-    //   this.httpService.registration({
-    //     email: this.formData.email,
-    //     password: this.formData.password,
-    //     organization: this.formData.organization,
-    //     type: this.formData.type
-    //   })
-    //     .subscribe((data: IUserData) => {
-    //       this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
-    //       form.resetForm()
-    //       this.showSpinner = false
-    //       this.navigate('main')
-    //     })
+      // this.fakeRequest(form)
+      this.showSpinner = true
+      this.httpService.registration({
+        email: this.formData.email,
+        password: this.formData.password,
+        organization: this.formData.organization,
+        type: this.formData.type
+      })
+        .subscribe((data: IUserData) => {
+          this.appCommunicationService.sessionStorageSave('user', JSON.stringify(data))
+          form.resetForm()
+          this.showSpinner = false
+          this.navigate('main')
+        })
     }
   }
 }
